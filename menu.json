@@ -1,0 +1,127 @@
+[
+  {
+    "name": "Drinks",
+    "icon": "assets/drinks.svg",
+    "items": [
+      {
+        "name": "Lemonade",
+        "price": 200
+      },{
+        "name": "Chamomile Tea",
+        "price": 200
+      },{
+        "name": "Doman Tea",
+        "price": 200
+      },{
+        "name": "Ale",
+        "price": 300
+      },{
+        "name": "Red Wine",
+        "price": 400
+      },{
+        "name": "White Wine",
+        "price": 400
+      }
+    ]
+  },
+  
+  {
+    "name": "Cocktails",
+    "icon": "assets/cocktails.svg",
+    "items": [
+      {
+        "name": "Slutty Sultana",
+        "price": 1000
+      },{
+        "name": "Oasis Mint",
+        "price": 1000
+      },{
+        "name": "The Desert Sun",
+        "price": 1000
+      },{
+        "name": "Firebreather",
+        "price": 1000
+      }
+    ]
+  },
+
+  {
+    "name": "Shots",
+    "icon": "assets/shots.svg",
+    "items": [
+      {
+        "name": "Tequila",
+        "price": 300
+      },{
+        "name": "Gin",
+        "price": 300
+      },{
+        "name": "Raki",
+        "price": 300
+      }
+    ]
+  },
+
+  {
+    "name": "Desserts",
+    "icon": "assets/desserts.svg",
+    "items": [
+      {
+        "name": "Acorn Cookie",
+        "price": 200
+      },{
+        "name": "Honey Croissant",
+        "price": 300
+      }
+    ]
+  },
+
+  {
+    "name": "High Teas",
+    "icon": "assets/high_teas.svg",
+    "items": [
+      {
+        "name": "Doman Tea Set",
+        "price": 500
+      },{
+        "name": "Chamomile Tea Set",
+        "price": 500
+      }
+    ]
+  },
+
+  {
+    "name": "Meals",
+    "icon": "assets/meals.svg",
+    "items":[
+      {
+        "name": "Sushi Plate",
+        "price": 3000
+      },{
+        "name": "Rice Ball Meal",
+        "price": 3000
+      },{
+        "name": "Soba",
+        "price": 3000
+      },{
+        "name": "Devils Lettuce",
+        "price": 3000
+      },{
+        "name": "Oriental Supper",
+        "price": 6000
+      }
+    ]
+  },
+
+  {
+    "name": "Herbs",
+    "icon": "assets/herbs.svg",
+    "items": [
+      {
+        "name": "Dravanian Fogweed",
+        "price": 2000
+      }
+    ]
+  }
+  
+]
