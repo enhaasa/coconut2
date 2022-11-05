@@ -24,6 +24,22 @@ function App() {
   ];
 
   //BACKEND_PLACEHOLDER
+  const staff = [
+    {
+      name: "Coco Shev'rin",
+      positions: ["waiter", "owner", "bartender", "dancer"]
+    },
+    {
+      name: "Nessa Grimm",
+      positions: ["waiter", "bartender"]
+    },
+    {
+      name: "Livia Nightbelt",
+      positions: ["waiter"]
+    }
+  ];
+
+  //BACKEND_PLACEHOLDER
   const [tables, setTables] = useState([
     {
       posX: 638,
@@ -55,6 +71,8 @@ function App() {
     }
   ]);
 
+  
+
   const [ selectedFloor, setSelectedFloor ] = useState(1);
   const [ selectedTable, setSelectedTable ] = useState(null);
 
@@ -62,7 +80,7 @@ function App() {
     <div className="shell">
 
       <section className="TableManagerContainer">
-        <TableManager ID={selectedTable}/>
+        <TableManager ID={selectedTable} staff={staff}/>
       </section>
 
       <section className="FloorContainer">

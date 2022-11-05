@@ -1,0 +1,11 @@
+@import 'TableManager', 'Floor';
+
+body {
+  margin: 0;
+}
+
+.shell {
+  display: grid;
+  background: darkgrey;
+  height: 100vh;
+}

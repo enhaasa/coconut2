@@ -1,0 +1,38 @@
+.TableManager {
+    background: lightblue;
+    position: absolute;
+    border-radius: 50px 50px 0 0;
+    display: grid;
+    min-width: 500px;
+
+    top: 50%;
+    transform: translateY(-50%);
+  
+    & .title {
+      display: flex;
+      justify-content: center;
+  
+      & .tablenumber {
+        border-radius: 100%;
+        border: 3px solid black;
+        padding: 10px 25px;
+        background: lightgreen;
+        font-size: 2.5em;
+        font-weight: bold;
+        margin-top: -6%;
+      }
+    }
+  
+    & .navbar {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      
+      & .navrow {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 5px 15px;
+      }
+    }
+  }
