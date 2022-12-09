@@ -1,0 +1,40 @@
+.TabManagerContainer {
+  position: absolute;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  filter: drop-shadow(0 0 5px rgb(37, 37, 37));
+}
+.TabManagerContainer .TabManager {
+  background-image: url("./../assets/icons/paper.png");
+  color: black;
+  list-style: none;
+  padding: 10px 10px 30px 10px;
+  min-width: 300px;
+  -webkit-mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
+          mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
+}
+.TabManagerContainer header {
+  display: grid;
+  grid-auto-flow: column;
+  align-content: center;
+  width: 100%;
+  justify-content: start;
+  padding-bottom: 10px;
+  border-bottom: 2px dotted grey;
+}
+.TabManagerContainer header .title {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+.TabManagerContainer header .closeButton {
+  position: absolute;
+  justify-self: end;
+  width: 35px;
+  height: 35px;
+  background: none;
+  border: none;
+}/*# sourceMappingURL=TabManager.css.map */

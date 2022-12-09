@@ -1,0 +1,62 @@
+.Table {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: grid;
+  border: none;
+  background: none;
+  border-radius: 50% 50% 0 0;
+  font-size: 1em;
+  justify-items: center;
+  transform: translateX(-50%);
+  filter: blur(0);
+  z-index: 3;
+  white-space: nowrap;
+}
+.Table .waiter {
+  color: black;
+  padding: 2px 6px;
+  background: radial-gradient(ellipse farthest-corner at right bottom, rgb(216, 215, 215) 0%, rgb(173, 173, 173) 8%, rgb(165, 165, 165) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(214, 214, 214) 8%, rgb(170, 170, 170) 25%);
+  text-shadow: 0 0 black;
+  border-radius: 25px;
+  border: 1px solid black;
+  margin-top: -12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.Table .waiter img {
+  width: 20px;
+  height: 20px;
+}
+.Table ul {
+  list-style: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  justify-items: center;
+}
+.Table ul li {
+  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #c59c44 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%);
+  padding: 2px 6px;
+  border-radius: 25px;
+  border: 1px solid black;
+  margin: 1px;
+}
+.Table .numberDisplay {
+  font-size: 1.5em;
+  border-radius: 100%;
+  border: 4px double black;
+  box-shadow: 0 0 4px 1px rgb(37, 37, 37);
+  width: 80px;
+  height: 80px;
+}
+.Table .numberDisplay .number {
+  font-size: 2em;
+}
+.Table .numberDisplay .notificationContainer {
+  transform: rotate(330deg) translate(50px, 5px) rotate(-330deg);
+  position: absolute;
+}/*# sourceMappingURL=Table.css.map */

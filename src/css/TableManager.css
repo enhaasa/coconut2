@@ -1,33 +1,99 @@
-.TableManager {
-  background: lightblue;
+.TableManagerContainer {
   position: absolute;
-  border-radius: 50px 50px 0 0;
   display: grid;
-  min-width: 500px;
+  grid-gap: 10px;
+  grid-auto-flow: column;
+  align-items: center;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  z-index: 4;
+  transform: translate(-50%, -50%);
 }
-.TableManager .title {
-  display: flex;
-  justify-content: center;
+.TableManagerContainer .TableManager {
+  background: #79513E;
+  background-image: url("./../assets/icons/dark-leather.png");
+  border-radius: 50px 50px 20px 20px;
+  display: grid;
+  min-width: 400px;
+  color: white;
+  padding: 15px;
+  position: relative;
+  border: 4px double rgb(37, 37, 37);
+  box-shadow: 0px 4px 10px 1px black;
 }
-.TableManager .title .tablenumber {
-  border-radius: 100%;
-  border: 3px solid black;
-  padding: 10px 25px;
-  background: lightgreen;
-  font-size: 2.5em;
-  font-weight: bold;
-  margin-top: -6%;
+.TableManagerContainer .TableManager .blur {
+  border-radius: inherit;
 }
-.TableManager .navbar {
+.TableManagerContainer .TableManager .title {
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: center;
   width: 100%;
-  display: flex;
-  flex-direction: column;
 }
-.TableManager .navbar .navrow {
-  display: flex;
-  flex-direction: row;
+.TableManagerContainer .TableManager .title .assignWaiter {
+  display: grid;
+  justify-self: start;
+  align-content: center;
+}
+.TableManagerContainer .TableManager .title .assignWaiter select {
+  background: silver;
+  border-radius: 15px;
+  padding: 2px;
+}
+.TableManagerContainer .TableManager .title .tablenumber {
+  display: grid;
+  justify-self: center;
+  place-items: center;
+  border-radius: 100%;
+  border: 6px double black;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  font-size: 4.5em;
+  margin-top: -8px;
+  color: black;
+}
+.TableManagerContainer .TableManager .title .closeButton {
+  justify-self: end;
+  align-self: center;
+}
+.TableManagerContainer .TableManager .navbar {
+  width: 100%;
+  margin: 5px 0;
+  padding: 0;
+  display: grid;
+  grid-auto-flow: column;
   justify-content: space-between;
-  margin: 5px 15px;
+}
+.TableManagerContainer .TableManager .navbar .column {
+  display: grid;
+  align-content: end;
+  grid-gap: 5px;
+}
+.TableManagerContainer .TableManager .navbar .column .navsection {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  grid-gap: 5px;
+}
+.TableManagerContainer .viewTabContainer {
+  display: grid;
+}
+.TableManagerContainer .viewTabContainer .viewTabButton {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  grid-gap: 5px;
+  border-radius: 15px;
+  padding: 5px;
+}
+.TableManagerContainer .viewTabContainer .viewTabButton .column {
+  display: grid;
+  justify-items: start;
+  align-items: end;
+  grid-gap: 0;
+}
+.TableManagerContainer .viewTabContainer .viewTabButton img {
+  height: 32px;
+  width: 32px;
 }/*# sourceMappingURL=TableManager.css.map */

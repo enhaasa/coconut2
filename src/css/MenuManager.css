@@ -1,0 +1,63 @@
+.TableManagerContainer .MenuManager {
+  display: grid;
+  position: relative;
+  background: rgb(36, 30, 11);
+  color: white;
+  padding: 0 10px;
+  border: 4px double black;
+  box-shadow: 0px 4px 10px 1px black;
+}
+.TableManagerContainer .MenuManager .menuTitle {
+  display: flex;
+  justify-self: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 22px;
+  color: rgb(138, 0, 0);
+  background: bisque;
+  background-image: url("./../assets/icons/dark-fabric.png");
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+.TableManagerContainer .MenuManager .menuTitle .closeButton {
+  background: none;
+  border: none;
+  margin: 0 -10px;
+}
+.TableManagerContainer .MenuManager .menuContainer {
+  -moz-column-count: 2;
+       column-count: 2;
+  padding: 5px 0;
+}
+.TableManagerContainer .MenuManager .menuContainer .type {
+  -moz-column-break-inside: avoid;
+       break-inside: avoid;
+  padding: 5px;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .typeTitle {
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 26px;
+  text-align: center;
+  margin: 2px 0;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item {
+  display: flex;
+  white-space: nowrap;
+  justify-content: space-between;
+  gap: 5px;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle {
+  display: flex;
+  gap: 5px;
+  align-content: center;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle .itemInfoButton {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .itemInfo {
+  display: none;
+}/*# sourceMappingURL=MenuManager.css.map */

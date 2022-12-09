@@ -1,11 +1,215 @@
-@import 'TableManager', 'Floor';
+@import 'TableManager', 'Floor', 'colorset';
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+* {
+  font-family: 'Cabin', sans-serif;
+}
+
+//Scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black; 
+  border-radius: 10px;
+}
+
+.cursive {
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+}
+
+img {
+  pointer-events: none
+}
 
 body {
   margin: 0;
+  user-select: none;
+  background: $background-dark;
 }
 
 .shell {
   display: grid;
-  background: darkgrey;
-  height: 100vh;
+  height: 100vh; 
+  width:100%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
 }
+
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+button, select, option {
+  font-weight: bold;
+  border-radius: 15px;
+  outline: none;
+  border: 2px solid black;
+
+  &:hover {
+    cursor: pointer;
+    filter:brightness(1.1);
+  }
+}
+.closeButton {
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  background: $background-destructive;
+
+  & img {
+    width: 28px;
+    height: 28px;
+  }
+}
+.destructive {background: $background-destructive !important;}
+.constructive {background: $background-constructive !important;}
+.progressive {background: $background-progressive !important;}
+.inactive {background: $background-inactive !important;}
+
+//Checkboxes
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 22px;
+
+  & input{
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  & .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: silver;
+    outline: 2px solid black;
+    border-radius: 20px;
+  
+    &:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 3px;
+      background-color: black;
+      border-radius: 50%;
+    }
+  }
+  
+  & input {
+    &:checked + .slider{
+      background: $background-constructive;
+    }
+  
+    &:focus + .slider {
+      box-shadow: 0 0 1px $lightgreen;
+    }
+  
+    &:checked + .slider:before {
+      transform: translateX(18px);
+    }
+  }
+}
+
+
+//Universal item tables
+.itemTable {
+  width: 100%;
+  border-bottom: 2px solid black;
+  margin: 4px 0;
+
+  & tbody:nth-child(even) {
+    background-color: $grey;
+  }
+
+  & tr {
+    font-size: 14px;
+  }
+  
+  & th {
+    text-align: left;
+    background: $background-dark;
+    color: white;
+  }
+
+  & .tableNav {
+    display: flex;
+    justify-content: flex-end;
+
+    & button {
+      border-radius: 100px;
+
+      &.icon {
+        border-radius: 100%;
+        background: none;
+        padding: 0 2px;
+        border: none;
+
+        & img {
+          width: 20px;
+          height: 20px;
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+}
+
+.notificationContainer {
+  display: flex;
+  align-items: center;
+
+  & .notification {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius:100%;
+    border: 2px solid black;
+    font-weight: bold;
+    font-size: 22px;
+    z-index: 1;
+  }
+
+  & .addendum {
+    background: $background-dark;
+    color: white;
+    border-radius: 0 15px 15px 0;
+    border: 1px solid black;
+    font-weight: normal;
+    font-size: 0.6em;
+    padding: 2px 8px;
+    padding-left: 5px;
+    margin-left: -5px;
+    display:flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+  }
+}
+
