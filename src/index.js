@@ -8,6 +8,7 @@ import './css/COLORSET.css';
 import './css/TabManager.css';
 import './css/OrderManager.css';
 import './css/MenuManager.css';
+import './css/Infobox.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

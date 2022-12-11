@@ -7,14 +7,14 @@ import stopwatchIcon from './../assets/icons/stopwatch-white.png';
 export function Table(props) {
 
     const tablenumberColor = () => {
-        if (props.table.isAvailable && !props.table.isReserved) return "constructive"
+        if (props.table.isAvailable && !props.table.isReserved) return "constructive";
         if (!props.table.isAvailable) return "destructive";
         if (props.table.isReserved) return "progressive";
     }
 
     const notificationColor = () => {
         if (!timeSinceLastOrder) return "progressive";
-        if (timeSinceLastOrder <= props.maxDeliveryTime) return "progressive"
+        if (timeSinceLastOrder <= props.maxDeliveryTime) return "progressive";
         if (timeSinceLastOrder > props.maxDeliveryTime) return "destructive";
     }
 

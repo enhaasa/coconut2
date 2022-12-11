@@ -36,6 +36,8 @@ body {
   margin: 0;
   user-select: none;
   background: $background-dark;
+  background: rgb(156, 138, 115);
+  background-image: url("./../assets/icons/dark-fabric.png");
 }
 
 .shell {

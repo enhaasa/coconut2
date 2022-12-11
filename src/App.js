@@ -22,6 +22,7 @@ function App() {
       name: "Slutty Sultana",
       type: "cocktail",
       price: 1000,
+      ingredients: ["tequila", "crushed cassis berries", "lime", "ginger beer"],
       menuId: "j6d6"
     }, {
       name: "Curry Plate",
@@ -387,30 +388,38 @@ function App() {
       <section className="FloorContainer">
 
         <nav className="floorNav">
-          {floors.map((floor, index) => {
-              return (
-                  <div className="floorSelector" key={uuid()}>
-                    <div className="notificationBar">
-                      {orders.filter(order => order.floor === floor.type && !order.delivered).length > 0 &&
-                          <span className="notificationContainer">
-                            <span className="notification progressive">
-                              <span className="number">
-                                {orders.filter(order => order.floor === floor.type && !order.delivered).length}
-                              </span>
-                            </span>
-                          </span>}
-                    </div>
 
-                    <button 
-                      className={`floorButton ${selectedFloor === index ? "progressive" : "inactive"}`} 
-                      key={index} 
-                      onClick={() => {setSelectedFloor(index)}}>
-                      <span className="title">{floor.title}</span>
-                    </button>
-                  </div>
-              )
-            })
-          }
+          <span className="floorColumn">
+            {floors.map((floor, index) => {
+                return (
+                    <div className="floorSelector" key={uuid()}>
+                      <div className="notificationBar">
+                        {orders.filter(order => order.floor === floor.type && !order.delivered).length > 0 &&
+                            <span className="notificationContainer">
+                              <span className="notification progressive">
+                                <span className="number">
+                                  {orders.filter(order => order.floor === floor.type && !order.delivered).length}
+                                </span>
+                              </span>
+                            </span>}
+                      </div>
+
+                      <button 
+                        className={`floorButton ${selectedFloor === index ? "constructive" : "inactive"}`} 
+                        key={index} 
+                        onClick={() => {setSelectedFloor(index)}}>
+                        <span className="title">{floor.title}</span>
+                      </button>
+                    </div>
+                )
+              })
+            }
+          </span>
+
+          <div className="appInfo">
+              <span className="title cursive">Coconut</span>
+              <span className="version">alpha-2.0</span>
+          </div>
         </nav>
           
         <Floor 

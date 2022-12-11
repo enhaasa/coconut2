@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Infobox } from './Infobox';
 import tools from '../tools';
 
 import closeIcon from './../assets/icons/close.png';
@@ -22,9 +23,10 @@ export function MenuManager(props) {
     }
 
     return (
-        props.selectedCustomer !== null &&
+        !!props.selectedCustomer &&
             <div className="MenuManager">
-                {isBlurred && <div className="blur" />}
+                {isBlurred && <div className="blur" />} 
+                {!!itemInfo && <Infobox item={itemInfo} handleItemInfo={handleItemInfo}/>}
 
                     <span className="menuTitle">
                         <span className="customerTitle">{props.selectedCustomer.name}</span>
@@ -34,6 +36,7 @@ export function MenuManager(props) {
                     </span>
                     
                     <div className="menuContainer">
+
                         {menuTypes.map(menuType => (
                             <div className="type">
                                 <div className="typeTitle cursive">{tools.capitalizeFirstLetter(menuType) + "s"}</div>

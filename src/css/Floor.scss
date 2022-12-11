@@ -2,37 +2,66 @@
 
 .FloorContainer {
   margin: 0 auto;
+  width: 1000px;
 
   & .floorNav {
-    display: inline-flex;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
     width: 100%;
+    
+    & .floorColumn {
+      display: flex;
 
-    & .floorSelector {
-      display: grid;
-      align-content: end;
-      
-      & .notificationBar {
-        display: inline-flex;
-        justify-content: flex-end;
-        margin-bottom: -15px;
-        margin-right: -15px;
-        z-index: 1;
+      & .floorSelector {
+        display: grid;
+        align-content: end;
         
-        & .notification {
-          font-size: 16px;
-          width: 22px;
-          height: 22px;
+        & .notificationBar {
+          display: inline-flex;
+          justify-content: flex-end;
+          margin-bottom: -15px;
+          margin-right: -10px;
+          z-index: 1;
+          
+          & .notification {
+            font-size: 16px;
+            width: 22px;
+            height: 22px;
+          }
+        }
+
+        & .floorButton {
+          font-size: .8em;
+          border-radius: 50px;
+          padding: 8px 10px;
+          box-shadow: 0px 4px 6px 1px $background-dark;
+
+          & .title {
+            font-size: 1.3em;
+          }
         }
       }
+    }
 
-      & .floorButton {
-        font-size: .8em;
-        border-radius: 0;
-        padding: 8px 10px;
+    & .appInfo {
+      display: flex;
+      align-items: flex-end;
+      justify-self: end !important;
+      gap: 5px;
+      border-bottom: 4px double black;
 
-        & .title {
-          font-size: 1.3em;
-        }
+      & .title {
+        font-size: 42px !important;
+        font-weight: bold;
+        background: linear-gradient(to right, rgb(132, 253, 132), rgb(164, 250, 238));
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: -5px;
+      }
+
+      & .version {
+        color: black;
       }
     }
   }
@@ -41,7 +70,7 @@
     transform: scale(1);
     width: 1000px;
     height: 700px;
-    border: 4px double black;
+    box-shadow: 0px 4px 10px 1px black;
 
     & .overlay{
       z-index: 2;
@@ -53,8 +82,7 @@
     & .floorImage {
       width: 1000px;
       height: 700px;
-      background-image: url("./../assets/icons/dark-fabric.png");
-      transform: scale();
+      transform: scale(1);
     }
   }
 }
