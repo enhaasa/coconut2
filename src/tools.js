@@ -49,39 +49,21 @@ const capitalizeFirstLetter = string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const getCurrentDate = () => {
-    const today = new Date();
-    const yyyy = today.getUTCFullYear();
-    let mm = today.getUTCMonth() + 1; // Months start at 0!
-    let dd = today.getUTCDate();
-
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
-
-    return dd + '.' + mm + '.' + yyyy;
-}
-
 const getCurrentTime = () => {
     const today = new Date();
-    let hh = today.getUTCHours();
-    let mm = today.getUTCMinutes();
-    let ss = today.getUTCSeconds();
-
-    if (hh < 10) hh = '0' + hh;
-    if (mm < 10) mm = '0' + mm;
-    if (ss < 10) ss = '0' + ss;
-
-    return hh + ':' + mm + ':' + ss;
+    
+    return today.getTime();
 }
 
-const formatTime = (seconds) => {
-    if (seconds >= 60) return Math.floor(seconds / 60) + "m";
-    return "< 1m";
+const formatTime = (epoch) => {
+    if (!epoch) return "0s";
+    if (epoch >= 60000) return Math.floor(epoch / 60000) + "m";
+    return Math.floor(epoch / 1000) + "s";
 }
 
 const getOldestOrder = (orders) => (
     orders.reduce((oldest, current) => (
-        current.date + current.time < current.date + oldest.time ? current : oldest
+        current.time < oldest.time ? current : oldest
     ), orders[0])
 )
 
@@ -89,13 +71,10 @@ const getTimeSinceOldestOrder = (order) => {
 
     if (order === undefined) return;
 
-    const oldestTime = order.time.replaceAll(":", "");
-    const oldestDate = order.date.replaceAll(".", "");
+    const oldestTime = order.time;
+    const currentTime = getCurrentTime();
 
-    const currentTime = getCurrentTime().replaceAll(":", "");
-    const currentDate = getCurrentDate().replaceAll(".", "");
-
-    const result = (currentDate + currentTime) - (oldestDate + oldestTime);
+    const result = currentTime - oldestTime;
     
     return result;
 }
@@ -104,7 +83,6 @@ export default {
     sortArray, 
     toInitialsFirstNames, 
     capitalizeFirstLetter,
-    getCurrentDate,
     getCurrentTime,
     getOldestOrder,
     getTimeSinceOldestOrder,

@@ -31,8 +31,8 @@ export function TableManager(props) {
         customer.table === props.table.id
     ))
 
-    let deliveredOrdersInTable = []
-    let unDeliveredOrdersInTable = []
+    let deliveredOrdersInTable = [];
+    let unDeliveredOrdersInTable = [];
     customersInTable.forEach(customer => {
         props.orders.forEach(order => {
             order.delivered ?
@@ -40,11 +40,11 @@ export function TableManager(props) {
                     customer.id === order.customer && 
                         deliveredOrdersInTable.push(order) :
                         unDeliveredOrdersInTable.push(order);
-
         })
-    })
+    });
 
-    let tabTotal = deliveredOrdersInTable.length > 0 ? deliveredOrdersInTable.reduce((total, order) => total + order.price, 0) : 0;
+    let tabTotal = deliveredOrdersInTable.length > 0 ? 
+        deliveredOrdersInTable.reduce((total, order) => total + order.price, 0) : 0;
 
     return (
         props.table.id !== null&&

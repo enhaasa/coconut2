@@ -144,6 +144,7 @@ button, select, option {
   width: 100%;
   border-bottom: 2px solid black;
   margin: 4px 0;
+  border-collapse: collapse;
 
   & tbody:nth-child(even) {
     background-color: $grey;

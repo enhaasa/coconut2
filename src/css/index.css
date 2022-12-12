@@ -133,7 +133,7 @@
   font-size: 0.8em;
   border-radius: 50px;
   padding: 8px 10px;
-  box-shadow: 0px 4px 10px 1px black;
+  box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .floorButton .title {
   font-size: 1.3em;
@@ -143,6 +143,7 @@
   align-items: flex-end;
   justify-self: end !important;
   gap: 5px;
+  border-bottom: 4px double black;
 }
 .FloorContainer .floorNav .appInfo .title {
   font-size: 42px !important;
@@ -319,6 +320,7 @@ button:hover, select:hover, option:hover {
   width: 100%;
   border-bottom: 2px solid black;
   margin: 4px 0;
+  border-collapse: collapse;
 }
 .itemTable tbody:nth-child(even) {
   background-color: #979797;

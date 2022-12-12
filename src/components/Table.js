@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import tools from '../tools';
 
 import stopwatchIcon from './../assets/icons/stopwatch-white.png';
-//import waiterIcon from './../assets/icons/servant-black.png';
 
 export function Table(props) {
 
@@ -39,8 +38,6 @@ export function Table(props) {
     const customersInTable = props.customers.filter(customer => (
         customer.table === props.table.id
     ))
-
-    //const [ undeliveredOrdersInTable, setUndeliveredOrdersInTable ] = useState([]);
         
     let undeliveredOrdersInTable = [];
     customersInTable.forEach(customer => {
@@ -54,13 +51,17 @@ export function Table(props) {
     const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(tools.getTimeSinceOldestOrder(tools.getOldestOrder(undeliveredOrdersInTable)));
 
     useEffect(() => {
+        //Not the most elegant solution but will make sure timers start at 0 from first second
+        setTimeSinceLastOrder(tools.getTimeSinceOldestOrder(tools.getOldestOrder(undeliveredOrdersInTable))); 
+
         const timer = setInterval(() => {
             undeliveredOrdersInTable.length > 0 &&
-            //console.log(tools.getTimeSinceOldestOrder(tools.getOldestOrder(undeliveredOrdersInTable)));
-            setTimeSinceLastOrder(tools.getTimeSinceOldestOrder(tools.getOldestOrder(undeliveredOrdersInTable)));
+                setTimeSinceLastOrder(tools.getTimeSinceOldestOrder(tools.getOldestOrder(undeliveredOrdersInTable)));
         }, 1000);
 
-        return () => clearInterval(timer);
+        return () => {
+            clearInterval(timer);
+        }
     }, [undeliveredOrdersInTable]);
 
     return (

@@ -11,7 +11,7 @@ import basement from './assets/schematics/basement.png';
 
 function App() {
 
-  const maxDeliveryTime = 600;
+  const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second
 
   //BACKEND_PLACEHOLDER
   const loggedInAs = "Coco Shev'rin";

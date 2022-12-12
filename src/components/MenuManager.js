@@ -63,7 +63,6 @@ export function MenuManager(props) {
                                                         floor: props.selectedCustomer.floor, 
                                                         delivered: false,
                                                         paid: false,
-                                                        date: tools.getCurrentDate(),
                                                         time: tools.getCurrentTime()
                                                     })}}>{item.price} gil</button>
 
@@ -74,7 +73,6 @@ export function MenuManager(props) {
                                                         price: 0, 
                                                         delivered: false,
                                                         paid: false,
-                                                        date: tools.getCurrentDate(),
                                                         time: tools.getCurrentTime(),
                                                         menuId: item.menuId + "0"
                                                     })}}>Free</button>
