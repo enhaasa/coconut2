@@ -63,7 +63,6 @@
   padding: 0;
   display: grid;
   grid-auto-flow: column;
-  justify-content: space-between;
 }
 .TableManagerContainer .TableManager .navbar .column {
   display: grid;
@@ -74,6 +73,7 @@
   display: grid;
   grid-auto-flow: column;
   align-items: center;
+  justify-content: space-between;
   grid-gap: 5px;
 }
 .TableManagerContainer .viewTabContainer {

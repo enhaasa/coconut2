@@ -71,6 +71,7 @@
   display: grid;
   align-content: end;
   grid-gap: 5px;
+  justify-content: space-between;
 }
 .TableManagerContainer .TableManager .navbar .column .navsection {
   display: grid;

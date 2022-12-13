@@ -60,6 +60,7 @@ export function TableManager(props) {
                         value={props.table.waiter} 
                         onChange={(e) => {props.setTableWaiter(props.table, e.target.value)}
                     }>
+                        <option key={uuid()}></option>
                         {props.staff.map(staff => {
 
                             return (
@@ -86,7 +87,7 @@ export function TableManager(props) {
             <section className="navbar">
                 <div className="column">
                     <span className="navsection">
-                        <span className="cursive">Available:</span>
+                        <span className="cursive">Vacant:</span>
                         <label className="switch">
                             <input 
                                 type="checkbox" 
