@@ -16,14 +16,15 @@
     white-space: nowrap;
 
     & .waiter {
+        position: absolute;
         color: black;
         padding: 2px 6px;
         background: $background-inactive;
         text-shadow: 0 0 black;
         border-radius: 25px;
         border: 1px solid black;
-        margin-top: -12px;
-        margin-bottom: 12px;
+        margin-top: -32px;
+
         display: flex;
         align-items: center;
         gap: 5px;

@@ -73,10 +73,12 @@ export function Table(props) {
                     left:props.table.posX, 
                     top:props.table.posY
             }}>
-                <div className={`waiter ${props.table.waiter === props.loggedInAs ? "constructive" : "inactive"}`}>
+
+                {props.table.waiter !== "" &&
+                    <div className={`waiter ${props.table.waiter === props.loggedInAs ? "constructive" : "inactive"}`}>
                     
                     {tools.toInitialsFirstNames(props.table.waiter)}
-                </div>
+                </div>}
 
                 <button 
                     className={`numberDisplay ${tablenumberColor()}`}
