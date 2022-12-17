@@ -12,6 +12,8 @@ const db = mysql.createConnection({
     database: 'menu'
 });
 
+
+
 app.listen(3001, () => {
     console.log("Running");
 })
