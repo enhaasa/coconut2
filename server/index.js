@@ -12,8 +12,13 @@ const db = mysql.createConnection({
     database: 'menu'
 });
 
-
+app.get('/menu', (req, res) => {
+    db.query("SELECT * FROM menu", (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+});
 
 app.listen(3001, () => {
     console.log("Running");
-})
+});
