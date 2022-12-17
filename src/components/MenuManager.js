@@ -74,13 +74,13 @@ export function MenuManager(props) {
                                                         delivered: false,
                                                         paid: false,
                                                         time: tools.getCurrentTime(),
-                                                        menuId: item.menuId + "0"
+                                                        Id: item.ID + "0"
                                                     })}}>Free</button>
                                                 </nav>
                                             </div>
 
                                             <div className="itemInfo">
-                                                {item.menuId}
+                                                {item.ID}
                                             </div>
                                         </div>
                                 ))}

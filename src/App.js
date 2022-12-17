@@ -3,6 +3,7 @@ import { Floor } from './components/Floor'
 import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
 import uuid from 'react-uuid';
+import Axios from "axios";
 
 
 //BACKEND_PLACEHOLDER
@@ -16,76 +17,21 @@ function App() {
   //BACKEND_PLACEHOLDER
   const loggedInAs = "Coco Shev'rin";
 
-  //BACKEND_PLACEHOLDER
-  const menu = [
-    {
-      name: "Slutty Sultana",
-      type: "cocktail",
-      price: 1000,
-      ingredients: ["tequila", "crushed cassis berries", "lime", "ginger beer"],
-      menuId: "j6d6"
-    }, {
-      name: "Curry Plate",
-      type: "meal",
-      price: 3000,
-      menuId: "hs5srt"
-    }, {
-      name: "Red Wine",
-      type: "drink",
-      price: 200,
-      menuId: "hs5hs5g"
-    }, {
-      name: "White Wine",
-      type: "drink",
-      price: 200,
-      menuId: "5gfnaw4"
-    }, {
-      name: "Sushi Plate",
-      type: "meal",
-      price: 3000,
-      menuId: "shrt"
-    }, {
-      name: "Soba",
-      type: "meal",
-      price: 3000,
-      menuId: "shrhsa"
-    }, {
-      name: "Grilled Corn",
-      type: "dessert",
-      price: 1500,
-      menuId: "uo98sg"
-    }, {
-      name: "Tequila",
-      type: "shot",
-      price: 300,
-      menuId: "ahge35h"
-    }, {
-      name: "Gin",
-      type: "shot",
-      price: 300,
-      menuId: "a45ye35h"
-    }, {
-      name: "Raki",
-      type: "shot",
-      price: 300,
-      menuId: "u4e6"
-    }, {
-      name: "Doman Tea Set",
-      type: "hightea",
-      price: 500,
-      menuId: "908srt"
-    }, {
-      name: "Chamomile Tea Set",
-      type: "hightea",
-      price: 500,
-      menuId: "us098uh"
-    }, {
-      name: "Ale",
-      type: "drink",
-      price: 300,
-      menuId: "smgeiopuh"
-    }
-  ]
+  const [menu, setMenu] = useState([]);
+  useEffect(() => {
+    Axios.get("http://localhost:3001/menu").then((res) => {
+      res.data.forEach(item => {
+       setMenu(prev => (
+        [...prev,
+          {
+            ...item,
+            ingredients: item.ingredients.split(","),
+            type: item.type === 'drink-alc' ? 'drink' : item.type
+          }]
+       ))
+      })
+  });
+  }, []);
 
   //BACKEND_PLACEHOLDER
   const [ customers, setCustomers ] = useState([]);
