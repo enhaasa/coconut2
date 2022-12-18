@@ -4,7 +4,7 @@ import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
 import uuid from 'react-uuid';
 import dbTools from './dbTools';
-//import Axios from "axios";
+import Axios from "axios";
 
 
 //BACKEND_PLACEHOLDER
@@ -18,7 +18,7 @@ function App() {
   //BACKEND_PLACEHOLDER
   const loggedInAs = "Coco Shev'rin";
 
-  dbTools.test();
+  //dbTools.test();
 
   const [menu, setMenu] = useState([]);
   useEffect(() => {
