@@ -3,7 +3,8 @@ import { Floor } from './components/Floor'
 import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
 import uuid from 'react-uuid';
-import Axios from "axios";
+import dbTools from './dbTools';
+//import Axios from "axios";
 
 
 //BACKEND_PLACEHOLDER
@@ -16,6 +17,8 @@ function App() {
 
   //BACKEND_PLACEHOLDER
   const loggedInAs = "Coco Shev'rin";
+
+  dbTools.test();
 
   const [menu, setMenu] = useState([]);
   useEffect(() => {
@@ -38,6 +41,7 @@ function App() {
 
   //BACKEND_PLACEHOLDER
   const [ orders, setOrders ] = useState([]);
+
   const addOrder = (order) => {
     setOrders(prev => ([...prev, {
         ...order,

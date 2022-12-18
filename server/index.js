@@ -5,6 +5,7 @@ const fs = require('fs');
 const cors = require('cors');
 
 app.use(cors());
+app.listen(3001);
 
 const db = mysql.createConnection({
     user: 'linroot',
@@ -16,13 +17,11 @@ const db = mysql.createConnection({
     database: 'coconut_cocosoasis'
 });
 
+
+
 app.get('/menu', (req, res) => {
     db.query("SELECT * FROM menu", (err, result) => {
         if (err) throw err;
         res.send(result);
     });
 });
-
-app.listen(3001, () => {
-    console.log("Running");
-})
