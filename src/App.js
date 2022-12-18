@@ -10,7 +10,7 @@ import Axios from "axios";
 //BACKEND_PLACEHOLDER
 import ground from './assets/schematics/ground.png';
 import basement from './assets/schematics/basement.png';
- 
+
 function App() {
 
   const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second
@@ -20,9 +20,10 @@ function App() {
 
   //dbTools.test();
 
+
   const [menu, setMenu] = useState([]);
   useEffect(() => {
-    Axios.get("http://54.78.134.111:3001/menu").then((res) => {
+    Axios.get(`http://${document.location.hostname}:3001/menu`).then((res) => {
       res.data.forEach(item => {
        setMenu(prev => (
         [...prev,
