@@ -22,7 +22,7 @@ function App() {
 
   const [menu, setMenu] = useState([]);
   useEffect(() => {
-    Axios.get("http://localhost:3001/menu").then((res) => {
+    Axios.get("http://54.78.134.111:3001/menu").then((res) => {
       res.data.forEach(item => {
        setMenu(prev => (
         [...prev,

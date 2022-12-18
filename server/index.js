@@ -5,10 +5,9 @@ const fs = require('fs');
 const cors = require('cors');
 
 app.use(cors());
-app.listen(3001, () => {
-    "hello"
-});
+app.listen(3001);
 
+//Heroku IP: 54.78.134.111
 const db = mysql.createConnection({
     user: 'linroot',
     host: 'lin-13330-7942-mysql-primary.servers.linodedb.net',
@@ -18,8 +17,6 @@ const db = mysql.createConnection({
     },
     database: 'coconut_cocosoasis'
 });
-
-console.log("test");
 
 app.get('/menu', (req, res) => {
     db.query("SELECT * FROM menu", (err, result) => {
