@@ -5,7 +5,7 @@ const fs = require('fs');
 const cors = require('cors');
 
 app.use(cors());
-app.listen(process.env.PORT || 3001);
+app.listen(3001);
 
 //Heroku IP: 54.78.134.111
 const db = mysql.createConnection({
