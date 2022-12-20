@@ -8,7 +8,6 @@ const PORT = 3001;
 app.use(cors());
 app.listen(PORT);
 
-
 const db = mysql.createConnection({
     user: 'linroot',
     host: 'lin-13330-7942-mysql-primary.servers.linodedb.net',
