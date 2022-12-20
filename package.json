@@ -1,6 +1,6 @@
 {
   "name": "coconut",
-  "version": "0.1.0",
+  "version": "2.1.7",
   "private": true,
   "main": "./src/index.js",
   "dependencies": {

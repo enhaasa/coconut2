@@ -6,7 +6,7 @@ const cors = require('cors');
 const PORT = 3001;
 
 app.use(cors());
-app.listen(PORT);
+//app.listen(PORT);
 
 const db = mysql.createConnection({
     user: 'linroot',
