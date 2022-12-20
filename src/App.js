@@ -19,11 +19,11 @@ function App() {
   const loggedInAs = "Coco Shev'rin";
 
   //dbTools.test();
-  const port = 3001;
+  const PORT = 3001;
 
   const [menu, setMenu] = useState([]);
   useEffect(() => {
-    Axios.get(`http://${document.location.hostname}:${port}/menu`).then((res) => {
+    Axios.get(`http://${document.location.hostname}:${PORT}/menu`).then((res) => {
       res.data.forEach(item => {
        setMenu(prev => (
         [...prev,

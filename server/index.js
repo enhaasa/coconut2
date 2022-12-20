@@ -3,11 +3,12 @@ const app = express();
 const mysql = require('mysql');
 const fs = require('fs');
 const cors = require('cors');
+const PORT = 3001;
 
 app.use(cors());
-app.listen(3001);
+app.listen(PORT);
 
-//Heroku IP: 54.78.134.111
+
 const db = mysql.createConnection({
     user: 'linroot',
     host: 'lin-13330-7942-mysql-primary.servers.linodedb.net',
@@ -24,3 +25,5 @@ app.get('/menu', (req, res) => {
         res.send(result);
     });
 });
+
+app.use(express.static(__dirname + 'public'));
