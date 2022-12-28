@@ -3,7 +3,7 @@ import { Floor } from './components/Floor'
 import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
 import uuid from 'react-uuid';
-import dbTools from './dbTools';
+//import dbTools from './dbTools';
 import Axios from "axios";
 
 
@@ -18,7 +18,6 @@ function App() {
   //BACKEND_PLACEHOLDER
   const loggedInAs = "Coco Shev'rin";
 
-  //dbTools.test();
   const PORT = 3001;
 
   const [menu, setMenu] = useState([]);

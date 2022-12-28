@@ -3,10 +3,11 @@ const app = express();
 const mysql = require('mysql');
 const fs = require('fs');
 const cors = require('cors');
+const path = require("path");
 const PORT = 3001;
 
 app.use(cors());
-//app.listen(PORT);
+app.listen(PORT);
 
 const db = mysql.createConnection({
     user: 'linroot',
@@ -25,4 +26,4 @@ app.get('/menu', (req, res) => {
     });
 });
 
-app.use(express.static(__dirname + 'public'));
+app.use(express.static(path.resolve(__dirname, "./client/build")));
