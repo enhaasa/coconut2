@@ -18,7 +18,7 @@ function App() {
   const loggedInAs = "Coco Shev'rin";
 
   const PORT = process.env.PORT || 3001;
-  const baseUrl = process.env.baseURL || "http://localhost:3001"
+  const baseUrl = process.env.BASE_URL || "http://localhost:3001"
 
   const [menu, setMenu] = useState([]);
   useEffect(() => {
