@@ -18,11 +18,10 @@ function App() {
   const loggedInAs = "Coco Shev'rin";
 
   const PORT = process.env.PORT || 3001;
-  const baseUrl = process.env.BASE_URL || "http://localhost:3001"
 
   const [menu, setMenu] = useState([]);
   useEffect(() => {
-    Axios.get(`${baseUrl}/menu`).then((res) => {
+    Axios.get(`https://${document.location.hostname}/menu`).then((res) => {
       res.data.forEach(item => {
        setMenu(prev => (
         [...prev,
@@ -368,7 +367,7 @@ function App() {
 
           <div className="appInfo">
               <span className="title cursive">Coconut</span>
-              <span className="version">alpha-2.0</span>
+              <span className="version">by Enhasa</span>
           </div>
         </nav>
           
