@@ -6,7 +6,6 @@ import uuid from 'react-uuid';
 //import dbTools from './dbTools';
 import Axios from "axios";
 
-
 //BACKEND_PLACEHOLDER
 import ground from './assets/schematics/ground.png';
 import basement from './assets/schematics/basement.png';
