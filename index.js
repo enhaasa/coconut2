@@ -27,3 +27,5 @@ app.get('/menu', (req, res) => {
 });
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+console.log("Node is running");
