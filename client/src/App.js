@@ -22,7 +22,7 @@ function App() {
 
   const [menu, setMenu] = useState([]);
   useEffect(() => {
-    Axios.get(`https://${document.location.hostname}:${PORT}/menu`).then((res) => {
+    Axios.get(`http://${document.location.hostname}:${PORT}/menu`).then((res) => {
       res.data.forEach(item => {
        setMenu(prev => (
         [...prev,
