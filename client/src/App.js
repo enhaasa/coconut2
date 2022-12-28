@@ -18,7 +18,7 @@ function App() {
   //BACKEND_PLACEHOLDER
   const loggedInAs = "Coco Shev'rin";
 
-  const PORT = 3001;
+  const PORT = process.env.PORT || 3001;
 
   const [menu, setMenu] = useState([]);
   useEffect(() => {
