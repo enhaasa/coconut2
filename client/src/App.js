@@ -3,7 +3,7 @@ import { Floor } from './components/Floor'
 import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
 import uuid from 'react-uuid';
-//import dbTools from './dbTools';
+import dbTools from './dbTools';
 import Axios from "axios";
 
 //BACKEND_PLACEHOLDER
@@ -17,23 +17,14 @@ function App() {
   //BACKEND_PLACEHOLDER
   const loggedInAs = "Coco Shev'rin";
 
-  const PORT = process.env.PORT || 3001;
-
   const [menu, setMenu] = useState([]);
   useEffect(() => {
-    Axios.get(`https://${document.location.hostname}/menu`).then((res) => {
-      res.data.forEach(item => {
-       setMenu(prev => (
-        [...prev,
-          {
-            ...item,
-            ingredients: item.ingredients.split(","),
-            type: item.type === 'drink-alc' ? 'drink' : item.type
-          }]
-       ))
-      })
-  });
+    dbTools.menu.get().then(res => {
+      setMenu(res)
+    });
   }, []);
+
+
 
   //BACKEND_PLACEHOLDER
   const [ customers, setCustomers ] = useState([]);
