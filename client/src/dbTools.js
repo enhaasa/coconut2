@@ -1,6 +1,7 @@
 import Axios from "axios";
 
-const baseUrl = process.env.PORT ? `https://${document.location.hostname}` : 'http://localhost:3001';
+//'http://localhost:3001'
+const baseUrl = `https://${document.location.hostname}`;
 
 
 const menu = {
