@@ -26,6 +26,7 @@ export function MenuManager(props) {
         !!props.selectedCustomer &&
             <div className="MenuManager">
                 {isBlurred && <div className="blur" />} 
+
                 {!!itemInfo && <Infobox item={itemInfo} handleItemInfo={handleItemInfo}/>}
 
                     <span className="menuTitle">
@@ -37,7 +38,8 @@ export function MenuManager(props) {
                     
                     <div className="menuContainer">
 
-                        {menuTypes.map(menuType => (
+                        {props.menu.length === 0 ? "Loading..." :
+                        menuTypes.map(menuType => (
                             <div className="type">
                                 <div className="typeTitle cursive">{tools.capitalizeFirstLetter(menuType) + "s"}</div>
 

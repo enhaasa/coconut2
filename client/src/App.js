@@ -18,13 +18,6 @@ function App() {
   const loggedInAs = "Coco Shev'rin";
 
   const [menu, setMenu] = useState([]);
-  useEffect(() => {
-    dbTools.menu.get().then(res => {
-      setMenu(res)
-    });
-  }, []);
-
-
 
   //BACKEND_PLACEHOLDER
   const [ customers, setCustomers ] = useState([]);
@@ -127,126 +120,12 @@ function App() {
       schematics: ground
     }
   ];
+
   const [ selectedFloor, setSelectedFloor ] = useState(1);
 
-  //BACKEND_PLACEHOLDER
-  const staff = [
-    {
-      name: "Coco Shev'rin",
-      positions: ["waiter", "owner", "bartender", "dancer"]
-    },
-    {
-      name: "Nessa Grimm",
-      positions: ["waiter", "bartender"]
-    },
-    {
-      name: "Livia Nightbelt",
-      positions: ["waiter"]
-    }
-  ];
+  const [staff, setStaff] = useState([]);
 
-  //BACKEND_PLACEHOLDER
-  const [tables, setTables] = useState([
-    {
-      posX: 750,
-      posY: 381,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "ground",
-      id: 0
-    },
-    {
-      posX: 750,
-      posY: 550,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "ground",
-      id: 1
-    },
-    {
-      posX: 190,
-      posY: 155,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "basement",
-      id: 2
-    },
-    {
-      posX: 417,
-      posY: 65,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "basement",
-      id: 3
-    },
-    {
-      posX: 575,
-      posY: 65,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "basement",
-      id: 4
-    },
-    {
-      posX: 740,
-      posY: 65,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "basement",
-      id: 5
-    },
-    {
-      posX: 900,
-      posY: 225,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "basement",
-      id: 6
-    },
-    {
-      posX: 900,
-      posY: 390,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "basement",
-      id: 7
-    },
-    {
-      posX: 742,
-      posY: 555,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "basement",
-      id: 8
-    },
-    {
-      posX: 585,
-      posY: 555,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Coco Shev'rin",
-      floor: "basement",
-      id: 9
-    },
-    {
-      posX: 420,
-      posY: 555,
-      isReserved: false,
-      isAvailable: true,
-      waiter: "Nessa Grimm",
-      floor: "basement",
-      id: 10
-    }
-  ]);
+  const [tables, setTables] = useState([]);
   
   const toggleTableIsAvailable = (table) => {
     setTables(prev => {
@@ -281,6 +160,13 @@ function App() {
   }, [selectedTable]);
 
   const [isBlurred, setIsBlurred] = useState(false);
+
+  useEffect(() => {
+    dbTools.menu.get().then(res => {setMenu(res)});
+    dbTools.staff.get().then(res => {setStaff(res)});
+    dbTools.tables.get().then(res => {setTables(res)});
+  }, []);
+
 
   return (
     <div className="shell">

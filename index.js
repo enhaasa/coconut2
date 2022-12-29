@@ -6,8 +6,10 @@ const cors = require('cors');
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.use(cors());
 app.listen(PORT);
+
 
 const db = mysql.createConnection({
     user: 'linroot',
@@ -26,4 +28,23 @@ app.get('/menu', (req, res) => {
     });
 });
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.get('/floors', (req, res) => {
+    db.query("SELECT * FROM floors", (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.get('/staff', (req, res) => {
+    db.query("SELECT * FROM staff", (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.get('/tables', (req, res) => {
+    db.query("SELECT * FROM tables", (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});

@@ -54,23 +54,25 @@ export function TableManager(props) {
             <div className="title">
                 <div className="assignWaiter">
                     <span className="cursive">Waiter:</span>
-                    <select 
-                        name="waiters" 
-                        id="waiters" 
-                        value={props.table.waiter} 
-                        onChange={(e) => {props.setTableWaiter(props.table, e.target.value)}
-                    }>
-                        <option key={uuid()}></option>
-                        {props.staff.map(staff => {
+                    {props.staff.length === 0 ? "Loading..." :
+                        <select 
+                            name="waiters" 
+                            id="waiters" 
+                            value={props.table.waiter} 
+                            onChange={(e) => {props.setTableWaiter(props.table, e.target.value)}
+                        }>
+                            <option key={uuid()}></option>
+                            {props.staff.map(staff => {
 
-                            return (
-                                staff.positions.includes("waiter") && 
-                                <option key={uuid()} >
-                                    {staff.name}
-                                </option>
-                            )
-                        })}
-                    </select>
+                                return (
+                                    staff.positions.includes("waiter") && 
+                                    <option key={uuid()} >
+                                        {staff.name}
+                                    </option>
+                                )
+                            })}
+                        </select>}
+                
                 </div>
 
                         
