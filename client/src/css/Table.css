@@ -52,6 +52,10 @@
   box-shadow: 0 0 4px 1px rgb(37, 37, 37);
   width: 80px;
   height: 80px;
+  transition: all 100ms ease-in-out;
+}
+.Table .numberDisplay:hover {
+  transform: scale(1.05);
 }
 .Table .numberDisplay .number {
   font-size: 2em;

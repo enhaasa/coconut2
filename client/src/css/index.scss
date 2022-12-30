@@ -6,6 +6,7 @@
   font-family: 'Cabin', sans-serif;
 }
 
+
 //Scrollbar
 /* width */
 ::-webkit-scrollbar {
@@ -56,6 +57,10 @@ body {
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
+}
+
+.transparent {
+  opacity: 0.6;
 }
 
 button, select, option {

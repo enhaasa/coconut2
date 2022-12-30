@@ -67,7 +67,7 @@ export function Table(props) {
     return (
         <div>          
             <div 
-                className="Table" 
+                className={`Table`}
                 key={props.table.id}
                 style={{
                     left:props.table.posX, 

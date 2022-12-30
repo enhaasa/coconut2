@@ -60,6 +60,11 @@
         box-shadow: 0 0 4px 1px $darkgrey;
         width: 80px;
         height: 80px;
+        transition: all 100ms ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
 
         & .number {
             font-size: 2em;

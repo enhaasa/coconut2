@@ -1,6 +1,7 @@
 import Axios from "axios";
 
-//'http://localhost:3001'
+//`https://${document.location.hostname}`;
+//'http://localhost:3001';
 const baseUrl = `https://${document.location.hostname}`;
 
 
@@ -51,9 +52,39 @@ const tables = {
     }
 }
 
+const customers = {
+    endpoint: "/customers",
+    get: async function () {
+        return Axios.get(baseUrl + this.endpoint).then((res) => (
+            res.data
+        ))
+    },
+    post: async function (customer) {
+        Axios.post(baseUrl + this.endpoint, {...customer});
+    },
+    delete: async function (id) {
+        Axios.delete(baseUrl + this.endpoint, { data: {id: id} });
+    },
+    put: async function (id, name) {
+        Axios.put(baseUrl + this.endpoint, {id: id, name: name});
+    }
+}
+
+
+const orders = {
+    endpoint: "/orders",
+    get: async function () {
+        return Axios.get(baseUrl + this.endpoint).then((res) => (
+            res.data
+        ))
+    }
+}
+
 export default {
    menu,
    floors,
    staff,
-   tables
+   tables,
+   customers,
+   orders
 };

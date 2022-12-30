@@ -72,8 +72,8 @@
       width: 100%;
       margin: 5px 0;
       padding: 0;
-      display: grid;
-      grid-auto-flow: column;
+      display: flex;
+      justify-content: space-between;
     
       & .column {
         display: grid;

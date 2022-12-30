@@ -57,15 +57,19 @@ function App() {
   }
 
   const addCustomer = (table) => {
+
+    const newCustomer = {
+      name: "",
+      table: table.id,
+      floor: table.floor,
+      id: uuid()
+    }
+
     setCustomers(prev => (
-        [...prev, {
-            name: "",
-            table: table.id,
-            floor: table.floor,
-            id: uuid()
-        }]
+        [...prev, newCustomer]
     ))
 
+    dbTools.customers.post(newCustomer);
     setSelectedCustomer(null);
   }
 
@@ -78,6 +82,7 @@ function App() {
           ))
       ));
 
+      dbTools.customers.delete(id);
       setSelectedCustomer(null);
   }
 
@@ -89,6 +94,8 @@ function App() {
         return [...prev];
       }
       )
+
+      dbTools.customers.put(id, newName);
   }
 
   const removeOrder = (id) => {
@@ -128,7 +135,7 @@ function App() {
   const [tables, setTables] = useState([]);
   
   const toggleTableIsAvailable = (table) => {
-    setTables(prev => {
+    setTables(prev => { 
       prev[table.id].isAvailable = !prev[table.id].isAvailable;
       return [...prev];
     })
@@ -162,9 +169,11 @@ function App() {
   const [isBlurred, setIsBlurred] = useState(false);
 
   useEffect(() => {
-    dbTools.menu.get().then(res => {setMenu(res)});
-    dbTools.staff.get().then(res => {setStaff(res)});
     dbTools.tables.get().then(res => {setTables(res)});
+    dbTools.staff.get().then(res => {setStaff(res)});
+    dbTools.customers.get().then(res => {setCustomers(res)});
+    dbTools.orders.get().then(res => {setOrders(res)});
+    dbTools.menu.get().then(res => {setMenu(res)});
   }, []);
 
 
