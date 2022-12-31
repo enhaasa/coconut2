@@ -222,11 +222,12 @@ function App() {
     refreshMenu();
 
     setInterval(()=> {
-      refreshTables();
-      refreshStaff();
-      refreshCustomers();
-      refreshOrders();
-      refreshMenu();
+      selectedTable === null &&
+        refreshTables();
+        refreshStaff();
+        refreshCustomers();
+        refreshOrders();
+        refreshMenu();
     },3000)
 
   }, []);
