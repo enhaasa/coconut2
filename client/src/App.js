@@ -3,7 +3,7 @@ import { Floor } from './components/Floor'
 import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
 import uuid from 'react-uuid';
-import dbTools from './dbTools';
+import dbTools_client from './dbTools_client';
 import Axios from "axios";
 
 //BACKEND_PLACEHOLDER
@@ -18,18 +18,45 @@ function App() {
   const loggedInAs = "Coco Shev'rin";
 
   const [menu, setMenu] = useState([]);
+  const refreshMenu = () => {
+    dbTools_client.menu.get().then(res => {setMenu(res)});
+  };
 
   //BACKEND_PLACEHOLDER
   const [ customers, setCustomers ] = useState([]);
+  const refreshCustomers = () => {
+    dbTools_client.customers.get().then(res => {setCustomers(res)});
+  }
 
   //BACKEND_PLACEHOLDER
   const [ orders, setOrders ] = useState([]);
+  const refreshOrders = () => {
+    dbTools_client.orders.get().then(res => {
+      setOrders(res.map(item => (
+        {...item,
+          paid: item.paid === 1 ? true : false,
+          delivered: item.delivered === 1 ? true : false
+        }
+      )))
+    });
+  }
 
   const addOrder = (order) => {
-    setOrders(prev => ([...prev, {
-        ...order,
+
+    const filteredOrder = {
+        customer: order.customer,
+        delivered: order.delivered,
+        floor: order.floor,
+        name: order.name,
+        paid: order.paid,
+        price: order.price,
+        time: order.time,
+        type: order.type,
         id: uuid()
-    }]));
+    }
+
+    setOrders(prev => ([...prev, filteredOrder]));
+    dbTools_client.orders.post(filteredOrder);
   }
 
   const deliverOrder = (id) => {
@@ -38,14 +65,14 @@ function App() {
     setOrders(prev => (
       [...prev, prev[index].delivered = true]
     ));
+
+    dbTools_client.orders.put({key: 'delivered', value: true, condition_key: 'id', condition_value: id});
   }
 
   const deliverAll = (customer) => {
-    setOrders(prev => (
-      prev.map(order => (
-        customer === order.customer ? {...order, delivered: true} : order
-      ))
-    ));
+      orders.forEach(order => {
+        order.customer === customer && deliverOrder(order.id)
+      });
   }
 
   const payOrders = (orderIds) => {
@@ -60,8 +87,8 @@ function App() {
 
     const newCustomer = {
       name: "",
-      table: table.id,
       floor: table.floor,
+      table: table.id,
       id: uuid()
     }
 
@@ -69,7 +96,7 @@ function App() {
         [...prev, newCustomer]
     ))
 
-    dbTools.customers.post(newCustomer);
+    dbTools_client.customers.post(newCustomer);
     setSelectedCustomer(null);
   }
 
@@ -82,7 +109,7 @@ function App() {
           ))
       ));
 
-      dbTools.customers.delete(id);
+      dbTools_client.customers.delete(id);
       setSelectedCustomer(null);
   }
 
@@ -95,7 +122,7 @@ function App() {
       }
       )
 
-      dbTools.customers.put(id, newName);
+      dbTools_client.customers.put(id, newName);
   }
 
   const removeOrder = (id) => {
@@ -104,14 +131,16 @@ function App() {
               order.id !== id
           ))
       ));
+
+      dbTools_client.orders.delete(id);
   }
 
-  const removeAllUndeliveredOrders = (id) => {
-      setOrders(prev => (
-          prev.filter(order => (
-            order.customer === id ? order.delivered : true
-          ))
-      ));
+  const removeAllUndeliveredOrders = (customer) => {
+      orders.forEach(order => {
+        order.customer === customer && 
+          order.delivered === false && 
+            removeOrder(order.id)
+      })
   }
 
   //BACKEND_PLACEHOLDER
@@ -131,26 +160,42 @@ function App() {
   const [ selectedFloor, setSelectedFloor ] = useState(1);
 
   const [staff, setStaff] = useState([]);
+  const refreshStaff = () => {
+    dbTools_client.staff.get().then(res => {setStaff(res)});
+  }
 
   const [tables, setTables] = useState([]);
+  const refreshTables = () => {
+    dbTools_client.tables.get().then(res => {setTables(res)});
+  }
   
   const toggleTableIsAvailable = (table) => {
+    const current = tables[table.id].isAvailable;
+
     setTables(prev => { 
       prev[table.id].isAvailable = !prev[table.id].isAvailable;
       return [...prev];
     })
+
+    dbTools_client.tables.put({key: 'isAvailable', value: !current, condition_key: 'id', condition_value: table.id});
   }
   const toggleTableIsReserved = (table) => {
+    const current = tables[table.id].isReserved;
+
     setTables(prev => {
       prev[table.id].isReserved = !prev[table.id].isReserved;
       return [...prev];
     })
+    
+    dbTools_client.tables.put({key: 'isReserved', value: !current, condition_key: 'id', condition_value: table.id});
   }
   const setTableWaiter = (table, name) => {
     setTables(prev => {
       prev[table.id].waiter = name;
       return [...prev];
     })
+
+    dbTools_client.tables.put({key: 'waiter', value: name, condition_key: 'id', condition_value: table.id});
   }
 
   const [ selectedTable, setSelectedTable ] = useState(null);
@@ -169,11 +214,11 @@ function App() {
   const [isBlurred, setIsBlurred] = useState(false);
 
   useEffect(() => {
-    dbTools.tables.get().then(res => {setTables(res)});
-    dbTools.staff.get().then(res => {setStaff(res)});
-    dbTools.customers.get().then(res => {setCustomers(res)});
-    dbTools.orders.get().then(res => {setOrders(res)});
-    dbTools.menu.get().then(res => {setMenu(res)});
+    refreshTables();
+    refreshStaff();
+    refreshCustomers();
+    refreshOrders();
+    refreshMenu();
   }, []);
 
 

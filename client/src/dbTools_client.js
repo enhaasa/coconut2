@@ -4,7 +4,6 @@ import Axios from "axios";
 //'http://localhost:3001';
 const baseUrl = `https://${document.location.hostname}`;
 
-
 const menu = {
     endpoint: "/menu",
     get: async function() {
@@ -25,7 +24,7 @@ const floors = {
     get: async function () {
         return Axios.get(baseUrl + this.endpoint).then((res) => (
             res.data
-        ))
+        ));
     }
 }
 
@@ -39,7 +38,7 @@ const staff = {
                     positions: item.positions.split(",")
                 }
             ))
-        ))
+        ));
     }
 }
 
@@ -48,7 +47,10 @@ const tables = {
     get: async function () {
         return Axios.get(baseUrl + this.endpoint).then((res) => (
             res.data
-        ))
+        ));
+    },
+    put: async function (data) {
+        Axios.put(baseUrl + this.endpoint, {data});
     }
 }
 
@@ -57,7 +59,7 @@ const customers = {
     get: async function () {
         return Axios.get(baseUrl + this.endpoint).then((res) => (
             res.data
-        ))
+        ));
     },
     post: async function (customer) {
         Axios.post(baseUrl + this.endpoint, {...customer});
@@ -70,13 +72,21 @@ const customers = {
     }
 }
 
-
 const orders = {
     endpoint: "/orders",
     get: async function () {
         return Axios.get(baseUrl + this.endpoint).then((res) => (
             res.data
-        ))
+        ));
+    },
+    post: async function (item) {
+        Axios.post(baseUrl + this.endpoint, {...item});
+    },
+    delete: async function (id) {
+        Axios.delete(baseUrl + this.endpoint, {data: { id: id } });
+    },
+    put: async function (data) {
+        Axios.put(baseUrl + this.endpoint, {data});
     }
 }
 

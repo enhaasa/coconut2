@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const fs = require('fs');
 const cors = require('cors');
 const path = require("path");
+const { convertSQLKeyword, convertSQLKeywords } = require('./dbTools_server');
 const PORT = process.env.PORT || 3001;
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
@@ -56,6 +57,18 @@ app.get('/tables', (req, res) => {
         res.send(result);
     });
 });
+app.put('/tables', (req, res) => {
+    let  [ key, value, condition_key, condition_value ] = convertSQLKeywords(Object.values(req.body.data));
+
+    db.query(
+        `UPDATE tables SET ${key}=? WHERE ${condition_key}=?`,
+        [value, condition_value], 
+        (err, result) => {
+            if (err) throw err;
+            res.send("Updated");
+        }
+    );
+});
 
 
 //Customers
@@ -66,16 +79,15 @@ app.get('/customers', (req, res) => {
     });
 });
 app.post('/customers', (req, res) => {
-    const name = req.body.name;
-    const floor = req.body.floor;
-    const table = req.body.table;
-    const id = req.body.id;
-
+    const keys = convertSQLKeywords(Object.keys(req.body));
+    const values = convertSQLKeywords(Object.values(req.body));
+    
     db.query(
-        "INSERT INTO customers VALUES (?, ?, ?, ?)", 
-        [name, floor, table, id], 
+        `INSERT INTO customers (${keys}) VALUES (${values.map(value => ("?")).toString()})`, 
+        [...values], 
         (err, result) => {
             if (err) throw err;
+            res.send("Inserted");
         }
     );
 });
@@ -102,8 +114,8 @@ app.put('/customers', (req, res) => {
             if (err) throw err;
             res.send("Updated");
         }
-    )
-})
+    );
+});
 
 //Orders
 app.get('/orders', (req, res) => {
@@ -111,6 +123,43 @@ app.get('/orders', (req, res) => {
         if (err) throw err;
         res.send(result);
     });
+});
+app.post('/orders', (req, res) => {
+    const keys = convertSQLKeywords(Object.keys(req.body));
+    const values = convertSQLKeywords(Object.values(req.body));
+    
+    db.query(
+        `INSERT INTO orders (${keys}) VALUES (${values.map(value => ("?")).toString()})`, 
+        [...values], 
+        (err, result) => {
+            if (err) throw err;
+            res.send("Inserted");
+        }
+    );
+});
+app.delete('/orders', (req, res) => {
+    const id = req.body.id;
+
+    db.query(
+        `DELETE FROM orders WHERE id=?`, 
+        [id],
+        (err, result) => {
+            if (err) throw err;
+            res.send("Deleted");
+        }
+    );
+});
+app.put('/orders', (req, res) => {
+    const  [ key, value, condition_key, condition_value ] = convertSQLKeywords(Object.values(req.body.data));
+
+    db.query(
+        `UPDATE orders SET ${key}=? WHERE ${condition_key}=?`,
+        [value, condition_value], 
+        (err, result) => {
+            if (err) throw err;
+            res.send("Updated");
+        }
+    );
 });
 
 
