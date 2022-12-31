@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Floor } from './components/Floor'
 import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
@@ -57,7 +57,9 @@ function App() {
 
     setOrders(prev => ([...prev, filteredOrder]));
     dbTools_client.orders.post(filteredOrder);
-    dbTools_client.updates.put({key: 'id', value: uuid(), condition_key: 'table', condition_value: 'orders'});
+    const newUpdateId = uuid();
+    ordersUpdateId.current = newUpdateId;
+    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'orders'});
   }
 
   const deliverOrder = (id) => {
@@ -68,7 +70,9 @@ function App() {
     ));
 
     dbTools_client.orders.put({key: 'delivered', value: true, condition_key: 'id', condition_value: id});
-    dbTools_client.updates.put({key: 'id', value: uuid(), condition_key: 'table', condition_value: 'orders'});
+    const newUpdateId = uuid();
+    ordersUpdateId.current = newUpdateId;
+    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'orders'});
   }
 
   const deliverAll = (customer) => {
@@ -99,7 +103,9 @@ function App() {
     ))
 
     dbTools_client.customers.post(newCustomer);
-    dbTools_client.updates.put({key: 'id', value: uuid(), condition_key: 'table', condition_value: 'customers'});
+    const newUpdateId = uuid();
+    customersUpdateId.current = newUpdateId;
+    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'customers'});
     setSelectedCustomer(null);
   }
 
@@ -113,7 +119,9 @@ function App() {
       ));
 
       dbTools_client.customers.delete(id);
-      dbTools_client.updates.put({key: 'id', value: uuid(), condition_key: 'table', condition_value: 'customers'});
+      const newUpdateId = uuid();
+      customersUpdateId.current = newUpdateId;
+      dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'customers'});
       setSelectedCustomer(null);
   }
 
@@ -127,7 +135,9 @@ function App() {
       )
 
       dbTools_client.customers.put(id, newName);
-      dbTools_client.updates.put({key: 'id', value: uuid(), condition_key: 'table', condition_value: 'customers'});
+      const newUpdateId = uuid();
+      customersUpdateId.current = newUpdateId;
+      dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'customers'});
   }
 
   const removeOrder = (id) => {
@@ -138,7 +148,9 @@ function App() {
       ));
 
       dbTools_client.orders.delete(id);
-      dbTools_client.updates.put({key: 'id', value: uuid(), condition_key: 'table', condition_value: 'orders'});
+      const newUpdateId = uuid();
+      ordersUpdateId.current = newUpdateId;
+      dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'orders'});
   }
 
   const removeAllUndeliveredOrders = (customer) => {
@@ -184,7 +196,9 @@ function App() {
     })
 
     dbTools_client.tables.put({key: 'isAvailable', value: !current, condition_key: 'id', condition_value: table.id});
-    dbTools_client.updates.put({key: 'id', value: uuid(), condition_key: 'table', condition_value: 'tables'});
+    const newUpdateId = uuid();
+    tablesUpdateId.current = newUpdateId;
+    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'tables'});
   }
   const toggleTableIsReserved = (table) => {
     const current = tables[table.id].isReserved;
@@ -195,7 +209,9 @@ function App() {
     })
     
     dbTools_client.tables.put({key: 'isReserved', value: !current, condition_key: 'id', condition_value: table.id});
-    dbTools_client.updates.put({key: 'id', value: uuid(), condition_key: 'table', condition_value: 'tables'});
+    const newUpdateId = uuid();
+    tablesUpdateId.current = newUpdateId;
+    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'tables'});
   }
   const setTableWaiter = (table, name) => {
     setTables(prev => {
@@ -204,7 +220,9 @@ function App() {
     })
 
     dbTools_client.tables.put({key: 'waiter', value: name, condition_key: 'id', condition_value: table.id});
-    dbTools_client.updates.put({key: 'id', value: uuid(), condition_key: 'table', condition_value: 'tables'});
+    const newUpdateId = uuid();
+    tablesUpdateId.current = newUpdateId;
+    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'tables'});
   }
 
   const [ selectedTable, setSelectedTable ] = useState(null);
@@ -223,6 +241,10 @@ function App() {
   const [isBlurred, setIsBlurred] = useState(false);
 
   //Short-polling solution for neanderthals like me :pensive:
+  const tablesUpdateId = useRef(null);
+  const customersUpdateId = useRef(null); 
+  const ordersUpdateId = useRef(null);
+
   useEffect(() => {
     refreshTables();
     refreshStaff();
@@ -230,29 +252,25 @@ function App() {
     refreshOrders();
     refreshMenu();
 
-    let tablesUpdateId = null;
-    let customersUpdateId = null; 
-    let ordersUpdateId = null;
-
     setInterval(() => {
       dbTools_client.updates.get().then(res => {
         const newTablesUpdateId = res[0].id;
         const newCustomersUpdateId = res[1].id;
         const newOrdersUpdateId = res[2].id;
 
-        if (newTablesUpdateId !== tablesUpdateId) {
+        if (newTablesUpdateId !== tablesUpdateId.current) {
           refreshTables();
-          tablesUpdateId = newTablesUpdateId;
+          tablesUpdateId.current = newTablesUpdateId;
         }
 
-        if (newCustomersUpdateId !== customersUpdateId) {
+        if (newCustomersUpdateId !== customersUpdateId.current) {
           refreshCustomers();
-          customersUpdateId = newCustomersUpdateId;
+          customersUpdateId.current = newCustomersUpdateId;
         }
 
-        if (newOrdersUpdateId !== ordersUpdateId) {
+        if (newOrdersUpdateId !== ordersUpdateId.current) {
           refreshOrders();
-          ordersUpdateId = newOrdersUpdateId;
+          ordersUpdateId.current = newOrdersUpdateId;
         }
       });
       
