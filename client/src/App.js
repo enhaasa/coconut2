@@ -213,13 +213,25 @@ function App() {
 
   const [isBlurred, setIsBlurred] = useState(false);
 
+  //Short-polling solution for neanderthals like me
   useEffect(() => {
     refreshTables();
     refreshStaff();
     refreshCustomers();
     refreshOrders();
     refreshMenu();
+
+    setInterval(()=> {
+      refreshTables();
+      refreshStaff();
+      refreshCustomers();
+      refreshOrders();
+      refreshMenu();
+    },3000)
+
   }, []);
+
+
 
 
   return (
