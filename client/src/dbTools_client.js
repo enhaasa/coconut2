@@ -90,11 +90,27 @@ const orders = {
     }
 }
 
+const updates = {
+    endpoint: "/updates",
+    get: async function () {
+        return Axios.get(baseUrl + this.endpoint).then((res) => (
+            res.data
+        ));
+    },
+    post: async function (table, id) {
+        Axios.post(baseUrl + this.endpoint, {table: table, id: id})
+    },
+    put: async function (data) {
+        Axios.put(baseUrl + this.endpoint, {data})
+    }
+}
+
 export default {
    menu,
    floors,
    staff,
    tables,
    customers,
-   orders
+   orders,
+   updates
 };

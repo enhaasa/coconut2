@@ -162,5 +162,36 @@ app.put('/orders', (req, res) => {
     );
 });
 
+//Updates
+app.get('/updates', (req, res) => {
+    db.query("SELECT * FROM updates", (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+app.post('/updates', (req, res) => {
+    const keys = convertSQLKeywords(Object.keys(req.body));
+    const values = convertSQLKeywords(Object.values(req.body));
+    
+    db.query(
+        `INSERT INTO updates (${keys}) VALUES (${values.map(value => ("?")).toString()})`, 
+        [...values], 
+        (err, result) => {
+            if (err) throw err;
+            res.send("Inserted");
+        }
+    );
+});
+app.put('/updates', (req, res) => {
+    const  [ key, value, condition_key, condition_value ] = convertSQLKeywords(Object.values(req.body.data));
 
+    db.query(
+        `UPDATE updates SET ${key}=? WHERE ${condition_key}=?`,
+        [value, condition_value], 
+        (err, result) => {
+            if (err) throw err;
+            res.send("Updated");
+        }
+    );
+});
 
