@@ -146,7 +146,6 @@ export function TableManager(props) {
                 orders={props.orders}
                 addOrder={props.addOrder}
                 removeOrder={props.removeOrder}
-                removeAllUndeliveredOrders={props.removeAllUndeliveredOrders}
                 deliverOrder={props.deliverOrder}
                 deliverAll={props.deliverAll}
                 customers={props.customers}

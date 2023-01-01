@@ -46,6 +46,69 @@
   margin: 1px;
   font-size: 14px;
 }
+.Table .editing {
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+.Table .editing:hover {
+  display: none;
+}
+.Table .editing p {
+  margin: 0;
+}
+.Table .editing .dots {
+  font-size: 50px;
+  color: white;
+  padding: 0;
+  margin: 0;
+  margin-top: -8px;
+}
+.Table .editing span {
+  -webkit-animation-name: blink;
+          animation-name: blink;
+  -webkit-animation-duration: 1.4s;
+          animation-duration: 1.4s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+.Table .editing span:nth-child(2) {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+.Table .editing span:nth-child(3) {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
 .Table .numberDisplay {
   font-size: 1.5em;
   border-radius: 100%;

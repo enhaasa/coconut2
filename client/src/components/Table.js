@@ -74,11 +74,17 @@ export function Table(props) {
                     top:props.table.posY
             }}>
 
+
                 {props.table.waiter !== "" &&
                     <div className={`waiter waiterContainer`}>
                     
                     {tools.getFirstName(props.table.waiter)}
                 </div>}
+
+                {false &&
+                    <div className="editing">
+                        <p className="dots"><span>&bull;</span><span>&bull;</span><span>&bull;</span></p>
+                    </div>}
 
                 <button 
                     className={`numberDisplay ${tablenumberColor()}`}
@@ -99,6 +105,7 @@ export function Table(props) {
 
                     <span className="number">
                         {props.table.id + 1}
+                    
                     </span>
                 
                 </button>

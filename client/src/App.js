@@ -133,6 +133,7 @@ function App() {
 
   const removeCustomer = (id) => {
     removeAllUndeliveredOrders(id);
+    removeAllUnpaidOrders(id);
 
       setCustomers(prev => (
           prev.filter(customer => (
@@ -181,6 +182,14 @@ function App() {
           order.delivered === false && 
             removeOrder(order.id)
       })
+  }
+
+  const removeAllUnpaidOrders = (customer) => {
+    orders.forEach(order => {
+      order.customer === customer && 
+        order.paid === false && 
+          removeOrder(order.id)
+    })
   }
 
   //BACKEND_PLACEHOLDER
@@ -277,25 +286,21 @@ function App() {
         const newTablesUpdateId = res[0].id;
         const newCustomersUpdateId = res[1].id;
         const newOrdersUpdateId = res[2].id;
-
-        if (newTablesUpdateId !== tablesUpdateId.current) {
-          if (selectedTableTracker.current === null) {
-            refreshTables();
-            tablesUpdateId.current = newTablesUpdateId;
+      
+        if (selectedTableTracker.current === null) {
+          if (newTablesUpdateId !== tablesUpdateId.current) {
+              refreshTables();
+              tablesUpdateId.current = newTablesUpdateId;
           }
-        }
 
-        if (newCustomersUpdateId !== customersUpdateId.current) {
-          if (selectedTableTracker.current === null) {
-            refreshCustomers();
-            customersUpdateId.current = newCustomersUpdateId;
+          if (newCustomersUpdateId !== customersUpdateId.current) {
+              refreshCustomers();
+              customersUpdateId.current = newCustomersUpdateId;
           }
-        }
 
-        if (newOrdersUpdateId !== ordersUpdateId.current) {
-          if (selectedTableTracker.current === null) {
-            refreshOrders();
-            ordersUpdateId.current = newOrdersUpdateId;
+          if (newOrdersUpdateId !== ordersUpdateId.current) {
+              refreshOrders();
+              ordersUpdateId.current = newOrdersUpdateId;
           }
         }
       });
@@ -324,7 +329,6 @@ function App() {
               orders={orders}
               addOrder={addOrder}
               removeOrder={removeOrder}
-              removeAllUndeliveredOrders={removeAllUndeliveredOrders}
               deliverOrder={deliverOrder}
               deliverAll={deliverAll}
               payOrders={payOrders}
