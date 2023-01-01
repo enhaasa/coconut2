@@ -50,7 +50,7 @@ export function OrderManager(props) {
                                         </tr>
                                     </thead>}
                                 
-                                    {tools.sortArray(props.orders, false).map(order => (  
+                                    {tools.sortArrayByCustomer(props.orders, false).map(order => (  
                                         order.customer === customer.id && 
                                                 <tbody>
                                                     <tr key={order.menuId}>

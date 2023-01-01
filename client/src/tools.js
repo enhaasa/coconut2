@@ -1,4 +1,4 @@
-const sortArray = (array, sortDelivered) => {
+const sortArrayByCustomer = (array, sortDelivered) => {
     let sortedArray = [];
 
     array.forEach((arrayItem, index) => {
@@ -28,6 +28,36 @@ const sortArray = (array, sortDelivered) => {
 
     return sortedArray;
 }
+const sortArray = (array, sortDelivered) => {
+    let sortedArray = [];
+
+    array.forEach((arrayItem, index) => {
+
+        if (arrayItem.delivered === sortDelivered) {
+            let duplicate = false;
+            let duplicateIndex = 0;
+
+            sortedArray.forEach((sortedItem, index) => {
+                if(sortedItem.name === arrayItem.name 
+                    && sortedItem.price === arrayItem.price) {
+                        duplicate = true;
+                        duplicateIndex = index;
+                    } 
+            })
+
+            if (!duplicate) {
+                sortedArray.push({...arrayItem, amount: 1, ids: [arrayItem.id], total: arrayItem.price});
+            } else {
+                sortedArray[duplicateIndex].amount ++;
+                sortedArray[duplicateIndex].ids.push(arrayItem.id);
+                sortedArray[duplicateIndex].total += arrayItem.price;
+            }
+        }
+    });
+
+    return sortedArray;
+}
+
 
 const toInitialsFirstNames = (name) => {
     const fullName = name.split(' ');
@@ -80,7 +110,8 @@ const getTimeSinceOldestOrder = (order) => {
 }
 
 export default {
-    sortArray, 
+    sortArray,
+    sortArrayByCustomer, 
     toInitialsFirstNames, 
     capitalizeFirstLetter,
     getCurrentTime,

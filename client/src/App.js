@@ -82,11 +82,26 @@ function App() {
   }
 
   const payOrders = (orderIds) => {
-    setOrders(prev =>(
-      prev.map(order => (
-        orderIds.includes(order.id) ? {...order, paid: true} : order
-      ))
+
+    const session = uuid();
+
+    orderIds.forEach(id => {
+      payOrder(id, session);
+    })
+  }
+
+  const payOrder = (id, session) => {
+    const index = orders.map(order => order.id).indexOf(id);
+
+    setOrders(prev => (
+      [...prev, prev[index].paid = true]
     ));
+
+    dbTools_client.orders.put({key: 'paid', value: true, condition_key: 'id', condition_value: id});
+    dbTools_client.orders.put({key: 'session', value: session, condition_key: 'id', condition_value: id});
+    const newUpdateId = uuid();
+    ordersUpdateId.current = newUpdateId;
+    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'orders'});
   }
 
   const addCustomer = (table) => {

@@ -17,6 +17,26 @@
   -webkit-mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
           mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
 }
+.TabManagerContainer .TabManager .name {
+  font-size: 20px;
+  color: rgb(138, 0, 0);
+}
+.TabManagerContainer .TabManager .tabNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.TabManagerContainer .TabManager .tabList {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.TabManagerContainer .TabManager .viewNav {
+  display: flex;
+  border-top: 2px dotted grey;
+  border-bottom: 2px dotted grey;
+  padding: 4px 0;
+  justify-content: space-between;
+}
 .TabManagerContainer header {
   display: grid;
   grid-auto-flow: column;
@@ -24,7 +44,6 @@
   width: 100%;
   justify-content: start;
   padding-bottom: 10px;
-  border-bottom: 2px dotted grey;
 }
 .TabManagerContainer header .title {
   font-size: 1.8em;

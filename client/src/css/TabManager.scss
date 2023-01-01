@@ -18,6 +18,30 @@
         padding: 10px 10px 30px 10px;
         min-width: 300px;
         mask: conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
+
+        & .name {
+            font-size: 20px;
+            color: $wine;
+        }
+
+        & .tabNav {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        & .tabList {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        & .viewNav {
+            display: flex;
+            border-top: 2px dotted grey;
+            border-bottom: 2px dotted grey;
+            padding: 4px 0;
+            justify-content: space-between;
+        }
     }
 
     & header {
@@ -27,7 +51,6 @@
         width: 100%;
         justify-content: start;
         padding-bottom: 10px;
-        border-bottom: 2px dotted grey;
 
         & .title {
             font-size: 1.8em;

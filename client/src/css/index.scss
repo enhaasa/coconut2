@@ -63,6 +63,14 @@ body {
   opacity: 0.6;
 }
 
+.disabled {
+  cursor: not-allowed !important;
+
+  &:hover {
+    filter:none !important;
+  }
+}
+
 button, select, option {
   font-weight: bold;
   border-radius: 15px;

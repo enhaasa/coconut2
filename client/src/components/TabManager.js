@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import tools from '../tools';
+import { SplitTab } from './SplitTab';
+import { CombinedTab } from './CombinedTab';
 
 import closeIcon from './../assets/icons/close.png';
-import plusIcon from './../assets/icons/plus-black.png';
-import minusIcon from './../assets/icons/minus-black.png';
 
 export function TabManager(props) {
 
@@ -12,6 +12,9 @@ export function TabManager(props) {
     const close = () => {
         props.handleViewTab(false);
     }
+
+
+    const [ tabView, setTabView ] = useState('combined');
 
     return(
         <div className="TabManagerContainer">
@@ -25,43 +28,46 @@ export function TabManager(props) {
                         <img src={closeIcon} alt="" />
                     </button>
                 </header>
-                
-                {props.customersInTable.map(customer => (
-                    <table className="itemTable">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Amount</th>
-                                <th>Total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    
-                        {tools.sortArray(props.deliveredOrdersInTable, true).map(order => (  
-                            order.customer === customer.id && 
-                                    <tbody>
-                                        <tr>
-                                            <td>{order.name}</td>
-                                            <td>{order.price.toLocaleString("en-US")} gil</td>
-                                            <td>{order.amount}</td>
-                                            <td>{order.total.toLocaleString("en-US")} gil</td>
 
-                                            <nav className="tableNav">
-                                                <button className="icon" onClick={() => {props.removeOrder(order.ids[order.ids.length -1])}}>
-                                                    <img src={minusIcon} alt="" />
-                                                </button>
-                                                <button className="icon" onClick={() => {props.addOrder({...order, delivered: true})}}>
-                                                    <img src={plusIcon} alt="" />
-                                                </button>
-                                            </nav>
-                                        </tr>
-                                    </tbody>
-                        ))}
-                    </table>
-                ))}
+                <nav className="viewNav">
+                    <span className="section">
+                        <label>View:</label>
+                    </span>
 
-                <nav>
+                    <span className="section">
+                        <button 
+                            className={tabView === "combined" && "constructive"}
+                            onClick={() => {setTabView('combined')}}>Combined
+                        </button>
+                        
+                        <button 
+                            className={tabView === "split" && "constructive"}
+                            onClick={() => {setTabView('split')}}>Split
+                        </button>
+
+                    </span>
+                </nav>
+
+                <div className="tabList">
+                    {tabView === 'split' &&
+                        <SplitTab 
+                            deliveredOrdersInTable={props.deliveredOrdersInTable}
+                            customersInTable={props.customersInTable}
+                            removeOrder={props.removeOrder}
+                            addOrder={props.addOrder}
+                        />
+                    }
+                        
+                    {tabView === 'combined' &&
+                        <CombinedTab
+                            deliveredOrdersInTable={props.deliveredOrdersInTable}
+                            customersInTable={props.customersInTable}
+                        />
+                    }
+                </div>
+
+                <nav className="tabNav">
+                    <button className="receiptButton inactive transparent disabled">Generate Receipt</button>
                     <button className="payButton constructive" onClick={() => {props.payOrders(props.deliveredOrdersInTable.map(order => order.id))}}>Pay & Archive</button>
                 </nav>
 

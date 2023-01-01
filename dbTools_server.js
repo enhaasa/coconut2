@@ -3,7 +3,8 @@ const convertSQLKeyword = (word) => {
         'table', 
         'name',
         'time',
-        'type'
+        'type',
+        'session'
     ];
 
     return keywords.includes(word)
