@@ -13,6 +13,13 @@ import basement from './assets/schematics/basement.png';
 function App() {
 
   const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second
+  const [ selectedCustomer, setSelectedCustomer ] = useState(null);
+
+  const [ selectedTable, setSelectedTable ] = useState(null);
+  const selectedTableTracker = useRef(null);  
+  useEffect(() => {
+    selectedTableTracker.current = selectedTable;
+  }, [selectedTable]);
 
   //BACKEND_PLACEHOLDER
   const loggedInAs = "Coco Shev'rin";
@@ -22,25 +29,25 @@ function App() {
     dbTools_client.menu.get().then(res => {setMenu(res)});
   };
 
+
   //BACKEND_PLACEHOLDER
   const [ customers, setCustomers ] = useState([]);
   const refreshCustomers = () => {
-    dbTools_client.customers.get().then(res => {setCustomers(res)});
+      dbTools_client.customers.get().then(res => {setCustomers(res)});
   }
 
   //BACKEND_PLACEHOLDER
   const [ orders, setOrders ] = useState([]);
   const refreshOrders = () => {
-    dbTools_client.orders.get().then(res => {
-      setOrders(res.map(item => (
-        {...item,
-          paid: item.paid === 1 ? true : false,
-          delivered: item.delivered === 1 ? true : false
-        }
-      )))
-    });
+      dbTools_client.orders.get().then(res => {
+        setOrders(res.map(item => (
+          {...item,
+            paid: item.paid === 1 ? true : false,
+            delivered: item.delivered === 1 ? true : false
+          }
+        )))
+      });
   }
-
   const addOrder = (order) => {
 
     const filteredOrder = {
@@ -199,7 +206,8 @@ function App() {
 
   const [tables, setTables] = useState([]);
   const refreshTables = () => {
-    dbTools_client.tables.get().then(res => {setTables(res)});
+    selectedTableTracker.current === null &&
+      dbTools_client.tables.get().then(res => {setTables(res)});
   }
   
   const toggleTableIsAvailable = (table) => {
@@ -240,9 +248,6 @@ function App() {
     dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'tables'});
   }
 
-  const [ selectedTable, setSelectedTable ] = useState(null);
-  const [ selectedCustomer, setSelectedCustomer ] = useState(null);
-
   useEffect(() => {
     selectedTable !== null ?
     setIsBlurred(true) :
@@ -274,18 +279,24 @@ function App() {
         const newOrdersUpdateId = res[2].id;
 
         if (newTablesUpdateId !== tablesUpdateId.current) {
-          refreshTables();
-          tablesUpdateId.current = newTablesUpdateId;
+          if (selectedTableTracker.current === null) {
+            refreshTables();
+            tablesUpdateId.current = newTablesUpdateId;
+          }
         }
 
         if (newCustomersUpdateId !== customersUpdateId.current) {
-          refreshCustomers();
-          customersUpdateId.current = newCustomersUpdateId;
+          if (selectedTableTracker.current === null) {
+            refreshCustomers();
+            customersUpdateId.current = newCustomersUpdateId;
+          }
         }
 
         if (newOrdersUpdateId !== ordersUpdateId.current) {
-          refreshOrders();
-          ordersUpdateId.current = newOrdersUpdateId;
+          if (selectedTableTracker.current === null) {
+            refreshOrders();
+            ordersUpdateId.current = newOrdersUpdateId;
+          }
         }
       });
       
