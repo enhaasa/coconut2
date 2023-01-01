@@ -75,9 +75,9 @@ export function Table(props) {
             }}>
 
                 {props.table.waiter !== "" &&
-                    <div className={`waiter ${props.table.waiter === props.loggedInAs ? "constructive" : "inactive"}`}>
+                    <div className={`waiter waiterContainer`}>
                     
-                    {tools.toInitialsFirstNames(props.table.waiter)}
+                    {tools.getFirstName(props.table.waiter)}
                 </div>}
 
                 <button 

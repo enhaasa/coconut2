@@ -75,6 +75,10 @@ const toInitialsFirstNames = (name) => {
     return initials;
 }
 
+const getFirstName = (name) => {
+    return name.split(' ')[0];
+}
+
 const capitalizeFirstLetter = string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -112,6 +116,7 @@ const getTimeSinceOldestOrder = (order) => {
 export default {
     sortArray,
     sortArrayByCustomer, 
+    getFirstName,
     toInitialsFirstNames, 
     capitalizeFirstLetter,
     getCurrentTime,
