@@ -66,7 +66,7 @@ export function MenuManager(props) {
                                                         delivered: false,
                                                         paid: false,
                                                         time: tools.getCurrentTime()
-                                                    })}}>{item.price} gil</button>
+                                                    })}}>{item.price.toLocaleString("en-US")} gil</button>
 
                                                     <button className="constructive" onClick={() => {props.addOrder({
                                                         ...item, 

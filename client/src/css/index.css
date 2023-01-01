@@ -333,7 +333,7 @@ button:hover, select:hover, option:hover {
   margin: 4px 0;
   border-collapse: collapse;
 }
-.itemTable tbody:nth-child(even) {
+.itemTable tbody tr:nth-child(even) {
   background-color: #979797;
 }
 .itemTable tr {
@@ -361,6 +361,11 @@ button:hover, select:hover, option:hover {
   width: 20px;
   height: 20px;
   margin-top: 2px;
+}
+.itemTable tfoot {
+  font-weight: bold;
+  color: rgb(138, 0, 0);
+  border-top: 2px solid black;
 }
 
 .notificationContainer {

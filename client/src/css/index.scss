@@ -159,7 +159,8 @@ button, select, option {
   margin: 4px 0;
   border-collapse: collapse;
 
-  & tbody:nth-child(even) {
+
+  & tbody tr:nth-child(even) {
     background-color: $grey;
   }
 
@@ -193,6 +194,12 @@ button, select, option {
         }
       }
     }
+  }
+
+  & tfoot {
+    font-weight: bold;
+    color: $wine;
+    border-top: 2px solid black;
   }
 }
 

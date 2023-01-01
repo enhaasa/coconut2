@@ -16,7 +16,6 @@ export function OrderManager(props) {
 
     let unDeliveredOrderCustomersInTable = props.unDeliveredOrdersInTable ? props.unDeliveredOrdersInTable.map(order => order.customer) : [];
 
-
     return (
         <>
             <section className="OrderManager">
@@ -44,15 +43,16 @@ export function OrderManager(props) {
                                         <tr>
                                             <th>Name</th>
                                             <th>Price</th>
-                                            <th>Amnt</th>
+                                            <th>Amount</th>
                                             <th>Total</th>
                                             <th></th>
                                         </tr>
                                     </thead>}
                                 
+                                    <tbody>
                                     {tools.sortArrayByCustomer(props.orders, false).map(order => (  
                                         order.customer === customer.id && 
-                                                <tbody>
+                                                
                                                     <tr key={order.menuId}>
                                                         <td>{order.name}</td>
                                                         <td>{order.price.toLocaleString("en-US")} gil</td>
@@ -69,8 +69,9 @@ export function OrderManager(props) {
                                                             <button className="text constructive" onClick={() => {props.deliverOrder(order.ids[0])}}> Deliver </button>
                                                         </td>
                                                     </tr>
-                                                </tbody>
+                                                
                                     ))}
+                                    </tbody>
                                 </table>
                                 <nav className="customerNav">
                                     <button className="text progressive" onClick={() => {openMenu(customer)}}>Add Order</button>

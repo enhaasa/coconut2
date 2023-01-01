@@ -12,7 +12,6 @@ app.use(cors());
 app.use(express.json());
 app.listen(PORT);
 
-
 const db = mysql.createConnection({
     user: 'linroot',
     host: 'lin-13330-7942-mysql-primary.servers.linodedb.net',
