@@ -83,11 +83,13 @@ function App() {
 
   const payOrders = (orderIds) => {
 
-    const session = uuid();
+    if (window.confirm("Paying the orders will also remove them from the tab (no undo). Are you sure?")) {
+      const session = uuid();
 
-    orderIds.forEach(id => {
-      payOrder(id, session);
-    })
+      orderIds.forEach(id => {
+        payOrder(id, session);
+      })
+    }
   }
 
   const payOrder = (id, session) => {
@@ -135,19 +137,19 @@ function App() {
 
   const removeCustomer = (id) => {
 
-    const customerOrders = orders.map(order => (
-      order.customer === id && order
-    ))
+    if (window.confirm("Removing the customer will also remove any unpaid orders. Are you sure?")) {
+      const customerOrders = orders.map(order => (
+        order.customer === id && order
+      ))
 
-    let removalIsSafe = true;
-    const deliveredOrders = customerOrders.filter(order => order.delivered).length;
-    const unDeliveredOrders = customerOrders.filter(order => !order.delivered).length;
+      let removalIsSafe = true;
+      const deliveredOrders = customerOrders.filter(order => order.delivered).length;
+      const unDeliveredOrders = customerOrders.filter(order => !order.delivered).length;
 
-    if (deliveredOrders > 0) {removalIsSafe = false};
-    if (unDeliveredOrders > 0) {removalIsSafe = false};
+      if (deliveredOrders > 0) {removalIsSafe = false};
+      if (unDeliveredOrders > 0) {removalIsSafe = false};
 
-    
-    const proceed = () => {
+      
       removeAllUndeliveredOrders(id);
       removeAllUnpaidOrders(id);
 
@@ -161,7 +163,6 @@ function App() {
       updateUpdates("customers");
       setSelectedCustomer(null);
     }
-    proceed();
   }
 
   const editCustomerName = (id, newName) => {
