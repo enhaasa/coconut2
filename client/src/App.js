@@ -95,7 +95,8 @@ function App() {
     const index = orders.map(order => order.id).indexOf(id);
     const order = orders[index];
 
-    const customerName = customers.map(customer => (customer.id === order.customer && customer.name))
+    //const customerName = customers.map(customer => (customer.id === order.customer && customer.name))
+    const customerName = customers[customers.map(customer => customer.id).indexOf(order.customer)].name;
 
     const filteredOrder = {
       id: id,
@@ -107,7 +108,7 @@ function App() {
       session: session,
       time: order.time
   }
-
+  
     //Archive order before deleting
     dbTools_client.archivedOrders.post(filteredOrder);
     removeOrder(id);
@@ -133,8 +134,22 @@ function App() {
   }
 
   const removeCustomer = (id) => {
-    removeAllUndeliveredOrders(id);
-    removeAllUnpaidOrders(id);
+
+    const customerOrders = orders.map(order => (
+      order.customer === id && order
+    ))
+
+    let removalIsSafe = true;
+    const deliveredOrders = customerOrders.filter(order => order.delivered).length;
+    const unDeliveredOrders = customerOrders.filter(order => !order.delivered).length;
+
+    if (deliveredOrders > 0) {removalIsSafe = false};
+    if (unDeliveredOrders > 0) {removalIsSafe = false};
+
+    
+    const proceed = () => {
+      removeAllUndeliveredOrders(id);
+      removeAllUnpaidOrders(id);
 
       setCustomers(prev => (
           prev.filter(customer => (
@@ -145,6 +160,8 @@ function App() {
       dbTools_client.customers.delete(id);
       updateUpdates("customers");
       setSelectedCustomer(null);
+    }
+    proceed();
   }
 
   const editCustomerName = (id, newName) => {
