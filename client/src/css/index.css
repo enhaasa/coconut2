@@ -143,9 +143,11 @@
   align-items: flex-end;
   justify-self: end !important;
   gap: 5px;
+}
+.FloorContainer .floorNav .appInfo .text {
   border-bottom: 4px double black;
 }
-.FloorContainer .floorNav .appInfo .title {
+.FloorContainer .floorNav .appInfo .text .title {
   font-size: 42px !important;
   font-weight: bold;
   background: linear-gradient(to right, rgb(132, 253, 132), rgb(164, 250, 238));
@@ -154,7 +156,7 @@
   -webkit-text-fill-color: transparent;
   margin-bottom: -5px;
 }
-.FloorContainer .floorNav .appInfo .version {
+.FloorContainer .floorNav .appInfo .text .version {
   color: black;
 }
 .FloorContainer .Floor {

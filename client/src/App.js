@@ -9,6 +9,7 @@ import Axios from "axios";
 //BACKEND_PLACEHOLDER
 import ground from './assets/schematics/ground.jpg';
 import basement from './assets/schematics/basement.jpg';
+import logo from './assets/icons/logo.png';
 
 function App() {
 
@@ -396,8 +397,14 @@ function App() {
           </span>
 
           <div className="appInfo">
-              <span className="title cursive">Coconut</span>
-              <span className="version">by Enhasa</span>
+              <span className="logo">
+                <img src={logo} />
+              </span>
+          
+              <span className="text">
+                <span className="title cursive">Coconut</span>
+                <span className="version">by Enhasa</span>
+              </span>
           </div>
         </nav>
           

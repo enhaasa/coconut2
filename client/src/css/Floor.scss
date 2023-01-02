@@ -46,23 +46,32 @@
 
     & .appInfo {
       display: flex;
-      align-items: flex-end;
       justify-self: end !important;
-      gap: 5px;
-      border-bottom: 4px double black;
-
-      & .title {
-        font-size: 42px !important;
-        font-weight: bold;
-        background: linear-gradient(to right, rgb(132, 253, 132), rgb(164, 250, 238));
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: -5px;
+      
+      & .logo {
+        & img {
+          width: 70px;
+        }
       }
 
-      & .version {
-        color: black;
-      }
+      & .text {
+        border-bottom: 4px double black;
+        display: flex;
+        align-items: flex-end;
+        gap: 5px;
+        & .title {
+          font-size: 42px !important;
+          font-weight: bold;
+          background: linear-gradient(to right, rgb(132, 253, 132), rgb(164, 250, 238));
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: -5px;
+        }
+
+        & .version {
+          color: black;
+        }
+      } 
     }
   }
 
