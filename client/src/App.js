@@ -7,8 +7,8 @@ import dbTools_client from './dbTools_client';
 import Axios from "axios";
 
 //BACKEND_PLACEHOLDER
-import ground from './assets/schematics/ground.png';
-import basement from './assets/schematics/basement.png';
+import ground from './assets/schematics/ground.jpg';
+import basement from './assets/schematics/basement.jpg';
 
 function App() {
 
