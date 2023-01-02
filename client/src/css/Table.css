@@ -18,9 +18,9 @@
   color: white;
   padding: 1px 5px;
   text-shadow: 0 0 black;
-  margin-top: -22px;
+  margin-top: -28px;
   background: rgb(36, 30, 11) !important;
-  border: 1px solid black;
+  border: 4px double beige;
   font-size: 14px;
   display: flex;
   align-items: center;

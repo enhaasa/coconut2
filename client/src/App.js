@@ -29,14 +29,11 @@ function App() {
     dbTools_client.menu.get().then(res => {setMenu(res)});
   };
 
-
-  //BACKEND_PLACEHOLDER
   const [ customers, setCustomers ] = useState([]);
   const refreshCustomers = () => {
       dbTools_client.customers.get().then(res => {setCustomers(res)});
   }
 
-  //BACKEND_PLACEHOLDER
   const [ orders, setOrders ] = useState([]);
   const refreshOrders = () => {
       dbTools_client.orders.get().then(res => {
@@ -64,9 +61,7 @@ function App() {
 
     setOrders(prev => ([...prev, filteredOrder]));
     dbTools_client.orders.post(filteredOrder);
-    const newUpdateId = uuid();
-    ordersUpdateId.current = newUpdateId;
-    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'orders'});
+    updateUpdates("orders");
   }
 
   const deliverOrder = (id) => {
@@ -77,9 +72,7 @@ function App() {
     ));
 
     dbTools_client.orders.put({key: 'delivered', value: true, condition_key: 'id', condition_value: id});
-    const newUpdateId = uuid();
-    ordersUpdateId.current = newUpdateId;
-    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'orders'});
+    updateUpdates("orders");
   }
 
   const deliverAll = (customer) => {
@@ -98,17 +91,27 @@ function App() {
   }
 
   const payOrder = (id, session) => {
+    
     const index = orders.map(order => order.id).indexOf(id);
+    const order = orders[index];
 
-    setOrders(prev => (
-      [...prev, prev[index].paid = true]
-    ));
+    const customerName = customers.map(customer => (customer.id === order.customer && customer.name))
 
-    dbTools_client.orders.put({key: 'paid', value: true, condition_key: 'id', condition_value: id});
-    dbTools_client.orders.put({key: 'session', value: session, condition_key: 'id', condition_value: id});
-    const newUpdateId = uuid();
-    ordersUpdateId.current = newUpdateId;
-    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'orders'});
+    const filteredOrder = {
+      id: id,
+      customerName: customerName,
+      floor: order.floor,
+      name: order.name,
+      price: order.price,
+      type: order.type,
+      session: session,
+      time: order.time
+  }
+
+    //Archive order before deleting
+    dbTools_client.archivedOrders.post(filteredOrder);
+    removeOrder(id);
+    updateUpdates("orders");
   }
 
   const addCustomer = (table) => {
@@ -125,9 +128,7 @@ function App() {
     ))
 
     dbTools_client.customers.post(newCustomer);
-    const newUpdateId = uuid();
-    customersUpdateId.current = newUpdateId;
-    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'customers'});
+    updateUpdates("customers");
     setSelectedCustomer(null);
   }
 
@@ -142,9 +143,7 @@ function App() {
       ));
 
       dbTools_client.customers.delete(id);
-      const newUpdateId = uuid();
-      customersUpdateId.current = newUpdateId;
-      dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'customers'});
+      updateUpdates("customers");
       setSelectedCustomer(null);
   }
 
@@ -158,9 +157,7 @@ function App() {
       )
 
       dbTools_client.customers.put(id, newName);
-      const newUpdateId = uuid();
-      customersUpdateId.current = newUpdateId;
-      dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'customers'});
+      updateUpdates("customers");
   }
 
   const removeOrder = (id) => {
@@ -171,9 +168,7 @@ function App() {
       ));
 
       dbTools_client.orders.delete(id);
-      const newUpdateId = uuid();
-      ordersUpdateId.current = newUpdateId;
-      dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'orders'});
+      updateUpdates("orders");
   }
 
   const removeAllUndeliveredOrders = (customer) => {
@@ -228,9 +223,7 @@ function App() {
     })
 
     dbTools_client.tables.put({key: 'isAvailable', value: !current, condition_key: 'id', condition_value: table.id});
-    const newUpdateId = uuid();
-    tablesUpdateId.current = newUpdateId;
-    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'tables'});
+    updateUpdates("tables");
   }
   const toggleTableIsReserved = (table) => {
     const current = tables[table.id].isReserved;
@@ -241,9 +234,7 @@ function App() {
     })
     
     dbTools_client.tables.put({key: 'isReserved', value: !current, condition_key: 'id', condition_value: table.id});
-    const newUpdateId = uuid();
-    tablesUpdateId.current = newUpdateId;
-    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'tables'});
+    updateUpdates("tables");
   }
   const setTableWaiter = (table, name) => {
     setTables(prev => {
@@ -252,9 +243,13 @@ function App() {
     })
 
     dbTools_client.tables.put({key: 'waiter', value: name, condition_key: 'id', condition_value: table.id});
+    updateUpdates("tables");
+  }
+
+  const updateUpdates = (table) => {
     const newUpdateId = uuid();
-    tablesUpdateId.current = newUpdateId;
-    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: 'tables'});
+    ordersUpdateId.current = newUpdateId;
+    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: table});
   }
 
   useEffect(() => {

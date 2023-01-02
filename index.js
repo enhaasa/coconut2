@@ -161,6 +161,51 @@ app.put('/orders', (req, res) => {
     );
 });
 
+//Archived Orders
+app.get('/archivedOrders', (req, res) => {
+    db.query("SELECT * FROM archived_orders", (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+app.post('/archivedOrders', (req, res) => {
+    const keys = convertSQLKeywords(Object.keys(req.body));
+    const values = convertSQLKeywords(Object.values(req.body));
+    
+    db.query(
+        `INSERT INTO archived_orders (${keys}) VALUES (${values.map(value => ("?")).toString()})`, 
+        [...values], 
+        (err, result) => {
+            if (err) throw err;
+            res.send("Inserted");
+        }
+    );
+});
+app.delete('/archivedOrders', (req, res) => {
+    const id = req.body.id;
+
+    db.query(
+        `DELETE FROM archived_orders WHERE id=?`, 
+        [id],
+        (err, result) => {
+            if (err) throw err;
+            res.send("Deleted");
+        }
+    );
+});
+app.put('/archivedOrders', (req, res) => {
+    const  [ key, value, condition_key, condition_value ] = convertSQLKeywords(Object.values(req.body.data));
+
+    db.query(
+        `UPDATE archived_orders SET ${key}=? WHERE ${condition_key}=?`,
+        [value, condition_value], 
+        (err, result) => {
+            if (err) throw err;
+            res.send("Updated");
+        }
+    );
+});
+
 //Updates
 app.get('/updates', (req, res) => {
     db.query("SELECT * FROM updates", (err, result) => {
