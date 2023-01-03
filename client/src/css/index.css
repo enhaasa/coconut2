@@ -140,12 +140,16 @@
 }
 .FloorContainer .floorNav .appInfo {
   display: flex;
-  align-items: flex-end;
   justify-self: end !important;
-  gap: 5px;
+}
+.FloorContainer .floorNav .appInfo .logo img {
+  width: 70px;
 }
 .FloorContainer .floorNav .appInfo .text {
   border-bottom: 4px double black;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
 }
 .FloorContainer .floorNav .appInfo .text .title {
   font-size: 42px !important;

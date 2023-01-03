@@ -5,11 +5,24 @@ import uuid from 'react-uuid';
 
 import closeIcon from './../assets/icons/close.png';
 import basketIcon from './../assets/icons/shopping-cart.png';
+import { ConfirmBox } from './ConfirmBox';
 
 export function TableManager(props) {
 
     const [isBlurred, setIsBlurred] = useState(false);
     const [viewTab, setViewTab] = useState(false);
+
+    const openConfirmBox = (data) => {
+        setConfirmBox(data);
+        setIsBlurred(true);
+    }
+
+    const closeConfirmBox = () => {
+        setConfirmBox(null);
+        setIsBlurred(false);
+    };
+
+    const [confirmBox, setConfirmBox] = useState(null);
 
     const handleViewTab = (newValue) => {
         setViewTab(newValue);
@@ -43,12 +56,16 @@ export function TableManager(props) {
         })
     });
 
+    
+
     let tabTotal = deliveredOrdersInTable.length > 0 ? 
         deliveredOrdersInTable.reduce((total, order) => total + order.price, 0) : 0;
 
+    
     return (
-        props.table.id !== null&&
+        props.table.id !== null &&
         <div className="TableManager">
+            {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
             {isBlurred && <div className="blur" />}
 
             <div className="title">
@@ -86,6 +103,7 @@ export function TableManager(props) {
                 </button>
             </div>
 
+    
             <section className="navbar">
                 <div className="column">
                     <span className="navsection">
@@ -139,6 +157,8 @@ export function TableManager(props) {
                 payOrders={props.payOrders}
                 handleViewTab={handleViewTab}
                 tabTotal={tabTotal}
+                openConfirmBox={openConfirmBox}
+                closeConfirmBox={closeConfirmBox}
             />}
 
             <OrderManager 
@@ -154,6 +174,8 @@ export function TableManager(props) {
                 removeCustomer={props.removeCustomer}
                 editCustomerName={props.editCustomerName}
                 setSelectedCustomer={props.setSelectedCustomer}
+                openConfirmBox={openConfirmBox}
+                closeConfirmBox={closeConfirmBox}
             />
 
         </div>

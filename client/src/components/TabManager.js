@@ -13,6 +13,24 @@ export function TabManager(props) {
         props.handleViewTab(false);
     }
 
+    const confirmPayOrders = (orders) => {
+
+        setIsBlurred(true);
+        props.openConfirmBox({
+            callback: function(){
+                props.payOrders(orders);
+                props.closeConfirmBox();
+                setIsBlurred(false);
+            },
+            closeConfirmBox: function(){
+                props.closeConfirmBox()
+                setIsBlurred(false);
+            },
+            title: "Are you sure?",
+            message: `Paying the orders will also delete them from this list.`
+        })
+    }
+
 
     const [ tabView, setTabView ] = useState('combined');
 
@@ -68,7 +86,7 @@ export function TabManager(props) {
 
                 <nav className="tabNav">
                     <button className="receiptButton inactive transparent disabled">Generate Receipt</button>
-                    <button className="payButton constructive" onClick={() => {props.payOrders(props.deliveredOrdersInTable.map(order => order.id))}}>Pay & Archive</button>
+                    <button className="payButton constructive" onClick={() => {confirmPayOrders(props.deliveredOrdersInTable.map(order => order.id))}}>Pay & Archive</button>
                 </nav>
 
             </section>

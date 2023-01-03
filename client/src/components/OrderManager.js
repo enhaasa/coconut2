@@ -14,6 +14,21 @@ export function OrderManager(props) {
         props.setSelectedCustomer(customer);
     }
 
+    const confirmDeleteCustomer = (id, customerName) => {
+
+        const checkedCustomerName = customerName !== "" ? customerName : "the customer";
+
+        props.openConfirmBox({
+            callback: function(){
+                props.removeCustomer(id);
+                props.closeConfirmBox();
+            },
+            closeConfirmBox: function(){props.closeConfirmBox()},
+            title: "Are you sure?",
+            message: `Deleting ${checkedCustomerName} will also delete any unpaid orders.`
+        })
+    }
+
     let unDeliveredOrderCustomersInTable = props.unDeliveredOrdersInTable ? props.unDeliveredOrdersInTable.map(order => order.customer) : [];
 
     return (
@@ -32,7 +47,7 @@ export function OrderManager(props) {
                                         placeholder="Enter name..." 
                                         onChange={(e) => {props.editCustomerName(customer.id, e.target.value)}}>
                                     </input>
-                                    <button className="icon" onClick={() => {props.removeCustomer(customer.id)}}>
+                                    <button className="icon" onClick={() => {confirmDeleteCustomer(customer.id, customer.name)}}>
                                         <img src={removecustomerIcon} alt="" />
                                     </button>
                                 </nav>
