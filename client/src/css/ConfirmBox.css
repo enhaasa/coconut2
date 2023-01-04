@@ -4,7 +4,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 99;
+  z-index: 98;
 }
 .ConfirmBoxContainer .confirmBox {
   background: bisque;
@@ -13,6 +13,7 @@
   padding: 10px;
   border-radius: 25px;
   border: 4px double black;
+  z-index: 99;
 }
 .ConfirmBoxContainer .confirmBox .title {
   font-weight: bold;

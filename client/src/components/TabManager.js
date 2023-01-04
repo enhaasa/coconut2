@@ -2,43 +2,49 @@ import React, { useState } from 'react';
 import tools from '../tools';
 import { SplitTab } from './SplitTab';
 import { CombinedTab } from './CombinedTab';
-
+import { ConfirmBox } from './ConfirmBox';
 import closeIcon from './../assets/icons/close.png';
 
 export function TabManager(props) {
 
-    const [isBlurred, setIsBlurred] = useState(false);
+    const [ isBlurred, setIsBlurred ] = useState(false);
+    const [ tabView, setTabView ] = useState('combined');
 
-    const close = () => {
+    function close() {
         props.handleViewTab(false);
     }
 
-    const confirmPayOrders = (orders) => {
-
+    function openConfirmBox(data) {
+        props.setConfirmBox(data);
         setIsBlurred(true);
-        props.openConfirmBox({
+    }
+
+    function closeConfirmBox() {
+        props.setConfirmBox(null);
+        setIsBlurred(false);
+    };
+
+    function confirmPayOrders(orders) {
+        setIsBlurred(true);
+        openConfirmBox({
             callback: function(){
                 props.payOrders(orders);
-                props.closeConfirmBox();
-                setIsBlurred(false);
+                closeConfirmBox();
+                
             },
             closeConfirmBox: function(){
-                props.closeConfirmBox()
-                setIsBlurred(false);
+                closeConfirmBox()
+                
             },
             title: "Are you sure?",
             message: `Paying the orders will also delete them from this list.`
         })
     }
 
-
-    const [ tabView, setTabView ] = useState('combined');
-
     return(
         <div className="TabManagerContainer">
-            {isBlurred && <div className="blur"></div>}
-
             <section className="TabManager">
+                {isBlurred && <div className="blur"></div>}
 
                 <header>
                     <span className="title cursive">Tab</span>

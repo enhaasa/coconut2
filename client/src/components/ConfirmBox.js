@@ -7,11 +7,11 @@ export function ConfirmBox(props) {
     const title = props.data.title;
     const message = props.data.message;
 
-    const onYes = () => {
+    function onYes () {
         callback();
     }
 
-    const onNo = () => {
+    function onNo() {
         closeConfirmBox();
     }
 

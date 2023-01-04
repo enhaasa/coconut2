@@ -17,6 +17,10 @@
   -webkit-mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
           mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
 }
+.TabManagerContainer .TabManager .blur {
+  margin-top: -10px;
+  margin-left: -10px;
+}
 .TabManagerContainer .TabManager .name {
   font-size: 20px;
   color: rgb(138, 0, 0);

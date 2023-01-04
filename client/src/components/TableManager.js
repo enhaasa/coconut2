@@ -11,31 +11,30 @@ export function TableManager(props) {
 
     const [isBlurred, setIsBlurred] = useState(false);
     const [viewTab, setViewTab] = useState(false);
+    const [confirmBox, setConfirmBox] = useState(null);
 
-    const openConfirmBox = (data) => {
+    function openConfirmBox(data) {
         setConfirmBox(data);
         setIsBlurred(true);
     }
 
-    const closeConfirmBox = () => {
+    function closeConfirmBox() {
         setConfirmBox(null);
         setIsBlurred(false);
     };
 
-    const [confirmBox, setConfirmBox] = useState(null);
-
-    const handleViewTab = (newValue) => {
+    function handleViewTab(newValue) {
         setViewTab(newValue);
         setIsBlurred(newValue);
     }
 
-    const tablenumberColor = () => {
+    function tablenumberColor() {
         if (props.table.isAvailable && !props.table.isReserved) return "constructive"
         if (!props.table.isAvailable) return "destructive";
         if (props.table.isReserved) return "progressive";
     }
 
-    const close = () => {
+    function close(){
         props.setSelectedCustomer(null);
         props.setSelectedTable(null);
     }
@@ -55,9 +54,6 @@ export function TableManager(props) {
                         unDeliveredOrdersInTable.push(order);
         })
     });
-
-    
-
     let tabTotal = deliveredOrdersInTable.length > 0 ? 
         deliveredOrdersInTable.reduce((total, order) => total + order.price, 0) : 0;
 
@@ -157,8 +153,7 @@ export function TableManager(props) {
                 payOrders={props.payOrders}
                 handleViewTab={handleViewTab}
                 tabTotal={tabTotal}
-                openConfirmBox={openConfirmBox}
-                closeConfirmBox={closeConfirmBox}
+                setConfirmBox={setConfirmBox}
             />}
 
             <OrderManager 

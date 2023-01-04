@@ -10,6 +10,7 @@
     z-index: 3;
     filter: drop-shadow(0 0 5px $darkgrey);
 
+
     & .TabManager {
         //background: linear-gradient(to bottom, white, rgb(219, 219, 219));
         background-image: url("./../assets/icons/paper.png");
@@ -18,6 +19,11 @@
         padding: 10px 10px 30px 10px;
         min-width: 300px;
         mask: conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
+
+        & .blur {
+            margin-top: -10px;
+            margin-left: -10px;
+        }
 
         & .name {
             font-size: 20px;

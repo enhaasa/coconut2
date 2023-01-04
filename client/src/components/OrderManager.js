@@ -10,14 +10,13 @@ import minusIcon from './../assets/icons/minus-black.png';
 
 export function OrderManager(props) {
 
-    const openMenu = (customer) => {
+    function openMenu(customer) {
         props.setSelectedCustomer(customer);
     }
 
-    const confirmDeleteCustomer = (id, customerName) => {
+    function confirmDeleteCustomer(id, customerName) {
 
         const checkedCustomerName = customerName !== "" ? customerName : "the customer";
-
         props.openConfirmBox({
             callback: function(){
                 props.removeCustomer(id);
@@ -29,7 +28,8 @@ export function OrderManager(props) {
         })
     }
 
-    let unDeliveredOrderCustomersInTable = props.unDeliveredOrdersInTable ? props.unDeliveredOrdersInTable.map(order => order.customer) : [];
+    let unDeliveredOrderCustomersInTable = props.unDeliveredOrdersInTable ? 
+    props.unDeliveredOrdersInTable.map(order => order.customer) : [];
 
     return (
         <>
