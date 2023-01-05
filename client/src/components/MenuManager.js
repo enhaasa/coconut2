@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Infobox } from './Infobox';
 import tools from '../tools';
+import uuid from 'react-uuid';
 
 import closeIcon from './../assets/icons/close.png';
 import infoIcon from './../assets/icons/info-small-white.png';
@@ -40,14 +41,13 @@ export function MenuManager(props) {
 
                         {props.menu.length === 0 ? "Loading..." :
                         menuTypes.map(menuType => (
-                            <div className="type">
+                            <div className="type" key={uuid()}>
                                 <div className="typeTitle cursive">{tools.capitalizeFirstLetter(menuType) + "s"}</div>
 
                                 {props.menu.map(item => (
                                     menuType === item.type && 
-                                        <div className="itemContainer">
+                                        <div className="itemContainer" key={item.id}>
                                             <div className="item">
-
                                                 <span className="itemTitle">
                                                     <button className="itemInfoButton" onClick={() => {handleItemInfo(item)}}>
                                                         <img src={infoIcon} alt="" />

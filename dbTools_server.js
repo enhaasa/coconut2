@@ -1,4 +1,4 @@
-const convertSQLKeyword = (word) => {
+function convertSQLKeyword (word) {
     const keywords = [
         'table', 
         'name',
@@ -13,9 +13,9 @@ const convertSQLKeyword = (word) => {
         : word;
 };
 
-const convertSQLKeywords = (array) => (
-    array.map(word => (convertSQLKeyword(word)))
-);
+function convertSQLKeywords (words) {
+    return words.map(word => (convertSQLKeyword(word)))
+};
 
 module.exports = {
     convertSQLKeyword,

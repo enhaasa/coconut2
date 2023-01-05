@@ -68,7 +68,7 @@ export function OrderManager(props) {
                                     {tools.sortArrayByCustomer(props.orders, false).map(order => (  
                                         order.customer === customer.id && 
                                                 
-                                                    <tr key={order.menuId}>
+                                                    <tr key={order.id}>
                                                         <td>{order.name}</td>
                                                         <td>{order.price.toLocaleString("en-US")} gil</td>
                                                         <td>{order.amount}</td>

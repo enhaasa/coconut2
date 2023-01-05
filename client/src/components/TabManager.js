@@ -60,12 +60,12 @@ export function TabManager(props) {
 
                     <span className="section">
                         <button 
-                            className={tabView === "combined" && "constructive"}
+                            className={tabView === "combined" ? "constructive" : ""}
                             onClick={() => {setTabView('combined')}}>Combined
                         </button>
                         
                         <button 
-                            className={tabView === "split" && "constructive"}
+                            className={tabView === "split" ? "constructive" : ""}
                             onClick={() => {setTabView('split')}}>Split
                         </button>
 
