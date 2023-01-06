@@ -5,7 +5,8 @@ function convertSQLKeyword (word) {
         'time',
         'type',
         'session',
-        'date'
+        'date',
+        'floor'
     ];
 
     return keywords.includes(word)

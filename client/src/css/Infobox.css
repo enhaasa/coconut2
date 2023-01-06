@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
 .InfoboxContainer {
   position: absolute;
   width: 100%;
@@ -28,6 +29,17 @@
   border: none;
   margin: 0 -10px;
 }
+.InfoboxContainer .Infobox .section {
+  margin: 15px 0;
+}
+.InfoboxContainer .Infobox .section .cursive {
+  font-size: 24px;
+  color: rgb(138, 0, 0);
+  font-weight: bold;
+}
+.InfoboxContainer .Infobox .section p {
+  margin: 0;
+}
 .InfoboxContainer .Infobox .infoContainer {
   padding: 0 10px;
 }
@@ -36,7 +48,5 @@
   font-style: italic;
 }
 .InfoboxContainer .Infobox .infoContainer .noresult {
-  font-size: 16px !important;
-  font-style: italic !important;
   color: grey !important;
 }/*# sourceMappingURL=Infobox.css.map */
