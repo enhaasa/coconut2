@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Floor } from './components/Floor'
 import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
+import { ReceiptManager } from './components/ReceiptManager';
 import uuid from 'react-uuid';
 import dbTools_client from './dbTools_client';
 import Axios from "axios";
@@ -46,6 +47,12 @@ function App() {
         )))
       });
   }
+
+  const [ archivedOrders, setArchivedOrders ] = useState([]);
+  const refreshArchivedOrders = () => {
+    dbTools_client.archivedOrders.get().then(res => {setArchivedOrders(res)});
+  }
+
   const addOrder = (order) => {
 
     const filteredOrder = {
@@ -113,6 +120,7 @@ function App() {
     dbTools_client.archivedOrders.post(filteredOrder);
     removeOrder(id);
     updateUpdates("orders");
+    updateUpdates("archived_updates");
   }
 
   const addCustomer = (table) => {
@@ -281,19 +289,23 @@ function App() {
   const tablesUpdateId = useRef(null);
   const customersUpdateId = useRef(null); 
   const ordersUpdateId = useRef(null);
+  const archivedOrdersUpdateId = useRef(null);
 
   useEffect(() => {
+    refreshMenu();
     refreshTables();
     refreshStaff();
     refreshCustomers();
     refreshOrders();
-    refreshMenu();
+    refreshArchivedOrders();
+
 
     setInterval(() => {
       dbTools_client.updates.get().then(res => {
         const newTablesUpdateId = res[0].id;
         const newCustomersUpdateId = res[1].id;
         const newOrdersUpdateId = res[2].id;
+        const newArchivedOrdersUpdateId = res[3].id;
       
         if (selectedTableTracker.current === null) {
           if (newTablesUpdateId !== tablesUpdateId.current) {
@@ -310,6 +322,11 @@ function App() {
               refreshOrders();
               ordersUpdateId.current = newOrdersUpdateId;
           }
+
+          if (newArchivedOrdersUpdateId !== archivedOrdersUpdateId.current) {
+            refreshArchivedOrders();
+            archivedOrdersUpdateId.current = newArchivedOrdersUpdateId;
+        }
         }
       });
       
@@ -323,6 +340,7 @@ function App() {
       {isBlurred === true &&
         <div className="blur" />
         }
+
       <section className="TableManagerContainer">
 
         {selectedTable !== null &&         
@@ -412,6 +430,8 @@ function App() {
           customers={customers}
         />
       </section>
+
+      
     </div>
   );
 }

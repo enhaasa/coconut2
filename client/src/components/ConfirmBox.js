@@ -27,7 +27,7 @@ export function ConfirmBox(props) {
                 </div>
 
                 <nav className="options">
-                    <button className="yes" onClick={onYes}>Delete</button>
+                    <button className="yes" onClick={onYes}>Confirm</button>
                     <button className="no" onClick={onNo}>Cancel</button>
                 </nav>
             </div>
