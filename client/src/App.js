@@ -104,7 +104,6 @@ function App() {
     })
 
     dbTools_client.tables.put({key: 'session', value: session, condition_key: 'id', condition_value: table});
-    createReceipt(orders, session);
     updateUpdates("tables");
   }
 
@@ -132,31 +131,6 @@ function App() {
     removeOrder(id);
     updateUpdates("archived_orders");
   }
-
-    //Creates a receipt on cocosoasis database
-    const createReceipt = (orders, session) => {
-
-      const sortedOrders = tools.sortArray(orders, true);
-  
-      sortedOrders.forEach(order => {
-        const customerName = customers.filter(customer => customer.id === order.customer && customer)[0].name;
-  
-        const filteredOrder = {
-          id: order.id,
-          customerName: customerName,
-          floor: order.floor,
-          name: order.name,
-          price: order.total,
-          date: tools.getTodaysDate(),
-          type: order.type,
-          session: session,
-          amount: order.amount,
-          table: order.table
-        }
-  
-        dbTools_client.receipts.post(filteredOrder);
-      })
-    }
 
   const addCustomer = (table) => {
 
