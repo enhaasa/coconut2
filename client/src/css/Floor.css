@@ -21,6 +21,7 @@
   margin-bottom: -15px;
   margin-right: -10px;
   z-index: 1;
+  pointer-events: none;
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .notificationBar .notification {
   font-size: 16px;
