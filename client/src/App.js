@@ -98,6 +98,11 @@ function App() {
       payOrder(order.id, session);
     })
 
+    setTables(prev => {
+      prev[table].session = session;
+      return [...prev];
+    })
+
     dbTools_client.tables.put({key: 'session', value: session, condition_key: 'id', condition_value: table});
     //createReceipt(orders, session);
     updateUpdates("tables");
@@ -187,6 +192,11 @@ function App() {
     
     if (customersInTable.length-1 === 0) {
       dbTools_client.tables.put({key: 'session', value: null, condition_key: 'id', condition_value: table.id});
+
+      setTables(prev => {
+        prev[table.id].session = null;
+        return [...prev];
+      })
     }
     
     dbTools_client.customers.delete(id);

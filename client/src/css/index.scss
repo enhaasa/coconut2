@@ -97,7 +97,12 @@ button, select, option {
 .destructive {background: $background-destructive !important;}
 .constructive {background: $background-constructive !important;}
 .progressive {background: $background-progressive !important;}
-.inactive {background: $background-inactive !important;}
+.inactive {
+  background: $background-inactive !important;
+  &:hover {
+    cursor: not-allowed !important;
+  }
+}
 
 //Checkboxes
 .switch {
