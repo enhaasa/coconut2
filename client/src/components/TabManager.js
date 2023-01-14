@@ -40,6 +40,8 @@ export function TabManager(props) {
         })
     }
 
+    console.log(props.table);
+
     return(
         <div className="TabManagerContainer">
             <section className="TabManager">
@@ -88,6 +90,8 @@ export function TabManager(props) {
                         />
                     }
                 </div>
+
+                
 
                 <nav className="tabNav">
                     <button className="receiptButton constructive"onClick={() => {}}>Create Receipt</button>
