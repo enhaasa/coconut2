@@ -19,7 +19,7 @@ export function OrderManager(props) {
         const checkedCustomerName = customerName !== "" ? customerName : "the customer";
         props.openConfirmBox({
             callback: function(){
-                props.removeCustomer(id);
+                props.removeCustomer(id, props.table);
                 props.closeConfirmBox();
             },
             closeConfirmBox: function(){props.closeConfirmBox()},

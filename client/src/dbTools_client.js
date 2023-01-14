@@ -2,7 +2,7 @@ import Axios from "axios";
 
 //`https://${document.location.hostname}`;
 //'http://localhost:3001';
-const baseUrl = `https://${document.location.hostname}`;
+const baseUrl = 'http://localhost:3001';
 
 const menu = {
     endpoint: "/menu",
@@ -123,6 +123,24 @@ const updates = {
     }
 }
 
+const receipts = {
+    endpoint: "/receipts",
+    get: async function () {
+        return Axios.get(baseUrl + this.endpoint).then((res) => (
+            res.data
+        ));
+    },
+    post: async function (item) {
+        Axios.post(baseUrl + this.endpoint, {...item});
+    },
+    delete: async function (id) {
+        Axios.delete(baseUrl + this.endpoint, {data: { id: id } });
+    },
+    put: async function (data) {
+        Axios.put(baseUrl + this.endpoint, {data});
+    }
+}
+
 export default {
    menu,
    floors,
@@ -131,5 +149,6 @@ export default {
    customers,
    archivedOrders,
    orders,
-   updates
+   updates,
+   receipts
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import tools from '../tools';
 import { SplitTab } from './SplitTab';
 import { CombinedTab } from './CombinedTab';
@@ -9,6 +9,7 @@ export function TabManager(props) {
 
     const [ isBlurred, setIsBlurred ] = useState(false);
     const [ tabView, setTabView ] = useState('combined');
+
 
     function close() {
         props.handleViewTab(false);
@@ -28,13 +29,11 @@ export function TabManager(props) {
         setIsBlurred(true);
         openConfirmBox({
             callback: function(){
-                props.payOrders(orders);
+                props.payOrders(orders, orders[0].table);
                 closeConfirmBox();
-                
             },
             closeConfirmBox: function(){
                 closeConfirmBox()
-                
             },
             title: "Are you sure?",
             message: `Paying the orders will also delete them from this list.`
@@ -91,8 +90,8 @@ export function TabManager(props) {
                 </div>
 
                 <nav className="tabNav">
-                    <button className="receiptButton inactive transparent disabled">Generate Receipt</button>
-                    <button className="payButton constructive" onClick={() => {confirmPayOrders(props.deliveredOrdersInTable.map(order => order.id))}}>Pay & Archive</button>
+                    <button className="receiptButton constructive"onClick={() => {}}>Create Receipt</button>
+                    <button className="payButton constructive" onClick={() => {confirmPayOrders(props.deliveredOrdersInTable.map(order => order))}}>Pay & Archive</button>
                 </nav>
 
             </section>

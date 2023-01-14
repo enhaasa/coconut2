@@ -1,10 +1,16 @@
 import React from 'react';
+import { Receipt } from './Receipt';
 
 export function ReceiptManager(props) {
 
     return (
         <div className="ReceiptManager">
-            {props.archivedOrders.map(archivedOrder => archivedOrder.customerName)}
+
+            <div className="receiptList">
+                <Receipt 
+                    archivedOrders={props.archivedOrders}
+                />
+            </div>
         </div>
     );
 }

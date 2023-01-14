@@ -63,6 +63,7 @@ export function MenuManager(props) {
                                                         ...item, 
                                                         customer: props.selectedCustomer.id, 
                                                         floor: props.selectedCustomer.floor, 
+                                                        table: props.selectedCustomer.table,
                                                         delivered: false,
                                                         paid: false,
                                                         time: tools.getCurrentTime()
@@ -72,6 +73,7 @@ export function MenuManager(props) {
                                                         ...item, 
                                                         customer: props.selectedCustomer.id, 
                                                         floor: props.selectedCustomer.floor, 
+                                                        table: props.selectedCustomer.table,
                                                         price: 0, 
                                                         delivered: false,
                                                         paid: false,

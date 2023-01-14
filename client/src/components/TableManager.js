@@ -54,6 +54,8 @@ export function TableManager(props) {
                         unDeliveredOrdersInTable.push(order);
         })
     });
+
+
     let tabTotal = deliveredOrdersInTable.length > 0 ? 
         deliveredOrdersInTable.reduce((total, order) => total + order.price, 0) : 0;
 
@@ -85,7 +87,6 @@ export function TableManager(props) {
                                 )
                             })}
                         </select>}
-                
                 </div>
 
                         
@@ -151,6 +152,7 @@ export function TableManager(props) {
                 addOrder={props.addOrder}
                 removeOrder={props.removeOrder}
                 payOrders={props.payOrders}
+                archivedOrders={props.archivedOrders}
                 handleViewTab={handleViewTab}
                 tabTotal={tabTotal}
                 setConfirmBox={setConfirmBox}
@@ -164,6 +166,7 @@ export function TableManager(props) {
                 deliverOrder={props.deliverOrder}
                 deliverAll={props.deliverAll}
                 customers={props.customers}
+                customersInTable={customersInTable}
                 unDeliveredOrdersInTable={unDeliveredOrdersInTable}
                 addCustomer={props.addCustomer}
                 removeCustomer={props.removeCustomer}

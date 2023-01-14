@@ -85,8 +85,43 @@ const capitalizeFirstLetter = string => {
 
 const getCurrentTime = () => {
     const today = new Date();
-    
     return today.getTime();
+}
+function getTodaysDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    const hours = String(today.getHours()).padStart(2, "0");
+    const minutes = String(today.getMinutes()).padStart(2, "0");
+    const seconds = String(today.getSeconds()).padStart(2, "0");
+    return `${year}:${month}:${day} ${hours}:${minutes}:${seconds}`;
+}
+
+function epochToDate(epochTime) {
+    const date = new Date(epochTime);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+}
+function epochToTime(epochTime) {
+    const date = new Date(epochTime);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+}
+function dateToEpoch(dateString) {
+    const [day, month, year] = dateString.split('.');
+    const date = new Date(year, month - 1, day);
+    return date.getTime();
+}
+function timeToEpoch(timeString) {
+    const [hours, minutes, seconds] = timeString.split(':').map(num => parseInt(num));
+    const now = new Date();
+    const date = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, seconds);
+    return date.getTime();
 }
 
 const formatTime = (epoch) => {
@@ -113,7 +148,17 @@ const getTimeSinceOldestOrder = (order) => {
     return result;
 }
 
+function hasPropertyValue(arr, prop, val) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i][prop] === val) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 export default {
+    hasPropertyValue,    
     sortArray,
     sortArrayByCustomer, 
     getFirstName,
@@ -122,5 +167,10 @@ export default {
     getCurrentTime,
     getOldestOrder,
     getTimeSinceOldestOrder,
-    formatTime
+    formatTime,
+    epochToDate,
+    epochToTime,
+    dateToEpoch,
+    timeToEpoch,
+    getTodaysDate
 };

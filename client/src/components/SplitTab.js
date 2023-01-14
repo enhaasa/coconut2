@@ -19,26 +19,27 @@ export function SplitTab(props) {
                             <th>Amount</th>
                             <th>Total</th>
                             <th></th>
+                            
                         </tr>
                     </thead>
 
                     <tbody>
                         {tools.sortArrayByCustomer(props.deliveredOrdersInTable, true).map(order => (  
                             order.customer === customer.id &&   
-                                <tr>
+                                <tr key={order.id}>
                                     <td>{order.name}</td>
                                     <td>{order.price.toLocaleString("en-US")} gil</td>
                                     <td>{order.amount}</td>
                                     <td>{order.total.toLocaleString("en-US")} gil</td>
         
-                                    <nav className="tableNav">
+                                    <td className="tableNav">
                                         <button className="icon" onClick={() => {props.removeOrder(order.ids[order.ids.length -1])}}>
                                             <img src={minusIcon} alt="" />
                                         </button>
                                         <button className="icon" onClick={() => {props.addOrder({...order, delivered: true})}}>
                                             <img src={plusIcon} alt="" />
                                         </button>
-                                    </nav>
+                                    </td>
                                 </tr>  
                         ))}
                     </tbody>
@@ -46,6 +47,7 @@ export function SplitTab(props) {
                     <tfoot>
                     <tr>
                         <td>Total:</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td>{

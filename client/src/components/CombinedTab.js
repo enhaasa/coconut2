@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import tools from '../tools';
-import plusIcon from './../assets/icons/plus-black.png';
-import minusIcon from './../assets/icons/minus-black.png';
 
 export function CombinedTab(props) {
+
+    
 
     return( 
         <>
@@ -20,12 +20,12 @@ export function CombinedTab(props) {
                 <tbody>
                     {tools.sortArray(props.deliveredOrdersInTable, true).map(order => ( 
                                 
-                                    <tr>
-                                        <td>{order.name}</td>
-                                        <td>{order.price.toLocaleString("en-US")} gil</td>
-                                        <td>{order.amount}</td>
-                                        <td>{order.total.toLocaleString("en-US")} gil</td>
-                                    </tr>
+                        <tr key={order.id}>
+                            <td>{order.name}</td>
+                            <td>{order.price.toLocaleString("en-US")} gil</td>
+                            <td>{order.amount}</td>
+                            <td>{order.total.toLocaleString("en-US")} gil</td>
+                        </tr>
                                 
                     ))}
                 </tbody>

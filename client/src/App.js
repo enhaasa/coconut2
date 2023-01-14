@@ -4,8 +4,9 @@ import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
 import { ReceiptManager } from './components/ReceiptManager';
 import uuid from 'react-uuid';
+import { nanoid } from 'nanoid'
 import dbTools_client from './dbTools_client';
-import Axios from "axios";
+import tools from './tools';
 
 //BACKEND_PLACEHOLDER
 import ground from './assets/schematics/ground.jpg';
@@ -59,6 +60,7 @@ function App() {
         customer: order.customer,
         delivered: order.delivered,
         floor: order.floor,
+        table: order.table,
         name: order.name,
         paid: order.paid,
         price: order.price,
@@ -89,12 +91,16 @@ function App() {
       });
   }
 
-  const payOrders = (orderIds) => {
-    const session = uuid();
+  const payOrders = (orders, table) => {
+    const session = nanoid(5);
 
-    orderIds.forEach(id => {
-      payOrder(id, session);
+    orders.forEach(order => {
+      payOrder(order.id, session);
     })
+
+    dbTools_client.tables.put({key: 'session', value: session, condition_key: 'id', condition_value: table});
+    createReceipt(orders, session);
+    updateUpdates("tables");
   }
 
   const payOrder = (id, session) => {
@@ -102,7 +108,6 @@ function App() {
     const index = orders.map(order => order.id).indexOf(id);
     const order = orders[index];
 
-    //const customerName = customers.map(customer => (customer.id === order.customer && customer.name))
     const customerName = customers[customers.map(customer => customer.id).indexOf(order.customer)].name;
 
     const filteredOrder = {
@@ -110,18 +115,43 @@ function App() {
       customerName: customerName,
       floor: order.floor,
       name: order.name,
+      table: order.table,
       price: order.price,
       type: order.type,
       session: session,
       time: order.time
-  }
+    }
   
     //Archive order before deleting
     dbTools_client.archivedOrders.post(filteredOrder);
     removeOrder(id);
-    updateUpdates("orders");
-    updateUpdates("archived_updates");
+    updateUpdates("archived_orders");
   }
+
+    //Creates a receipt on cocosoasis database
+    const createReceipt = (orders, session) => {
+
+      const sortedOrders = tools.sortArray(orders, true);
+  
+      sortedOrders.forEach(order => {
+        const customerName = customers.filter(customer => customer.id === order.customer && customer)[0].name;
+  
+        const filteredOrder = {
+          id: order.id,
+          customerName: customerName,
+          floor: order.floor,
+          name: order.name,
+          price: order.total,
+          date: tools.getTodaysDate(),
+          type: order.type,
+          session: session,
+          amount: order.amount,
+          table: order.table
+        }
+  
+        dbTools_client.receipts.post(filteredOrder);
+      })
+    }
 
   const addCustomer = (table) => {
 
@@ -141,19 +171,7 @@ function App() {
     setSelectedCustomer(null);
   }
 
-  const removeCustomer = (id) => {
-    const customerOrders = orders.map(order => (
-      order.customer === id && order
-    ))
-
-    let removalIsSafe = true;
-    const deliveredOrders = customerOrders.filter(order => order.delivered).length;
-    const unDeliveredOrders = customerOrders.filter(order => !order.delivered).length;
-
-    if (deliveredOrders > 0) {removalIsSafe = false};
-    if (unDeliveredOrders > 0) {removalIsSafe = false};
-
-    
+  const removeCustomer = (id, table) => {
     removeAllUndeliveredOrders(id);
     removeAllUnpaidOrders(id);
 
@@ -163,6 +181,14 @@ function App() {
         ))
     ));
 
+    const customersInTable = customers.filter(customer => (
+      customer.table === table.id
+    ));
+    
+    if (customersInTable.length-1 === 0) {
+      dbTools_client.tables.put({key: 'session', value: null, condition_key: 'id', condition_value: table.id});
+    }
+    
     dbTools_client.customers.delete(id);
     updateUpdates("customers");
     setSelectedCustomer(null);
@@ -277,7 +303,7 @@ function App() {
     selectedTable !== null ?
     setIsBlurred(true) :
       setIsBlurred(false);
-  });
+  }, [selectedTable]);
 
   useEffect(() => {
     setSelectedCustomer(null);
@@ -326,7 +352,7 @@ function App() {
           if (newArchivedOrdersUpdateId !== archivedOrdersUpdateId.current) {
             refreshArchivedOrders();
             archivedOrdersUpdateId.current = newArchivedOrdersUpdateId;
-        }
+          }
         }
       });
       
@@ -410,7 +436,7 @@ function App() {
 
           <div className="appInfo">
               <span className="logo">
-                <img src={logo} />
+                <img src={logo} alt="" />
               </span>
           
               <span className="text">
@@ -431,7 +457,16 @@ function App() {
         />
       </section>
 
+      {
+        false &&
+        <section className="ReceiptManagerContainer">
+          <ReceiptManager 
+            archivedOrders={archivedOrders}
+          />
+        </section>
+      }
       
+
     </div>
   );
 }
