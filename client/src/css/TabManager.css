@@ -28,7 +28,7 @@
 .TabManagerContainer .TabManager .tabNav {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 .TabManagerContainer .TabManager .tabNav .receipt {
   color: grey;
@@ -36,6 +36,19 @@
 .TabManagerContainer .TabManager .tabList {
   max-height: 300px;
   overflow-y: auto;
+}
+.TabManagerContainer .TabManager .receiptRP {
+  display: block;
+}
+.TabManagerContainer .TabManager .receiptRP textarea {
+  margin-top: 5px;
+  word-break: break-word;
+  width: calc(100% - 8px);
+  resize: none;
+  border: 2px solid black;
+  font-size: 14px;
+  background: rgb(36, 30, 11);
+  color: white;
 }
 .TabManagerContainer .TabManager .viewNav {
   display: flex;

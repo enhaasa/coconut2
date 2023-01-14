@@ -90,12 +90,25 @@ export function TabManager(props) {
                 </div>
 
                 <nav className="tabNav">
-                    
+                    <span className="receipt">
+                        {props.table.session !== null ?
+                        <a href={`https://cocosoasis.info/r.php?id=${props.table.session}`}>{`Receipt Link`}</a> :
+                        <span className="noresult">No Receipt Available</span>}
+                    </span>
+
                     <button 
                     className={`payButton ${props.deliveredOrdersInTable.map(order => order).length === 0 ? "inactive" : "constructive"}`}
                     disabled={props.deliveredOrdersInTable.map(order => order).length === 0}
                     onClick={() => {confirmPayOrders(props.deliveredOrdersInTable.map(order => order))}}>Pay & Archive</button>
                 </nav>
+
+                {props.table.session !== null &&
+                    <div className="receiptRP">
+                        <textarea 
+                            defaultValue={`/em hands over the tab: cocosoasis.info/r.php?id=${props.table.session}`} 
+                        />
+                    </div>
+                }
 
             </section>
         </div>

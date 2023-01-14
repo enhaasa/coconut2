@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 */
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     user: 'linroot',
     host: 'lin-13330-7942-mysql-primary.servers.linodedb.net',
     password: 'nk7PTUbmdz0Xl^62',
@@ -29,7 +29,7 @@ const db = mysql.createConnection({
 });
 
 //Coco's Oasis Specific DB
-const cocosoasis_db = mysql.createConnection({
+const cocosoasis_db = mysql.createPool({
     user: 'u328611697_root',
     host: 'sql733.main-hosting.eu',
     password: 'YAa9E1OWh[y1.Oq4rf.%',

@@ -104,7 +104,7 @@ function App() {
     })
 
     dbTools_client.tables.put({key: 'session', value: session, condition_key: 'id', condition_value: table});
-    //createReceipt(orders, session);
+    createReceipt(orders, session);
     updateUpdates("tables");
   }
 
