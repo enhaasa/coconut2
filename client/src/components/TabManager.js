@@ -40,8 +40,6 @@ export function TabManager(props) {
         })
     }
 
-    console.log(props.table);
-
     return(
         <div className="TabManagerContainer">
             <section className="TabManager">
@@ -91,12 +89,15 @@ export function TabManager(props) {
                     }
                 </div>
 
-                
-
                 <nav className="tabNav">
                     <button className="receiptButton constructive"onClick={() => {}}>Create Receipt</button>
                     <button className="payButton constructive" onClick={() => {confirmPayOrders(props.deliveredOrdersInTable.map(order => order))}}>Pay & Archive</button>
                 </nav>
+
+                <div className="receipt">
+
+                    <a href={`https://cocosoasis.info/r.php?id=${props.table.session}`}>{`Receipt Link (${props.table.session})`}</a>
+                </div>
 
             </section>
         </div>
