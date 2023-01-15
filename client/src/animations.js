@@ -1,5 +1,3 @@
-import gsap from "gsap";
-
 export default {
     softElastic: {
         duration: 0.3, 
