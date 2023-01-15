@@ -1,13 +1,25 @@
-import React, { useState }from 'react';
+import React, { useLayoutEffect, useState, useRef }from 'react';
 import { OrderManager } from './OrderManager';
 import { TabManager } from './TabManager';
 import uuid from 'react-uuid';
+import { gsap } from 'gsap';
+import animations from '../animations.js'
 
 import closeIcon from './../assets/icons/close.png';
 import basketIcon from './../assets/icons/shopping-cart.png';
 import { ConfirmBox } from './ConfirmBox';
 
 export function TableManager(props) {
+
+    //Mount animations
+    const TableManagerRef = useRef();
+    useLayoutEffect(() => {
+        gsap.from(TableManagerRef.current, animations.softElastic);
+
+        return () => {
+            gsap.to(TableManagerRef.current, animations.softElastic);
+        }
+    }, []);
 
     const [isBlurred, setIsBlurred] = useState(false);
     const [viewTab, setViewTab] = useState(false);
@@ -62,7 +74,7 @@ export function TableManager(props) {
     
     return (
         props.table.id !== null &&
-        <div className="TableManager">
+        <div className="TableManager" ref={TableManagerRef}>
             {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
             {isBlurred && <div className="blur" />}
 

@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Table } from './Table';
+import gsap from 'gsap';
+import animations from '../animations';
 
 import overlay from './../assets/icons/dark-fabric.png';
 
 export function Floor(props) {
 
+    const FloorRef = useRef();
+    useLayoutEffect(() => {
+        gsap.from(FloorRef.current, animations.fadeSlow);
+
+        return () => {
+            gsap.to(FloorRef.current, animations.fadeSlow);
+        }
+    }, []);
+
     return (
-        <div className="Floor">
+        <div className="Floor" ref={FloorRef}>
             <img className="overlay" src={overlay} alt="" />
             <img className="floorImage" src={props.floor.schematics} alt="" />
             

@@ -1,9 +1,20 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useLayoutEffect } from 'react';
 import tools from '../tools';
+import gsap from 'gsap';
+import animations from '../animations';
 
 import stopwatchIcon from './../assets/icons/stopwatch-white.png';
 
 export function Table(props) {
+
+    const TableRef = useRef();
+    useLayoutEffect(() => {
+        gsap.from(TableRef.current, animations.appearY);
+
+        return () => {
+            gsap.to(TableRef.current, animations.appearY);
+        }
+    }, []);
 
     const tablenumberColor = () => {
         if (props.table.isAvailable && !props.table.isReserved) return "constructive";
@@ -68,6 +79,7 @@ export function Table(props) {
         <div>          
             <div 
                 className={`Table`}
+                ref={TableRef}
                 key={props.table.id}
                 style={{
                     left:props.table.posX, 

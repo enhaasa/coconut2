@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import tools from '../tools';
 import { SplitTab } from './SplitTab';
 import { CombinedTab } from './CombinedTab';
 import { ConfirmBox } from './ConfirmBox';
 import closeIcon from './../assets/icons/close.png';
+import gsap from 'gsap';
+import animations from '../animations';
 
 export function TabManager(props) {
 
     const [ isBlurred, setIsBlurred ] = useState(false);
     const [ tabView, setTabView ] = useState('combined');
 
+    const TabManagerRef = useRef();
+    useLayoutEffect(() => {
+        gsap.from(TabManagerRef.current, animations.softElastic);
+
+        return () => {
+            gsap.to(TabManagerRef.current, animations.softElastic);
+        }
+    }, []);
 
     function close() {
         props.handleViewTab(false);
@@ -41,7 +51,7 @@ export function TabManager(props) {
     }
 
     return(
-        <div className="TabManagerContainer">
+        <div className="TabManagerContainer" ref={TabManagerRef}>
             <section className="TabManager">
                 {isBlurred && <div className="blur"></div>}
 

@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef} from 'react';
 import closeIcon from './../assets/icons/close.png';
+import gsap from 'gsap';
+import animations from '../animations';
 
 export function Infobox(props) {
 
+    const InfoBoxRef = useRef();
+    useLayoutEffect(() => {
+        gsap.from(InfoBoxRef.current, animations.softElastic);
+
+        return () => {
+            gsap.to(InfoBoxRef.current, animations.softElastic);
+        }
+    }, []);
+
     return (
-        <div className="InfoboxContainer">
+        <div className="InfoboxContainer" ref={InfoBoxRef}>
             <div className="Infobox">
                 <div className="infoTitle">
                     {!!props.item.name && props.item.name}

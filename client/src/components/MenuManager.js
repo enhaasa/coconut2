@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import { Infobox } from './Infobox';
 import tools from '../tools';
 import uuid from 'react-uuid';
+import gsap from 'gsap';
+import animations from '../animations';
 
 import closeIcon from './../assets/icons/close.png';
 import infoIcon from './../assets/icons/info-small-white.png';
 
 export function MenuManager(props) {
+
+    const MenuManagerRef = useRef();
+    useLayoutEffect(() => {
+        gsap.from(MenuManagerRef.current, animations.appearY);
+
+        return () => {
+            gsap.to(MenuManagerRef.current, animations.appearY);
+        }
+    }, []);
     
     const menuTypes = props.menu.map(menuItem => (menuItem.type)).filter((item, index, array) => (array.indexOf(item) === index));
     const [ itemInfo, setItemInfo ] = useState(null);
@@ -25,7 +36,7 @@ export function MenuManager(props) {
 
     return (
         !!props.selectedCustomer &&
-            <div className="MenuManager">
+            <div className="MenuManager" ref={MenuManagerRef}>
                 {isBlurred && <div className="blur" />} 
 
                 {!!itemInfo && <Infobox item={itemInfo} handleItemInfo={handleItemInfo}/>}

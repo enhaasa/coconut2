@@ -6,7 +6,7 @@ import { ReceiptManager } from './components/ReceiptManager';
 import uuid from 'react-uuid';
 import { nanoid } from 'nanoid'
 import dbTools_client from './dbTools_client';
-import tools from './tools';
+
 
 //BACKEND_PLACEHOLDER
 import ground from './assets/schematics/ground.jpg';

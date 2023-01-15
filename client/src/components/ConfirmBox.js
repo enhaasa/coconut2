@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
+import animations from '../animations';
 
 export function ConfirmBox(props) {
+
+    const ConfirmBoxRef = useRef();
+    useLayoutEffect(() => {
+        gsap.from(ConfirmBoxRef.current, animations.softElastic);
+
+        return () => {
+            gsap.to(ConfirmBoxRef.current, animations.softElastic);
+        }
+    }, []);
 
     const callback = props.data.callback;
     const closeConfirmBox = props.data.closeConfirmBox;
@@ -16,7 +27,7 @@ export function ConfirmBox(props) {
     }
 
     return (
-        <div className="ConfirmBoxContainer">
+        <div className="ConfirmBoxContainer" ref={ConfirmBoxRef}>
             <div className="confirmBox">
                 <div className="title">
                     {title}
