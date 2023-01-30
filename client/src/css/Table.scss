@@ -132,6 +132,15 @@
             position:absolute;
         }
 
+        .unPaidTabContainer {
+          transform:rotate(340deg) translate(-18px, -18px) rotate(-340deg);
+          position:absolute;
+
+          & img {
+            //filter: drop-shadow(0 0 5px $darkgrey);
+          }
+        }
+
     }
 
   }

@@ -127,4 +127,8 @@
 .Table .numberDisplay .notificationContainer {
   transform: rotate(340deg) translate(50px, 5px) rotate(-340deg);
   position: absolute;
+}
+.Table .numberDisplay .unPaidTabContainer {
+  transform: rotate(340deg) translate(-18px, -18px) rotate(-340deg);
+  position: absolute;
 }/*# sourceMappingURL=Table.css.map */

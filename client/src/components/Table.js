@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import animations from '../animations';
 
 import stopwatchIcon from './../assets/icons/stopwatch-white.png';
+import unPaidTabIcon from './../assets/icons/unPaidTab.png';
 
 export function Table(props) {
 
@@ -32,7 +33,6 @@ export function Table(props) {
         customer.table === props.table.id &&
             customer.name !== ""
     ))
-
     let blankNames = props.customers.filter((customer) => (
         customer.table === props.table.id && 
             customer.floor === props.table.floor &&
@@ -50,14 +50,19 @@ export function Table(props) {
         customer.table === props.table.id
     ))
         
+    let deliveredOrdersInTable = [];
     let undeliveredOrdersInTable = [];
-    customersInTable.forEach(customer => {
-        props.orders.forEach(order => {
-            !order.delivered &&
-                customer.id === order.customer && 
+    const customerIds = customersInTable.map(c => c.id);
+    props.orders.forEach(order => {
+        if (customerIds.includes(order.customer)) {
+            if (order.delivered) {
+                deliveredOrdersInTable.push(order);
+            } else {
                 undeliveredOrdersInTable.push(order);
-        })
+            }
+        }
     });
+
     
     const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(tools.getTimeSinceOldestOrder(tools.getOldestOrder(undeliveredOrdersInTable)));
 
@@ -86,7 +91,6 @@ export function Table(props) {
                     top:props.table.posY
             }}>
 
-
                 {props.table.waiter !== "" &&
                     <div className={`waiter waiterContainer`}>
                     
@@ -98,9 +102,25 @@ export function Table(props) {
                         <p className="dots"><span>&bull;</span><span>&bull;</span><span>&bull;</span></p>
                     </div>}
 
+            
+
                 <button 
                     className={`numberDisplay ${tablenumberColor()}`}
                     onClick={() => {props.setSelectedTable(props.table.id)}}>
+
+                    {
+                        <div className="unPaidTabContainer">
+                            <span className="unPaidTab">
+                                {deliveredOrdersInTable.length > 0 ? 
+                                
+                                    <div className="">
+                                        <img src={unPaidTabIcon} /> 
+                                    </div>
+                                    : ""}
+                            </span>
+                        </div>
+                    }
+
 
                     {undeliveredOrdersInTable.length > 0 && 
                         <div className="notificationContainer">
@@ -117,7 +137,6 @@ export function Table(props) {
 
                     <span className="number">
                         {props.table.id + 1}
-                    
                     </span>
                 
                 </button>
