@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import animations from '../animations';
 
 export function Infobox(props) {
+    const { item, handleItemInfo } = props;
 
     const InfoBoxRef = useRef();
     useLayoutEffect(() => {
@@ -18,8 +19,8 @@ export function Infobox(props) {
         <div className="InfoboxContainer" ref={InfoBoxRef}>
             <div className="Infobox">
                 <div className="infoTitle">
-                    {!!props.item.name && props.item.name}
-                    <button className="closeButton" onClick={() => props.handleItemInfo(null)}>
+                    {!!item.name && item.name}
+                    <button className="closeButton" onClick={() => handleItemInfo(null)}>
                         <img src={closeIcon} />
                     </button>
                 </div>
@@ -28,8 +29,8 @@ export function Infobox(props) {
                     <div className=" section description">
                     <span className="sectionHeader cursive">Description</span>
                         <p className="quote">
-                            {!!props.item.description ? 
-                                props.item.description :
+                            {!!item.description ? 
+                                item.description :
                                 <span className="noresult">This item has no documented description.</span>}  
                         </p>
                     </div>
@@ -37,8 +38,8 @@ export function Infobox(props) {
                     <div className="section ingredients">
                     <span className="sectionHeader cursive">Ingredients</span>
                         <p>
-                            {!!props.item.ingredients ? 
-                                props.item.ingredients.join(", ") :
+                            {!!item.ingredients ? 
+                                item.ingredients.join(", ") :
                                 <span className="noresult">This item has no documented ingredients.</span>}  
                         </p>
                     </div>
@@ -46,8 +47,8 @@ export function Infobox(props) {
                     <div className="section pairing">
                         <span className="sectionHeader cursive">Pairings</span>
                         <p>
-                            {!!props.item.pairings ? 
-                                props.item.pairings :
+                            {!!item.pairings ? 
+                                item.pairings :
                                 <span className="noresult">This item has no documented pairings.</span>}  
                         </p>
                     </div>

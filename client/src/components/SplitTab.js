@@ -4,11 +4,15 @@ import plusIcon from './../assets/icons/plus-black.png';
 import minusIcon from './../assets/icons/minus-black.png';
 
 export function SplitTab(props) {
-
-//tools.sortArrayByCustomer(props.deliveredOrdersInTable, true).reduce((total, order) => (total + order.price), 0).toLocaleString("en-US") + " gil"
+    const { 
+        customersInTable,
+        deliveredOrdersInTable,
+        removeOrder,
+        addOrder,
+    } = props;
 
     return( 
-        props.customersInTable.map(customer => (
+        customersInTable.map(customer => (
             <>
                 <span className="name">{customer.name}</span>
                 <table className="itemTable">
@@ -24,7 +28,7 @@ export function SplitTab(props) {
                     </thead>
 
                     <tbody>
-                        {tools.sortArrayByCustomer(props.deliveredOrdersInTable, true).map(order => (  
+                        {tools.sortArrayByCustomer(deliveredOrdersInTable, true).map(order => (  
                             order.customer === customer.id &&   
                                 <tr key={order.id}>
                                     <td>{order.name}</td>
@@ -33,10 +37,10 @@ export function SplitTab(props) {
                                     <td>{order.total.toLocaleString("en-US")} gil</td>
         
                                     <td className="tableNav">
-                                        <button className="icon" onClick={() => {props.removeOrder(order.ids[order.ids.length -1])}}>
+                                        <button className="icon" onClick={() => {removeOrder(order.ids[order.ids.length -1])}}>
                                             <img src={minusIcon} alt="" />
                                         </button>
-                                        <button className="icon" onClick={() => {props.addOrder({...order, delivered: true})}}>
+                                        <button className="icon" onClick={() => {addOrder({...order, delivered: true})}}>
                                             <img src={plusIcon} alt="" />
                                         </button>
                                     </td>
@@ -51,7 +55,7 @@ export function SplitTab(props) {
                         <td></td>
                         <td></td>
                         <td>{
-                            props.deliveredOrdersInTable.map(order => (
+                            deliveredOrdersInTable.map(order => (
                                 customer.id === order.customer && order.price
                             )).reduce(((total, order) => total + order), 0).toLocaleString("en-US") + " gil"
                         }</td>

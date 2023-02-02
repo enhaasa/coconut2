@@ -11,6 +11,26 @@ import basketIcon from './../assets/icons/shopping-cart.png';
 
 
 export function TableManager(props) {
+    const { 
+        table, 
+        staff,
+        orders,
+        customers,
+        setSelectedCustomer,
+        setSelectedTable,
+        setTableWaiter,
+        toggleTableIsAvailable,
+        toggleTableIsReserved,
+        addOrder,
+        removeOrder,
+        payOrders,
+        archivedOrders,
+        deliverOrder,
+        deliverAll,
+        addCustomer,
+        removeCustomer,
+        editCustomerName,
+    } = props;
 
     //Mount animations
     const TableManagerRef = useRef();
@@ -42,24 +62,24 @@ export function TableManager(props) {
     }
 
     function tablenumberColor() {
-        if (props.table.isAvailable && !props.table.isReserved) return "constructive"
-        if (!props.table.isAvailable) return "destructive";
-        if (props.table.isReserved) return "progressive";
+        if (table.isAvailable && !table.isReserved) return "constructive"
+        if (!table.isAvailable) return "destructive";
+        if (table.isReserved) return "progressive";
     }
 
     function close(){
-        props.setSelectedCustomer(null);
-        props.setSelectedTable(null);
+        setSelectedCustomer(null);
+        setSelectedTable(null);
     }
 
-    const customersInTable = props.customers.filter(customer => (
-        customer.table === props.table.id
+    const customersInTable = customers.filter(customer => (
+        customer.table === table.id
     ))
 
     let deliveredOrdersInTable = [];
     let unDeliveredOrdersInTable = [];
     customersInTable.forEach(customer => {
-        props.orders.forEach(order => {
+        orders.forEach(order => {
             order.delivered ?
                 !order.paid &&
                     customer.id === order.customer && 
@@ -72,7 +92,7 @@ export function TableManager(props) {
         deliveredOrdersInTable.reduce((total, order) => total + order.price, 0) : 0;
     
     return (
-        props.table.id !== null &&
+        table.id !== null &&
         <div className="TableManager" ref={TableManagerRef}>
             {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
             {isBlurred && <div className="blur" />}
@@ -80,15 +100,15 @@ export function TableManager(props) {
             <div className="title">
                 <div className="assignWaiter">
                     <span className="cursive">Waiter:</span>
-                    {props.staff.length === 0 ? "Loading..." :
+                    {staff.length === 0 ? "Loading..." :
                         <select 
                             name="waiters" 
                             id="waiters" 
-                            value={props.table.waiter} 
-                            onChange={(e) => {props.setTableWaiter(props.table, e.target.value)}
+                            value={table.waiter} 
+                            onChange={(e) => {setTableWaiter(table, e.target.value)}
                         }>
                             <option key={uuid()}></option>
-                            {props.staff.map(staff => {
+                            {staff.map(staff => {
 
                                 return (
                                     staff.positions.includes("waiter") && 
@@ -103,7 +123,7 @@ export function TableManager(props) {
                         
                 <span className={`tablenumber ${tablenumberColor()}`}>
 
-                    {props.table.id +1}
+                    {table.id +1}
                 </span>
 
                 <button className="closeButton" onClick={close}>
@@ -120,8 +140,8 @@ export function TableManager(props) {
                             <input 
                                 type="checkbox" 
                                 readOnly 
-                                checked={props.table.isAvailable}
-                                onClick={() => props.toggleTableIsAvailable(props.table)} />
+                                checked={table.isAvailable}
+                                onClick={() => toggleTableIsAvailable(table)} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -132,8 +152,8 @@ export function TableManager(props) {
                             <input 
                             type="checkbox" 
                             readOnly 
-                            checked={props.table.isReserved} 
-                            onClick={() => props.toggleTableIsReserved(props.table)} />
+                            checked={table.isReserved} 
+                            onClick={() => toggleTableIsReserved(table)} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -158,31 +178,31 @@ export function TableManager(props) {
             {viewTab && <TabManager 
                 deliveredOrdersInTable={deliveredOrdersInTable}
                 customersInTable={customersInTable}
-                table={props.table} 
-                orders={props.orders}
-                addOrder={props.addOrder}
-                removeOrder={props.removeOrder}
-                payOrders={props.payOrders}
-                archivedOrders={props.archivedOrders}
+                table={table} 
+                orders={orders}
+                addOrder={addOrder}
+                removeOrder={removeOrder}
+                payOrders={payOrders}
+                archivedOrders={archivedOrders}
                 handleViewTab={handleViewTab}
                 tabTotal={tabTotal}
                 setConfirmBox={setConfirmBox}
             />}
 
             <OrderManager 
-                table={props.table} 
-                orders={props.orders}
-                addOrder={props.addOrder}
-                removeOrder={props.removeOrder}
-                deliverOrder={props.deliverOrder}
-                deliverAll={props.deliverAll}
-                customers={props.customers}
+                table={table} 
+                orders={orders}
+                addOrder={addOrder}
+                removeOrder={removeOrder}
+                deliverOrder={deliverOrder}
+                deliverAll={deliverAll}
+                customers={customers}
                 customersInTable={customersInTable}
                 unDeliveredOrdersInTable={unDeliveredOrdersInTable}
-                addCustomer={props.addCustomer}
-                removeCustomer={props.removeCustomer}
-                editCustomerName={props.editCustomerName}
-                setSelectedCustomer={props.setSelectedCustomer}
+                addCustomer={addCustomer}
+                removeCustomer={removeCustomer}
+                editCustomerName={editCustomerName}
+                setSelectedCustomer={setSelectedCustomer}
                 openConfirmBox={openConfirmBox}
                 closeConfirmBox={closeConfirmBox}
             />

@@ -1,0 +1,26 @@
+@import 'colorset'; 
+
+.Receipt {
+
+    & .name {
+        color: black;
+        padding: 0 10px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    & .link a{
+        padding: 0 10px;
+    }
+
+    & .total {
+        padding: 0 10px;
+        color: $wine;
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+
+        border-bottom: 2px solid black;
+    }
+}
+

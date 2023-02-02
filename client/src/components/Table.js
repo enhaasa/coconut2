@@ -7,6 +7,8 @@ import stopwatchIcon from './../assets/icons/stopwatch-white.png';
 import unPaidTabIcon from './../assets/icons/unPaidTab.png';
 
 export function Table(props) {
+    const { orders, table, customers, maxDeliveryTime, setSelectedTable } = props;
+    const { getFirstName, getLastNames, getTimeSinceOldestOrder, getOldestOrder, formatTime } = tools;
 
     const TableRef = useRef();
     useLayoutEffect(() => {
@@ -18,24 +20,24 @@ export function Table(props) {
     }, []);
 
     const tablenumberColor = () => {
-        if (props.table.isAvailable && !props.table.isReserved) return "constructive";
-        if (!props.table.isAvailable) return "destructive";
-        if (props.table.isReserved) return "progressive";
+        if (table.isAvailable && !table.isReserved) return "constructive";
+        if (!table.isAvailable) return "destructive";
+        if (table.isReserved) return "progressive";
     }
 
     const notificationColor = () => {
         if (!timeSinceLastOrder) return "progressive";
-        if (timeSinceLastOrder <= props.maxDeliveryTime) return "progressive";
-        if (timeSinceLastOrder > props.maxDeliveryTime) return "destructive";
+        if (timeSinceLastOrder <= maxDeliveryTime) return "progressive";
+        if (timeSinceLastOrder > maxDeliveryTime) return "destructive";
     }
 
-    let noBlankNames = props.customers.filter((customer) => (
-        customer.table === props.table.id &&
+    let noBlankNames = customers.filter((customer) => (
+        customer.table === table.id &&
             customer.name !== ""
     ))
-    let blankNames = props.customers.filter((customer) => (
-        customer.table === props.table.id && 
-            customer.floor === props.table.floor &&
+    let blankNames = customers.filter((customer) => (
+        customer.table === table.id && 
+            customer.floor === table.floor &&
                 customer.name === ""
     ))
 
@@ -46,14 +48,14 @@ export function Table(props) {
 
     const totalAdditions = exceedingMaxPreview.length + blankNames.length;
 
-    const customersInTable = props.customers.filter(customer => (
-        customer.table === props.table.id
+    const customersInTable = customers.filter(customer => (
+        customer.table === table.id
     ))
         
     let deliveredOrdersInTable = [];
     let undeliveredOrdersInTable = [];
     const customerIds = customersInTable.map(c => c.id);
-    props.orders.forEach(order => {
+    orders.forEach(order => {
         if (customerIds.includes(order.customer)) {
             if (order.delivered) {
                 deliveredOrdersInTable.push(order);
@@ -64,15 +66,15 @@ export function Table(props) {
     });
 
     
-    const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(tools.getTimeSinceOldestOrder(tools.getOldestOrder(undeliveredOrdersInTable)));
+    const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrdersInTable)));
 
     useEffect(() => {
         //Not the most elegant solution but will make sure timers start at 0 from first second
-        setTimeSinceLastOrder(tools.getTimeSinceOldestOrder(tools.getOldestOrder(undeliveredOrdersInTable))); 
+        setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrdersInTable))); 
 
         const timer = setInterval(() => {
             undeliveredOrdersInTable.length > 0 &&
-                setTimeSinceLastOrder(tools.getTimeSinceOldestOrder(tools.getOldestOrder(undeliveredOrdersInTable)));
+                setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrdersInTable)));
         }, 1000);
 
         return () => {
@@ -85,16 +87,16 @@ export function Table(props) {
             <div 
                 className={`Table`}
                 ref={TableRef}
-                key={props.table.id}
+                key={table.id}
                 style={{
-                    left:props.table.posX, 
-                    top:props.table.posY
+                    left:table.posX, 
+                    top:table.posY
             }}>
 
-                {props.table.waiter !== "" &&
+                {table.waiter !== "" &&
                     <div className={`waiter waiterContainer`}>
                     
-                    {tools.getFirstName(props.table.waiter)}
+                    {getFirstName(table.waiter)}
                 </div>}
 
                 {false &&
@@ -106,7 +108,7 @@ export function Table(props) {
 
                 <button 
                     className={`numberDisplay ${tablenumberColor()}`}
-                    onClick={() => {props.setSelectedTable(props.table.id)}}>
+                    onClick={() => {setSelectedTable(table.id)}}>
 
                     {
                         <div className="unPaidTabContainer">
@@ -130,13 +132,13 @@ export function Table(props) {
 
                             <div className="addendum">
                                 <img src={stopwatchIcon} />
-                                {tools.formatTime(timeSinceLastOrder)}
+                                {formatTime(timeSinceLastOrder)}
                             </div>
                         </div>
                         }
 
                     <span className="number">
-                        {props.table.id + 1}
+                        {table.id + 1}
                     </span>
                 
                 </button>
@@ -145,7 +147,7 @@ export function Table(props) {
                     <ul>
                         {noBlankNames.map((customer, index) => ( 
                             index < maxPreview &&
-                                <li key={customer.id}>{tools.toInitialsFirstNames(customer.name)}</li>
+                                <li key={customer.id}>{`${getFirstName(customer.name)} ${getLastNames(customer.name).join("").charAt(0)}`}</li>
                         ))}
                         {totalAdditions > 0 && <li>+{totalAdditions}</li>}
                     </ul>

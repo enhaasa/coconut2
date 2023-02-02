@@ -58,6 +58,35 @@ const sortArray = (array, sortDelivered) => {
     return sortedArray;
 }
 
+const sortArchivedArray = (array) => {
+    let sortedArray = [];
+
+    array.forEach((arrayItem, index) => {
+
+        let duplicate = false;
+        let duplicateIndex = 0;
+
+        sortedArray.forEach((sortedItem, index) => {
+            if(sortedItem.name === arrayItem.name 
+                && sortedItem.price === arrayItem.price) {
+                    duplicate = true;
+                    duplicateIndex = index;
+                } 
+        })
+
+        if (!duplicate) {
+            sortedArray.push({...arrayItem, amount: 1, ids: [arrayItem.id], total: arrayItem.price});
+        } else {
+            sortedArray[duplicateIndex].amount ++;
+            sortedArray[duplicateIndex].ids.push(arrayItem.id);
+            sortedArray[duplicateIndex].total += arrayItem.price;
+        }
+        
+    });
+
+    return sortedArray;
+}
+
 
 const toInitialsFirstNames = (name) => {
     const fullName = name.split(' ');
@@ -79,6 +108,10 @@ const getFirstName = (name) => {
     return name.split(' ')[0];
 }
 
+const getLastNames = (name) => {
+    return name.split(' ').slice(1);
+}
+
 const capitalizeFirstLetter = string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -87,15 +120,20 @@ const getCurrentTime = () => {
     const today = new Date();
     return today.getTime();
 }
-function getTodaysDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
+function getDate(offset) {
+
+    const date = new Date();
+    date.setDate(offset(date.getDate()));
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    /*
     const hours = String(today.getHours()).padStart(2, "0");
     const minutes = String(today.getMinutes()).padStart(2, "0");
     const seconds = String(today.getSeconds()).padStart(2, "0");
-    return `${year}:${month}:${day} ${hours}:${minutes}:${seconds}`;
+    */
+    return `${day}.${month}.${year}`;
 }
 
 function epochToDate(epochTime) {
@@ -161,7 +199,9 @@ export default {
     hasPropertyValue,    
     sortArray,
     sortArrayByCustomer, 
+    sortArchivedArray,
     getFirstName,
+    getLastNames,
     toInitialsFirstNames, 
     capitalizeFirstLetter,
     getCurrentTime,
@@ -172,5 +212,5 @@ export default {
     epochToTime,
     dateToEpoch,
     timeToEpoch,
-    getTodaysDate
+    getDate
 };

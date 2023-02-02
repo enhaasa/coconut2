@@ -11,6 +11,7 @@ import './css/MenuManager.css';
 import './css/Infobox.css';
 import './css/ConfirmBox.css';
 import './css/ReceiptManager.css'
+import './css/Receipt.css'
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

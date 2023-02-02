@@ -46,21 +46,6 @@
             overflow-y: auto;
         }
 
-        & .receiptRP {
-            display: block;
-
-            & textarea {
-                margin-top: 5px;
-                word-break: break-word;
-                width: calc(100% - 8px);
-                resize: none;
-                border: 2px solid black;
-                font-size: 14px;
-                background: $background-dark;
-                color: white;
-            }
-        }
-
         & .viewNav {
             display: flex;
             border-top: 2px dotted grey;
@@ -91,5 +76,20 @@
             background: none;
             border: none;
         }
+    }
+}
+
+.receiptRP {
+    display: block;
+
+    & textarea {
+        margin-top: 5px;
+        word-break: break-word;
+        width: calc(100% - 8px);
+        resize: none;
+        border: 2px solid black;
+        font-size: 14px;
+        background: $background-dark;
+        color: white;
     }
 }

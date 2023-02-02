@@ -9,6 +9,12 @@ import closeIcon from './../assets/icons/close.png';
 import infoIcon from './../assets/icons/info-small-white.png';
 
 export function MenuManager(props) {
+    const { 
+        menu,
+        setSelectedCustomer,
+        selectedCustomer,
+        addOrder,
+    } = props;
 
     const MenuManagerRef = useRef();
     useLayoutEffect(() => {
@@ -19,12 +25,12 @@ export function MenuManager(props) {
         }
     }, []);
     
-    const menuTypes = props.menu.map(menuItem => (menuItem.type)).filter((item, index, array) => (array.indexOf(item) === index));
+    const menuTypes = menu.map(menuItem => (menuItem.type)).filter((item, index, array) => (array.indexOf(item) === index));
     const [ itemInfo, setItemInfo ] = useState(null);
     const [ isBlurred, setIsBlurred ] = useState(false);
 
     const close = () => {
-        props.setSelectedCustomer(null);
+        setSelectedCustomer(null);
     }
 
     const handleItemInfo = (item) => {
@@ -35,14 +41,14 @@ export function MenuManager(props) {
     }
 
     return (
-        !!props.selectedCustomer &&
+        !!selectedCustomer &&
             <div className="MenuManager" ref={MenuManagerRef}>
                 {isBlurred && <div className="blur" />} 
 
                 {!!itemInfo && <Infobox item={itemInfo} handleItemInfo={handleItemInfo}/>}
 
                     <span className="menuTitle">
-                        <span className="customerTitle">{props.selectedCustomer.name}</span>
+                        <span className="customerTitle">{selectedCustomer.name}</span>
                         <button className="closeButton" onClick={(close)}>
                             <img src={closeIcon} alt="" />
                         </button>
@@ -50,12 +56,12 @@ export function MenuManager(props) {
                     
                     <div className="menuContainer">
 
-                        {props.menu.length === 0 ? "Loading..." :
+                        {menu.length === 0 ? "Loading..." :
                         menuTypes.map(menuType => (
                             <div className="type" key={uuid()}>
                                 <div className="typeTitle cursive">{tools.capitalizeFirstLetter(menuType) + "s"}</div>
 
-                                {props.menu.map(item => (
+                                {menu.map(item => (
                                     menuType === item.type && 
                                         <div className="itemContainer" key={item.id}>
                                             <div className="item">
@@ -70,21 +76,21 @@ export function MenuManager(props) {
                                                 </span>
 
                                                 <nav className="itemNav">
-                                                    <button className="progressive" onClick={() => {props.addOrder({
+                                                    <button className="progressive" onClick={() => {addOrder({
                                                         ...item, 
-                                                        customer: props.selectedCustomer.id, 
-                                                        floor: props.selectedCustomer.floor, 
-                                                        table: props.selectedCustomer.table,
+                                                        customer: selectedCustomer.id, 
+                                                        floor: selectedCustomer.floor, 
+                                                        table: selectedCustomer.table,
                                                         delivered: false,
                                                         paid: false,
                                                         time: tools.getCurrentTime()
                                                     })}}>{item.price.toLocaleString("en-US")} gil</button>
 
-                                                    <button className="constructive" onClick={() => {props.addOrder({
+                                                    <button className="constructive" onClick={() => {addOrder({
                                                         ...item, 
-                                                        customer: props.selectedCustomer.id, 
-                                                        floor: props.selectedCustomer.floor, 
-                                                        table: props.selectedCustomer.table,
+                                                        customer: selectedCustomer.id, 
+                                                        floor: selectedCustomer.floor, 
+                                                        table: selectedCustomer.table,
                                                         price: 0, 
                                                         delivered: false,
                                                         paid: false,

@@ -39,14 +39,14 @@ function App() {
 
   const [ orders, setOrders ] = useState([]);
   const refreshOrders = () => {
-      dbTools_client.orders.get().then(res => {
-        setOrders(res.map(item => (
-          {...item,
-            paid: item.paid === 1 ? true : false,
-            delivered: item.delivered === 1 ? true : false
-          }
-        )))
-      });
+    dbTools_client.orders.get().then(res => {
+      setOrders(res.map(item => (
+        {...item,
+          paid: item.paid === 1 ? true : false,
+          delivered: item.delivered === 1 ? true : false
+        }
+      )))
+    });
   }
 
   const [ archivedOrders, setArchivedOrders ] = useState([]);
@@ -442,7 +442,6 @@ function App() {
       </section>
 
       {
-        false &&
         <section className="ReceiptManagerContainer">
           <ReceiptManager 
             archivedOrders={archivedOrders}

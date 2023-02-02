@@ -37,19 +37,6 @@
   max-height: 300px;
   overflow-y: auto;
 }
-.TabManagerContainer .TabManager .receiptRP {
-  display: block;
-}
-.TabManagerContainer .TabManager .receiptRP textarea {
-  margin-top: 5px;
-  word-break: break-word;
-  width: calc(100% - 8px);
-  resize: none;
-  border: 2px solid black;
-  font-size: 14px;
-  background: rgb(36, 30, 11);
-  color: white;
-}
 .TabManagerContainer .TabManager .viewNav {
   display: flex;
   border-top: 2px dotted grey;
@@ -76,4 +63,18 @@
   height: 35px;
   background: none;
   border: none;
+}
+
+.receiptRP {
+  display: block;
+}
+.receiptRP textarea {
+  margin-top: 5px;
+  word-break: break-word;
+  width: calc(100% - 8px);
+  resize: none;
+  border: 2px solid black;
+  font-size: 14px;
+  background: rgb(36, 30, 11);
+  color: white;
 }/*# sourceMappingURL=TabManager.css.map */

@@ -7,54 +7,70 @@ import addcustomerIcon from './../assets/icons/add-user-black.png';
 
 
 export function OrderManager(props) {
+    const { 
+        openConfirmBox, 
+        closeConfirmBox, 
+        setSelectedCustomer,
+        addCustomer,
+        removeCustomer, 
+        unDeliveredOrdersInTable, 
+        customers, 
+        table, 
+        orders,
+        deliverAll,
+        editCustomerName,
+        addOrder,
+        removeOrder,
+        deliverOrder
+    } = props;
 
     function openMenu(customer) {
-        props.setSelectedCustomer(customer);
+        setSelectedCustomer(customer);
     }
 
     function confirmDeleteCustomer(id, customerName) {
 
         const checkedCustomerName = customerName !== "" ? customerName : "the customer";
-        props.openConfirmBox({
+        openConfirmBox({
             callback: function(){
-                props.removeCustomer(id, props.table);
-                props.closeConfirmBox();
+                removeCustomer(id, table);
+                closeConfirmBox();
             },
-            closeConfirmBox: function(){props.closeConfirmBox()},
+            closeConfirmBox: function(){closeConfirmBox()},
             title: "Are you sure?",
             message: `Deleting ${checkedCustomerName} will also delete any unpaid orders.`
         })
     }
 
-    let unDeliveredOrderCustomersInTable = props.unDeliveredOrdersInTable ? 
-    props.unDeliveredOrdersInTable.map(order => order.customer) : [];
+    let unDeliveredOrderCustomersInTable = unDeliveredOrdersInTable ? 
+    unDeliveredOrdersInTable.map(order => order.customer) : [];
 
     return (
         <>
             <section className="OrderManager">
                 <div className="customerContainer">
-                    {props.customers.map(customer => (
+                    {customers.map(customer => (
                     
-                        props.table.id === customer.table && 
+                        table.id === customer.table && 
                             <Customer 
                                 customer={customer}
-                                orders={props.orders}
+                                orders={orders}
                                 confirmDeleteCustomer={confirmDeleteCustomer}
-                                unDeliveredOrdersInTable={props.unDeliveredOrdersInTable}
+                                unDeliveredOrdersInTable={unDeliveredOrdersInTable}
                                 unDeliveredOrderCustomersInTable={unDeliveredOrderCustomersInTable}
                                 openMenu={openMenu}
-                                deliverAll={props.deliverAll}
-                                deliverOrder={props.deliverOrder}
-                                editCustomerName={props.editCustomerName}
-                                addOrder={props.addOrder}
-                                removeOrder={props.removeOrder}
+                                deliverAll={deliverAll}
+                                deliverOrder={deliverOrder}
+                                editCustomerName={editCustomerName}
+                                addOrder={addOrder}
+                                removeOrder={removeOrder}
                             />
                        ))} 
                 </div>
                 
 
                 <nav className="ordersNav">
-                    <button className="icon" onClick={() => {props.addCustomer(props.table)}}>
+                    <button className="icon" onClick={() => {addCustomer(table)}}>
                         <img src={addcustomerIcon} alt="" />
                     </button>
                 </nav>

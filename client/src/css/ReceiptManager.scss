@@ -1,2 +1,25 @@
 @import 'colorset'; 
 
+.ReceiptManager {
+
+    background: bisque;
+    background-image: url("./../assets/icons/dark-fabric.png");
+    box-shadow: 0px 4px 10px 1px black;
+    color: black;
+    max-height: 600px;
+    width: 250px;
+    overflow: auto;
+
+    & .title {
+        background: $background-dark;
+        padding: 10px;
+        color: white;
+    }
+
+    & .receiptList {
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}

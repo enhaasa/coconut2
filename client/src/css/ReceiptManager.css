@@ -1,1 +1,19 @@
-/*# sourceMappingURL=ReceiptManager.css.map */
+.ReceiptManager {
+  background: bisque;
+  background-image: url("./../assets/icons/dark-fabric.png");
+  box-shadow: 0px 4px 10px 1px black;
+  color: black;
+  max-height: 600px;
+  width: 250px;
+  overflow: auto;
+}
+.ReceiptManager .title {
+  background: rgb(36, 30, 11);
+  padding: 10px;
+  color: white;
+}
+.ReceiptManager .receiptList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}/*# sourceMappingURL=ReceiptManager.css.map */

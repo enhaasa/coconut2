@@ -1,0 +1,17 @@
+.Receipt .name {
+  color: black;
+  padding: 0 10px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.Receipt .link a {
+  padding: 0 10px;
+}
+.Receipt .total {
+  padding: 0 10px;
+  color: rgb(138, 0, 0);
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+}/*# sourceMappingURL=Receipt.css.map */

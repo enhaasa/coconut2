@@ -8,6 +8,16 @@ import gsap from 'gsap';
 import animations from '../animations';
 
 export function TabManager(props) {
+    const { 
+        handleViewTab, 
+        setConfirmBox,
+        payOrders,
+        deliveredOrdersInTable,
+        customersInTable,
+        removeOrder,
+        addOrder,
+        table,
+    } = props;
 
     const [ isBlurred, setIsBlurred ] = useState(false);
     const [ tabView, setTabView ] = useState('combined');
@@ -22,16 +32,16 @@ export function TabManager(props) {
     }, []);
 
     function close() {
-        props.handleViewTab(false);
+        handleViewTab(false);
     }
 
     function openConfirmBox(data) {
-        props.setConfirmBox(data);
+        setConfirmBox(data);
         setIsBlurred(true);
     }
 
     function closeConfirmBox() {
-        props.setConfirmBox(null);
+        setConfirmBox(null);
         setIsBlurred(false);
     };
 
@@ -39,7 +49,7 @@ export function TabManager(props) {
         setIsBlurred(true);
         openConfirmBox({
             callback: function(){
-                props.payOrders(orders, orders[0].table);
+                payOrders(orders, orders[0].table);
                 closeConfirmBox();
             },
             closeConfirmBox: function(){
@@ -84,38 +94,38 @@ export function TabManager(props) {
                 <div className="tabList">
                     {tabView === 'split' &&
                         <SplitTab 
-                            deliveredOrdersInTable={props.deliveredOrdersInTable}
-                            customersInTable={props.customersInTable}
-                            removeOrder={props.removeOrder}
-                            addOrder={props.addOrder}
+                            deliveredOrdersInTable={deliveredOrdersInTable}
+                            customersInTable={customersInTable}
+                            removeOrder={removeOrder}
+                            addOrder={addOrder}
                         />
                     }
                         
                     {tabView === 'combined' &&
                         <CombinedTab
-                            deliveredOrdersInTable={props.deliveredOrdersInTable}
-                            customersInTable={props.customersInTable}
+                            deliveredOrdersInTable={deliveredOrdersInTable}
+                            customersInTable={customersInTable}
                         />
                     }
                 </div>
 
                 <nav className="tabNav">
                     <span className="receipt">
-                        {props.table.session !== null ?
-                        <a href={`https://cocosoasis.info/r.php?id=${props.table.session}`}>{`Receipt Link`}</a> :
+                        {table.session !== null ?
+                        <a href={`https://cocosoasis.info/r.php?id=${table.session}`}>{`Receipt Link`}</a> :
                         <span className="noresult">No Receipt Available</span>}
                     </span>
 
                     <button 
-                    className={`payButton ${props.deliveredOrdersInTable.map(order => order).length === 0 ? "inactive" : "constructive"}`}
-                    disabled={props.deliveredOrdersInTable.map(order => order).length === 0}
-                    onClick={() => {confirmPayOrders(props.deliveredOrdersInTable.map(order => order))}}>Pay & Archive</button>
+                    className={`payButton ${deliveredOrdersInTable.map(order => order).length === 0 ? "inactive" : "constructive"}`}
+                    disabled={deliveredOrdersInTable.map(order => order).length === 0}
+                    onClick={() => {confirmPayOrders(deliveredOrdersInTable.map(order => order))}}>Pay & Archive</button>
                 </nav>
 
-                {props.table.session !== null &&
+                {table.session !== null &&
                     <div className="receiptRP">
                         <textarea 
-                            defaultValue={`/em hands over the tab: cocosoasis.info/r.php?id=${props.table.session}`} 
+                            defaultValue={`/em hands over the tab: cocosoasis.info/r.php?id=${table.session}`} 
                         />
                     </div>
                 }
