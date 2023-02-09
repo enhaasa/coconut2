@@ -8,6 +8,15 @@ import gsap from 'gsap';
 import animations from '../animations';
 
 export function Customer(props) {
+    const {
+        unDeliveredOrderCustomersInTable,
+        confirmDeleteCustomer,
+        customer,
+        handleCustomers,
+        orders,
+        handleOrders,
+        openMenu,
+    } = props;
 
     const customerRef = useRef();
     useLayoutEffect(() => {
@@ -19,21 +28,21 @@ export function Customer(props) {
     }, []);
 
     return (
-        <div className="customer" key={props.customer.id} ref={customerRef}>
+        <div className="customer" key={customer.id} ref={customerRef}>
             <nav className="nameNav">
                 <input 
                     type="text" 
-                    value={props.customer.name} 
+                    value={customer.name} 
                     placeholder="Enter name..." 
-                    onChange={(e) => {props.editCustomerName(props.customer.id, e.target.value)}}>
+                    onChange={(e) => {handleCustomers.editName(customer.id, e.target.value)}}>
                 </input>
-                <button className="icon" onClick={() => {props.confirmDeleteCustomer(props.customer.id, props.customer.name)}}>
+                <button className="icon" onClick={() => {confirmDeleteCustomer(customer.id, customer.name)}}>
                     <img src={removecustomerIcon} alt="" />
                 </button>
             </nav>
 
             <table key={uuid()} className="itemTable">
-                {props.unDeliveredOrderCustomersInTable.includes(props.customer.id) &&
+                {unDeliveredOrderCustomersInTable.includes(customer.id) &&
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -45,8 +54,8 @@ export function Customer(props) {
                     </thead>}
 
                     <tbody>
-                    {tools.sortArrayByCustomer(props.orders, false).map(order => (  
-                        order.customer === props.customer.id && 
+                    {tools.sortArrayByCustomer(orders, false).map(order => (  
+                        order.customer === customer.id && 
                                 
                             <tr key={order.id}>
                                 <td>{order.name}</td>
@@ -55,13 +64,13 @@ export function Customer(props) {
                                 <td>{order.total.toLocaleString("en-US")} gil</td>
 
                                 <td className="tableNav">
-                                    <button className="icon" onClick={() => {props.removeOrder(order.ids[order.ids.length -1])}}>
+                                    <button className="icon" onClick={() => {handleOrders.remove(order.ids[order.ids.length -1])}}>
                                         <img src={minusIcon} alt="" />
                                     </button>
-                                    <button className="icon" onClick={() => {props.addOrder({...order, delivered: false})}}>
+                                    <button className="icon" onClick={() => {handleOrders.add({...order, delivered: false})}}>
                                         <img src={plusIcon} alt="" />
                                     </button>
-                                    <button className="text constructive" onClick={() => {props.deliverOrder(order.ids[0])}}> Deliver </button>
+                                    <button className="text constructive" onClick={() => {handleOrders.deliver(order.ids[0])}}> Deliver </button>
                                 </td>
                             </tr>
                                 
@@ -69,9 +78,9 @@ export function Customer(props) {
                     </tbody>
             </table>
             <nav className="customerNav">
-                <button className="text progressive" onClick={() => {props.openMenu(props.customer)}}>Add Order</button>
-                {props.unDeliveredOrderCustomersInTable.includes(props.customer.id) && 
-                    <button className="text constructive" onClick={() => {props.deliverAll(props.customer.id)}}>Deliver All</button>}
+                <button className="text progressive" onClick={() => {openMenu(customer)}}>Add Order</button>
+                {unDeliveredOrderCustomersInTable.includes(customer.id) && 
+                    <button className="text constructive" onClick={() => {handleOrders.deliverAll(customer.id)}}>Deliver All</button>}
             </nav>       
         </div>
     );

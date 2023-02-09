@@ -18,18 +18,10 @@ export function TableManager(props) {
         customers,
         setSelectedCustomer,
         setSelectedTable,
-        setTableWaiter,
-        toggleTableIsAvailable,
-        toggleTableIsReserved,
-        addOrder,
-        removeOrder,
-        payOrders,
+        handleTables,
+        handleOrders,
+        handleCustomers,
         archivedOrders,
-        deliverOrder,
-        deliverAll,
-        addCustomer,
-        removeCustomer,
-        editCustomerName,
     } = props;
 
     //Mount animations
@@ -105,7 +97,7 @@ export function TableManager(props) {
                             name="waiters" 
                             id="waiters" 
                             value={table.waiter} 
-                            onChange={(e) => {setTableWaiter(table, e.target.value)}
+                            onChange={(e) => {handleTables.setWaiter(table, e.target.value)}
                         }>
                             <option key={uuid()}></option>
                             {staff.map(staff => {
@@ -141,7 +133,7 @@ export function TableManager(props) {
                                 type="checkbox" 
                                 readOnly 
                                 checked={table.isAvailable}
-                                onClick={() => toggleTableIsAvailable(table)} />
+                                onClick={() => handleTables.toggleIsAvailable(table)} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -153,7 +145,7 @@ export function TableManager(props) {
                             type="checkbox" 
                             readOnly 
                             checked={table.isReserved} 
-                            onClick={() => toggleTableIsReserved(table)} />
+                            onClick={() => handleTables.toggleIsReserved(table)} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -179,10 +171,8 @@ export function TableManager(props) {
                 deliveredOrdersInTable={deliveredOrdersInTable}
                 customersInTable={customersInTable}
                 table={table} 
+                handleOrders={handleOrders}
                 orders={orders}
-                addOrder={addOrder}
-                removeOrder={removeOrder}
-                payOrders={payOrders}
                 archivedOrders={archivedOrders}
                 handleViewTab={handleViewTab}
                 tabTotal={tabTotal}
@@ -191,17 +181,12 @@ export function TableManager(props) {
 
             <OrderManager 
                 table={table} 
+                handleOrders={handleOrders}
+                handleCustomers={handleCustomers}
                 orders={orders}
-                addOrder={addOrder}
-                removeOrder={removeOrder}
-                deliverOrder={deliverOrder}
-                deliverAll={deliverAll}
                 customers={customers}
                 customersInTable={customersInTable}
                 unDeliveredOrdersInTable={unDeliveredOrdersInTable}
-                addCustomer={addCustomer}
-                removeCustomer={removeCustomer}
-                editCustomerName={editCustomerName}
                 setSelectedCustomer={setSelectedCustomer}
                 openConfirmBox={openConfirmBox}
                 closeConfirmBox={closeConfirmBox}

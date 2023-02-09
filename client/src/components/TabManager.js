@@ -11,12 +11,10 @@ export function TabManager(props) {
     const { 
         handleViewTab, 
         setConfirmBox,
-        payOrders,
         deliveredOrdersInTable,
         customersInTable,
-        removeOrder,
-        addOrder,
         table,
+        handleOrders
     } = props;
 
     const [ isBlurred, setIsBlurred ] = useState(false);
@@ -49,7 +47,7 @@ export function TabManager(props) {
         setIsBlurred(true);
         openConfirmBox({
             callback: function(){
-                payOrders(orders, orders[0].table);
+                handleOrders.payAll(orders, orders[0].table);
                 closeConfirmBox();
             },
             closeConfirmBox: function(){
@@ -96,8 +94,7 @@ export function TabManager(props) {
                         <SplitTab 
                             deliveredOrdersInTable={deliveredOrdersInTable}
                             customersInTable={customersInTable}
-                            removeOrder={removeOrder}
-                            addOrder={addOrder}
+                            handleOrders={handleOrders}
                         />
                     }
                         

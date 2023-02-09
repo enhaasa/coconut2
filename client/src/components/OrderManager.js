@@ -11,17 +11,12 @@ export function OrderManager(props) {
         openConfirmBox, 
         closeConfirmBox, 
         setSelectedCustomer,
-        addCustomer,
-        removeCustomer, 
         unDeliveredOrdersInTable, 
         customers, 
         table, 
         orders,
-        deliverAll,
-        editCustomerName,
-        addOrder,
-        removeOrder,
-        deliverOrder
+        handleOrders,
+        handleCustomers
     } = props;
 
     function openMenu(customer) {
@@ -33,7 +28,7 @@ export function OrderManager(props) {
         const checkedCustomerName = customerName !== "" ? customerName : "the customer";
         openConfirmBox({
             callback: function(){
-                removeCustomer(id, table);
+                handleCustomers.remove(id, table);
                 closeConfirmBox();
             },
             closeConfirmBox: function(){closeConfirmBox()},
@@ -59,18 +54,15 @@ export function OrderManager(props) {
                                 unDeliveredOrdersInTable={unDeliveredOrdersInTable}
                                 unDeliveredOrderCustomersInTable={unDeliveredOrderCustomersInTable}
                                 openMenu={openMenu}
-                                deliverAll={deliverAll}
-                                deliverOrder={deliverOrder}
-                                editCustomerName={editCustomerName}
-                                addOrder={addOrder}
-                                removeOrder={removeOrder}
+                                handleOrders={handleOrders}
+                                handleCustomers={handleCustomers}
                             />
                        ))} 
                 </div>
                 
 
                 <nav className="ordersNav">
-                    <button className="icon" onClick={() => {addCustomer(table)}}>
+                    <button className="icon" onClick={() => {handleCustomers.add(table)}}>
                         <img src={addcustomerIcon} alt="" />
                     </button>
                 </nav>

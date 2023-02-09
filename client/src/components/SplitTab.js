@@ -7,8 +7,7 @@ export function SplitTab(props) {
     const { 
         customersInTable,
         deliveredOrdersInTable,
-        removeOrder,
-        addOrder,
+        handleOrders
     } = props;
 
     return( 
@@ -37,10 +36,10 @@ export function SplitTab(props) {
                                     <td>{order.total.toLocaleString("en-US")} gil</td>
         
                                     <td className="tableNav">
-                                        <button className="icon" onClick={() => {removeOrder(order.ids[order.ids.length -1])}}>
+                                        <button className="icon" onClick={() => {handleOrders.remove(order.ids[order.ids.length -1])}}>
                                             <img src={minusIcon} alt="" />
                                         </button>
-                                        <button className="icon" onClick={() => {addOrder({...order, delivered: true})}}>
+                                        <button className="icon" onClick={() => {handleOrders.add({...order, delivered: true})}}>
                                             <img src={plusIcon} alt="" />
                                         </button>
                                     </td>

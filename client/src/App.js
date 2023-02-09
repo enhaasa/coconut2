@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useCustomers from './hooks/useCustomers';
 import { Floor } from './components/Floor'
 import { TableManager } from './components/TableManager';
 import { MenuManager } from './components/MenuManager';
@@ -15,13 +16,20 @@ import logo from './assets/icons/logo.png';
 
 function App() {
 
+  const [isBlurred, setIsBlurred] = useState(false);
+
   const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second
   const [ selectedCustomer, setSelectedCustomer ] = useState(null);
-
+  
   const [ selectedTable, setSelectedTable ] = useState(null);
   const selectedTableTracker = useRef(null);  
   useEffect(() => {
     selectedTableTracker.current = selectedTable;
+    selectedTable !== null ?
+    setIsBlurred(true) :
+    setIsBlurred(false);
+
+    setSelectedCustomer(null);
   }, [selectedTable]);
 
   //BACKEND_PLACEHOLDER
@@ -54,131 +62,216 @@ function App() {
     dbTools_client.archivedOrders.get().then(res => {setArchivedOrders(res)});
   }
 
-  const addOrder = (order) => {
-
-    const filteredOrder = {
-        customer: order.customer,
-        delivered: order.delivered,
-        floor: order.floor,
-        table: order.table,
-        name: order.name,
-        paid: order.paid,
-        price: order.price,
-        time: order.time,
-        type: order.type,
-        id: uuid()
-    }
-
-    setOrders(prev => ([...prev, filteredOrder]));
-    dbTools_client.orders.post(filteredOrder);
-    updateUpdates("orders");
+  const [staff, setStaff] = useState([]);
+  const refreshStaff = () => {
+    dbTools_client.staff.get().then(res => {setStaff(res)});
   }
 
-  const deliverOrder = (id) => {
-    const index = orders.map(order => order.id).indexOf(id);
-
-    setOrders(prev => (
-      [...prev, prev[index].delivered = true]
-    ));
-
-    dbTools_client.orders.put({key: 'delivered', value: true, condition_key: 'id', condition_value: id});
-    updateUpdates("orders");
+  const [tables, setTables] = useState([]);
+  const refreshTables = () => {
+    selectedTableTracker.current === null &&
+      dbTools_client.tables.get().then(res => {setTables(res)});
   }
 
-  const deliverAll = (customer) => {
-      orders.forEach(order => {
-        order.customer === customer && deliverOrder(order.id)
-      });
-  }
+  /**
+   * Collection of functions to edit orders.
+   */
+  const handleOrders = { 
 
-  const payOrders = (orders, table) => {
-    const session = nanoid(5);
-
-    orders.forEach(order => {
-      payOrder(order.id, session);
-    })
-
-    setTables(prev => {
-      prev[table].session = session;
-      return [...prev];
-    })
-
-    dbTools_client.tables.put({key: 'session', value: session, condition_key: 'id', condition_value: table});
-    updateUpdates("tables");
-  }
-
-  const payOrder = (id, session) => {
-    
-    const index = orders.map(order => order.id).indexOf(id);
-    const order = orders[index];
-
-    const customerName = customers[customers.map(customer => customer.id).indexOf(order.customer)].name;
-
-    const filteredOrder = {
-      id: id,
-      customerName: customerName,
-      floor: order.floor,
-      name: order.name,
-      table: order.table,
-      price: order.price,
-      type: order.type,
-      session: session,
-      time: order.time
-    }
+    /**
+     * Add a new order to the orders array.
+     * 
+     * @param {object} order - An order object to insert into the orders array.
+     */
+    add: (order) => {
+      const filteredOrder = {
+          customer: order.customer,
+          delivered: order.delivered,
+          floor: order.floor,
+          table: order.table,
+          name: order.name,
+          paid: order.paid,
+          price: order.price,
+          time: order.time,
+          type: order.type,
+          id: uuid()
+      }
   
-    //Archive order before deleting
-    dbTools_client.archivedOrders.post(filteredOrder);
-    removeOrder(id);
-    updateUpdates("archived_orders");
-  }
+      setOrders(prev => ([...prev, filteredOrder]));
+      dbTools_client.orders.post(filteredOrder);
+      updateUpdates("orders");
+    },
 
-  const addCustomer = (table) => {
+     /**
+     * Remove a new order to the orders array.
+     * 
+     * @param {string} id - The id of the order to remove from the orders array.
+     */
+    remove: function(id) {
+      setOrders(prev => (
+          prev.filter(order => (
+              order.id !== id
+          ))
+      ));
 
-    const newCustomer = {
-      name: "",
-      floor: table.floor,
-      table: table.id,
-      id: uuid()
-    }
+      dbTools_client.orders.delete(id);
+      updateUpdates("orders");
+    },
 
-    setCustomers(prev => (
-        [...prev, newCustomer]
-    ))
+    /**
+     * Remove all undelivered orders related to a specific customer.
+     * 
+     * @param {string} customer - The customer id of which all undelivered orders should be removed.
+     */
+    removeAllUndelivered: function(customer) {
+      orders.forEach(order => {
+        order.customer === customer && 
+          order.delivered === false && 
+            this.remove(order.id)
+      })
+    },
 
-    dbTools_client.customers.post(newCustomer);
-    updateUpdates("customers");
-    setSelectedCustomer(null);
-  }
+    /**
+     * Remove all unpaid orders related to a specific customer.
+     * 
+     * @param {string} customer - The customer id of which all unpaid orders should be removed.
+     */
+    removeAllUnpaid: function(customer) {
+      orders.forEach(order => {
+        order.customer === customer && 
+          order.paid === false && 
+            this.remove(order.id)
+      })
+    },
 
-  const removeCustomer = (id, table) => {
-    removeAllUndeliveredOrders(id);
-    removeAllUnpaidOrders(id);
+    /**
+     * Set the "delivered" property of an order to true.
+     * 
+     * @param {string} id - The order id of which the delivered property should be set to true.
+     */
+    deliver: function(id) {
+      const index = orders.findIndex(order => order.id === id);
+  
+      setOrders(prev => (
+        [...prev, prev[index].delivered = true]
+      ));
+  
+      dbTools_client.orders.put('delivered', true, 'id', id);
+      updateUpdates("orders");
+    },
 
-    setCustomers(prev => (
-        prev.filter(customer => (
-            customer.id !== id
-        ))
-    ));
+    /**
+     * Set the "delivered" property to true for all orders related to a customer.
+     * 
+     * @param {string} customer - The customer id of which all related orders should be set to true.
+     */
+    deliverAll: function(customer) {
+      orders.forEach(order => {
+        order.customer === customer && this.deliver(order.id)
+      });
+    },
 
-    const customersInTable = customers.filter(customer => (
-      customer.table === table.id
-    ));
+    /**
+     * Add an order to the archived_orders array and remove it from the normal orders array.
+     * 
+     * @param {string} orderid - The order id of which order should be moved.
+     * @param {string} session - A session id of which to give the item when pushed into the archived_orders array.
+     */
+    pay: function(orderId, session) {
+      const index = orders.findIndex(order => order.id === orderId);
+      const order = orders[index];
+      const customerName = customers[customers.findIndex(customer => customer.id === order.customer)].name;
+  
+      const filteredOrder = {
+        id: orderId,
+        customerName: customerName,
+        floor: order.floor,
+        name: order.name,
+        table: order.table,
+        price: order.price,
+        type: order.type,
+        session: session,
+        time: order.time
+      }
     
-    if (customersInTable.length-1 === 0) {
-      dbTools_client.tables.put({key: 'session', value: null, condition_key: 'id', condition_value: table.id});
+      dbTools_client.archivedOrders.post(filteredOrder);
+      this.remove(orderId);
+      updateUpdates("archived_orders");
+    },
 
+    /**
+     * Add an array of order objects to the archived_orders array and then remove them from the orders array.
+     * 
+     * @param {object[]} orders - The array of items should be moved.
+     * @param {string} table - The table id of the related table.
+     */
+    payAll: function(orders, table) {
+      const session = nanoid(5);
+
+      orders.forEach(order => {
+        this.pay(order.id, session);
+      })
+  
       setTables(prev => {
-        prev[table.id].session = null;
+        prev[table].session = session;
         return [...prev];
       })
+  
+      dbTools_client.tables.put('session', session, 'id', table);
+      updateUpdates("tables");
     }
-    
-    dbTools_client.customers.delete(id);
-    updateUpdates("customers");
-    setSelectedCustomer(null);
   }
 
-  const editCustomerName = (id, newName) => {
+  /**
+   * Collection of functions to edit customers.
+   */
+  const handleCustomers = {
+    add: function(table) {
+      const newCustomer = {
+        name: "",
+        floor: table.floor,
+        table: table.id,
+        id: uuid()
+      }
+  
+      setCustomers(prev => (
+          [...prev, newCustomer]
+      ))
+  
+      dbTools_client.customers.post(newCustomer);
+      updateUpdates("customers");
+      setSelectedCustomer(null);
+    },
+
+    remove: (id, table) => {
+      handleOrders.removeAllUndelivered(id);
+      handleOrders.removeAllUnpaid(id);
+  
+      setCustomers(prev => (
+          prev.filter(customer => (
+              customer.id !== id
+          ))
+      ));
+  
+      const customersInTable = customers.filter(customer => (
+        customer.table === table.id
+      ));
+      
+      if (customersInTable.length-1 === 0) {
+        dbTools_client.tables.put('session', null, 'id', table.id);
+  
+        setTables(prev => {
+          prev[table.id].session = null;
+          return [...prev];
+        })
+      }
+      
+      dbTools_client.customers.delete(id);
+      updateUpdates("customers");
+      setSelectedCustomer(null);
+    },
+
+    editName: function(id, newName) {
       const index = customers.map(customer => customer.id).indexOf(id);
 
       setCustomers(prev => {
@@ -189,33 +282,47 @@ function App() {
 
       dbTools_client.customers.put(id, newName);
       updateUpdates("customers");
+    }
   }
 
-  const removeOrder = (id) => {
-      setOrders(prev => (
-          prev.filter(order => (
-              order.id !== id
-          ))
-      ));
-
-      dbTools_client.orders.delete(id);
-      updateUpdates("orders");
-  }
-
-  const removeAllUndeliveredOrders = (customer) => {
-      orders.forEach(order => {
-        order.customer === customer && 
-          order.delivered === false && 
-            removeOrder(order.id)
+  /**
+   * Collection of functions to edit tables.
+   * 
+   */
+  const handleTables = {
+    toggleIsAvailable: function(table) {
+      const current = tables[table.id].isAvailable;
+  
+      setTables(prev => { 
+        prev[table.id].isAvailable = !prev[table.id].isAvailable;
+        return [...prev];
       })
-  }
+  
+      dbTools_client.tables.put('isAvailable', !current, 'id', table.id);
+      updateUpdates("tables");
+    },
 
-  const removeAllUnpaidOrders = (customer) => {
-    orders.forEach(order => {
-      order.customer === customer && 
-        order.paid === false && 
-          removeOrder(order.id)
-    })
+    toggleIsReserved: function(table) {
+      const current = tables[table.id].isReserved;
+  
+      setTables(prev => {
+        prev[table.id].isReserved = !prev[table.id].isReserved;
+        return [...prev];
+      })
+      
+      dbTools_client.tables.put('isReserved', !current, 'id', table.id);
+      updateUpdates("tables");
+    },
+
+    setWaiter: function(table, name) {
+      setTables(prev => {
+        prev[table.id].waiter = name;
+        return [...prev];
+      })
+  
+      dbTools_client.tables.put('waiter', name, 'id', table.id);
+      updateUpdates("tables");
+    }
   }
 
   //BACKEND_PLACEHOLDER
@@ -233,75 +340,57 @@ function App() {
   ];
 
   const [ selectedFloor, setSelectedFloor ] = useState(1);
-
-  const [staff, setStaff] = useState([]);
-  const refreshStaff = () => {
-    dbTools_client.staff.get().then(res => {setStaff(res)});
-  }
-
-  const [tables, setTables] = useState([]);
-  const refreshTables = () => {
-    selectedTableTracker.current === null &&
-      dbTools_client.tables.get().then(res => {setTables(res)});
-  }
   
-  const toggleTableIsAvailable = (table) => {
-    const current = tables[table.id].isAvailable;
-
-    setTables(prev => { 
-      prev[table.id].isAvailable = !prev[table.id].isAvailable;
-      return [...prev];
-    })
-
-    dbTools_client.tables.put({key: 'isAvailable', value: !current, condition_key: 'id', condition_value: table.id});
-    updateUpdates("tables");
-  }
-  const toggleTableIsReserved = (table) => {
-    const current = tables[table.id].isReserved;
-
-    setTables(prev => {
-      prev[table.id].isReserved = !prev[table.id].isReserved;
-      return [...prev];
-    })
-    
-    dbTools_client.tables.put({key: 'isReserved', value: !current, condition_key: 'id', condition_value: table.id});
-    updateUpdates("tables");
-  }
-  const setTableWaiter = (table, name) => {
-    setTables(prev => {
-      prev[table.id].waiter = name;
-      return [...prev];
-    })
-
-    dbTools_client.tables.put({key: 'waiter', value: name, condition_key: 'id', condition_value: table.id});
-    updateUpdates("tables");
-  }
-
   const updateUpdates = (table) => {
     const newUpdateId = uuid();
     ordersUpdateId.current = newUpdateId;
-    dbTools_client.updates.put({key: 'id', value: newUpdateId, condition_key: 'table', condition_value: table});
+    dbTools_client.updates.put('id', newUpdateId, 'name', table);
   }
 
-  useEffect(() => {
-    selectedTable !== null ?
-    setIsBlurred(true) :
-      setIsBlurred(false);
-  }, [selectedTable]);
 
-  useEffect(() => {
-    setSelectedCustomer(null);
-  }, [selectedTable]);
-
-  const [isBlurred, setIsBlurred] = useState(false);
-
-  //Short-polling solution for neanderthals like me :pensive:
   const tablesUpdateId = useRef(null);
   const customersUpdateId = useRef(null); 
   const ordersUpdateId = useRef(null);
   const archivedOrdersUpdateId = useRef(null);
 
+  const checkUpdates = () => {
+    //Tables to check
+    const tables = [{
+        name: "tables",
+        id: tablesUpdateId,
+        refresh: refreshTables
+      },{
+        name: "customers",
+        id: customersUpdateId,
+        refresh: refreshCustomers
+      },{
+        name: "orders",
+        id: ordersUpdateId,
+        refresh: refreshOrders
+      },{
+        name: "archived_orders",
+        id: archivedOrdersUpdateId,
+        refresh: refreshArchivedOrders
+      }];
+
+      dbTools_client.updates.get().then(res => {
+        tables.forEach(table => {
+          const currentId = res.find(obj => obj.name === table.name).id;
+
+          if (selectedTableTracker.current !== null) return; //Do not update when a table is open
+
+          if (table.id !== currentId) {
+            table.refresh();
+            table.id.current = table.id;
+          }
+        })
+      })
+  }
+
+
+  //Short-polling solution
   useEffect(() => {
+    //Initial updates
     refreshMenu();
     refreshTables();
     refreshStaff();
@@ -309,37 +398,8 @@ function App() {
     refreshOrders();
     refreshArchivedOrders();
 
-
     setInterval(() => {
-      dbTools_client.updates.get().then(res => {
-        const newTablesUpdateId = res[0].id;
-        const newCustomersUpdateId = res[1].id;
-        const newOrdersUpdateId = res[2].id;
-        const newArchivedOrdersUpdateId = res[3].id;
-      
-        if (selectedTableTracker.current === null) {
-          if (newTablesUpdateId !== tablesUpdateId.current) {
-              refreshTables();
-              tablesUpdateId.current = newTablesUpdateId;
-          }
-
-          if (newCustomersUpdateId !== customersUpdateId.current) {
-              refreshCustomers();
-              customersUpdateId.current = newCustomersUpdateId;
-          }
-
-          if (newOrdersUpdateId !== ordersUpdateId.current) {
-              refreshOrders();
-              ordersUpdateId.current = newOrdersUpdateId;
-          }
-
-          if (newArchivedOrdersUpdateId !== archivedOrdersUpdateId.current) {
-            refreshArchivedOrders();
-            archivedOrdersUpdateId.current = newArchivedOrdersUpdateId;
-          }
-        }
-      });
-      
+      checkUpdates();
     }, 2000);
 
   }, []);
@@ -356,31 +416,23 @@ function App() {
         {selectedTable !== null &&         
           <>
             <TableManager 
-              toggleTableIsAvailable={toggleTableIsAvailable} 
-              toggleTableIsReserved={toggleTableIsReserved} 
-              setSelectedTable={setSelectedTable}
-              setTableWaiter={setTableWaiter} 
-              table={tables[selectedTable]} 
               staff={staff}
               orders={orders}
-              addOrder={addOrder}
-              removeOrder={removeOrder}
-              deliverOrder={deliverOrder}
-              deliverAll={deliverAll}
-              payOrders={payOrders}
               customers={customers}
-              addCustomer={addCustomer}
-              removeCustomer = {removeCustomer}
-              editCustomerName = {editCustomerName}
+              table={tables[selectedTable]} 
+              handleOrders={handleOrders}
+              handleCustomers={handleCustomers}
+              setSelectedTable={setSelectedTable}
               setSelectedCustomer={setSelectedCustomer}
+              handleTables={handleTables}
               />
 
             {selectedCustomer !== null &&
               <MenuManager 
                 menu={menu}
                 selectedCustomer={selectedCustomer}
+                handleOrders={handleOrders}
                 setSelectedCustomer={setSelectedCustomer}
-                addOrder={addOrder}
               />
             }
           </>
@@ -392,6 +444,7 @@ function App() {
         <nav className="floorNav">
 
           <span className="floorColumn">
+
             {floors.map((floor, index) => {
                 return (
                     <div className="floorSelector" key={uuid()}>

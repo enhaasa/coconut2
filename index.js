@@ -28,7 +28,6 @@ const db = mysql.createPool({
     database: 'coconut_cocosoasis'
 });
 
-
 //Menu
 app.get('/menu', (req, res) => {
     db.query("SELECT * FROM menu", (err, result) => {
@@ -37,7 +36,6 @@ app.get('/menu', (req, res) => {
     });
 });
 
-
 //Floors
 app.get('/floors', (req, res) => {
     db.query("SELECT * FROM floors", (err, result) => {
@@ -45,7 +43,6 @@ app.get('/floors', (req, res) => {
         res.send(result);
     });
 });
-
 
 //Staff
 app.get('/staff', (req, res) => {
@@ -74,7 +71,6 @@ app.put('/tables', (req, res) => {
         }
     );
 });
-
 
 //Customers
 app.get('/customers', (req, res) => {

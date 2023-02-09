@@ -49,8 +49,12 @@ const tables = {
             res.data
         ));
     },
-    put: async function (data) {
-        Axios.put(baseUrl + this.endpoint, {data});
+    put: async function (key, value, condition_key, condition_value) {
+        Axios.put(baseUrl + this.endpoint, {data: {
+            key: key, 
+            value: value, 
+            condition_key: condition_key, 
+            condition_value: condition_value}});
     }
 }
 
@@ -85,8 +89,12 @@ const orders = {
     delete: async function (id) {
         Axios.delete(baseUrl + this.endpoint, {data: { id: id } });
     },
-    put: async function (data) {
-        Axios.put(baseUrl + this.endpoint, {data});
+    put: async function (key, value, condition_key, condition_value) {
+        Axios.put(baseUrl + this.endpoint, {data: {
+            key: key, 
+            value: value, 
+            condition_key: condition_key, 
+            condition_value: condition_value}});
     }
 }
 
@@ -118,8 +126,12 @@ const updates = {
     post: async function (table, id) {
         Axios.post(baseUrl + this.endpoint, {table: table, id: id})
     },
-    put: async function (data) {
-        Axios.put(baseUrl + this.endpoint, {data})
+    put: async function (key, value, condition_key, condition_value) {
+        Axios.put(baseUrl + this.endpoint, {data: {
+            key: key, 
+            value: value, 
+            condition_key: condition_key, 
+            condition_value: condition_value}});
     }
 }
 
