@@ -3,7 +3,7 @@ import closeIcon from './../assets/icons/close.png';
 import gsap from 'gsap';
 import animations from '../animations';
 
-export function Infobox(props) {
+export default function Infobox(props) {
     const { item, handleItemInfo } = props;
 
     const InfoBoxRef = useRef();

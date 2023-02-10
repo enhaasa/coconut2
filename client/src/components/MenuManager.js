@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
-import { Infobox } from './Infobox';
+import Infobox from './Infobox';
 import tools from '../tools';
 import uuid from 'react-uuid';
 import gsap from 'gsap';
@@ -8,7 +8,7 @@ import animations from '../animations';
 import closeIcon from './../assets/icons/close.png';
 import infoIcon from './../assets/icons/info-small-white.png';
 
-export function MenuManager(props) {
+export default function MenuManager(props) {
     const { 
         menu,
         handleOrders,

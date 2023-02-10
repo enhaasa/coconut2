@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import animations from '../animations';
 
-export function ConfirmBox(props) {
+export default function ConfirmBox(props) {
 
     const ConfirmBoxRef = useRef();
     useLayoutEffect(() => {

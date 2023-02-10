@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import useCustomers from './hooks/useCustomers';
-import { Floor } from './components/Floor'
-import { TableManager } from './components/TableManager';
-import { MenuManager } from './components/MenuManager';
-import { ReceiptManager } from './components/ReceiptManager';
+import Floor from './components/Floor'
+import TableManager from './components/TableManager';
+import MenuManager from './components/MenuManager';
+import ReceiptManager from './components/ReceiptManager';
 import uuid from 'react-uuid';
 import { nanoid } from 'nanoid'
 import dbTools_client from './dbTools_client';
@@ -28,7 +28,6 @@ function App() {
     selectedTable !== null ?
     setIsBlurred(true) :
     setIsBlurred(false);
-
     setSelectedCustomer(null);
   }, [selectedTable]);
 

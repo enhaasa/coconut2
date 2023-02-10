@@ -1,12 +1,12 @@
 import React from 'react';
-import { Customer } from './Customer';
+import Customer from './Customer';
 
 
 //import trashcanIcon from './../assets/icons/trash-can-black.png';
 import addcustomerIcon from './../assets/icons/add-user-black.png';
 
 
-export function OrderManager(props) {
+export default function OrderManager(props) {
     const { 
         openConfirmBox, 
         closeConfirmBox, 

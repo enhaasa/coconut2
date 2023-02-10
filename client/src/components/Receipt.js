@@ -1,7 +1,7 @@
 import React from 'react';
 import tools from '.././tools';
 
-export function Receipt(props) {
+export default function Receipt(props) {
     const { customers } = props;
     const { getFirstName, getLastNames } = tools;
 

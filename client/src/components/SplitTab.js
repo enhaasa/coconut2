@@ -3,7 +3,7 @@ import tools from '../tools';
 import plusIcon from './../assets/icons/plus-black.png';
 import minusIcon from './../assets/icons/minus-black.png';
 
-export function SplitTab(props) {
+export default function SplitTab(props) {
     const { 
         customersInTable,
         deliveredOrdersInTable,

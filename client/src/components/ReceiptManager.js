@@ -1,8 +1,8 @@
 import React from 'react';
-import { Receipt } from './Receipt';
+import Receipt from './Receipt';
 import tools from '.././tools';
 
-export function ReceiptManager(props) {
+export default function ReceiptManager(props) {
     const { getDate, dateToEpoch, sortArchivedArray } = tools;
     const { archivedOrders } = props;
 

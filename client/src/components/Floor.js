@@ -1,11 +1,11 @@
 import React, { useLayoutEffect, useRef } from 'react';
-import { Table } from './Table';
+import Table from './Table';
 import gsap from 'gsap';
 import animations from '../animations';
 
 import overlay from './../assets/icons/dark-fabric.png';
 
-export function Floor(props) {
+export default function Floor(props) {
 
     const FloorRef = useRef();
     useLayoutEffect(() => {

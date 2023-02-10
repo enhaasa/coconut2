@@ -1,13 +1,12 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import tools from '../tools';
-import { SplitTab } from './SplitTab';
-import { CombinedTab } from './CombinedTab';
-import { ConfirmBox } from './ConfirmBox';
+import SplitTab from './SplitTab';
+import CombinedTab from './CombinedTab';
 import closeIcon from './../assets/icons/close.png';
 import gsap from 'gsap';
 import animations from '../animations';
 
-export function TabManager(props) {
+export default function TabManager(props) {
     const { 
         handleViewTab, 
         setConfirmBox,

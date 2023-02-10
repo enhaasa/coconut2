@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import tools from '../tools';
 
-export function CombinedTab(props) {
+export default function CombinedTab(props) {
 
     
 

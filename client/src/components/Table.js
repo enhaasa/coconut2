@@ -6,7 +6,7 @@ import animations from '../animations';
 import stopwatchIcon from './../assets/icons/stopwatch-white.png';
 import unPaidTabIcon from './../assets/icons/unPaidTab.png';
 
-export function Table(props) {
+export default function Table(props) {
     const { orders, table, customers, maxDeliveryTime, setSelectedTable } = props;
     const { getFirstName, getLastNames, getTimeSinceOldestOrder, getOldestOrder, formatTime } = tools;
 

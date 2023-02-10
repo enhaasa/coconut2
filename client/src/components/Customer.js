@@ -7,7 +7,7 @@ import minusIcon from './../assets/icons/minus-black.png';
 import gsap from 'gsap';
 import animations from '../animations';
 
-export function Customer(props) {
+export default function Customer(props) {
     const {
         unDeliveredOrderCustomersInTable,
         confirmDeleteCustomer,

@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState, useRef }from 'react';
-import { OrderManager } from './OrderManager';
-import { TabManager } from './TabManager';
-import { ConfirmBox } from './ConfirmBox';
+import OrderManager from './OrderManager';
+import TabManager from './TabManager';
+import ConfirmBox from './ConfirmBox';
 import uuid from 'react-uuid';
 import { gsap } from 'gsap';
 import animations from '../animations.js'
@@ -10,7 +10,7 @@ import closeIcon from './../assets/icons/close.png';
 import basketIcon from './../assets/icons/shopping-cart.png';
 
 
-export function TableManager(props) {
+export default function TableManager(props) {
     const { 
         table, 
         staff,
