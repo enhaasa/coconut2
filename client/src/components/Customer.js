@@ -12,9 +12,8 @@ export default function Customer(props) {
         unDeliveredOrderCustomersInTable,
         confirmDeleteCustomer,
         customer,
-        handleCustomers,
+        customers,
         orders,
-        handleOrders,
         openMenu,
     } = props;
 
@@ -34,7 +33,7 @@ export default function Customer(props) {
                     type="text" 
                     value={customer.name} 
                     placeholder="Enter name..." 
-                    onChange={(e) => {handleCustomers.editName(customer.id, e.target.value)}}>
+                    onChange={(e) => {customers.editName(customer.id, e.target.value)}}>
                 </input>
                 <button className="icon" onClick={() => {confirmDeleteCustomer(customer.id, customer.name)}}>
                     <img src={removecustomerIcon} alt="" />
@@ -54,7 +53,7 @@ export default function Customer(props) {
                     </thead>}
 
                     <tbody>
-                    {tools.sortArrayByCustomer(orders, false).map(order => (  
+                    {tools.sortArrayByCustomer(orders.get, false).map(order => (  
                         order.customer === customer.id && 
                                 
                             <tr key={order.id}>
@@ -64,13 +63,13 @@ export default function Customer(props) {
                                 <td>{order.total.toLocaleString("en-US")} gil</td>
 
                                 <td className="tableNav">
-                                    <button className="icon" onClick={() => {handleOrders.remove(order.ids[order.ids.length -1])}}>
+                                    <button className="icon" onClick={() => {orders.remove(order.ids[order.ids.length -1])}}>
                                         <img src={minusIcon} alt="" />
                                     </button>
-                                    <button className="icon" onClick={() => {handleOrders.add({...order, delivered: false})}}>
+                                    <button className="icon" onClick={() => {orders.add({...order, delivered: false})}}>
                                         <img src={plusIcon} alt="" />
                                     </button>
-                                    <button className="text constructive" onClick={() => {handleOrders.deliver(order.ids[0])}}> Deliver </button>
+                                    <button className="text constructive" onClick={() => {orders.deliver(order.ids[0])}}> Deliver </button>
                                 </td>
                             </tr>
                                 
@@ -80,7 +79,7 @@ export default function Customer(props) {
             <nav className="customerNav">
                 <button className="text progressive" onClick={() => {openMenu(customer)}}>Add Order</button>
                 {unDeliveredOrderCustomersInTable.includes(customer.id) && 
-                    <button className="text constructive" onClick={() => {handleOrders.deliverAll(customer.id)}}>Deliver All</button>}
+                    <button className="text constructive" onClick={() => {orders.deliverAll(customer.id)}}>Deliver All</button>}
             </nav>       
         </div>
     );

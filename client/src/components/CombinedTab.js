@@ -3,6 +3,7 @@ import tools from '../tools';
 
 export default function CombinedTab(props) {
 
+    const { deliveredOrdersInTable } = props;
     
 
     return( 
@@ -34,7 +35,7 @@ export default function CombinedTab(props) {
                         <td>Total:</td>
                         <td></td>
                         <td></td>
-                        <td>{props.deliveredOrdersInTable.reduce((total, order) => (total + order.price), 0).toLocaleString("en-US") + " gil"}</td>
+                        <td>{deliveredOrdersInTable.reduce((total, order) => (total + order.price), 0).toLocaleString("en-US") + " gil"}</td>
                     </tr>
                 </tfoot>
             </table>

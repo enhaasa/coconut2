@@ -11,8 +11,6 @@ export default function Receipt(props) {
     let names = customers.map(customer => `${getFirstName(customer.customerName)} ${getLastNames(customer.customerName).join("").charAt(0)}`);
     names = [...new Set(names)];
 
-
-
     return (
         <div className="Receipt">
             <div className="name">{names.join(", ")}</div>
@@ -20,8 +18,10 @@ export default function Receipt(props) {
                 <a href={`https://cocosoasis.info/r.php?id=${session}`}>{`Receipt Link`}</a>
             </div>
             <div className="total">
+                {/*
                 <span className="text">Total:</span>
                 <span className="amount">{`${total} gil`}</span>
+                */}
             </div>
         </div>
     );

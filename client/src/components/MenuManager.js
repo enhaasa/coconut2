@@ -11,7 +11,7 @@ import infoIcon from './../assets/icons/info-small-white.png';
 export default function MenuManager(props) {
     const { 
         menu,
-        handleOrders,
+        orders,
         setSelectedCustomer,
         selectedCustomer,
     } = props;
@@ -25,7 +25,7 @@ export default function MenuManager(props) {
         }
     }, []);
     
-    const menuTypes = menu.map(menuItem => menuItem.type).filter((item, index, array) => (array.indexOf(item) === index));
+    const menuTypes = menu.get.map(menuItem => menuItem.type).filter((item, index, array) => (array.indexOf(item) === index));
     const [ itemInfo, setItemInfo ] = useState(null);
     const [ isBlurred, setIsBlurred ] = useState(false);
 
@@ -34,8 +34,10 @@ export default function MenuManager(props) {
     }
 
     function filterItem(item) {
+
         return {
           customer: selectedCustomer.id,
+          customerName: selectedCustomer.name,
           floor: selectedCustomer.floor, 
           table: selectedCustomer.table,
           delivered: false,
@@ -76,7 +78,7 @@ export default function MenuManager(props) {
                             <div className="type" key={uuid()}>
                                 <div className="typeTitle cursive">{tools.capitalizeFirstLetter(menuType) + "s"}</div>
 
-                                {menu.map(item => (
+                                {menu.get.map(item => (
                                     menuType === item.type && 
                                         <div className="itemContainer" key={item.id}>
                                             <div className="item">
@@ -91,21 +93,21 @@ export default function MenuManager(props) {
                                                 </span>
 
                                                 <nav className="itemNav">
-                                                    <button className="progressive" onClick={() => {handleOrders.add({
+                                                    <button className="progressive" onClick={() => {orders.add({
                                                         ...filterItem(item)
                                                     })}}>{item.price.toLocaleString("en-US")} gil</button>
 
 
-                                                    <button className="constructive" onClick={() => {handleOrders.add({
+                                                    <button className="constructive" onClick={() => {orders.add({
                                                         ...filterItem(item), 
                                                         price: 0, 
-                                                        id: item.ID + "0"
+                                                        id: item.id + "0"
                                                     })}}>Free</button>
                                                 </nav>
                                             </div>
 
                                             <div className="itemInfo">
-                                                {item.ID}
+                                                {item.id}
                                             </div>
                                         </div>
                                 ))}

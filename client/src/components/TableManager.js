@@ -13,14 +13,12 @@ import basketIcon from './../assets/icons/shopping-cart.png';
 export default function TableManager(props) {
     const { 
         table, 
+        tables,
         staff,
         orders,
         customers,
         setSelectedCustomer,
         setSelectedTable,
-        handleTables,
-        handleOrders,
-        handleCustomers,
         archivedOrders,
     } = props;
 
@@ -64,14 +62,14 @@ export default function TableManager(props) {
         setSelectedTable(null);
     }
 
-    const customersInTable = customers.filter(customer => (
+    const customersInTable = customers.get.filter(customer => (
         customer.table === table.id
     ))
 
     let deliveredOrdersInTable = [];
     let unDeliveredOrdersInTable = [];
     customersInTable.forEach(customer => {
-        orders.forEach(order => {
+        orders.get.forEach(order => {
             order.delivered ?
                 !order.paid &&
                     customer.id === order.customer && 
@@ -92,20 +90,19 @@ export default function TableManager(props) {
             <div className="title">
                 <div className="assignWaiter">
                     <span className="cursive">Waiter:</span>
-                    {staff.length === 0 ? "Loading..." :
+                    {staff.get.length === 0 ? "Loading..." :
                         <select 
                             name="waiters" 
                             id="waiters" 
                             value={table.waiter} 
-                            onChange={(e) => {handleTables.setWaiter(table, e.target.value)}
+                            onChange={(e) => {tables.setWaiter(table, e.target.value)}
                         }>
                             <option key={uuid()}></option>
-                            {staff.map(staff => {
-
+                            {staff.get.map(member => {
                                 return (
-                                    staff.positions.includes("waiter") && 
+                                    member.positions.includes("waiter") && 
                                     <option key={uuid()} >
-                                        {staff.name}
+                                        {member.name}
                                     </option>
                                 )
                             })}
@@ -133,7 +130,7 @@ export default function TableManager(props) {
                                 type="checkbox" 
                                 readOnly 
                                 checked={table.isAvailable}
-                                onClick={() => handleTables.toggleIsAvailable(table)} />
+                                onClick={() => tables.toggleIsAvailable(table)} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -145,7 +142,7 @@ export default function TableManager(props) {
                             type="checkbox" 
                             readOnly 
                             checked={table.isReserved} 
-                            onClick={() => handleTables.toggleIsReserved(table)} />
+                            onClick={() => tables.toggleIsReserved(table)} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -171,7 +168,6 @@ export default function TableManager(props) {
                 deliveredOrdersInTable={deliveredOrdersInTable}
                 customersInTable={customersInTable}
                 table={table} 
-                handleOrders={handleOrders}
                 orders={orders}
                 archivedOrders={archivedOrders}
                 handleViewTab={handleViewTab}
@@ -181,8 +177,6 @@ export default function TableManager(props) {
 
             <OrderManager 
                 table={table} 
-                handleOrders={handleOrders}
-                handleCustomers={handleCustomers}
                 orders={orders}
                 customers={customers}
                 customersInTable={customersInTable}

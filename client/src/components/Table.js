@@ -31,11 +31,11 @@ export default function Table(props) {
         if (timeSinceLastOrder > maxDeliveryTime) return "destructive";
     }
 
-    let noBlankNames = customers.filter((customer) => (
+    let noBlankNames = customers.get.filter((customer) => (
         customer.table === table.id &&
             customer.name !== ""
     ))
-    let blankNames = customers.filter((customer) => (
+    let blankNames = customers.get.filter((customer) => (
         customer.table === table.id && 
             customer.floor === table.floor &&
                 customer.name === ""
@@ -48,14 +48,14 @@ export default function Table(props) {
 
     const totalAdditions = exceedingMaxPreview.length + blankNames.length;
 
-    const customersInTable = customers.filter(customer => (
+    const customersInTable = customers.get.filter(customer => (
         customer.table === table.id
     ))
         
     let deliveredOrdersInTable = [];
     let undeliveredOrdersInTable = [];
     const customerIds = customersInTable.map(c => c.id);
-    orders.forEach(order => {
+    orders.get.forEach(order => {
         if (customerIds.includes(order.customer)) {
             if (order.delivered) {
                 deliveredOrdersInTable.push(order);

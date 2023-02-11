@@ -13,7 +13,7 @@ export default function TabManager(props) {
         deliveredOrdersInTable,
         customersInTable,
         table,
-        handleOrders
+        orders,
     } = props;
 
     const [ isBlurred, setIsBlurred ] = useState(false);
@@ -42,11 +42,11 @@ export default function TabManager(props) {
         setIsBlurred(false);
     };
 
-    function confirmPayOrders(orders) {
+    function confirmPayOrders(ordersToPay) {
         setIsBlurred(true);
         openConfirmBox({
             callback: function(){
-                handleOrders.payAll(orders, orders[0].table);
+                orders.payAll(ordersToPay, ordersToPay[0].table);
                 closeConfirmBox();
             },
             closeConfirmBox: function(){
@@ -93,7 +93,7 @@ export default function TabManager(props) {
                         <SplitTab 
                             deliveredOrdersInTable={deliveredOrdersInTable}
                             customersInTable={customersInTable}
-                            handleOrders={handleOrders}
+                            orders={orders}
                         />
                     }
                         

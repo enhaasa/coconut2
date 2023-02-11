@@ -14,9 +14,7 @@ export default function OrderManager(props) {
         unDeliveredOrdersInTable, 
         customers, 
         table, 
-        orders,
-        handleOrders,
-        handleCustomers
+        orders
     } = props;
 
     function openMenu(customer) {
@@ -28,7 +26,7 @@ export default function OrderManager(props) {
         const checkedCustomerName = customerName !== "" ? customerName : "the customer";
         openConfirmBox({
             callback: function(){
-                handleCustomers.remove(id, table);
+                customers.remove(id, table);
                 closeConfirmBox();
             },
             closeConfirmBox: function(){closeConfirmBox()},
@@ -44,25 +42,25 @@ export default function OrderManager(props) {
         <>
             <section className="OrderManager">
                 <div className="customerContainer">
-                    {customers.map(customer => (
+                    {customers.get.map(customer => (
                     
                         table.id === customer.table && 
                             <Customer 
+                                key={customer.id}
                                 customer={customer}
                                 orders={orders}
                                 confirmDeleteCustomer={confirmDeleteCustomer}
                                 unDeliveredOrdersInTable={unDeliveredOrdersInTable}
                                 unDeliveredOrderCustomersInTable={unDeliveredOrderCustomersInTable}
                                 openMenu={openMenu}
-                                handleOrders={handleOrders}
-                                handleCustomers={handleCustomers}
+                                customers={customers}
                             />
                        ))} 
                 </div>
                 
 
                 <nav className="ordersNav">
-                    <button className="icon" onClick={() => {handleCustomers.add(table)}}>
+                    <button className="icon" onClick={() => {customers.add(table)}}>
                         <img src={addcustomerIcon} alt="" />
                     </button>
                 </nav>

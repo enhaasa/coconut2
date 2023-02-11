@@ -6,6 +6,16 @@ import animations from '../animations';
 import overlay from './../assets/icons/dark-fabric.png';
 
 export default function Floor(props) {
+    const {
+        floor,
+        tables,
+        loggedInAs,
+        maxDeliveryTime,
+        colorset,
+        setSelectedTable,
+        customers,
+        orders
+    } = props;
 
     const FloorRef = useRef();
     useLayoutEffect(() => {
@@ -19,23 +29,23 @@ export default function Floor(props) {
     return (
         <div className="Floor" ref={FloorRef}>
             <img className="overlay" src={overlay} alt="" />
-            <img className="floorImage" src={props.floor.schematics} alt="" />
+            <img className="floorImage" src={floor.schematics} alt="" />
             
-            {!props.floor.schematics && <em>Loading...</em>}
+            {!floor.schematics && <em>Loading...</em>}
 
-            {props.tables.map((table) => {
+            {tables.get.map((table) => {
 
-                if (props.floor.type === table.floor) {
+                if (floor.type === table.floor) {
                     return (
                         <Table 
-                            loggedInAs={props.loggedInAs}
+                            loggedInAs={loggedInAs}
                             table={table}
-                            maxDeliveryTime={props.maxDeliveryTime}
-                            colorset={props.colorset} 
-                            setSelectedTable={props.setSelectedTable}
+                            maxDeliveryTime={maxDeliveryTime}
+                            colorset={colorset} 
+                            setSelectedTable={setSelectedTable}
                             key={table.id}
-                            customers={props.customers}
-                            orders={props.orders}
+                            customers={customers}
+                            orders={orders}
                         />
                     )
                 } 

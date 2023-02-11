@@ -8,7 +8,7 @@ export default function ReceiptManager(props) {
 
     const startDateEpoch = dateToEpoch(getDate((date) => date -1)); //Set date filtering offset in days
 
-    const archivedCustomersFromStartDate = sortArchivedArray(archivedOrders.map(order => (
+    const archivedCustomersFromStartDate = sortArchivedArray(archivedOrders.get.map(order => (
         order.time > startDateEpoch && order
     ))).slice(1);
 
@@ -21,7 +21,9 @@ export default function ReceiptManager(props) {
             <div className="title">Today's Sales~~</div>
             <div className="receiptList">
                 {archivedSessions.map(session => (
-                    <Receipt customers={archivedCustomersFromStartDate.filter(customer => (
+                    <Receipt 
+                        key={session}
+                        customers={archivedCustomersFromStartDate.filter(customer => (
                         session === customer.session && customer       
                     ))}/>
                 ))}
