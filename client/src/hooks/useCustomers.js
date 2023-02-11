@@ -36,10 +36,6 @@ function useCustomers(init, props) {
         setSelectedCustomer(null);
     }
 
-    function refresh() {
-        dbTools_client.customers.get().then(res => {setCustomers(res)});
-    }
-
     function remove(id, table){
         orders.removeAllUndelivered(id);
         orders.removeAllUnpaid(id);
@@ -79,6 +75,10 @@ function useCustomers(init, props) {
         });
 
         dbTools_client.customers.put(id, newName);
+    }
+
+    function refresh() {
+        dbTools_client.customers.get().then(res => {setCustomers(res)});
     }
 
     return [ 
