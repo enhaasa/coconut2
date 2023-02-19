@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import dbTools_client from '../dbTools_client';
+import db from '../dbTools_client';
 
 function useMenu(init, props) {
     const {
@@ -10,7 +10,7 @@ function useMenu(init, props) {
 
     function refresh() {
      selectedTable === null &&
-      dbTools_client.menu.get().then(res => {setMenu(res)});
+      db.menu.get().then(res => {setMenu(res)});
     }
 
     return [

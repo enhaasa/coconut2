@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import dbTools_client from '../dbTools_client';
+import db from '../dbTools_client';
 import uuid from 'react-uuid';
 
 
@@ -31,7 +31,7 @@ function useCustomers(init, props) {
             [...prev, newCustomer]
         ))
     
-        dbTools_client.customers.post(newCustomer);
+        db.customers.post(newCustomer);
         updateUpdates("customers");
         setSelectedCustomer(null);
     }
@@ -51,7 +51,7 @@ function useCustomers(init, props) {
         ));
         
         if (customersInTable.length-1 === 0) {
-            dbTools_client.tables.put('session', null, 'id', table.id);
+            db.tables.put('session', null, 'id', table.id);
 
             /*
             setTables(prev => {
@@ -61,7 +61,7 @@ function useCustomers(init, props) {
             */
         }
         
-        dbTools_client.customers.delete(id);
+        db.customers.delete(id);
         updateUpdates("customers");
         setSelectedCustomer(null);
     }
@@ -74,11 +74,11 @@ function useCustomers(init, props) {
             return [...prev];
         });
 
-        dbTools_client.customers.put(id, newName);
+        db.customers.put(id, newName);
     }
 
     function refresh() {
-        dbTools_client.customers.get().then(res => {setCustomers(res)});
+        db.customers.get().then(res => {setCustomers(res)});
     }
 
     return [ 

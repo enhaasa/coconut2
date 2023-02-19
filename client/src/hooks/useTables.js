@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import dbTools_client from '../dbTools_client';
+import db from '../dbTools_client';
 
 function useTables(init, props) {
     const { 
@@ -17,7 +17,7 @@ function useTables(init, props) {
             return [...prev];
         })
 
-        dbTools_client.tables.put('isAvailable', !current, 'id', table.id);
+        db.tables.put('isAvailable', !current, 'id', table.id);
         updateUpdates("tables");
     }
 
@@ -29,7 +29,7 @@ function useTables(init, props) {
             return [...prev];
         })
         
-        dbTools_client.tables.put('isReserved', !current, 'id', table.id);
+        db.tables.put('isReserved', !current, 'id', table.id);
         updateUpdates("tables");
     }
 
@@ -39,13 +39,13 @@ function useTables(init, props) {
             return [...prev];
         })
 
-        dbTools_client.tables.put('waiter', name, 'id', table.id);
+        db.tables.put('waiter', name, 'id', table.id);
         updateUpdates("tables");
     }
 
     function refresh() {
         selectedTableTracker.current === null &&
-            dbTools_client.tables.get().then(res => {setTables(res)});
+            db.tables.get().then(res => {setTables(res)});
     }
 
     return [

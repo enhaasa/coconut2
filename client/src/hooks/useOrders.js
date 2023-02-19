@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import dbTools_client from '../dbTools_client';
+import db from '../dbTools_client';
 import uuid from 'react-uuid';
 import { nanoid } from 'nanoid'
 
 function useOrders(init, props) {
 
     const {
-        updateUpdates
+        updateUpdates,
+        tables
     } = props;
 
     const [ orders, setOrders ] = useState(init);
@@ -32,7 +33,7 @@ function useOrders(init, props) {
         }
     
         setOrders(prev => ([...prev, filteredOrder]));
-        dbTools_client.orders.post(filteredOrder);
+        db.orders.post(filteredOrder);
         updateUpdates("orders");
     }
 
@@ -49,7 +50,7 @@ function useOrders(init, props) {
             ))
         ));
         
-        dbTools_client.orders.delete(id);
+        db.orders.delete(id);
         updateUpdates("orders");
     }
 
@@ -92,7 +93,7 @@ function useOrders(init, props) {
             time: order.time
         }
         
-        dbTools_client.archivedOrders.post(filteredOrder);
+        db.archivedOrders.post(filteredOrder);
         remove(order.id);
         updateUpdates("archived_orders");
     }
@@ -111,7 +112,7 @@ function useOrders(init, props) {
             })
         */
 
-        dbTools_client.tables.put('session', session, 'id', table);
+        db.tables.put('session', session, 'id', table);
         updateUpdates("tables");
     }
 
@@ -127,7 +128,7 @@ function useOrders(init, props) {
             [...prev, prev[index].delivered = true]
         ));
 
-        dbTools_client.orders.put('delivered', true, 'id', id);
+        db.orders.put('delivered', true, 'id', id);
         updateUpdates("orders");
     }
 
@@ -138,12 +139,12 @@ function useOrders(init, props) {
      */
     function deliverAll(customer) {
         orders.forEach(order => {
-            order.customer === customer && this.deliver(order.id)
+            order.customer === customer && deliver(order.id)
         });
     }
 
     function refresh() {
-        dbTools_client.orders.get().then(res => {
+        db.orders.get().then(res => {
             setOrders(res.map(item => (
             {...item,
                 paid: item.paid === 1 ? true : false,

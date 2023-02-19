@@ -10,8 +10,7 @@ import TableManager from './components/TableManager';
 import MenuManager from './components/MenuManager';
 import ReceiptManager from './components/ReceiptManager';
 import uuid from 'react-uuid';
-import dbTools_client from './dbTools_client';
-
+import db from './dbTools_client';
 
 //BACKEND_PLACEHOLDER
 import ground from './assets/schematics/ground.jpg';
@@ -23,13 +22,17 @@ function App() {
   const loggedInAs = "Coco Shev'rin"; //BACKEND_PLACEHOLDER
   const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second
 
+  /**
+   * Controlstates to know which windows to load.
+   */
   const [isBlurred, setIsBlurred] = useState(false);
-
   const [ selectedFloor, setSelectedFloor ] = useState(1);
   const [ selectedCustomer, setSelectedCustomer ] = useState(null);
   const [ selectedTable, setSelectedTable ] = useState(null);
 
-  //Temporary solution to useEffect not having access to updated values in component state
+  /**
+   * Temporary solution to useEffect not having access to updated values in component state
+  */
   const selectedTableTracker = useRef(null);  
   useEffect(() => {
     selectedTableTracker.current = selectedTable;
@@ -41,7 +44,7 @@ function App() {
 
   const updateUpdates = (table) => {
     const newUpdateId = uuid();
-    dbTools_client.updates.put('id', newUpdateId, 'name', table);
+    db.updates.put('id', newUpdateId, 'name', table);
   }
 
   //BACKEND_PLACEHOLDER
@@ -58,6 +61,10 @@ function App() {
     }
   ];
 
+
+  /**
+   * Custom Hooks
+   */
   const [ tables ] = useTables([], {
     selectedTableTracker: selectedTableTracker,
     updateUpdates: updateUpdates
@@ -77,6 +84,9 @@ function App() {
   const [ archivedOrders ] = useArchivedOrders([]);
   const [ staff ] = useStaff([]);
 
+  /**
+   * List of SQL tables to update.
+   */
   const tablesToUpdate = [
   {
     name: "tables",
@@ -104,10 +114,9 @@ function App() {
    * This will prevent needless refreshing and expensive traffic.
    */
   const checkUpdates = () => {
-    //Tables to check
       if (selectedTableTracker.current !== null) return; //Do not update when a table is open
 
-      dbTools_client.updates.get().then(res => {
+      db.updates.get().then(res => {
         tablesToUpdate.forEach(table => {
           const currentId = res.find(obj => obj.name === table.name).id;
 
@@ -119,12 +128,13 @@ function App() {
       })
   }
 
-
+  
+  /**
+   * Initiate and set short-polling interval
+   */
   const pollingInterval = 2000; //Time in milliseconds
-
-  //Short-polling solution
   useEffect(() => {
-    //Initial updates
+    //Initial updates when app is first loaded
     menu.refresh();
     tables.refresh();
     staff.refresh();
@@ -132,6 +142,7 @@ function App() {
     orders.refresh();
     archivedOrders.refresh();
 
+    //Start short polling
     setInterval(() => {
       checkUpdates();
     }, pollingInterval);

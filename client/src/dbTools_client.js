@@ -2,7 +2,15 @@ import Axios from "axios";
 
 //`https://${document.location.hostname}`;
 //'http://localhost:3001';
-const baseUrl = `https://${document.location.hostname}`;
+const baseUrl = process.env.PORT ? `https://${document.location.hostname}` : 'http://localhost:3001';
+
+function get(endpoint) {
+    return async function() {
+        return await Axios.get(baseUrl + endpoint).then((res) => (
+            res.data
+        ));
+    }
+}
 
 const menu = {
     endpoint: "/menu",
