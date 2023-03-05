@@ -164,6 +164,18 @@ export default function TableManager(props) {
                 </div>
             </section>
 
+            <section className="navsection">
+                <span className="cursive">Photography: </span>
+                <label className="switch">
+                    <input 
+                        type="checkbox" 
+                        readOnly 
+                        checked={table.isPhotography}
+                        onClick={() => tables.toggleIsPhotography(table)} />
+                    <span className="slider" />
+                </label>
+            </section>
+
             {viewTab && <TabManager 
                 deliveredOrdersInTable={deliveredOrdersInTable}
                 customersInTable={customersInTable}

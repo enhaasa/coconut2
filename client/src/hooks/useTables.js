@@ -33,6 +33,18 @@ function useTables(init, props) {
         updateUpdates("tables");
     }
 
+    function toggleIsPhotography(table) {
+        const current = tables[table.id].isPhotography;
+
+        setTables(prev => {
+            prev[table.id].isPhotography = !prev[table.id].isPhotography;
+            return [...prev];
+        })
+        
+        db.tables.put('isPhotography', !current, 'id', table.id);
+        updateUpdates("tables");
+    }
+
     function setWaiter(table, name) {
         setTables(prev => {
             prev[table.id].waiter = name;
@@ -53,6 +65,7 @@ function useTables(init, props) {
             get: tables,
             set: setTables,
             toggleIsAvailable,
+            toggleIsPhotography,
             toggleIsReserved,
             setWaiter,
             refresh: refresh

@@ -5,6 +5,7 @@ import animations from '../animations';
 
 import stopwatchIcon from './../assets/icons/stopwatch-white.png';
 import unPaidTabIcon from './../assets/icons/unPaidTab.png';
+import cameraIcon from './../assets/icons/camera.png';
 
 export default function Table(props) {
     const { orders, table, customers, maxDeliveryTime, setSelectedTable } = props;
@@ -109,6 +110,20 @@ export default function Table(props) {
                 <button 
                     className={`numberDisplay ${tablenumberColor()}`}
                     onClick={() => {setSelectedTable(table.id)}}>
+
+                    {
+                        <div className="isPhotographyContainer">
+                        <span className="isPhotography">
+                            {table.isPhotography ? 
+                            
+                                <div className="">
+                                    <img src={cameraIcon} /> 
+                                </div>
+                                : ""}
+                        </span>
+                    </div>
+                    }
+
 
                     {
                         <div className="unPaidTabContainer">

@@ -10,176 +10,217 @@
   top: 50%;
   left: 50%;
   z-index: 4;
-  transform: translate(-50%, -50%); }
-  .TableManagerContainer .TableManager {
-    background: #79513E;
-    background-image: url("./../assets/icons/dark-leather.png");
-    border-radius: 50px 50px 20px 20px;
-    display: grid;
-    min-width: 400px;
-    color: white;
-    padding: 15px;
-    position: relative;
-    border: 4px double #252525;
-    box-shadow: 0px 4px 10px 1px black; }
-    .TableManagerContainer .TableManager .blur {
-      border-radius: inherit; }
-    .TableManagerContainer .TableManager .title {
-      display: grid;
-      grid-auto-flow: column;
-      justify-items: center;
-      width: 100%; }
-      .TableManagerContainer .TableManager .title .assignWaiter {
-        display: grid;
-        justify-self: start;
-        align-content: center; }
-        .TableManagerContainer .TableManager .title .assignWaiter select {
-          background: silver;
-          border-radius: 15px;
-          padding: 2px; }
-      .TableManagerContainer .TableManager .title .tablenumber {
-        display: grid;
-        justify-self: center;
-        place-items: center;
-        border-radius: 100%;
-        border: 6px double black;
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        font-size: 4.5em;
-        margin-top: -8px;
-        color: black; }
-      .TableManagerContainer .TableManager .title .closeButton {
-        justify-self: end;
-        align-self: center; }
-    .TableManagerContainer .TableManager .navbar {
-      width: 100%;
-      margin: 5px 0;
-      padding: 0;
-      display: flex;
-      justify-content: space-between; }
-      .TableManagerContainer .TableManager .navbar .column {
-        display: grid;
-        align-content: end;
-        grid-gap: 5px; }
-        .TableManagerContainer .TableManager .navbar .column .navsection {
-          display: grid;
-          grid-auto-flow: column;
-          align-items: center;
-          justify-content: space-between;
-          grid-gap: 5px; }
-  .TableManagerContainer .viewTabContainer {
-    display: grid; }
-    .TableManagerContainer .viewTabContainer .viewTabButton {
-      display: grid;
-      grid-auto-flow: column;
-      align-items: end;
-      grid-gap: 5px;
-      border-radius: 15px;
-      padding: 5px; }
-      .TableManagerContainer .viewTabContainer .viewTabButton .column {
-        display: grid;
-        justify-items: start;
-        align-items: end;
-        grid-gap: 0; }
-      .TableManagerContainer .viewTabContainer .viewTabButton img {
-        height: 32px;
-        width: 32px; }
+  transform: translate(-50%, -50%);
+}
+.TableManagerContainer .TableManager {
+  background: #79513E;
+  background-image: url("./../assets/icons/dark-leather.png");
+  border-radius: 50px 50px 20px 20px;
+  display: grid;
+  min-width: 400px;
+  color: white;
+  padding: 15px;
+  position: relative;
+  border: 4px double rgb(37, 37, 37);
+  box-shadow: 0px 4px 10px 1px black;
+}
+.TableManagerContainer .TableManager .blur {
+  border-radius: inherit;
+}
+.TableManagerContainer .TableManager .title {
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: center;
+  width: 100%;
+}
+.TableManagerContainer .TableManager .title .assignWaiter {
+  display: grid;
+  justify-self: start;
+  align-content: center;
+}
+.TableManagerContainer .TableManager .title .assignWaiter select {
+  background: silver;
+  border-radius: 15px;
+  padding: 2px;
+}
+.TableManagerContainer .TableManager .title .tablenumber {
+  display: grid;
+  justify-self: center;
+  place-items: center;
+  border-radius: 100%;
+  border: 6px double black;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  font-size: 4.5em;
+  margin-top: -8px;
+  color: black;
+}
+.TableManagerContainer .TableManager .title .closeButton {
+  justify-self: end;
+  align-self: center;
+}
+.TableManagerContainer .TableManager .navbar {
+  width: 100%;
+  margin: 5px 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.TableManagerContainer .TableManager .navbar .column {
+  display: grid;
+  align-content: end;
+  grid-gap: 5px;
+}
+.TableManagerContainer .TableManager .navbar .column .navsection {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  grid-gap: 5px;
+}
+.TableManagerContainer .viewTabContainer {
+  display: grid;
+}
+.TableManagerContainer .viewTabContainer .viewTabButton {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  grid-gap: 5px;
+  border-radius: 15px;
+  padding: 5px;
+}
+.TableManagerContainer .viewTabContainer .viewTabButton .column {
+  display: grid;
+  justify-items: start;
+  align-items: end;
+  grid-gap: 0;
+}
+.TableManagerContainer .viewTabContainer .viewTabButton img {
+  height: 32px;
+  width: 32px;
+}
 
 .FloorContainer {
   margin: 0 auto;
-  width: 1000px; }
-  .FloorContainer .floorNav {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0;
-    width: 100%; }
-    .FloorContainer .floorNav .floorColumn {
-      display: flex; }
-      .FloorContainer .floorNav .floorColumn .floorSelector {
-        display: grid;
-        align-content: end; }
-        .FloorContainer .floorNav .floorColumn .floorSelector .notificationBar {
-          display: inline-flex;
-          justify-content: flex-end;
-          margin-bottom: -15px;
-          margin-right: -10px;
-          z-index: 1;
-          pointer-events: none; }
-          .FloorContainer .floorNav .floorColumn .floorSelector .notificationBar .notification {
-            font-size: 16px;
-            width: 22px;
-            height: 22px; }
-        .FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
-          font-size: .8em;
-          border-radius: 50px;
-          padding: 8px 10px;
-          box-shadow: 0px 4px 6px 1px #241e0b; }
-          .FloorContainer .floorNav .floorColumn .floorSelector .floorButton .title {
-            font-size: 1.3em; }
-    .FloorContainer .floorNav .appInfo {
-      display: flex;
-      justify-self: end !important; }
-      .FloorContainer .floorNav .appInfo .logo img {
-        width: 70px; }
-      .FloorContainer .floorNav .appInfo .text {
-        border-bottom: 4px double black;
-        display: flex;
-        align-items: flex-end;
-        gap: 5px; }
-        .FloorContainer .floorNav .appInfo .text .title {
-          font-size: 42px !important;
-          font-weight: bold;
-          background: linear-gradient(to right, #84fd84, #a4faee);
+  width: 1000px;
+}
+.FloorContainer .floorNav {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  width: 100%;
+}
+.FloorContainer .floorNav .floorColumn {
+  display: flex;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector {
+  display: grid;
+  align-content: end;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .notificationBar {
+  display: inline-flex;
+  justify-content: flex-end;
+  margin-bottom: -15px;
+  margin-right: -10px;
+  z-index: 1;
+  pointer-events: none;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .notificationBar .notification {
+  font-size: 16px;
+  width: 22px;
+  height: 22px;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
+  font-size: 0.8em;
+  border-radius: 50px;
+  padding: 8px 10px;
+  box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .floorButton .title {
+  font-size: 1.3em;
+}
+.FloorContainer .floorNav .appInfo {
+  display: flex;
+  justify-self: end !important;
+}
+.FloorContainer .floorNav .appInfo .logo img {
+  width: 70px;
+}
+.FloorContainer .floorNav .appInfo .text {
+  border-bottom: 4px double black;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+.FloorContainer .floorNav .appInfo .text .title {
+  font-size: 42px !important;
+  font-weight: bold;
+  background: linear-gradient(to right, rgb(132, 253, 132), rgb(164, 250, 238));
+  -webkit-background-clip: text;
           background-clip: text;
-          -webkit-text-fill-color: transparent;
-          margin-bottom: -5px; }
-        .FloorContainer .floorNav .appInfo .text .version {
-          color: black; }
-  .FloorContainer .Floor {
-    transform: scale(1);
-    width: 1000px;
-    height: 700px;
-    box-shadow: 0px 4px 10px 1px black; }
-    .FloorContainer .Floor .overlay {
-      z-index: 2;
-      position: absolute;
-      width: 1000px;
-      height: 700px; }
-    .FloorContainer .Floor .floorImage {
-      width: 1000px;
-      height: 700px;
-      transform: scale(1); }
+  -webkit-text-fill-color: transparent;
+  margin-bottom: -5px;
+}
+.FloorContainer .floorNav .appInfo .text .version {
+  color: black;
+}
+.FloorContainer .Floor {
+  transform: scale(1);
+  width: 1000px;
+  height: 700px;
+  box-shadow: 0px 4px 10px 1px black;
+}
+.FloorContainer .Floor .overlay {
+  z-index: 2;
+  position: absolute;
+  width: 1000px;
+  height: 700px;
+}
+.FloorContainer .Floor .floorImage {
+  width: 1000px;
+  height: 700px;
+  transform: scale(1);
+}
 
 * {
-  font-family: 'Cabin', sans-serif; }
+  font-family: "Cabin", sans-serif;
+}
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px; }
+  width: 10px;
+}
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: none; }
+  background: none;
+}
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: black;
-  border-radius: 10px; }
+  border-radius: 10px;
+}
 
 .cursive {
-  font-family: 'Dancing Script', cursive;
-  font-size: 20px; }
+  font-family: "Dancing Script", cursive;
+  font-size: 20px;
+}
 
 img {
-  pointer-events: none; }
+  pointer-events: none;
+}
 
 body {
   margin: 0;
-  user-select: none;
-  background: #241e0b;
-  background: #9c8a73;
-  background-image: url("./../assets/icons/dark-fabric.png"); }
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  background: rgb(36, 30, 11);
+  background: rgb(156, 138, 115);
+  background-image: url("./../assets/icons/dark-fabric.png");
+}
 
 .shell {
   display: grid;
@@ -187,7 +228,8 @@ body {
   justify-content: center;
   height: 100vh;
   width: 100%;
-  place-items: center; }
+  place-items: center;
+}
 
 .blur {
   position: absolute;
@@ -195,24 +237,31 @@ body {
   height: 100%;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px); }
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+}
 
 .transparent {
-  opacity: 0.6; }
+  opacity: 0.6;
+}
 
 .disabled {
-  cursor: not-allowed !important; }
-  .disabled:hover {
-    filter: none !important; }
+  cursor: not-allowed !important;
+}
+.disabled:hover {
+  filter: none !important;
+}
 
 button, select, option {
   font-weight: bold;
   border-radius: 15px;
   outline: none;
-  border: 2px solid black; }
-  button:hover, select:hover, option:hover {
-    cursor: pointer;
-    filter: brightness(1.1); }
+  border: 2px solid black;
+}
+button:hover, select:hover, option:hover {
+  cursor: pointer;
+  filter: brightness(1.1);
+}
 
 .closeButton {
   border-radius: 100%;
@@ -220,182 +269,224 @@ button, select, option {
   height: 50px;
   display: grid;
   place-items: center;
-  background: linear-gradient(45deg, #a30000, #e23f3f); }
-  .closeButton img {
-    width: 28px;
-    height: 28px; }
+  background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63));
+}
+.closeButton img {
+  width: 28px;
+  height: 28px;
+}
 
 .destructive {
-  background: linear-gradient(45deg, #a30000, #e23f3f) !important; }
+  background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63)) !important;
+}
 
 .constructive {
-  background: radial-gradient(ellipse farthest-corner at right bottom, #84fd84 0%, #84fdcf 8%, #a4faee 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #dcffdc 8%, #84fd84 25%) !important; }
+  background: radial-gradient(ellipse farthest-corner at right bottom, rgb(132, 253, 132) 0%, rgb(132, 253, 207) 8%, rgb(164, 250, 238) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(220, 255, 220) 8%, rgb(132, 253, 132) 25%) !important;
+}
 
 .progressive {
-  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #c59c44 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%) !important; }
+  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #c59c44 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%) !important;
+}
 
 .inactive {
-  background: radial-gradient(ellipse farthest-corner at right bottom, #d8d7d7 0%, #adadad 8%, #a5a5a5 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #d6d6d6 8%, #aaaaaa 25%) !important; }
+  background: radial-gradient(ellipse farthest-corner at right bottom, rgb(216, 215, 215) 0%, rgb(173, 173, 173) 8%, rgb(165, 165, 165) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(214, 214, 214) 8%, rgb(170, 170, 170) 25%) !important;
+}
 
 .switch {
   position: relative;
   display: inline-block;
   width: 42px;
-  height: 22px; }
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0; }
-  .switch .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: silver;
-    outline: 2px solid black;
-    border-radius: 20px; }
-    .switch .slider:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 4px;
-      bottom: 3px;
-      background-color: black;
-      border-radius: 50%; }
-  .switch input:checked + .slider {
-    background: radial-gradient(ellipse farthest-corner at right bottom, #84fd84 0%, #84fdcf 8%, #a4faee 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #dcffdc 8%, #84fd84 25%); }
-  .switch input:focus + .slider {
-    box-shadow: 0 0 1px #8feb8f; }
-  .switch input:checked + .slider:before {
-    transform: translateX(18px); }
+  height: 22px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: silver;
+  outline: 2px solid black;
+  border-radius: 20px;
+}
+.switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 3px;
+  background-color: black;
+  border-radius: 50%;
+}
+.switch input:checked + .slider {
+  background: radial-gradient(ellipse farthest-corner at right bottom, rgb(132, 253, 132) 0%, rgb(132, 253, 207) 8%, rgb(164, 250, 238) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(220, 255, 220) 8%, rgb(132, 253, 132) 25%);
+}
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px rgb(143, 235, 143);
+}
+.switch input:checked + .slider:before {
+  transform: translateX(18px);
+}
 
 .itemTable {
   width: 100%;
   border-bottom: 2px solid black;
   margin: 4px 0;
-  border-collapse: collapse; }
-  .itemTable tbody tr:nth-child(even) {
-    background-color: #979797; }
-  .itemTable tr {
-    font-size: 14px; }
-  .itemTable th {
-    text-align: left;
-    background: #241e0b;
-    color: white; }
-  .itemTable .tableNav {
-    display: flex;
-    justify-content: flex-end; }
-    .itemTable .tableNav button {
-      border-radius: 100px; }
-      .itemTable .tableNav button.icon {
-        border-radius: 100%;
-        background: none;
-        padding: 0 2px;
-        border: none; }
-        .itemTable .tableNav button.icon img {
-          width: 20px;
-          height: 20px;
-          margin-top: 2px; }
-  .itemTable tfoot {
-    font-weight: bold;
-    color: #8a0000;
-    border-top: 2px solid black; }
+  border-collapse: collapse;
+}
+.itemTable tbody tr:nth-child(even) {
+  background-color: #979797;
+}
+.itemTable tr {
+  font-size: 14px;
+}
+.itemTable th {
+  text-align: left;
+  background: rgb(36, 30, 11);
+  color: white;
+}
+.itemTable .tableNav {
+  display: flex;
+  justify-content: flex-end;
+}
+.itemTable .tableNav button {
+  border-radius: 100px;
+}
+.itemTable .tableNav button.icon {
+  border-radius: 100%;
+  background: none;
+  padding: 0 2px;
+  border: none;
+}
+.itemTable .tableNav button.icon img {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+.itemTable tfoot {
+  font-weight: bold;
+  color: rgb(138, 0, 0);
+  border-top: 2px solid black;
+}
 
 .notificationContainer {
   display: flex;
-  align-items: center; }
-  .notificationContainer .notification {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    border: 2px solid black;
-    font-weight: bold;
-    font-size: 22px;
-    z-index: 1; }
-  .notificationContainer .addendum {
-    background: #241e0b;
-    color: white;
-    border-radius: 0 15px 15px 0;
-    border: 1px solid black;
-    font-weight: normal;
-    font-size: 0.6em;
-    padding: 2px 8px;
-    padding-left: 5px;
-    margin-left: -5px;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    white-space: nowrap; }
+  align-items: center;
+}
+.notificationContainer .notification {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 2px solid black;
+  font-weight: bold;
+  font-size: 22px;
+  z-index: 1;
+}
+.notificationContainer .addendum {
+  background: rgb(36, 30, 11);
+  color: white;
+  border-radius: 0 15px 15px 0;
+  border: 1px solid black;
+  font-weight: normal;
+  font-size: 0.6em;
+  padding: 2px 8px;
+  padding-left: 5px;
+  margin-left: -5px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
 
 .FloorContainer {
   margin: 0 auto;
-  width: 1000px; }
-  .FloorContainer .floorNav {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0;
-    width: 100%; }
-    .FloorContainer .floorNav .floorColumn {
-      display: flex; }
-      .FloorContainer .floorNav .floorColumn .floorSelector {
-        display: grid;
-        align-content: end; }
-        .FloorContainer .floorNav .floorColumn .floorSelector .notificationBar {
-          display: inline-flex;
-          justify-content: flex-end;
-          margin-bottom: -15px;
-          margin-right: -10px;
-          z-index: 1;
-          pointer-events: none; }
-          .FloorContainer .floorNav .floorColumn .floorSelector .notificationBar .notification {
-            font-size: 16px;
-            width: 22px;
-            height: 22px; }
-        .FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
-          font-size: .8em;
-          border-radius: 50px;
-          padding: 8px 10px;
-          box-shadow: 0px 4px 6px 1px #241e0b; }
-          .FloorContainer .floorNav .floorColumn .floorSelector .floorButton .title {
-            font-size: 1.3em; }
-    .FloorContainer .floorNav .appInfo {
-      display: flex;
-      justify-self: end !important; }
-      .FloorContainer .floorNav .appInfo .logo img {
-        width: 70px; }
-      .FloorContainer .floorNav .appInfo .text {
-        border-bottom: 4px double black;
-        display: flex;
-        align-items: flex-end;
-        gap: 5px; }
-        .FloorContainer .floorNav .appInfo .text .title {
-          font-size: 42px !important;
-          font-weight: bold;
-          background: linear-gradient(to right, #84fd84, #a4faee);
+  width: 1000px;
+}
+.FloorContainer .floorNav {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  width: 100%;
+}
+.FloorContainer .floorNav .floorColumn {
+  display: flex;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector {
+  display: grid;
+  align-content: end;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .notificationBar {
+  display: inline-flex;
+  justify-content: flex-end;
+  margin-bottom: -15px;
+  margin-right: -10px;
+  z-index: 1;
+  pointer-events: none;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .notificationBar .notification {
+  font-size: 16px;
+  width: 22px;
+  height: 22px;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
+  font-size: 0.8em;
+  border-radius: 50px;
+  padding: 8px 10px;
+  box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .floorButton .title {
+  font-size: 1.3em;
+}
+.FloorContainer .floorNav .appInfo {
+  display: flex;
+  justify-self: end !important;
+}
+.FloorContainer .floorNav .appInfo .logo img {
+  width: 70px;
+}
+.FloorContainer .floorNav .appInfo .text {
+  border-bottom: 4px double black;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+.FloorContainer .floorNav .appInfo .text .title {
+  font-size: 42px !important;
+  font-weight: bold;
+  background: linear-gradient(to right, rgb(132, 253, 132), rgb(164, 250, 238));
+  -webkit-background-clip: text;
           background-clip: text;
-          -webkit-text-fill-color: transparent;
-          margin-bottom: -5px; }
-        .FloorContainer .floorNav .appInfo .text .version {
-          color: black; }
-  .FloorContainer .Floor {
-    transform: scale(1);
-    width: 1000px;
-    height: 700px;
-    box-shadow: 0px 4px 10px 1px black; }
-    .FloorContainer .Floor .overlay {
-      z-index: 2;
-      position: absolute;
-      width: 1000px;
-      height: 700px; }
-    .FloorContainer .Floor .floorImage {
-      width: 1000px;
-      height: 700px;
-      transform: scale(1); }
+  -webkit-text-fill-color: transparent;
+  margin-bottom: -5px;
+}
+.FloorContainer .floorNav .appInfo .text .version {
+  color: black;
+}
+.FloorContainer .Floor {
+  transform: scale(1);
+  width: 1000px;
+  height: 700px;
+  box-shadow: 0px 4px 10px 1px black;
+}
+.FloorContainer .Floor .overlay {
+  z-index: 2;
+  position: absolute;
+  width: 1000px;
+  height: 700px;
+}
+.FloorContainer .Floor .floorImage {
+  width: 1000px;
+  height: 700px;
+  transform: scale(1);
+}
 
 .ReceiptManager {
   background: bisque;
@@ -404,15 +495,18 @@ button, select, option {
   color: black;
   max-height: 600px;
   width: 250px;
-  overflow: auto; }
-  .ReceiptManager .title {
-    background: #241e0b;
-    padding: 10px;
-    color: white; }
-  .ReceiptManager .receiptList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; }
+  overflow: auto;
+}
+.ReceiptManager .title {
+  background: rgb(36, 30, 11);
+  padding: 10px;
+  color: white;
+}
+.ReceiptManager .receiptList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
 .Table {
   position: absolute;
@@ -427,90 +521,114 @@ button, select, option {
   transform: translateX(-50%);
   filter: blur(0);
   z-index: 3;
-  white-space: nowrap; }
-  .Table .waiter {
-    position: absolute;
-    color: white;
-    padding: 1px 5px;
-    text-shadow: 0 0 black;
-    margin-top: -28px;
-    background: #241e0b !important;
-    border: 4px double beige;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 5px; }
-    .Table .waiter img {
-      width: 20px;
-      height: 20px; }
-  .Table ul {
-    list-style: none;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    justify-items: center; }
-    .Table ul li {
-      background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #c59c44 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%);
-      padding: 1px 5px;
-      border-radius: 25px;
-      border: 1px solid black;
-      margin: 1px;
-      font-size: 14px; }
-  .Table .editing {
-    background: rgba(0, 0, 0, 0.7);
-    position: absolute;
-    border-radius: 100%;
-    width: 80px;
-    height: 80px;
-    display: grid;
-    justify-content: center;
-    align-content: center; }
-    .Table .editing:hover {
-      display: none; }
-    .Table .editing p {
-      margin: 0; }
-    .Table .editing .dots {
-      font-size: 50px;
-      color: white;
-      padding: 0;
-      margin: 0;
-      margin-top: -8px; }
-    .Table .editing span {
-      animation-name: blink;
-      animation-duration: 1.4s;
-      animation-iteration-count: infinite;
-      animation-fill-mode: both; }
-    .Table .editing span:nth-child(2) {
-      animation-delay: .2s; }
-    .Table .editing span:nth-child(3) {
-      animation-delay: .4s; }
-
+  white-space: nowrap;
+}
+.Table .waiter {
+  position: absolute;
+  color: white;
+  padding: 1px 5px;
+  text-shadow: 0 0 black;
+  margin-top: -28px;
+  background: rgb(36, 30, 11) !important;
+  border: 4px double beige;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.Table .waiter img {
+  width: 20px;
+  height: 20px;
+}
+.Table ul {
+  list-style: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  justify-items: center;
+}
+.Table ul li {
+  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #c59c44 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%);
+  padding: 1px 5px;
+  border-radius: 25px;
+  border: 1px solid black;
+  margin: 1px;
+  font-size: 14px;
+}
+.Table .editing {
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+.Table .editing:hover {
+  display: none;
+}
+.Table .editing p {
+  margin: 0;
+}
+.Table .editing .dots {
+  font-size: 50px;
+  color: white;
+  padding: 0;
+  margin: 0;
+  margin-top: -8px;
+}
+.Table .editing span {
+  animation-name: blink;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+.Table .editing span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.Table .editing span:nth-child(3) {
+  animation-delay: 0.4s;
+}
 @keyframes blink {
   0% {
-    opacity: .2; }
+    opacity: 0.2;
+  }
   20% {
-    opacity: 1; }
+    opacity: 1;
+  }
   100% {
-    opacity: .2; } }
-  .Table .numberDisplay {
-    font-size: 1.5em;
-    border-radius: 100%;
-    border: 4px double black;
-    box-shadow: 0 0 4px 1px #252525;
-    width: 80px;
-    height: 80px;
-    transition: all 100ms ease-in-out; }
-    .Table .numberDisplay:hover {
-      transform: scale(1.05); }
-    .Table .numberDisplay .number {
-      font-size: 2em; }
-    .Table .numberDisplay .notificationContainer {
-      transform: rotate(340deg) translate(50px, 5px) rotate(-340deg);
-      position: absolute; }
-    .Table .numberDisplay .unPaidTabContainer {
-      transform: rotate(340deg) translate(-18px, -18px) rotate(-340deg);
-      position: absolute; }
+    opacity: 0.2;
+  }
+}
+.Table .numberDisplay {
+  font-size: 1.5em;
+  border-radius: 100%;
+  border: 4px double black;
+  box-shadow: 0 0 4px 1px rgb(37, 37, 37);
+  width: 80px;
+  height: 80px;
+  transition: all 100ms ease-in-out;
+}
+.Table .numberDisplay:hover {
+  transform: scale(1.05);
+}
+.Table .numberDisplay .number {
+  font-size: 2em;
+}
+.Table .numberDisplay .notificationContainer {
+  transform: rotate(340deg) translate(50px, 5px) rotate(-340deg);
+  position: absolute;
+}
+.Table .numberDisplay .unPaidTabContainer {
+  transform: rotate(340deg) translate(-18px, -18px) rotate(-340deg);
+  position: absolute;
+}
+.Table .numberDisplay .isPhotographyContainer {
+  transform: rotate(240deg) translate(-30px, -30px) rotate(-240deg);
+  position: absolute;
+}
 
 .TableManagerContainer {
   position: absolute;
@@ -521,182 +639,224 @@ button, select, option {
   top: 50%;
   left: 50%;
   z-index: 4;
-  transform: translate(-50%, -50%); }
-  .TableManagerContainer .TableManager {
-    background: #79513E;
-    background-image: url("./../assets/icons/dark-leather.png");
-    border-radius: 50px 50px 20px 20px;
-    display: grid;
-    min-width: 400px;
-    color: white;
-    padding: 15px;
-    position: relative;
-    border: 4px double #252525;
-    box-shadow: 0px 4px 10px 1px black; }
-    .TableManagerContainer .TableManager .blur {
-      border-radius: inherit; }
-    .TableManagerContainer .TableManager .title {
-      display: grid;
-      grid-auto-flow: column;
-      justify-items: center;
-      width: 100%; }
-      .TableManagerContainer .TableManager .title .assignWaiter {
-        display: grid;
-        justify-self: start;
-        align-content: center; }
-        .TableManagerContainer .TableManager .title .assignWaiter select {
-          background: silver;
-          border-radius: 15px;
-          padding: 2px; }
-      .TableManagerContainer .TableManager .title .tablenumber {
-        display: grid;
-        justify-self: center;
-        place-items: center;
-        border-radius: 100%;
-        border: 6px double black;
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        font-size: 4.5em;
-        margin-top: -8px;
-        color: black; }
-      .TableManagerContainer .TableManager .title .closeButton {
-        justify-self: end;
-        align-self: center; }
-    .TableManagerContainer .TableManager .navbar {
-      width: 100%;
-      margin: 5px 0;
-      padding: 0;
-      display: flex;
-      justify-content: space-between; }
-      .TableManagerContainer .TableManager .navbar .column {
-        display: grid;
-        align-content: end;
-        grid-gap: 5px; }
-        .TableManagerContainer .TableManager .navbar .column .navsection {
-          display: grid;
-          grid-auto-flow: column;
-          align-items: center;
-          justify-content: space-between;
-          grid-gap: 5px; }
-  .TableManagerContainer .viewTabContainer {
-    display: grid; }
-    .TableManagerContainer .viewTabContainer .viewTabButton {
-      display: grid;
-      grid-auto-flow: column;
-      align-items: end;
-      grid-gap: 5px;
-      border-radius: 15px;
-      padding: 5px; }
-      .TableManagerContainer .viewTabContainer .viewTabButton .column {
-        display: grid;
-        justify-items: start;
-        align-items: end;
-        grid-gap: 0; }
-      .TableManagerContainer .viewTabContainer .viewTabButton img {
-        height: 32px;
-        width: 32px; }
+  transform: translate(-50%, -50%);
+}
+.TableManagerContainer .TableManager {
+  background: #79513E;
+  background-image: url("./../assets/icons/dark-leather.png");
+  border-radius: 50px 50px 20px 20px;
+  display: grid;
+  min-width: 400px;
+  color: white;
+  padding: 15px;
+  position: relative;
+  border: 4px double rgb(37, 37, 37);
+  box-shadow: 0px 4px 10px 1px black;
+}
+.TableManagerContainer .TableManager .blur {
+  border-radius: inherit;
+}
+.TableManagerContainer .TableManager .title {
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: center;
+  width: 100%;
+}
+.TableManagerContainer .TableManager .title .assignWaiter {
+  display: grid;
+  justify-self: start;
+  align-content: center;
+}
+.TableManagerContainer .TableManager .title .assignWaiter select {
+  background: silver;
+  border-radius: 15px;
+  padding: 2px;
+}
+.TableManagerContainer .TableManager .title .tablenumber {
+  display: grid;
+  justify-self: center;
+  place-items: center;
+  border-radius: 100%;
+  border: 6px double black;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  font-size: 4.5em;
+  margin-top: -8px;
+  color: black;
+}
+.TableManagerContainer .TableManager .title .closeButton {
+  justify-self: end;
+  align-self: center;
+}
+.TableManagerContainer .TableManager .navbar {
+  width: 100%;
+  margin: 5px 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.TableManagerContainer .TableManager .navbar .column {
+  display: grid;
+  align-content: end;
+  grid-gap: 5px;
+}
+.TableManagerContainer .TableManager .navbar .column .navsection {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  grid-gap: 5px;
+}
+.TableManagerContainer .viewTabContainer {
+  display: grid;
+}
+.TableManagerContainer .viewTabContainer .viewTabButton {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  grid-gap: 5px;
+  border-radius: 15px;
+  padding: 5px;
+}
+.TableManagerContainer .viewTabContainer .viewTabButton .column {
+  display: grid;
+  justify-items: start;
+  align-items: end;
+  grid-gap: 0;
+}
+.TableManagerContainer .viewTabContainer .viewTabButton img {
+  height: 32px;
+  width: 32px;
+}
 
 .OrderManager {
   background: bisque;
   background-image: url("./../assets/icons/dark-fabric.png");
   color: black;
-  border: 2px solid #252525;
+  border: 2px solid rgb(37, 37, 37);
   display: grid;
   max-height: 400px;
   overflow-y: auto;
-  padding: 8px; }
-  .OrderManager button.icon {
-    border-radius: 100%;
-    border: none;
-    background: none; }
-    .OrderManager button.icon img {
-      width: 26px;
-      height: 26px; }
-  .OrderManager button.text {
-    border-radius: 999px; }
-  .OrderManager .customerContainer {
-    display: grid;
-    grid-auto-flow: row; }
-    .OrderManager .customerContainer .customer {
-      margin: 8px 0; }
-      .OrderManager .customerContainer .customer .nameNav {
-        display: flex;
-        justify-content: center; }
-        .OrderManager .customerContainer .customer .nameNav input {
-          outline: none;
-          border: none;
-          border-bottom: 2px solid black;
-          background: none;
-          font-size: 20px;
-          text-align: left;
-          width: 100%;
-          color: #8a0000;
-          font-weight: medium; }
-          .OrderManager .customerContainer .customer .nameNav input::placeholder {
-            color: #79513E; }
-      .OrderManager .customerContainer .customer .customerNav {
-        display: flex;
-        justify-content: space-between; }
-  .OrderManager .ordersNav {
-    display: flex;
-    justify-content: center;
-    padding-top: 3px; }
-    .OrderManager .ordersNav button.icon img {
-      width: 32px;
-      height: 32px; }
+  padding: 8px;
+}
+.OrderManager button.icon {
+  border-radius: 100%;
+  border: none;
+  background: none;
+}
+.OrderManager button.icon img {
+  width: 26px;
+  height: 26px;
+}
+.OrderManager button.text {
+  border-radius: 999px;
+}
+.OrderManager .customerContainer {
+  display: grid;
+  grid-auto-flow: row;
+}
+.OrderManager .customerContainer .customer {
+  margin: 8px 0;
+}
+.OrderManager .customerContainer .customer .nameNav {
+  display: flex;
+  justify-content: center;
+}
+.OrderManager .customerContainer .customer .nameNav input {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid black;
+  background: none;
+  font-size: 20px;
+  text-align: left;
+  width: 100%;
+  color: rgb(138, 0, 0);
+  font-weight: medium;
+}
+.OrderManager .customerContainer .customer .nameNav input::-moz-placeholder {
+  color: #79513E;
+}
+.OrderManager .customerContainer .customer .nameNav input::placeholder {
+  color: #79513E;
+}
+.OrderManager .customerContainer .customer .customerNav {
+  display: flex;
+  justify-content: space-between;
+}
+.OrderManager .ordersNav {
+  display: flex;
+  justify-content: center;
+  padding-top: 3px;
+}
+.OrderManager .ordersNav button.icon img {
+  width: 32px;
+  height: 32px;
+}
 
 .TableManagerContainer .MenuManager {
   display: grid;
   position: relative;
-  background: #241e0b;
+  background: rgb(36, 30, 11);
   color: white;
   padding: 0 10px;
   border: 4px double black;
-  box-shadow: 0px 4px 10px 1px black; }
-  .TableManagerContainer .MenuManager .menuTitle {
-    display: flex;
-    justify-self: center;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-    font-size: 22px;
-    color: #8a0000;
-    background: bisque;
-    background-image: url("./../assets/icons/dark-fabric.png");
-    width: 100%;
-    border-bottom: 2px solid black; }
-    .TableManagerContainer .MenuManager .menuTitle .closeButton {
-      background: none;
-      border: none;
-      margin: 0 -10px; }
-  .TableManagerContainer .MenuManager .menuContainer {
-    column-count: 2;
-    padding: 5px 0; }
-    .TableManagerContainer .MenuManager .menuContainer .type {
-      break-inside: avoid;
-      padding: 5px; }
-      .TableManagerContainer .MenuManager .menuContainer .type .typeTitle {
-        border-bottom: 1px solid white;
-        color: white;
-        font-size: 26px;
-        text-align: center;
-        margin: 2px 0; }
-      .TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item {
-        display: flex;
-        white-space: nowrap;
-        justify-content: space-between;
-        gap: 5px; }
-        .TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle {
-          display: flex;
-          gap: 5px;
-          align-content: center; }
-          .TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle .itemInfoButton {
-            background: none;
-            border: none;
-            padding: 0; }
-      .TableManagerContainer .MenuManager .menuContainer .type .itemContainer .itemInfo {
-        display: none; }
+  box-shadow: 0px 4px 10px 1px black;
+}
+.TableManagerContainer .MenuManager .menuTitle {
+  display: flex;
+  justify-self: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 22px;
+  color: rgb(138, 0, 0);
+  background: bisque;
+  background-image: url("./../assets/icons/dark-fabric.png");
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+.TableManagerContainer .MenuManager .menuTitle .closeButton {
+  background: none;
+  border: none;
+  margin: 0 -10px;
+}
+.TableManagerContainer .MenuManager .menuContainer {
+  -moz-column-count: 2;
+       column-count: 2;
+  padding: 5px 0;
+}
+.TableManagerContainer .MenuManager .menuContainer .type {
+  -moz-column-break-inside: avoid;
+       break-inside: avoid;
+  padding: 5px;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .typeTitle {
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 26px;
+  text-align: center;
+  margin: 2px 0;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item {
+  display: flex;
+  white-space: nowrap;
+  justify-content: space-between;
+  gap: 5px;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle {
+  display: flex;
+  gap: 5px;
+  align-content: center;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle .itemInfoButton {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .itemInfo {
+  display: none;
+}
 
 .InfoboxContainer {
   position: absolute;
@@ -704,41 +864,51 @@ button, select, option {
   height: 100%;
   z-index: 2;
   display: grid;
-  place-items: center; }
-  .InfoboxContainer .Infobox {
-    background: #241e0b;
-    box-shadow: 0px 4px 10px 1px black;
-    border: 4px double black; }
-    .InfoboxContainer .Infobox .infoTitle {
-      background: red;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 10px;
-      background: bisque;
-      color: black;
-      font-size: 22px;
-      background-image: url("./../assets/icons/dark-fabric.png");
-      border-bottom: 2px solid black; }
-      .InfoboxContainer .Infobox .infoTitle .closeButton {
-        background: none;
-        border: none;
-        margin: 0 -10px; }
-    .InfoboxContainer .Infobox .section {
-      margin: 15px 0; }
-      .InfoboxContainer .Infobox .section .cursive {
-        font-size: 24px;
-        color: #8a0000;
-        font-weight: bold; }
-      .InfoboxContainer .Infobox .section p {
-        margin: 0; }
-    .InfoboxContainer .Infobox .infoContainer {
-      padding: 0 10px; }
-      .InfoboxContainer .Infobox .infoContainer .quote {
-        color: white;
-        font-style: italic; }
-      .InfoboxContainer .Infobox .infoContainer .noresult {
-        color: grey !important; }
+  place-items: center;
+}
+.InfoboxContainer .Infobox {
+  background: rgb(36, 30, 11);
+  box-shadow: 0px 4px 10px 1px black;
+  border: 4px double black;
+}
+.InfoboxContainer .Infobox .infoTitle {
+  background: red;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  background: bisque;
+  color: black;
+  font-size: 22px;
+  background-image: url("./../assets/icons/dark-fabric.png");
+  border-bottom: 2px solid black;
+}
+.InfoboxContainer .Infobox .infoTitle .closeButton {
+  background: none;
+  border: none;
+  margin: 0 -10px;
+}
+.InfoboxContainer .Infobox .section {
+  margin: 15px 0;
+}
+.InfoboxContainer .Infobox .section .cursive {
+  font-size: 24px;
+  color: rgb(138, 0, 0);
+  font-weight: bold;
+}
+.InfoboxContainer .Infobox .section p {
+  margin: 0;
+}
+.InfoboxContainer .Infobox .infoContainer {
+  padding: 0 10px;
+}
+.InfoboxContainer .Infobox .infoContainer .quote {
+  color: white;
+  font-style: italic;
+}
+.InfoboxContainer .Infobox .infoContainer .noresult {
+  color: grey !important;
+}
 
 .ConfirmBoxContainer {
   display: grid;
@@ -746,29 +916,36 @@ button, select, option {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 98; }
-  .ConfirmBoxContainer .confirmBox {
-    background: bisque;
-    background-image: url("./../assets/icons/dark-fabric.png");
-    color: black;
-    padding: 10px;
-    border-radius: 25px;
-    border: 4px double black;
-    z-index: 99; }
-    .ConfirmBoxContainer .confirmBox .title {
-      font-weight: bold; }
-    .ConfirmBoxContainer .confirmBox .message {
-      margin: 10px 0; }
-    .ConfirmBoxContainer .confirmBox .options {
-      display: flex;
-      gap: 10px;
-      justify-content: center; }
-      .ConfirmBoxContainer .confirmBox .options .yes {
-        background: linear-gradient(45deg, #a30000, #e23f3f);
-        padding: 2px 6px; }
-      .ConfirmBoxContainer .confirmBox .options .no {
-        background: radial-gradient(ellipse farthest-corner at right bottom, #d8d7d7 0%, #adadad 8%, #a5a5a5 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #d6d6d6 8%, #aaaaaa 25%);
-        padding: 2px 6px; }
+  z-index: 98;
+}
+.ConfirmBoxContainer .confirmBox {
+  background: bisque;
+  background-image: url("./../assets/icons/dark-fabric.png");
+  color: black;
+  padding: 10px;
+  border-radius: 25px;
+  border: 4px double black;
+  z-index: 99;
+}
+.ConfirmBoxContainer .confirmBox .title {
+  font-weight: bold;
+}
+.ConfirmBoxContainer .confirmBox .message {
+  margin: 10px 0;
+}
+.ConfirmBoxContainer .confirmBox .options {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.ConfirmBoxContainer .confirmBox .options .yes {
+  background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63));
+  padding: 2px 6px;
+}
+.ConfirmBoxContainer .confirmBox .options .no {
+  background: radial-gradient(ellipse farthest-corner at right bottom, rgb(216, 215, 215) 0%, rgb(173, 173, 173) 8%, rgb(165, 165, 165) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(214, 214, 214) 8%, rgb(170, 170, 170) 25%);
+  padding: 2px 6px;
+}
 
 .TabManagerContainer {
   position: absolute;
@@ -778,78 +955,93 @@ button, select, option {
   width: 100%;
   height: 100%;
   z-index: 3;
-  filter: drop-shadow(0 0 5px #252525); }
-  .TabManagerContainer .TabManager {
-    background-image: url("./../assets/icons/paper.png");
-    color: black;
-    list-style: none;
-    padding: 10px 10px 30px 10px;
-    min-width: 300px;
-    mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50%/14px 100%; }
-    .TabManagerContainer .TabManager .blur {
-      margin-top: -10px;
-      margin-left: -10px; }
-    .TabManagerContainer .TabManager .name {
-      font-size: 20px;
-      color: #8a0000; }
-    .TabManagerContainer .TabManager .tabNav {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between; }
-      .TabManagerContainer .TabManager .tabNav .receipt {
-        color: grey; }
-    .TabManagerContainer .TabManager .tabList {
-      max-height: 300px;
-      overflow-y: auto; }
-    .TabManagerContainer .TabManager .viewNav {
-      display: flex;
-      border-top: 2px dotted grey;
-      border-bottom: 2px dotted grey;
-      padding: 4px 0;
-      justify-content: space-between; }
-  .TabManagerContainer header {
-    display: grid;
-    grid-auto-flow: column;
-    align-content: center;
-    width: 100%;
-    justify-content: start;
-    padding-bottom: 10px; }
-    .TabManagerContainer header .title {
-      font-size: 1.8em;
-      font-weight: bold; }
-    .TabManagerContainer header .closeButton {
-      position: absolute;
-      justify-self: end;
-      width: 35px;
-      height: 35px;
-      background: none;
-      border: none; }
+  filter: drop-shadow(0 0 5px rgb(37, 37, 37));
+}
+.TabManagerContainer .TabManager {
+  background-image: url("./../assets/icons/paper.png");
+  color: black;
+  list-style: none;
+  padding: 10px 10px 30px 10px;
+  min-width: 300px;
+  -webkit-mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
+          mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
+}
+.TabManagerContainer .TabManager .blur {
+  margin-top: -10px;
+  margin-left: -10px;
+}
+.TabManagerContainer .TabManager .name {
+  font-size: 20px;
+  color: rgb(138, 0, 0);
+}
+.TabManagerContainer .TabManager .tabNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.TabManagerContainer .TabManager .tabNav .receipt {
+  color: grey;
+}
+.TabManagerContainer .TabManager .tabList {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.TabManagerContainer .TabManager .viewNav {
+  display: flex;
+  border-top: 2px dotted grey;
+  border-bottom: 2px dotted grey;
+  padding: 4px 0;
+  justify-content: space-between;
+}
+.TabManagerContainer header {
+  display: grid;
+  grid-auto-flow: column;
+  align-content: center;
+  width: 100%;
+  justify-content: start;
+  padding-bottom: 10px;
+}
+.TabManagerContainer header .title {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+.TabManagerContainer header .closeButton {
+  position: absolute;
+  justify-self: end;
+  width: 35px;
+  height: 35px;
+  background: none;
+  border: none;
+}
 
 .receiptRP {
-  display: block; }
-  .receiptRP textarea {
-    margin-top: 5px;
-    word-break: break-word;
-    width: calc(100% - 8px);
-    resize: none;
-    border: 2px solid black;
-    font-size: 14px;
-    background: #241e0b;
-    color: white; }
+  display: block;
+}
+.receiptRP textarea {
+  margin-top: 5px;
+  word-break: break-word;
+  width: calc(100% - 8px);
+  resize: none;
+  border: 2px solid black;
+  font-size: 14px;
+  background: rgb(36, 30, 11);
+  color: white;
+}
 
 .Receipt .name {
   color: black;
   padding: 0 10px;
   font-weight: bold;
-  margin-top: 10px; }
-
+  margin-top: 10px;
+}
 .Receipt .link a {
-  padding: 0 10px; }
-
+  padding: 0 10px;
+}
 .Receipt .total {
   padding: 0 10px;
-  color: #8a0000;
+  color: rgb(138, 0, 0);
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  border-bottom: 2px solid black; }
+  border-bottom: 2px solid black;
+}/*# sourceMappingURL=main.css.map */
