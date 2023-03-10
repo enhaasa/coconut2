@@ -50,6 +50,8 @@ export default function Floor(props) {
                     )
                 } 
 
+                
+
                 return null;
             })}
         </div>

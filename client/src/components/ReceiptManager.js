@@ -18,7 +18,7 @@ export default function ReceiptManager(props) {
     return (
         <div className="ReceiptManager">
 
-            <div className="title">Today & yesterday's sales:</div>
+            <div className="title"><u>Today & yesterday's receipts:</u></div>
             <div className="receiptList">
                 {archivedSessions.map(session => (
                     <Receipt 

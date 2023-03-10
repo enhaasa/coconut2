@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import db from '../dbTools_client';
 import uuid from 'react-uuid';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 
 function useOrders(init, props) {
 
@@ -98,9 +98,7 @@ function useOrders(init, props) {
         updateUpdates("archived_orders");
     }
 
-    function payAll(ordersToPay, table) {
-        const session = nanoid(5);
-
+    function payAll(ordersToPay, table, session) {
         ordersToPay.forEach(order => {
             pay(order, session);
         })

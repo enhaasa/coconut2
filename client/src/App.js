@@ -13,8 +13,8 @@ import uuid from 'react-uuid';
 import db from './dbTools_client';
 
 //BACKEND_PLACEHOLDER
-import ground from './assets/schematics/ground.jpg';
-import basement from './assets/schematics/basement.jpg';
+import ground from './assets/schematics/ground.webp';
+import basement from './assets/schematics/basement.webp';
 import logo from './assets/icons/logo.png';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
   /**
    * Controlstates to know which windows to load.
    */
-  const [isBlurred, setIsBlurred] = useState(false);
+  const [ isBlurred, setIsBlurred ] = useState(false);
   const [ selectedFloor, setSelectedFloor ] = useState(1);
   const [ selectedCustomer, setSelectedCustomer ] = useState(null);
   const [ selectedTable, setSelectedTable ] = useState(null);
@@ -232,6 +232,7 @@ function App() {
           orders={orders}
           customers={customers}
         />
+        
       </section>
 
       {

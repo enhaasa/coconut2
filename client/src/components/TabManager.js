@@ -5,6 +5,7 @@ import CombinedTab from './CombinedTab';
 import closeIcon from './../assets/icons/close.png';
 import gsap from 'gsap';
 import animations from '../animations';
+import { nanoid } from 'nanoid';
 
 export default function TabManager(props) {
     const { 
@@ -13,6 +14,7 @@ export default function TabManager(props) {
         deliveredOrdersInTable,
         customersInTable,
         table,
+        tables,
         orders,
     } = props;
 
@@ -46,7 +48,15 @@ export default function TabManager(props) {
         setIsBlurred(true);
         openConfirmBox({
             callback: function(){
-                orders.payAll(ordersToPay, ordersToPay[0].table);
+                const session = nanoid(5);
+                const tableNumber = ordersToPay[0].table;
+
+                orders.payAll(ordersToPay, tableNumber, session);
+                tables.set(prev => {
+                    prev[tableNumber].session = session;
+                    return [...prev];
+                });
+                
                 closeConfirmBox();
             },
             closeConfirmBox: function(){

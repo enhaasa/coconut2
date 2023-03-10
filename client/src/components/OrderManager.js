@@ -11,9 +11,11 @@ export default function OrderManager(props) {
         openConfirmBox, 
         closeConfirmBox, 
         setSelectedCustomer,
+        customersInTable,
         unDeliveredOrdersInTable, 
         customers, 
         table, 
+        tables,
         orders
     } = props;
 
@@ -27,6 +29,14 @@ export default function OrderManager(props) {
         openConfirmBox({
             callback: function(){
                 customers.remove(id, table);
+
+                if (customersInTable.length -1 === 0) {
+                    tables.set(prev => {
+                        prev[table.id].session = null;
+                        return [...prev];
+                    });
+                }
+
                 closeConfirmBox();
             },
             closeConfirmBox: function(){closeConfirmBox()},

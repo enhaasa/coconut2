@@ -180,6 +180,7 @@ export default function TableManager(props) {
                 deliveredOrdersInTable={deliveredOrdersInTable}
                 customersInTable={customersInTable}
                 table={table} 
+                tables={tables}
                 orders={orders}
                 archivedOrders={archivedOrders}
                 handleViewTab={handleViewTab}
@@ -189,6 +190,7 @@ export default function TableManager(props) {
 
             <OrderManager 
                 table={table} 
+                tables={tables}
                 orders={orders}
                 customers={customers}
                 customersInTable={customersInTable}
