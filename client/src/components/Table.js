@@ -6,6 +6,7 @@ import animations from '../animations';
 import stopwatchIcon from './../assets/icons/stopwatch-white.png';
 import unPaidTabIcon from './../assets/icons/unPaidTab.png';
 import cameraIcon from './../assets/icons/camera.png';
+import waiterIcon from './../assets/icons/waiter.png';
 
 export default function Table(props) {
     const { orders, table, customers, maxDeliveryTime, setSelectedTable } = props;
@@ -96,7 +97,7 @@ export default function Table(props) {
 
                 {table.waiter !== "" &&
                     <div className={`waiter waiterContainer`}>
-                    
+                    <img src={waiterIcon}/> 
                     {getFirstName(table.waiter)}
                 </div>}
 

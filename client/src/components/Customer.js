@@ -6,6 +6,8 @@ import plusIcon from './../assets/icons/plus-black.png';
 import minusIcon from './../assets/icons/minus-black.png';
 import gsap from 'gsap';
 import animations from '../animations';
+import infoIcon from './../assets/icons/info.png';
+
 
 export default function Customer(props) {
     const {
@@ -48,6 +50,7 @@ export default function Customer(props) {
                             <th>Price</th>
                             <th>Amount</th>
                             <th>Total</th>
+                            <th>Item</th>
                             <th></th>
                         </tr>
                     </thead>}
@@ -61,8 +64,17 @@ export default function Customer(props) {
                                 <td>{order.price.toLocaleString("en-US")} gil</td>
                                 <td>{order.amount}</td>
                                 <td>{order.total.toLocaleString("en-US")} gil</td>
-
                                 <td className="tableNav">
+                                    <button className="icon tooltip">
+                                        <img src={infoIcon} alt="" className="tooltip" />
+
+                                        <span className="tooltiptext">
+                                            {order.item}
+                                        </span>
+                                    </button>
+                                </td>
+
+                                <td className="tableNav end">
                                     <button className="icon" onClick={() => {orders.remove(order.ids[order.ids.length -1])}}>
                                         <img src={minusIcon} alt="" />
                                     </button>

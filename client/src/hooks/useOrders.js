@@ -28,6 +28,7 @@ function useOrders(init, props) {
             paid: order.paid,
             price: order.price,
             time: order.time,
+            item: order.item,
             type: order.type,
             id: uuid()
         }
@@ -90,7 +91,8 @@ function useOrders(init, props) {
             price: order.price,
             type: order.type,
             session: session,
-            time: order.time
+            time: order.time,
+            item: order.item
         }
         
         db.archivedOrders.post(filteredOrder);

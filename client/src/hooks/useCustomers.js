@@ -75,6 +75,7 @@ function useCustomers(init, props) {
         });
 
         db.customers.put(id, newName);
+        updateUpdates("customers");
     }
 
     function refresh() {

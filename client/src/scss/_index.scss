@@ -152,6 +152,24 @@ button, select, option {
   }
 }
 
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 
 //Universal item tables
 .itemTable {
@@ -159,6 +177,7 @@ button, select, option {
   border-bottom: 2px solid black;
   margin: 4px 0;
   border-collapse: collapse;
+  align-items: center;
 
 
   & tbody tr:nth-child(even) {
@@ -167,6 +186,8 @@ button, select, option {
 
   & tr {
     font-size: 14px;
+    
+    
   }
   
   & th {
@@ -175,23 +196,29 @@ button, select, option {
     color: white;
   }
 
+  & td {
+    padding: 3px 0;
+  }
+
   & .tableNav {
-    display: flex;
-    justify-content: flex-end;
+
 
     & button {
       border-radius: 100px;
 
       &.icon {
+        display: flex;        
+
         border-radius: 100%;
         background: none;
+
         padding: 0 2px;
         border: none;
 
         & img {
           width: 20px;
           height: 20px;
-          margin-top: 2px;
+          
         }
       }
     }

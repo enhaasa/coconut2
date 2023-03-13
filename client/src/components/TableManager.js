@@ -146,6 +146,18 @@ export default function TableManager(props) {
                             <span className="slider" />
                         </label>
                     </span>
+
+                    <span className="navsection">
+                        <span className="cursive">Photography: </span>
+                        <label className="switch">
+                            <input 
+                                type="checkbox" 
+                                readOnly 
+                                checked={table.isPhotography}
+                                onClick={() => tables.toggleIsPhotography(table)} />
+                            <span className="slider" />
+                        </label>
+                    </span>
                 </div>
 
                 <div className="column">
@@ -162,18 +174,6 @@ export default function TableManager(props) {
                         </button>
                     </span>
                 </div>
-            </section>
-
-            <section className="navsection">
-                <span className="cursive">Photography: </span>
-                <label className="switch">
-                    <input 
-                        type="checkbox" 
-                        readOnly 
-                        checked={table.isPhotography}
-                        onClick={() => tables.toggleIsPhotography(table)} />
-                    <span className="slider" />
-                </label>
             </section>
 
             {viewTab && <TabManager 

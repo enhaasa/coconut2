@@ -26,8 +26,18 @@ export default function Infobox(props) {
                 </div>
 
                 <div className="infoContainer">
+
+                    <div className=" section item">
+                        <span className="sectionHeader cursive">Item</span>
+                        <p className="quote">
+                            {!!item.item ? 
+                                item.item :
+                                <span className="noresult">This item has no documented item.</span>}  
+                        </p>
+                    </div>
+
                     <div className=" section description">
-                    <span className="sectionHeader cursive">Description</span>
+                        <span className="sectionHeader cursive">Description</span>
                         <p className="quote">
                             {!!item.description ? 
                                 item.description :
@@ -36,7 +46,7 @@ export default function Infobox(props) {
                     </div>
 
                     <div className="section ingredients">
-                    <span className="sectionHeader cursive">Ingredients</span>
+                        <span className="sectionHeader cursive">Ingredients</span>
                         <p>
                             {!!item.ingredients ? 
                                 item.ingredients.join(", ") :

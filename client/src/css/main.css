@@ -17,7 +17,7 @@
   background-image: url("./../assets/icons/dark-leather.png");
   border-radius: 50px 50px 20px 20px;
   display: grid;
-  min-width: 400px;
+  min-width: 450px;
   color: white;
   padding: 15px;
   position: relative;
@@ -334,11 +334,29 @@ button:hover, select:hover, option:hover {
   transform: translateX(18px);
 }
 
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 .itemTable {
   width: 100%;
   border-bottom: 2px solid black;
   margin: 4px 0;
   border-collapse: collapse;
+  align-items: center;
 }
 .itemTable tbody tr:nth-child(even) {
   background-color: #979797;
@@ -351,14 +369,14 @@ button:hover, select:hover, option:hover {
   background: rgb(36, 30, 11);
   color: white;
 }
-.itemTable .tableNav {
-  display: flex;
-  justify-content: flex-end;
+.itemTable td {
+  padding: 3px 0;
 }
 .itemTable .tableNav button {
   border-radius: 100px;
 }
 .itemTable .tableNav button.icon {
+  display: flex;
   border-radius: 100%;
   background: none;
   padding: 0 2px;
@@ -367,7 +385,6 @@ button:hover, select:hover, option:hover {
 .itemTable .tableNav button.icon img {
   width: 20px;
   height: 20px;
-  margin-top: 2px;
 }
 .itemTable tfoot {
   font-weight: bold;
@@ -531,7 +548,7 @@ button:hover, select:hover, option:hover {
   color: white;
   padding: 1px 5px;
   text-shadow: 0 0 black;
-  margin-top: -28px;
+  margin-top: -32px;
   background: rgb(36, 30, 11) !important;
   border: 4px double beige;
   font-size: 14px;
@@ -649,7 +666,7 @@ button:hover, select:hover, option:hover {
   background-image: url("./../assets/icons/dark-leather.png");
   border-radius: 50px 50px 20px 20px;
   display: grid;
-  min-width: 400px;
+  min-width: 450px;
   color: white;
   padding: 15px;
   position: relative;
@@ -786,6 +803,15 @@ button:hover, select:hover, option:hover {
 .OrderManager .customerContainer .customer .customerNav {
   display: flex;
   justify-content: space-between;
+}
+.OrderManager .customerContainer .customer .itemTable .end {
+  display: flex;
+  justify-content: flex-end;
+}
+.OrderManager .customerContainer .customer .itemTable .itemInfoButton {
+  background: none;
+  border: none;
+  padding: 0;
 }
 .OrderManager .ordersNav {
   display: flex;

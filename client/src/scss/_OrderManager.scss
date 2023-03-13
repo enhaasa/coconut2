@@ -57,6 +57,20 @@
                 display: flex;
                 justify-content: space-between;
             }
+
+            & .itemTable {
+
+                & .end {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                & .itemInfoButton {
+                    background: none;
+                    border: none;
+                    padding: 0;
+                } 
+            }
         }
     }
 

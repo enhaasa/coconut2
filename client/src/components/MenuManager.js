@@ -45,6 +45,7 @@ export default function MenuManager(props) {
           name: item.name,
           price: item.price,
           time: tools.getCurrentTime(),
+          item: item.item,
           type: item.type,
           id: uuid()
         }

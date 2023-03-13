@@ -114,18 +114,18 @@ function App() {
    * This will prevent needless refreshing and expensive traffic.
    */
   const checkUpdates = () => {
-      if (selectedTableTracker.current !== null) return; //Do not update when a table is open
+    if (selectedTableTracker.current !== null) return; //Do not update when a table is open
 
-      db.updates.get().then(res => {
-        tablesToUpdate.forEach(table => {
-          const currentId = res.find(obj => obj.name === table.name).id;
+    db.updates.get().then(res => {
+      tablesToUpdate.forEach(table => {
+        const currentId = res.find(obj => obj.name === table.name).id;
 
-          if (table.id.current !== currentId) {
-            table.refresh();
-            table.id.current = currentId;
-          }
-        })
+        if (table.id.current !== currentId) {
+          table.refresh();
+          table.id.current = currentId;
+        }
       })
+    })
   }
 
   
