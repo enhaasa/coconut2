@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect} from 'react';
+import React, { useRef, useState, useLayoutEffect} from 'react';
 import uuid from 'react-uuid';
 import tools from '../tools';
 import removecustomerIcon from './../assets/icons/remove-user.png';
@@ -19,6 +19,7 @@ export default function Customer(props) {
         openMenu,
     } = props;
 
+
     const customerRef = useRef();
     useLayoutEffect(() => {
         gsap.from(customerRef.current, animations.appearY);
@@ -28,6 +29,21 @@ export default function Customer(props) {
         }
     }, []);
 
+    const handleNamePaste = (event) => {
+        const pastedValue = event.clipboardData.getData("text");
+        if (pastedValue.length + customer.name.length > 50) {
+          event.preventDefault();
+        }
+    };
+
+    const handleNameChange = (event) => {
+        const { value } = event.target;
+        if (value.length <= 35) {
+            customers.editName(customer.id, event.target.value);
+        }
+      };
+      
+
     return (
         <div className="customer" key={customer.id} ref={customerRef}>
             <nav className="nameNav">
@@ -35,7 +51,9 @@ export default function Customer(props) {
                     type="text" 
                     value={customer.name} 
                     placeholder="Enter name..." 
-                    onChange={(e) => {customers.editName(customer.id, e.target.value)}}>
+                    maxLength={50}
+                    onPaste={handleNamePaste}
+                    onChange={handleNameChange}>
                 </input>
                 <button className="icon" onClick={() => {confirmDeleteCustomer(customer.id, customer.name)}}>
                     <img src={removecustomerIcon} alt="" />
