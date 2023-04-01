@@ -36,10 +36,11 @@ img {
 body {
   margin: 0;
   user-select: none;
-  background: $background-dark;
-  background: rgb(119, 104, 85);
+  //background: $background-dark;
+  //background: rgb(119, 104, 85);
   
-  background-image: url("./../assets/icons/dark-fabric.png");
+  background-image: url("./../assets/background/background.webp");
+  background-size: cover;
 }
 
 .shell {
@@ -55,7 +56,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 4;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
 }
@@ -100,6 +101,7 @@ button, select, option {
 .constructive {background: $background-constructive !important;}
 .progressive {background: $background-progressive !important;}
 .inactive {background: $background-inactive !important;}
+.informative {background: $gradient-blue !important; color: white;}
 
 //Checkboxes
 .switch {
@@ -207,7 +209,7 @@ button, select, option {
       border-radius: 100px;
 
       &.icon {
-        display: flex;        
+        display: inline-flex;        
 
         border-radius: 100%;
         background: none;

@@ -90,6 +90,19 @@
         }
       }
     }
+
+    & .resetButton {
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      color: black;
+      margin-top: 10px;
+
+      & img {
+        height: 18px;
+        width: 18px;
+      }
+    }
   }
 
   & .viewTabContainer {

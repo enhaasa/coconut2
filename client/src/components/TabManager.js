@@ -118,7 +118,8 @@ export default function TabManager(props) {
                 <nav className="tabNav">
                     <span className="receipt">
                         {table.session !== null ?
-                        <a href={`https://cocosoasis.info/r.php?id=${table.session}`}>{`Receipt Link`}</a> :
+                        <a href={`https://cocosoasis.info/r.php?id=${table.session}`}
+                        target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a> :
                         <span className="noresult">No Receipt Available</span>}
                     </span>
 

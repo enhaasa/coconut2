@@ -8,7 +8,7 @@ import animations from '../animations.js'
 
 import closeIcon from './../assets/icons/close.png';
 import basketIcon from './../assets/icons/shopping-cart.png';
-
+import resetIcon from './../assets/icons/reset-black.png';
 
 export default function TableManager(props) {
     const { 
@@ -62,6 +62,8 @@ export default function TableManager(props) {
         setSelectedTable(null);
     }
 
+
+
     const customersInTable = customers.get.filter(customer => (
         customer.table === table.id
     ))
@@ -77,6 +79,24 @@ export default function TableManager(props) {
                         unDeliveredOrdersInTable.push(order);
         })
     });
+
+    function resetTable() {
+        openConfirmBox({
+            callback: function(){
+                tables.setIsAvailable(table, true);
+                tables.setIsReserved(table, false);
+                tables.setIsPhotography(table, false);
+        
+                customersInTable.forEach(customer => {customers.remove(customer.id, table)});
+
+
+                closeConfirmBox();
+            },
+            closeConfirmBox: function(){closeConfirmBox()},
+            title: "Are you sure?",
+            message: `This will delete all customers and orders in this table, and also set the table as available, not reserved, and no photography booked.`
+        })
+    }
 
     let tabTotal = deliveredOrdersInTable.length > 0 ? 
         deliveredOrdersInTable.reduce((total, order) => total + order.price, 0) : 0;
@@ -199,6 +219,10 @@ export default function TableManager(props) {
                 openConfirmBox={openConfirmBox}
                 closeConfirmBox={closeConfirmBox}
             />
+
+            <button onClick={() => resetTable()} className="resetButton destructive">
+                <img src={resetIcon} /> Reset Table
+            </button>
 
         </div>
     );

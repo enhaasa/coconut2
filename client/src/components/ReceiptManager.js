@@ -13,12 +13,22 @@ export default function ReceiptManager(props) {
     ))).slice(1);
 
     let archivedSessions = archivedCustomersFromStartDate.map(order => order.session);
+
     archivedSessions = [...new Set(archivedSessions)];
+
 
     return (
         <div className="ReceiptManager">
 
-            <div className="title"><u>Today & yesterday's receipts:</u></div>
+            <div className="header">
+                <div className="title cursive">
+                    Receipts
+                </div>
+
+                <div className="underTitle">
+                    Today and yesterday
+                </div>
+            </div>
             <div className="receiptList">
                 {archivedSessions.map(session => (
                     <Receipt 

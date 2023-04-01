@@ -9,6 +9,7 @@ import Floor from './components/Floor'
 import TableManager from './components/TableManager';
 import MenuManager from './components/MenuManager';
 import ReceiptManager from './components/ReceiptManager';
+import NotificationBar from './components/NotificationBar';
 import uuid from 'react-uuid';
 import db from './dbTools_client';
 
@@ -188,19 +189,20 @@ function App() {
             {floors.map((floor, index) => {
                 return (
                     <div className="floorSelector" key={uuid()}>
-                      <div className="notificationBar">
-                        {orders.get.filter(order => order.floor === floor.type && !order.delivered).length > 0 &&
-                            <span className="notificationContainer">
-                              <span className="notification progressive">
-                                <span className="number">
-                                  {orders.get.filter(order => order.floor === floor.type && !order.delivered).length}
-                                </span>
-                              </span>
-                            </span>}
-                      </div>
+                      {
+                        <NotificationBar
+                          customers={
+                            customers.get.filter(customer => 
+                              customer.floor === floor.type && 
+                                !tables.get.find(table => table.id === customer.table 
+                                  && table).isAvailable && customer)}
+
+                          orders={orders.get.filter(order => order.floor === floor.type && !order.delivered && order)}
+                        />
+                      }
 
                       <button 
-                        className={`floorButton ${selectedFloor === index ? "constructive" : "inactive"}`} 
+                        className={`floorButton ${selectedFloor === index ? "active" : "inactive"}`} 
                         key={index} 
                         onClick={() => {setSelectedFloor(index)}}>
                         <span className="title">{floor.title}</span>

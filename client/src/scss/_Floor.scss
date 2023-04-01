@@ -3,11 +3,12 @@
 .FloorContainer {
   margin: 0 auto;
   width: 1000px;
+  
 
   & .floorNav {
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
+    padding: 5px 0 0 0;
     width: 100%;
     
     & .floorColumn {
@@ -19,28 +20,43 @@
         
         & .notificationBar {
           display: inline-flex;
-          justify-content: flex-end;
-          margin-bottom: -15px;
-          margin-right: -10px;
-          z-index: 1;
+          justify-content: flex-start;
+          flex-direction: row-reverse;
+          margin-bottom: -10px;
+          margin-right: -5px;
+          z-index: 3;
           pointer-events: none;
           
           & .notification {
             font-size: 16px;
-            width: 22px;
-            height: 22px;
+            display: flex;
+            justify-content: center;
+            padding: 0 5px;
+            border-radius: 50px;
+            width: auto;
+            grid-gap: 3px;
+            
           }
         }
 
         & .floorButton {
-          font-size: .8em;
-          border-radius: 50px;
-          padding: 8px 10px;
+          font-size: 14px;
+          border-radius: 15px 15px 0 0;
+          padding: 6px 14px;
           box-shadow: 0px 4px 6px 1px $background-dark;
+          border-bottom: none;
 
           & .title {
-            font-size: 1.3em;
+            font-size: 1.4em;
+            font-weight: normal;
           }
+        }
+
+        & .active {
+          background: $gradient-steel;
+          color: white;
+          z-index: 2;
+          padding-bottom: 10px;
         }
       }
     }
@@ -63,14 +79,14 @@
         & .title {
           font-size: 42px !important;
           font-weight: bold;
-          background: linear-gradient(to right, rgb(132, 253, 132), rgb(164, 250, 238));
+          background: $gradient-green;
           background-clip: text;
           -webkit-text-fill-color: transparent;
           margin-bottom: -5px;
         }
 
         & .version {
-          color: black;
+          color: white;
         }
       } 
     }
@@ -81,6 +97,8 @@
     width: 1000px;
     height: 700px;
     box-shadow: 0px 4px 10px 1px black;
+    border: 4px solid black;
+    background: $gradient-steel;
 
     & .overlay{
       z-index: 2;

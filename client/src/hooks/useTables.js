@@ -11,37 +11,46 @@ function useTables(init, props) {
 
     function toggleIsAvailable(table) {
         const current = tables[table.id].isAvailable;
+        setIsAvailable(table, !current);
+    }
 
+    function setIsAvailable(table, option) {
         setTables(prev => { 
-            prev[table.id].isAvailable = !prev[table.id].isAvailable;
+            prev[table.id].isAvailable = option;
             return [...prev];
         })
 
-        db.tables.put('isAvailable', !current, 'id', table.id);
+        db.tables.put('isAvailable', option, 'id', table.id);
         updateUpdates("tables");
     }
 
     function toggleIsReserved(table) {
         const current = tables[table.id].isReserved;
+        setIsReserved(table, !current)
+    }
 
+    function setIsReserved(table, option) {
         setTables(prev => {
-            prev[table.id].isReserved = !prev[table.id].isReserved;
+            prev[table.id].isReserved = option;
             return [...prev];
         })
         
-        db.tables.put('isReserved', !current, 'id', table.id);
+        db.tables.put('isReserved', option, 'id', table.id);
         updateUpdates("tables");
     }
 
     function toggleIsPhotography(table) {
         const current = tables[table.id].isPhotography;
+        setIsPhotography(table, !current);
+    }
 
+    function setIsPhotography(table, option) {
         setTables(prev => {
-            prev[table.id].isPhotography = !prev[table.id].isPhotography;
+            prev[table.id].isPhotography = option;
             return [...prev];
         })
         
-        db.tables.put('isPhotography', !current, 'id', table.id);
+        db.tables.put('isPhotography', option, 'id', table.id);
         updateUpdates("tables");
     }
 
@@ -65,8 +74,11 @@ function useTables(init, props) {
             get: tables,
             set: setTables,
             toggleIsAvailable,
+            setIsAvailable,
             toggleIsPhotography,
+            setIsPhotography,
             toggleIsReserved,
+            setIsReserved,
             setWaiter,
             refresh: refresh
         }

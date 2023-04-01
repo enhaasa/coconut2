@@ -67,7 +67,7 @@ const sortArchivedArray = (array) => {
         let duplicateIndex = 0;
 
         sortedArray.forEach((sortedItem, index) => {
-            if(sortedItem.name === arrayItem.name 
+            if(sortedItem.id === arrayItem.id 
                 && sortedItem.price === arrayItem.price) {
                     duplicate = true;
                     duplicateIndex = index;
