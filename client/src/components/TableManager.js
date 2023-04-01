@@ -29,6 +29,7 @@ export default function TableManager(props) {
 
         return () => {
             gsap.to(TableManagerRef.current, animations.softElastic);
+
         }
     }, []);
 
@@ -107,9 +108,9 @@ export default function TableManager(props) {
             {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
             {isBlurred && <div className="blur" />}
 
-            <div className="title">
+            <div className="header">
                 <div className="assignWaiter">
-                    <span className="cursive">Waiter:</span>
+                    <span className="title cursive">Waiter:</span>
                     {staff.get.length === 0 ? "Loading..." :
                         <select 
                             name="waiters" 
@@ -144,7 +145,7 @@ export default function TableManager(props) {
             <section className="navbar">
                 <div className="column">
                     <span className="navsection">
-                        <span className="cursive">Vacant:</span>
+                        <span className="title cursive">Vacant:</span>
                         <label className="switch">
                             <input 
                                 type="checkbox" 
@@ -156,7 +157,7 @@ export default function TableManager(props) {
                     </span>
 
                     <span className="navsection">
-                        <span className="cursive">Reserved:</span>
+                        <span className="title cursive">Reserved:</span>
                         <label className="switch">
                             <input 
                             type="checkbox" 
@@ -168,7 +169,7 @@ export default function TableManager(props) {
                     </span>
 
                     <span className="navsection">
-                        <span className="cursive">Photography: </span>
+                        <span className="title cursive">Photography: </span>
                         <label className="switch">
                             <input 
                                 type="checkbox" 

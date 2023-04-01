@@ -51,6 +51,10 @@ export default function OrderManager(props) {
     return (
         <>
             <section className="OrderManager">
+                <div className="header cursive">
+                    Customers
+                </div>
+
                 <div className="customerContainer">
                     {customers.get.map(customer => (
                     

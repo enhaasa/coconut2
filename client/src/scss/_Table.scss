@@ -20,9 +20,10 @@
         color: white;
         padding: 1px 5px;
         text-shadow: 0 0 black;
-        margin-top: -32px;
-        background: $background-dark !important;
-        border: 4px double beige;
+        margin-top: -26px;
+        background: $gradient-steel !important;
+        border: 2px solid black;
+        box-shadow: 0px 0px 2px 1px black;
         font-size: 14px;
         
         display: flex;
@@ -38,17 +39,19 @@
     & ul {
         list-style: none;
         text-align: center;
-        margin: 0;
+        margin: 1px;
         padding: 0;
         display: grid;
         justify-items: center;
 
         & li {
-            background: $background-progressive;
+            background: $gradient-steel;
+            box-shadow: 0px 1px 6px 1px black;
+            color: white;
             padding: 1px 5px;
             border-radius: 25px;
-            border: 1px solid black;
-            margin: 1px;
+            outline: 2px solid black;
+            margin: 2px;
             font-size: 14px;
         }
     }
@@ -112,7 +115,7 @@
 
         font-size: 1.5em;
         border-radius: 100%;
-        border: 4px double black;
+        border: 6px double black;
         box-shadow: 0 0 4px 1px $darkgrey;
         width: 80px;
         height: 80px;

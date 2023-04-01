@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import animations from '../animations';
 
 import closeIcon from './../assets/icons/close.png';
-import infoIcon from './../assets/icons/info-small-white.png';
+import infoIcon from './../assets/icons/info-small-black.png';
 
 export default function MenuManager(props) {
     const { 

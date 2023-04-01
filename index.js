@@ -5,19 +5,31 @@ const fs = require('fs');
 const cors = require('cors');
 const path = require("path");
 const { convertSQLKeyword, convertSQLKeywords } = require('./dbTools_server');
+
 const PORT = process.env.PORT || 3001;
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.use(cors());
 app.use(express.json());
 app.listen(PORT);
 
+
+
+
 /*
 app.get('/', (req, res) => {
-    res.send('./client/public/index.html')
-});
+    res.redirect('https://www.google.se/');
+  });
 */
 
+
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+
+
+
+
+
+//DB Stuff
 const db = mysql.createPool({
     user: 'linroot',
     host: 'lin-13330-7942-mysql-primary.servers.linodedb.net',

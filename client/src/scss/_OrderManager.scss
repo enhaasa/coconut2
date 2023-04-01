@@ -9,6 +9,13 @@
     max-height: 400px;
     overflow-y: auto;
     padding: 8px;
+    border: 2px solid black;
+    box-shadow: inset 0px 1px 10px 1px black;
+
+    & .header {
+        font-size: 24px;
+        border-bottom: 4px double black;
+    }
 
     & button.icon { 
         border-radius: 100%; 

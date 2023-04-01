@@ -13,37 +13,39 @@
   transform: translate(-50%, -50%);
 }
 .TableManagerContainer .TableManager {
-  background: #79513E;
-  background-image: url("./../assets/icons/dark-leather.png");
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   border-radius: 50px 50px 20px 20px;
   display: grid;
   min-width: 450px;
   color: white;
   padding: 15px;
   position: relative;
-  border: 4px double rgb(41, 41, 41);
+  border: 4px solid black;
   box-shadow: 0px 4px 10px 1px black;
+}
+.TableManagerContainer .TableManager .title {
+  text-shadow: 0.1em 0.1em 0.2em black;
 }
 .TableManagerContainer .TableManager .blur {
   border-radius: inherit;
 }
-.TableManagerContainer .TableManager .title {
+.TableManagerContainer .TableManager .header {
   display: grid;
   grid-auto-flow: column;
   justify-items: center;
   width: 100%;
 }
-.TableManagerContainer .TableManager .title .assignWaiter {
+.TableManagerContainer .TableManager .header .assignWaiter {
   display: grid;
   justify-self: start;
   align-content: center;
 }
-.TableManagerContainer .TableManager .title .assignWaiter select {
+.TableManagerContainer .TableManager .header .assignWaiter select {
   background: silver;
   border-radius: 15px;
   padding: 2px;
 }
-.TableManagerContainer .TableManager .title .tablenumber {
+.TableManagerContainer .TableManager .header .tablenumber {
   display: grid;
   justify-self: center;
   place-items: center;
@@ -52,13 +54,15 @@
   width: 100px;
   height: 100px;
   position: absolute;
+  box-shadow: 0px 4px 10px 1px black;
   font-size: 4.5em;
   margin-top: -8px;
   color: black;
 }
-.TableManagerContainer .TableManager .title .closeButton {
+.TableManagerContainer .TableManager .header .closeButton {
   justify-self: end;
   align-self: center;
+  box-shadow: 0px 4px 10px 1px black;
 }
 .TableManagerContainer .TableManager .navbar {
   width: 100%;
@@ -85,6 +89,7 @@
   justify-content: center;
   color: black;
   margin-top: 10px;
+  box-shadow: 0px 4px 10px 1px black;
 }
 .TableManagerContainer .TableManager .resetButton img {
   height: 18px;
@@ -100,6 +105,7 @@
   grid-gap: 5px;
   border-radius: 15px;
   padding: 5px;
+  box-shadow: 0px 4px 10px 1px black;
 }
 .TableManagerContainer .viewTabContainer .viewTabButton .column {
   display: grid;
@@ -146,6 +152,7 @@
   border-radius: 50px;
   width: auto;
   grid-gap: 3px;
+  box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
   font-size: 14px;
@@ -163,6 +170,9 @@
   color: white;
   z-index: 2;
   padding-bottom: 10px;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .active .title {
+  text-shadow: 0em 4px 12px black;
 }
 .FloorContainer .floorNav .appInfo {
   display: flex;
@@ -282,6 +292,7 @@ button, select, option {
   border-radius: 15px;
   outline: none;
   border: 2px solid black;
+  transition: 200ms all ease;
 }
 button:hover, select:hover, option:hover {
   cursor: pointer;
@@ -318,7 +329,11 @@ button:hover, select:hover, option:hover {
 }
 
 .informative {
-  background: linear-gradient(to bottom right, rgb(95, 129, 224), rgb(60, 52, 179)) !important;
+  background: linear-gradient(to bottom right, rgb(141, 163, 223), rgb(81, 73, 202)) !important;
+}
+
+.steel {
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   color: white;
 }
 
@@ -327,6 +342,7 @@ button:hover, select:hover, option:hover {
   display: inline-block;
   width: 42px;
   height: 22px;
+  border-radius: 20px;
 }
 .switch input {
   opacity: 0;
@@ -343,6 +359,7 @@ button:hover, select:hover, option:hover {
   background-color: silver;
   outline: 2px solid black;
   border-radius: 20px;
+  box-shadow: inset 0px 1px 4px 1px rgb(41, 41, 41) !important;
 }
 .switch .slider:before {
   position: absolute;
@@ -353,6 +370,8 @@ button:hover, select:hover, option:hover {
   bottom: 3px;
   background-color: black;
   border-radius: 50%;
+  box-shadow: 0px 1px 4px 1px rgb(41, 41, 41);
+  transition: 200ms all ease;
 }
 .switch input:checked + .slider {
   background: radial-gradient(ellipse farthest-corner at right bottom, rgb(132, 253, 132) 0%, rgb(132, 253, 207) 8%, rgb(164, 250, 238) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(220, 255, 220) 8%, rgb(132, 253, 132) 25%);
@@ -487,6 +506,7 @@ button:hover, select:hover, option:hover {
   border-radius: 50px;
   width: auto;
   grid-gap: 3px;
+  box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
   font-size: 14px;
@@ -504,6 +524,9 @@ button:hover, select:hover, option:hover {
   color: white;
   z-index: 2;
   padding-bottom: 10px;
+}
+.FloorContainer .floorNav .floorColumn .floorSelector .active .title {
+  text-shadow: 0em 4px 12px black;
 }
 .FloorContainer .floorNav .appInfo {
   display: flex;
@@ -574,9 +597,11 @@ button:hover, select:hover, option:hover {
   font-size: 14px;
 }
 .ReceiptManager .receiptList {
+  box-shadow: inset 0px 1px 10px 1px black;
   display: flex;
   flex-direction: column;
   padding-top: 5px;
+  font-weight: bold;
   gap: 10px;
   height: 100%;
   overflow: auto;
@@ -606,9 +631,10 @@ button:hover, select:hover, option:hover {
   color: white;
   padding: 1px 5px;
   text-shadow: 0 0 black;
-  margin-top: -32px;
-  background: rgb(36, 30, 11) !important;
-  border: 4px double beige;
+  margin-top: -26px;
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black) !important;
+  border: 2px solid black;
+  box-shadow: 0px 0px 2px 1px black;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -621,17 +647,19 @@ button:hover, select:hover, option:hover {
 .Table ul {
   list-style: none;
   text-align: center;
-  margin: 0;
+  margin: 1px;
   padding: 0;
   display: grid;
   justify-items: center;
 }
 .Table ul li {
-  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #c59c44 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%);
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  box-shadow: 0px 1px 6px 1px black;
+  color: white;
   padding: 1px 5px;
   border-radius: 25px;
-  border: 1px solid black;
-  margin: 1px;
+  outline: 2px solid black;
+  margin: 2px;
   font-size: 14px;
 }
 .Table .editing {
@@ -683,7 +711,7 @@ button:hover, select:hover, option:hover {
 .Table .numberDisplay {
   font-size: 1.5em;
   border-radius: 100%;
-  border: 4px double black;
+  border: 6px double black;
   box-shadow: 0 0 4px 1px rgb(41, 41, 41);
   width: 80px;
   height: 80px;
@@ -720,37 +748,39 @@ button:hover, select:hover, option:hover {
   transform: translate(-50%, -50%);
 }
 .TableManagerContainer .TableManager {
-  background: #79513E;
-  background-image: url("./../assets/icons/dark-leather.png");
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   border-radius: 50px 50px 20px 20px;
   display: grid;
   min-width: 450px;
   color: white;
   padding: 15px;
   position: relative;
-  border: 4px double rgb(41, 41, 41);
+  border: 4px solid black;
   box-shadow: 0px 4px 10px 1px black;
+}
+.TableManagerContainer .TableManager .title {
+  text-shadow: 0.1em 0.1em 0.2em black;
 }
 .TableManagerContainer .TableManager .blur {
   border-radius: inherit;
 }
-.TableManagerContainer .TableManager .title {
+.TableManagerContainer .TableManager .header {
   display: grid;
   grid-auto-flow: column;
   justify-items: center;
   width: 100%;
 }
-.TableManagerContainer .TableManager .title .assignWaiter {
+.TableManagerContainer .TableManager .header .assignWaiter {
   display: grid;
   justify-self: start;
   align-content: center;
 }
-.TableManagerContainer .TableManager .title .assignWaiter select {
+.TableManagerContainer .TableManager .header .assignWaiter select {
   background: silver;
   border-radius: 15px;
   padding: 2px;
 }
-.TableManagerContainer .TableManager .title .tablenumber {
+.TableManagerContainer .TableManager .header .tablenumber {
   display: grid;
   justify-self: center;
   place-items: center;
@@ -759,13 +789,15 @@ button:hover, select:hover, option:hover {
   width: 100px;
   height: 100px;
   position: absolute;
+  box-shadow: 0px 4px 10px 1px black;
   font-size: 4.5em;
   margin-top: -8px;
   color: black;
 }
-.TableManagerContainer .TableManager .title .closeButton {
+.TableManagerContainer .TableManager .header .closeButton {
   justify-self: end;
   align-self: center;
+  box-shadow: 0px 4px 10px 1px black;
 }
 .TableManagerContainer .TableManager .navbar {
   width: 100%;
@@ -792,6 +824,7 @@ button:hover, select:hover, option:hover {
   justify-content: center;
   color: black;
   margin-top: 10px;
+  box-shadow: 0px 4px 10px 1px black;
 }
 .TableManagerContainer .TableManager .resetButton img {
   height: 18px;
@@ -807,6 +840,7 @@ button:hover, select:hover, option:hover {
   grid-gap: 5px;
   border-radius: 15px;
   padding: 5px;
+  box-shadow: 0px 4px 10px 1px black;
 }
 .TableManagerContainer .viewTabContainer .viewTabButton .column {
   display: grid;
@@ -828,6 +862,12 @@ button:hover, select:hover, option:hover {
   max-height: 400px;
   overflow-y: auto;
   padding: 8px;
+  border: 2px solid black;
+  box-shadow: inset 0px 1px 10px 1px black;
+}
+.OrderManager .header {
+  font-size: 24px;
+  border-bottom: 4px double black;
 }
 .OrderManager button.icon {
   border-radius: 100%;
@@ -895,10 +935,10 @@ button:hover, select:hover, option:hover {
 .TableManagerContainer .MenuManager {
   display: grid;
   position: relative;
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  background: bisque;
+  background-image: url("./../assets/icons/dark-fabric.png");
   color: white;
-  padding: 0 10px;
-  border: 4px double black;
+  border: 4px solid black;
   box-shadow: 0px 4px 10px 1px black;
 }
 .TableManagerContainer .MenuManager .menuTitle {
@@ -906,23 +946,25 @@ button:hover, select:hover, option:hover {
   justify-self: center;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
   font-size: 22px;
   color: rgb(138, 0, 0);
-  background: bisque;
-  background-image: url("./../assets/icons/dark-fabric.png");
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   width: 100%;
-  border-bottom: 2px solid black;
+  box-shadow: 0px 2px 4px 1px black;
+}
+.TableManagerContainer .MenuManager .menuTitle .customerTitle {
+  color: white;
+  padding: 0 10px;
+  text-shadow: 0.1em 0.1em 0.2em black;
 }
 .TableManagerContainer .MenuManager .menuTitle .closeButton {
-  background: none;
-  border: none;
-  margin: 0 -10px;
+  margin: 5px;
 }
 .TableManagerContainer .MenuManager .menuContainer {
   -moz-column-count: 2;
        column-count: 2;
-  padding: 5px 0;
+  padding: 5px 10px;
+  box-shadow: inset 0px 1px 10px 1px black;
 }
 .TableManagerContainer .MenuManager .menuContainer .type {
   -moz-column-break-inside: avoid;
@@ -931,7 +973,8 @@ button:hover, select:hover, option:hover {
 }
 .TableManagerContainer .MenuManager .menuContainer .type .typeTitle {
   border-bottom: 1px solid white;
-  color: white;
+  font-weight: bold;
+  color: black;
   font-size: 26px;
   text-align: center;
   margin: 2px 0;
@@ -941,16 +984,23 @@ button:hover, select:hover, option:hover {
   white-space: nowrap;
   justify-content: space-between;
   gap: 5px;
+  margin: 1px 0;
 }
 .TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle {
   display: flex;
   gap: 5px;
   align-content: center;
+  color: black;
+  font-weight: bold;
 }
 .TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle .itemInfoButton {
   background: none;
   border: none;
   padding: 0;
+}
+.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemNav button {
+  box-shadow: 0px 2px 4px 1px black;
+  transition: none;
 }
 .TableManagerContainer .MenuManager .menuContainer .type .itemContainer .itemInfo {
   display: none;
@@ -960,52 +1010,53 @@ button:hover, select:hover, option:hover {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 4;
   display: grid;
   place-items: center;
 }
 .InfoboxContainer .Infobox {
-  background: rgb(36, 30, 11);
+  background: bisque;
+  background-image: url("./../assets/icons/dark-fabric.png");
   box-shadow: 0px 4px 10px 1px black;
-  border: 4px double black;
+  border: 4px solid black;
+  width: 80%;
 }
 .InfoboxContainer .Infobox .infoTitle {
-  background: red;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
-  background: bisque;
-  color: black;
+  padding: 0 0 0 10px;
+  text-shadow: 0.1em 0.1em 0.2em black;
+  color: white;
   font-size: 22px;
-  background-image: url("./../assets/icons/dark-fabric.png");
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   border-bottom: 2px solid black;
 }
 .InfoboxContainer .Infobox .infoTitle .closeButton {
-  background: none;
-  border: none;
-  margin: 0 -10px;
+  margin: 5px;
 }
 .InfoboxContainer .Infobox .section {
-  margin: 15px 0;
+  color: black;
+  padding: 5px 0;
+}
+.InfoboxContainer .Infobox .section .sectionHeader {
+  color: rgb(138, 0, 0) !important;
 }
 .InfoboxContainer .Infobox .section .cursive {
-  font-size: 24px;
+  font-size: 26px;
   color: rgb(138, 0, 0);
   font-weight: bold;
 }
 .InfoboxContainer .Infobox .section p {
   margin: 0;
+  font-weight: bold;
 }
 .InfoboxContainer .Infobox .infoContainer {
   padding: 0 10px;
-}
-.InfoboxContainer .Infobox .infoContainer .quote {
-  color: white;
-  font-style: italic;
+  box-shadow: inset 0px 1px 10px 1px black;
 }
 .InfoboxContainer .Infobox .infoContainer .noresult {
-  color: grey !important;
+  color: rgb(75, 75, 75) !important;
 }
 
 .ConfirmBoxContainer {
@@ -1102,6 +1153,7 @@ button:hover, select:hover, option:hover {
 .TabManagerContainer header .title {
   font-size: 1.8em;
   font-weight: bold;
+  text-shadow: none !important;
 }
 .TabManagerContainer header .closeButton {
   position: absolute;

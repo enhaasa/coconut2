@@ -35,7 +35,7 @@
             border-radius: 50px;
             width: auto;
             grid-gap: 3px;
-            
+            box-shadow: 0px 1px 4px 1px $background-dark;
           }
         }
 
@@ -57,6 +57,10 @@
           color: white;
           z-index: 2;
           padding-bottom: 10px;
+
+          & .title {
+            text-shadow: 0em 4px 12px black;
+          }
         }
       }
     }

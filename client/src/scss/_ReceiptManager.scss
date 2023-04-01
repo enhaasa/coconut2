@@ -29,9 +29,11 @@
     }
 
     & .receiptList {
+        box-shadow: inset 0px 1px 10px 1px black;
         display: flex;
         flex-direction: column;
         padding-top: 5px;
+        font-weight: bold;
         gap: 10px;
         height: 100%;
         overflow: auto;

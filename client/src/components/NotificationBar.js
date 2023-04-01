@@ -1,5 +1,5 @@
 import orderIcon from './../assets/icons/order-small-black.png';
-import userIcon from './../assets/icons/user-white.png';
+import userIcon from './../assets/icons/user-black.png';
 
 function NotificationBar(props) {
     const { orders, customers} = props;

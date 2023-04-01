@@ -16,6 +16,16 @@ export default {
     appearY: {
         duration: 0.3,
         scaleY: 0,
+        ease: "back"
+    },
+    appearYBounce: {
+        duration: 1,
+        scaleY: 0,
+        ease: "bounce"
+    },
+    fadeFast: {
+        duration: 1,
+        opacity: 0
     },
     fadeSlow: {
         duration: 2,
