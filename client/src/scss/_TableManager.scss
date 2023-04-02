@@ -43,8 +43,8 @@
         justify-self: start;
         align-content: center;
 
-        & select {
-          background: silver;
+        & select, & select > {
+          background: $gradient-silver;
           border-radius: 15px;
           padding: 2px;
         }

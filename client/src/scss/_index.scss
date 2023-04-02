@@ -85,6 +85,10 @@ button, select, option {
     cursor: pointer;
     filter:brightness(1.1);
   }
+
+  &:active {
+    box-shadow: inset 0px 1px 4px 1px black !important;
+  }
 }
 .closeButton {
   border-radius: 100%;

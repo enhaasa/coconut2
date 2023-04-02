@@ -11,11 +11,13 @@
     & .confirmBox {
         background: bisque;
         background-image: url("./../assets/icons/dark-fabric.png");
-        color: black;
+        background: $gradient-steel;
+        color: white;
         padding: 10px;
         border-radius: 25px;
         border: 4px double black;
         z-index: 99;
+        box-shadow: 0px 4px 10px 1px black;
 
         & .title {
             font-weight: bold;
@@ -29,6 +31,14 @@
             display: flex;
             gap: 10px;
             justify-content: center;
+
+            button {
+                box-shadow: 0px 4px 10px 1px black;
+
+                &:active {
+                    box-shadow: inset 0px 1px 4px 1px black;
+                }
+            }
 
             & .yes {
                 background: $background-destructive;

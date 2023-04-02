@@ -41,7 +41,7 @@
   align-content: center;
 }
 .TableManagerContainer .TableManager .header .assignWaiter select {
-  background: silver;
+  background: linear-gradient(to bottom right, lightgrey, grey);
   border-radius: 15px;
   padding: 2px;
 }
@@ -212,6 +212,7 @@
   position: absolute;
   width: 1000px;
   height: 700px;
+  box-shadow: inset 0px 1px 10px 1px black;
 }
 .FloorContainer .Floor .floorImage {
   width: 1000px;
@@ -297,6 +298,9 @@ button, select, option {
 button:hover, select:hover, option:hover {
   cursor: pointer;
   filter: brightness(1.1);
+}
+button:active, select:active, option:active {
+  box-shadow: inset 0px 1px 4px 1px black !important;
 }
 
 .closeButton {
@@ -566,6 +570,7 @@ button:hover, select:hover, option:hover {
   position: absolute;
   width: 1000px;
   height: 700px;
+  box-shadow: inset 0px 1px 10px 1px black;
 }
 .FloorContainer .Floor .floorImage {
   width: 1000px;
@@ -776,7 +781,7 @@ button:hover, select:hover, option:hover {
   align-content: center;
 }
 .TableManagerContainer .TableManager .header .assignWaiter select {
-  background: silver;
+  background: linear-gradient(to bottom right, lightgrey, grey);
   border-radius: 15px;
   padding: 2px;
 }
@@ -1070,11 +1075,13 @@ button:hover, select:hover, option:hover {
 .ConfirmBoxContainer .confirmBox {
   background: bisque;
   background-image: url("./../assets/icons/dark-fabric.png");
-  color: black;
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  color: white;
   padding: 10px;
   border-radius: 25px;
   border: 4px double black;
   z-index: 99;
+  box-shadow: 0px 4px 10px 1px black;
 }
 .ConfirmBoxContainer .confirmBox .title {
   font-weight: bold;
@@ -1086,6 +1093,12 @@ button:hover, select:hover, option:hover {
   display: flex;
   gap: 10px;
   justify-content: center;
+}
+.ConfirmBoxContainer .confirmBox .options button {
+  box-shadow: 0px 4px 10px 1px black;
+}
+.ConfirmBoxContainer .confirmBox .options button:active {
+  box-shadow: inset 0px 1px 4px 1px black;
 }
 .ConfirmBoxContainer .confirmBox .options .yes {
   background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63));
