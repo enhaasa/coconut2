@@ -23,14 +23,21 @@ export default function TableManager(props) {
     } = props;
 
     //Mount animations
-    const TableManagerRef = useRef();
+    const ref = useRef();
+
     useLayoutEffect(() => {
-        gsap.from(TableManagerRef.current, animations.softElastic);
+        //gsap.from(ref.current, animations.softElastic);
 
+        const element = ref.current;
+        const timeline = gsap.timeline();
+        
+        timeline.from(element, animations.softElastic);
+    
+        // Cleanup function to run when component is unmounted
         return () => {
-            gsap.to(TableManagerRef.current, animations.softElastic);
+          timeline.kill();
+        };
 
-        }
     }, []);
 
     const [isBlurred, setIsBlurred] = useState(false);
@@ -58,9 +65,13 @@ export default function TableManager(props) {
         if (table.isReserved) return "progressive";
     }
 
-    function close(){
-        setSelectedCustomer(null);
-        setSelectedTable(null);
+    function handleClose(){
+        gsap.to(ref.current, animations.hardElastic);
+
+        setTimeout(()=> {
+            setSelectedCustomer(null);
+            setSelectedTable(null);
+        }, 200)
     }
 
 
@@ -104,7 +115,7 @@ export default function TableManager(props) {
     
     return (
         table.id !== null &&
-        <div className="TableManager" ref={TableManagerRef}>
+        <div className="TableManager" ref={ref}>
             {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
             {isBlurred && <div className="blur" />}
 
@@ -136,7 +147,7 @@ export default function TableManager(props) {
                     {table.id +1}
                 </span>
 
-                <button className="closeButton" onClick={close}>
+                <button className="closeButton" onClick={handleClose}>
                     <img src={closeIcon} alt="" />
                 </button>
             </div>

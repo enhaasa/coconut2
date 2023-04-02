@@ -19,6 +19,7 @@ export default function MenuManager(props) {
     const MenuManagerRef = useRef();
     useLayoutEffect(() => {
         gsap.from(MenuManagerRef.current, animations.appearY);
+        
 
         return () => {
             gsap.to(MenuManagerRef.current, animations.appearY);
