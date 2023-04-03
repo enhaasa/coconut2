@@ -68,10 +68,10 @@ function useCustomers(init, props) {
             return [...prev];
         });
 
-        tools.debounce(() => {
-            db.customers.put(id, newName);
-            updateUpdates("customers");
-        }, 500);
+        
+        db.customers.put(id, newName);
+        updateUpdates("customers");
+        
     }
 
     function refresh() {
