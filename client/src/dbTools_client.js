@@ -2,7 +2,7 @@ import Axios from "axios";
 
 //`https://${document.location.hostname}`;
 //'http://localhost:3001';
-const baseUrl = 'http://localhost:3001';
+const baseUrl = `https://${document.location.hostname}`;
 
 function get(endpoint) {
     return async function() {

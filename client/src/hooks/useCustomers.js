@@ -60,7 +60,7 @@ function useCustomers(init, props) {
         setSelectedCustomer(null);
     }
 
-    function editName(id, newName) {
+    function editName(id, newName, updateServer = true) {
         const index = customers.map(customer => customer.id).indexOf(id);
 
         setCustomers(prev => {
@@ -68,10 +68,10 @@ function useCustomers(init, props) {
             return [...prev];
         });
 
-        
-        db.customers.put(id, newName);
-        updateUpdates("customers");
-        
+        if (updateServer) {
+            db.customers.put(id, newName);
+            updateUpdates("customers");
+        }
     }
 
     function refresh() {
