@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import db from '../dbTools_client';
 import uuid from 'react-uuid';
+import tools from '../tools';
 
 
 function useCustomers(init, props) {
@@ -52,13 +53,6 @@ function useCustomers(init, props) {
         
         if (customersInTable.length-1 === 0) {
             db.tables.put('session', null, 'id', table.id);
-
-            /*
-            setTables(prev => {
-            prev[table.id].session = null;
-            return [...prev];
-            })
-            */
         }
         
         db.customers.delete(id);
@@ -74,8 +68,13 @@ function useCustomers(init, props) {
             return [...prev];
         });
 
-        db.customers.put(id, newName);
-        updateUpdates("customers");
+
+
+            db.customers.put(id, newName);
+            updateUpdates("customers");
+     
+
+
     }
 
     function refresh() {

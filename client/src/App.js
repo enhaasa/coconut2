@@ -182,6 +182,8 @@ function App() {
           </>
         }
       </section>
+      
+
 
       <section className="FloorContainer">
         <nav className="floorNav">
@@ -190,14 +192,16 @@ function App() {
                 return (
                     <div className="floorSelector" key={uuid()}>
                       {
-                        <NotificationBar
-                          customers={
-                            customers.get.filter(customer => 
-                              customer.floor === floor.type && 
-                                !tables.get.find(table => table.id === customer.table 
-                                  && table).isAvailable && customer)}
+                        customers.get.length > 0 &&
+                        tables.get.length > 0 &&
+                          <NotificationBar
+                            customers={
+                              customers.get.filter(customer => 
+                                customer.floor === floor.type && 
+                                  !tables.get.find(table => table.id === customer.table 
+                                    && table).isAvailable && customer)}
 
-                          orders={orders.get.filter(order => order.floor === floor.type && !order.delivered && order)}
+                            orders={orders.get.filter(order => order.floor === floor.type && !order.delivered && order)}
                         />
                       }
 

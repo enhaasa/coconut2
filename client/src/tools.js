@@ -1,3 +1,17 @@
+function debounce(func, delay) {
+    let timerId;
+    return function (...args) {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+      timerId = setTimeout(() => {
+        console.log(test);
+        func.apply(this, args);
+      }, delay);
+    };
+}
+
+
 const sortArrayByCustomer = (array, sortDelivered) => {
     let sortedArray = [];
 
@@ -212,5 +226,6 @@ export default {
     epochToTime,
     dateToEpoch,
     timeToEpoch,
-    getDate
+    getDate,
+    debounce
 };
