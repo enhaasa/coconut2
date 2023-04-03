@@ -1,4 +1,4 @@
-import React, { useRef, useState, useLayoutEffect} from 'react';
+import React, { useRef, useCallback, useLayoutEffect} from 'react';
 import uuid from 'react-uuid';
 import tools from '../tools';
 import removecustomerIcon from './../assets/icons/remove-user.png';
@@ -39,7 +39,14 @@ export default function Customer(props) {
     const handleNameChange = (event) => {
         const { value } = event.target;
         if (value.length <= 35) {
+
             customers.editName(customer.id, event.target.value, false);
+
+            tools.debounce(() => {
+                console.log("test");
+                
+            }, 500);
+            
         }
     };
       

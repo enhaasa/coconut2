@@ -1,13 +1,8 @@
-function debounce(func, delay) {
-    let timerId;
-    return function (...args) {
-      if (timerId) {
-        clearTimeout(timerId);
-      }
-      timerId = setTimeout(() => {
-        console.log(test);
-        func.apply(this, args);
-      }, delay);
+function debounce(func, timeout = 300){
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
     };
 }
 
