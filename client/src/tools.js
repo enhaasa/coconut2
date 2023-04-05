@@ -171,6 +171,22 @@ function timeToEpoch(timeString) {
     return date.getTime();
 }
 
+function epochToSqlDateTime(epoch) {
+    const dateObj = new Date(epoch);
+    const year = dateObj.getUTCFullYear();
+    const month = ("0" + (dateObj.getUTCMonth() + 1)).slice(-2);
+    const day = ("0" + dateObj.getUTCDate()).slice(-2);
+    const hours = ("0" + dateObj.getUTCHours()).slice(-2);
+    const minutes = ("0" + dateObj.getUTCMinutes()).slice(-2);
+    const seconds = ("0" + dateObj.getUTCSeconds()).slice(-2);
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+function sqlDateTimeToEpoch(sqlDateTime) {
+    const dateObj = new Date(sqlDateTime);
+    return dateObj.getTime();
+}
+
 const formatTime = (epoch) => {
     if (!epoch) return "0s";
     if (epoch >= 60000) return Math.floor(epoch / 60000) + "m";
@@ -221,6 +237,8 @@ export default {
     epochToTime,
     dateToEpoch,
     timeToEpoch,
+    epochToSqlDateTime,
+    sqlDateTimeToEpoch,
     getDate,
     debounce
 };

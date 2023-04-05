@@ -24,11 +24,6 @@ app.get('/', (req, res) => {
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 
-
-
-
-
-
 //DB Stuff
 const db = mysql.createPool({
     user: 'linroot',
