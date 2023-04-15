@@ -6,7 +6,7 @@
     color: black;
     max-height: 600px;
     width: 250px;
-    height: 800px;
+    height: 580px;
     border-radius: 0 30px 0 0;
     margin-left: 4px;
 
@@ -39,6 +39,15 @@
         overflow: auto;
         background: bisque;
         background-image: url("./../assets/icons/dark-fabric.png");
+        border: 4px solid black;
+        border-top: none;
+    }
+
+    & .totalEarnings {
+        color: white;
+        padding: 0 10px;
+        box-shadow: 0px 4px 10px 1px black;
+        background: $gradient-steel;
         border: 4px solid black;
         border-top: none;
     }

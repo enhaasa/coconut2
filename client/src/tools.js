@@ -129,7 +129,7 @@ const getCurrentTime = () => {
     const today = new Date();
     return today.getTime();
 }
-function getDate(offset) {
+function getCurrentDate(offset) {
 
     const date = new Date();
     date.setDate(offset(date.getDate()));
@@ -137,12 +137,12 @@ function getDate(offset) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-    /*
-    const hours = String(today.getHours()).padStart(2, "0");
-    const minutes = String(today.getMinutes()).padStart(2, "0");
-    const seconds = String(today.getSeconds()).padStart(2, "0");
-    */
-    return `${day}.${month}.${year}`;
+    
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 function epochToDate(epochTime) {
@@ -172,7 +172,7 @@ function timeToEpoch(timeString) {
 }
 
 function epochToSqlDateTime(epoch) {
-    const dateObj = new Date(epoch);
+    const dateObj = new Date(parseInt(epoch));
     const year = dateObj.getUTCFullYear();
     const month = ("0" + (dateObj.getUTCMonth() + 1)).slice(-2);
     const day = ("0" + dateObj.getUTCDate()).slice(-2);
@@ -185,6 +185,20 @@ function epochToSqlDateTime(epoch) {
 function sqlDateTimeToEpoch(sqlDateTime) {
     const dateObj = new Date(sqlDateTime);
     return dateObj.getTime();
+}
+
+function compareDates(date1, date2) {
+    const d1 = new Date(date1.split(' ').join('T')); // Convert date string to a Date object
+    const d2 = new Date(date2.split(' ').join('T')); // Convert date string to a Date object
+    const diff = Math.abs(d1 - d2) / 1000; // Calculate the difference in seconds
+  
+    if (diff < 60) { // Difference is less than 1 minute
+      return `${Math.floor(diff)}s`;
+    } else if (diff < 3600) { // Difference is less than 1 hour
+      return `${Math.floor(diff / 60)}m`;
+    } else { // Difference is 1 hour or more
+      return `${Math.floor(diff / 3600)}h`;
+    }
 }
 
 const formatTime = (epoch) => {
@@ -239,6 +253,7 @@ export default {
     timeToEpoch,
     epochToSqlDateTime,
     sqlDateTimeToEpoch,
-    getDate,
+    getCurrentDate,
+    compareDates,
     debounce
 };

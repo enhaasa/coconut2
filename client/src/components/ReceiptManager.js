@@ -3,19 +3,24 @@ import Receipt from './Receipt';
 import tools from '.././tools';
 
 export default function ReceiptManager(props) {
-    const { getDate, dateToEpoch, sortArchivedArray } = tools;
+    const { getCurrentDate, sortArchivedArray } = tools;
     const { archivedOrders } = props;
 
-    const startDateEpoch = dateToEpoch(getDate((date) => date -1)); //Set date filtering offset in days
+    const startDateEpoch = getCurrentDate(date => date -1); //Set date filtering offset in days
 
     const archivedCustomersFromStartDate = sortArchivedArray(archivedOrders.get.map(order => (
-        order.time > startDateEpoch && order
+        order.date > startDateEpoch && order
     ))).slice(1);
+
+    const archivedOrdersFromStartDate = archivedCustomersFromStartDate.filter(customer => archivedOrders.get.filter(order => order.customer === customer.name));
+
+    const total = archivedOrdersFromStartDate.reduce((t, c) => t + c.price, 0).toLocaleString("en-US");
+
 
     let archivedSessions = archivedCustomersFromStartDate.map(order => order.session);
 
     archivedSessions = [...new Set(archivedSessions)];
-
+    
 
     return (
         <div className="ReceiptManager">
@@ -37,6 +42,9 @@ export default function ReceiptManager(props) {
                         session === customer.session && customer       
                     ))}/>
                 ))}
+            </div>
+            <div className="totalEarnings">
+                Total: {total} gil
             </div>
 
         </div>

@@ -129,6 +129,7 @@ function App() {
     })
   }
 
+
   
   /**
    * Initiate and set short-polling interval

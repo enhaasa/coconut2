@@ -28,6 +28,7 @@ function useOrders(init, props) {
             paid: order.paid,
             price: order.price,
             time: order.time,
+            date: order.date,
             item: order.item,
             type: order.type,
             id: uuid()
@@ -92,6 +93,7 @@ function useOrders(init, props) {
             type: order.type,
             session: session,
             time: order.time,
+            date: order.date,
             item: order.item
         }
         

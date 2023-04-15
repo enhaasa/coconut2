@@ -36,6 +36,8 @@ export default function MenuManager(props) {
 
     function filterItem(item) {
 
+        console.log(tools.epochToSqlDateTime(tools.getCurrentTime()));
+
         return {
           customer: selectedCustomer.id,
           customerName: selectedCustomer.name,
@@ -48,6 +50,7 @@ export default function MenuManager(props) {
           time: tools.getCurrentTime(),
           item: item.item,
           type: item.type,
+          date: tools.epochToSqlDateTime(tools.getCurrentTime()),
           id: uuid()
         }
     }
