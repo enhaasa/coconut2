@@ -1,5 +1,5 @@
 import Axios from "axios";
-
+ 
 //`https://${document.location.hostname}`;
 //'http://localhost:3001';
 const baseUrl = `https://${document.location.hostname}`;
@@ -26,6 +26,7 @@ const menu = {
         ))
     }
 };
+
 
 const floors = {
     endpoint: "/floors",
