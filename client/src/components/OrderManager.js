@@ -6,6 +6,7 @@ import Customer from './Customer';
 import addcustomerIcon from './../assets/icons/add-user-black.png';
 
 
+
 export default function OrderManager(props) {
     const { 
         openConfirmBox, 

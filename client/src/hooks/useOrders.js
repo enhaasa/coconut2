@@ -2,6 +2,7 @@ import { useState } from 'react';
 import db from '../dbTools_client';
 import uuid from 'react-uuid';
 import { nanoid } from 'nanoid';
+import tools from '../tools';
 
 function useOrders(init, props) {
 
@@ -33,11 +34,14 @@ function useOrders(init, props) {
             type: order.type,
             id: uuid()
         }
+
+        
     
         setOrders(prev => ([...prev, filteredOrder]));
         db.orders.post(filteredOrder);
         updateUpdates("orders");
     }
+    
 
     /**
      * Remove a new order to the orders array.
@@ -93,7 +97,7 @@ function useOrders(init, props) {
             type: order.type,
             session: session,
             time: order.time,
-            date: order.date,
+            date: tools.convertDatetimeFormat(order.date),
             item: order.item
         }
         

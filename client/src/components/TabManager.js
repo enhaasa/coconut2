@@ -49,6 +49,10 @@ export default function TabManager(props) {
         setIsBlurred(true);
         openConfirmBox({
             callback: function(){
+
+
+
+                
                 const session = nanoid(5);
                 const tableNumber = ordersToPay[0].table;
 
@@ -58,7 +62,9 @@ export default function TabManager(props) {
                     return [...prev];
                 });
                 
+                
                 closeConfirmBox();
+                
             },
             closeConfirmBox: function(){
                 closeConfirmBox()
