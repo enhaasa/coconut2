@@ -21,7 +21,7 @@ const menu = {
                   ...item,
                   ingredients: item.ingredients.split(","),
                   type: item.type === 'drink-alc' ? 'drink' : item.type
-                }
+                } 
             ))
         ))
     }
