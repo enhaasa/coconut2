@@ -18,7 +18,7 @@ export default function Receipt(props) {
             <div className="name">{names.join(", ")}</div>
 
             <div className="link">
-                <a href={`https://cocosoasis.info/r.php?id=${session}`}
+                <a href={`https://cocosoasis.info/r.html?id=${session}`}
                 target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a>
             </div>
             <div className="data">
