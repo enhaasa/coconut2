@@ -20,6 +20,7 @@ export default function TabManager(props) {
 
     const [ isBlurred, setIsBlurred ] = useState(false);
     const [ tabView, setTabView ] = useState('combined');
+    const total = deliveredOrdersInTable.reduce((t, c) => t + c.price, 0).toLocaleString("en-US");
 
     const TabManagerRef = useRef();
     useLayoutEffect(() => {
@@ -132,7 +133,7 @@ export default function TabManager(props) {
                 {table.session !== null &&
                     <div className="receiptRP">
                         <textarea 
-                            defaultValue={`/em hands over the tab: cocosoasis.info/r.php?id=${table.session}`} 
+                            defaultValue={`/em hands over the tab (( cocosoasis.info/r.html?id=${table.session} ))`} 
                         />
                     </div>
                 }
