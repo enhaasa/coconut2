@@ -48,7 +48,7 @@ export default function TabManager(props) {
     function confirmPayOrders(ordersToPay) {
         setIsBlurred(true);
         openConfirmBox({
-            callback: function(){
+            callback: function(){ 
 
 
 
