@@ -98,11 +98,16 @@ export default function TableManager(props) {
                 tables.setIsAvailable(table, true);
                 tables.setIsReserved(table, false);
                 tables.setIsPhotography(table, false);
+                tables.set(prev => {
+                    prev[table.id].session = null;
+                    return [...prev];
+                });
         
                 customersInTable.forEach(customer => {customers.remove(customer.id, table)});
 
-
+                
                 closeConfirmBox();
+
             },
             closeConfirmBox: function(){closeConfirmBox()},
             title: "Are you sure?",
