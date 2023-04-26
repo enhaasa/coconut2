@@ -2,7 +2,8 @@ import Axios from "axios";
  
 //`https://${document.location.hostname}`;
 //'http://localhost:3001';
-const baseUrl = `https://${document.location.hostname}`;
+const baseUrl = 'http://localhost:3001';
+const extUrl = "https://enhasa.dev/cocosoasis/api/db";
 
 function get(endpoint) {
     return async function() {
@@ -26,6 +27,14 @@ const menu = {
         ))
     }
 };
+
+const weeklySpecial = {
+    get: async function(type) {
+        return await fetch(extUrl + "/getMenuWeekly.php?type=" + type)
+        .then(response => response.json())
+        .then(data => data);
+    }
+}
 
 
 const floors = {
@@ -146,6 +155,7 @@ const updates = {
 
 export default {
    menu,
+   weeklySpecial,
    floors,
    staff,
    tables,
