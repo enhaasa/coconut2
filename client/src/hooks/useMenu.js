@@ -12,8 +12,8 @@ function useMenu(init, props) {
         selectedTable === null &&
             db.menu.get().then(raw => {
 
-                setMenu(raw) //Swap out with below to activate special prices.
-                //sortWeeklySpecials(raw).then(sorted => setMenu(sorted));
+                //setMenu(raw) //Swap out with below to activate special prices.
+                sortWeeklySpecials(raw).then(sorted => setMenu(sorted));
             });
 
     }

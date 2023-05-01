@@ -34,7 +34,6 @@ export default function MenuManager(props) {
     }
 
     function filterItem(item) {
-
         return {
           customer: selectedCustomer.id,
           customerName: selectedCustomer.name,

@@ -15,6 +15,11 @@ export default function Infobox(props) {
         }
     }, []);
 
+    function breaklineOnEm(text) {
+        const array = text.split('/em');
+        return array.slice(1);
+    }
+
     return (
         <div className="InfoboxContainer" ref={InfoBoxRef}>
             <div className="Infobox">
@@ -66,6 +71,15 @@ export default function Infobox(props) {
                             {!!item.pairings ? 
                                 item.pairings :
                                 <span className="noresult">This item has no documented pairings.</span>}  
+                        </p>
+                    </div>
+
+                    <div className="section RPcreation">
+                        <span className="sectionHeader cursive">RP Creation</span>
+                        <p>
+                            {!!item.RPcreation ? 
+                                breaklineOnEm(item.RPcreation).map(line => <div>{`/em ${line}`}<br /><br /></div>) :
+                                <span className="noresult">This item has no documented RP for creation.</span>}  
                         </p>
                     </div>
                 </div>
