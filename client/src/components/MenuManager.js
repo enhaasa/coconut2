@@ -20,7 +20,6 @@ export default function MenuManager(props) {
     useLayoutEffect(() => {
         gsap.from(MenuManagerRef.current, animations.appearY);
         
-
         return () => {
             gsap.to(MenuManagerRef.current, animations.appearY);
         }
@@ -83,36 +82,37 @@ export default function MenuManager(props) {
 
                                 {menu.get.map(item => (
                                     menuType === item.type && 
-                                        <div className="itemContainer" key={item.id}>
-                                            <div className="item">
-                                                <span className="itemTitle">
-                                                    <button className="itemInfoButton" onClick={() => {handleItemInfo(item)}}>
-                                                        <img src={infoIcon} alt="" />
-                                                    </button>
+                                        item.available !== 0 &&
+                                            <div className="itemContainer" key={item.id}>
+                                                <div className="item">
+                                                    <span className="itemTitle">
+                                                        <button className="itemInfoButton" onClick={() => {handleItemInfo(item)}}>
+                                                            <img src={infoIcon} alt="" />
+                                                        </button>
 
-                                                    <span className="itemName">
-                                                        {item.name}     
+                                                        <span className="itemName">
+                                                            {item.name}     
+                                                        </span>
                                                     </span>
-                                                </span>
 
-                                                <nav className="itemNav">
-                                                    <button className="progressive" onClick={() => {orders.add({
-                                                        ...filterItem(item)
-                                                    })}}>{item.price.toLocaleString("en-US")} gil</button>
+                                                    <nav className="itemNav">
+                                                        <button className="progressive" onClick={() => {orders.add({
+                                                            ...filterItem(item)
+                                                        })}}>{item.price.toLocaleString("en-US")} gil</button>
 
 
-                                                    <button className="constructive" onClick={() => {orders.add({
-                                                        ...filterItem(item), 
-                                                        price: 0, 
-                                                        id: item.id + "0"
-                                                    })}}>Free</button>
-                                                </nav>
+                                                        <button className="constructive" onClick={() => {orders.add({
+                                                            ...filterItem(item), 
+                                                            price: 0, 
+                                                            id: item.id + "0"
+                                                        })}}>Free</button>
+                                                    </nav>
+                                                </div>
+
+                                                <div className="itemInfo">
+                                                    {item.id}
+                                                </div>
                                             </div>
-
-                                            <div className="itemInfo">
-                                                {item.id}
-                                            </div>
-                                        </div>
                                 ))}
                             </div>
                         ))}
