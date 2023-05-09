@@ -40,7 +40,7 @@
         }
 
         & .floorButton {
-          font-size: 14px;
+          font-size: 20px;
           border-radius: 15px 15px 0 0;
           padding: 6px 14px;
           box-shadow: 0px 4px 6px 1px $background-dark;
@@ -54,7 +54,7 @@
 
         & .active {
           background: $gradient-steel;
-          color: white;
+          color: $cream;
           z-index: 2;
           padding-bottom: 10px;
 
@@ -63,36 +63,6 @@
           }
         }
       }
-    }
-
-    & .appInfo {
-      display: flex;
-      justify-self: end !important;
-      
-      & .logo {
-        & img {
-          width: 70px;
-        }
-      }
-
-      & .text {
-        border-bottom: 4px double black;
-        display: flex;
-        align-items: flex-end;
-        gap: 5px;
-        & .title {
-          font-size: 42px !important;
-          font-weight: bold;
-          background: $gradient-green;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          margin-bottom: -5px;
-        }
-
-        & .version {
-          color: white;
-        }
-      } 
     }
   }
 

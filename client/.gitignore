@@ -12,7 +12,8 @@
 /build
 
 # certificates
-# /certs
+/certs
+/index.js
 
 # misc
 .DS_Store

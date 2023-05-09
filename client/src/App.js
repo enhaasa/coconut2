@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
+
+//Hooks
 import useCustomers from './hooks/useCustomers';
 import useOrders from './hooks/useOrders';
 import useMenu from './hooks/useMenu';
 import useStaff from './hooks/useStaff';
 import useArchivedOrders from './hooks/useArchivedOrders';
 import useTables from './hooks/useTables';
-import Floor from './components/Floor'
-import TableManager from './components/TableManager';
-import MenuManager from './components/MenuManager';
+
+//Views
+import Payouts from './views/Payouts';
+import FloorManager from './views/FloorManager';
+
+//Components
 import ReceiptManager from './components/ReceiptManager';
-import NotificationBar from './components/NotificationBar';
+
+//Tools
 import uuid from 'react-uuid';
 import db from './dbTools_client';
 
@@ -151,106 +157,69 @@ function App() {
 
   }, []);
 
+  const [ view, setView ] = useState(0);
+  const views = [
+    {
+      title: "Floor Manager",
+      content: 
+      <FloorManager 
+        staff={staff}
+        orders={orders}
+        tables={tables}
+        customers={customers}
+        setSelectedTable={setSelectedTable}
+        setSelectedCustomer={setSelectedCustomer}
+        setSelectedFloor={setSelectedFloor}
+        menu={menu}
+        selectedCustomer={selectedCustomer}
+        isBlurred={isBlurred}
+        loggedInAs={loggedInAs}
+        selectedTable={selectedTable}
+        selectedFloor={selectedFloor}
+        floors={floors}
+        maxDeliveryTime={maxDeliveryTime}
+      />
+    },
+    {
+      title: "Payouts",
+      content:  
+      <Payouts 
+        staff={staff} 
+        archivedOrders={archivedOrders}
+        setIsBlurred={setIsBlurred}
+      />
+    }
+  ]
+
   return (
-    <div className="shell">
+    <>
+      <div className="appInfo">
+        <span className="logo">
+          <img src={logo} alt="" />
+        </span>
+    
+        <span className="text">
+          <span className="title cursive">Coconut</span>
+          <span className="version">by Enhasa</span>
+        </span>
+      </div>
 
       {isBlurred === true &&
-        <div className="blur" />
-        }
+          <div className="blur" />
+          }
 
-      <section className="TableManagerContainer">
+      {views.map((v, i) => (
+          <button 
+            onClick={() => setView(i)}
+            className={`${i === view && "constructive"}`}
+          >{v.title}</button>
+        ))}
+      <div className="viewManager">
+        {views[view].content}
+      </div>
 
-        {selectedTable !== null &&         
-          <>
-            <TableManager 
-              staff={staff}
-              orders={orders}
-              tables={tables}
-              customers={customers}
-              table={tables.get[selectedTable]} 
-              setSelectedTable={setSelectedTable}
-              setSelectedCustomer={setSelectedCustomer}
-              />
+    </>
 
-            {selectedCustomer !== null &&
-              <MenuManager 
-                menu={menu}
-                selectedCustomer={selectedCustomer}
-                orders={orders}
-                setSelectedCustomer={setSelectedCustomer}
-              />
-            }
-          </>
-        }
-      </section>
-      
-
-
-      <section className="FloorContainer">
-        <nav className="floorNav">
-          <span className="floorColumn">
-            {floors.map((floor, index) => {
-                return (
-                    <div className="floorSelector" key={uuid()}>
-                      {
-                        customers.get.length > 0 &&
-                        tables.get.length > 0 &&
-                          <NotificationBar
-                            customers={
-                              customers.get.filter(customer => 
-                                customer.floor === floor.type && 
-                                  !tables.get.find(table => table.id === customer.table 
-                                    && table).isAvailable && customer)}
-
-                            orders={orders.get.filter(order => order.floor === floor.type && !order.delivered && order)}
-                        />
-                      }
-
-                      <button 
-                        className={`floorButton ${selectedFloor === index ? "active" : "inactive"}`} 
-                        key={index} 
-                        onClick={() => {setSelectedFloor(index)}}>
-                        <span className="title">{floor.title}</span>
-                      </button>
-                    </div>
-                )
-              })
-            }
-          </span>
-
-          <div className="appInfo">
-              <span className="logo">
-                <img src={logo} alt="" />
-              </span>
-          
-              <span className="text">
-                <span className="title cursive">Coconut</span>
-                <span className="version">by Enhasa</span>
-              </span>
-          </div>
-        </nav>
-          
-        <Floor 
-          loggedInAs={loggedInAs}
-          floor={floors[selectedFloor]} 
-          tables={tables} 
-          maxDeliveryTime={maxDeliveryTime}
-          setSelectedTable={setSelectedTable}
-          orders={orders}
-          customers={customers}
-        />
-        
-      </section>
-
-      {
-        <section className="ReceiptManagerContainer">
-          <ReceiptManager 
-            archivedOrders={archivedOrders}
-          />
-        </section>
-      }
-    
-    </div>
   );
 }
 

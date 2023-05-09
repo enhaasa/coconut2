@@ -215,6 +215,54 @@ app.put('/archivedOrders', (req, res) => {
     );
 });
 
+
+//Tips
+app.get('/tips', (req, res) => {
+    db.query("SELECT * FROM tips", (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+app.post('/tips', (req, res) => {
+    const keys = convertSQLKeywords(Object.keys(req.body));
+    const values = convertSQLKeywords(Object.values(req.body));
+    
+    db.query(
+        `INSERT INTO tips (${keys}) VALUES (${values.map(value => ("?")).toString()})`, 
+        [...values], 
+        (err, result) => {
+            if (err) throw err;
+            res.send("Inserted");
+        }
+    );
+});
+app.delete('/tips', (req, res) => {
+    const id = req.body.id;
+
+    db.query(
+        `DELETE FROM tips WHERE id=?`, 
+        [id],
+        (err, result) => {
+            if (err) throw err;
+            res.send("Deleted");
+        }
+    );
+});
+app.put('/tips', (req, res) => {
+    const  [ key, value, condition_key, condition_value ] = convertSQLKeywords(Object.values(req.body.data));
+
+    db.query(
+        `UPDATE tips SET ${key}=? WHERE ${condition_key}=?`,
+        [value, condition_value], 
+        (err, result) => {
+            if (err) throw err;
+            res.send("Updated");
+        }
+    );
+});
+
+
+
 //Updates
 app.get('/updates', (req, res) => {
     db.query("SELECT * FROM updates", (err, result) => {

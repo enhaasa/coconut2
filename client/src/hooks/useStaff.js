@@ -5,7 +5,9 @@ function useStaff(init) {
     const [staff, setStaff] = useState(init);
 
     function refresh() {
-      db.staff.get().then(res => {setStaff(res)});
+      db.staff.get().then(res => {setStaff(
+        res.filter(s => s.isActive)
+      )});
     }
 
     return [

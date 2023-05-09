@@ -1,17 +1,21 @@
 @import '_colorset'; 
 
 .Receipt {
-    padding: 0 10px;
+    padding: 5px 10px;
+    background: $gradient-gold;
+    border-radius: 20px;
 
     & .name {
         color: black;
         font-weight: bold;
-        
+        text-align: center;
+        border-bottom: 1px solid black;
     }
 
     & .data {
         display: flex;
         justify-content: space-between;
+        font-weight: normal;
 
         & .time {
             & img {
@@ -26,8 +30,6 @@
         color: $wine;
         display: flex;
         justify-content: space-between;
-        border-top: 1px solid grey;
-        border-bottom: 4px double black;
     }
 }
 

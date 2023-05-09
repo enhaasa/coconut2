@@ -155,7 +155,7 @@
   box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
-  font-size: 14px;
+  font-size: 20px;
   border-radius: 15px 15px 0 0;
   padding: 6px 14px;
   box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
@@ -167,37 +167,12 @@
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
-  color: white;
+  color: rgb(196, 177, 166);
   z-index: 2;
   padding-bottom: 10px;
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .active .title {
   text-shadow: 0em 4px 12px black;
-}
-.FloorContainer .floorNav .appInfo {
-  display: flex;
-  justify-self: end !important;
-}
-.FloorContainer .floorNav .appInfo .logo img {
-  width: 70px;
-}
-.FloorContainer .floorNav .appInfo .text {
-  border-bottom: 4px double black;
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
-}
-.FloorContainer .floorNav .appInfo .text .title {
-  font-size: 42px !important;
-  font-weight: bold;
-  background: linear-gradient(to right, rgb(132, 253, 132), rgb(164, 250, 238));
-  -webkit-background-clip: text;
-          background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: -5px;
-}
-.FloorContainer .floorNav .appInfo .text .version {
-  color: white;
 }
 .FloorContainer .Floor {
   transform: scale(1);
@@ -256,19 +231,23 @@ body {
           user-select: none;
   background-image: url("./../assets/background/background.webp");
   background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: auto;
 }
 
-.shell {
+.FloorManager {
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  place-items: center;
 }
 
 .blur {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   z-index: 4;
@@ -476,6 +455,42 @@ button:active, select:active, option:active {
   white-space: nowrap;
 }
 
+.appInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 5px;
+  padding: 5px 5px 0 0;
+}
+.appInfo .logo img {
+  width: 50px;
+}
+.appInfo .text {
+  border-bottom: 4px double black;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+.appInfo .text .title {
+  font-size: 42px !important;
+  font-weight: bold;
+  background: linear-gradient(to bottom right, rgb(132, 253, 132), rgb(164, 250, 238));
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: -5px;
+}
+.appInfo .text .version {
+  color: white;
+}
+
+.viewManager {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .FloorContainer {
   margin: 0 auto;
   width: 1000px;
@@ -513,7 +528,7 @@ button:active, select:active, option:active {
   box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
-  font-size: 14px;
+  font-size: 20px;
   border-radius: 15px 15px 0 0;
   padding: 6px 14px;
   box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
@@ -525,37 +540,12 @@ button:active, select:active, option:active {
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
-  color: white;
+  color: rgb(196, 177, 166);
   z-index: 2;
   padding-bottom: 10px;
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .active .title {
   text-shadow: 0em 4px 12px black;
-}
-.FloorContainer .floorNav .appInfo {
-  display: flex;
-  justify-self: end !important;
-}
-.FloorContainer .floorNav .appInfo .logo img {
-  width: 70px;
-}
-.FloorContainer .floorNav .appInfo .text {
-  border-bottom: 4px double black;
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
-}
-.FloorContainer .floorNav .appInfo .text .title {
-  font-size: 42px !important;
-  font-weight: bold;
-  background: linear-gradient(to right, rgb(132, 253, 132), rgb(164, 250, 238));
-  -webkit-background-clip: text;
-          background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: -5px;
-}
-.FloorContainer .floorNav .appInfo .text .version {
-  color: white;
 }
 .FloorContainer .Floor {
   transform: scale(1);
@@ -579,13 +569,10 @@ button:active, select:active, option:active {
 }
 
 .ReceiptManager {
-  box-shadow: 0px 4px 10px 1px black;
   color: black;
-  max-height: 600px;
-  width: 250px;
-  height: 580px;
+  width: 300px;
   border-radius: 0 30px 0 0;
-  margin-left: 4px;
+  height: 100%;
 }
 .ReceiptManager .header {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
@@ -601,27 +588,24 @@ button:active, select:active, option:active {
   color: rgb(196, 177, 166);
   font-size: 14px;
 }
+.ReceiptManager .receiptFilter {
+  display: flex;
+  justify-content: center;
+}
 .ReceiptManager .receiptList {
-  box-shadow: inset 0px 1px 10px 1px black;
   display: flex;
   flex-direction: column;
   padding-top: 5px;
   font-weight: bold;
-  gap: 10px;
+  gap: 5px;
   height: 100%;
   overflow: auto;
-  background: bisque;
-  background-image: url("./../assets/icons/dark-fabric.png");
-  border: 4px solid black;
-  border-top: none;
 }
 .ReceiptManager .totalEarnings {
-  color: white;
-  padding: 0 10px;
-  box-shadow: 0px 4px 10px 1px black;
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
-  border: 4px solid black;
-  border-top: none;
+  color: rgb(196, 177, 166);
+  margin-top: 5px;
+  padding-top: 3px;
+  border-top: 1px solid rgb(196, 177, 166);
 }
 
 .Table {
@@ -747,6 +731,40 @@ button:active, select:active, option:active {
 .Table .numberDisplay .isPhotographyContainer {
   transform: rotate(240deg) translate(-30px, -30px) rotate(-240deg);
   position: absolute;
+}
+
+.Payouts {
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  box-shadow: 0px 4px 10px 1px black;
+  color: white;
+  width: 100%;
+  height: 100%;
+  margin: 10px 50px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 4px solid black;
+  max-width: 1000px;
+  height: 700px;
+}
+.Payouts section .title {
+  font-size: 28px;
+  color: rgb(196, 177, 166);
+  font-family: "Dancing Script", cursive;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.Payouts section .underTitle {
+  color: rgb(196, 177, 166);
+  font-size: 14px;
+  text-align: center;
+}
+.Payouts section .content {
+  box-shadow: inset 0px 4px 10px 1px black;
+  background: rgb(20, 20, 20);
+  border-radius: 20px;
+  padding: 5px;
+  z-index: 2;
 }
 
 .TableManagerContainer {
@@ -1200,15 +1218,20 @@ button:active, select:active, option:active {
 }
 
 .Receipt {
-  padding: 0 10px;
+  padding: 5px 10px;
+  background: linear-gradient(to bottom right, #D1B464, #8A6E2F);
+  border-radius: 20px;
 }
 .Receipt .name {
   color: black;
   font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid black;
 }
 .Receipt .data {
   display: flex;
   justify-content: space-between;
+  font-weight: normal;
 }
 .Receipt .data .time img {
   margin-right: 3px;
@@ -1219,6 +1242,4 @@ button:active, select:active, option:active {
   color: rgb(138, 0, 0);
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid grey;
-  border-bottom: 4px double black;
 }/*# sourceMappingURL=main.css.map */
