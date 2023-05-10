@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 export default function ReceiptManager(props) {
     const { getCurrentDate, sortArchivedArray } = tools;
-    const { archivedOrders, setIsBlurred } = props;
+    const { archivedOrders, setIsBlurred, handleModal } = props;
 
     const [ selectedFilter, setSelectedFilter ] = useState(0);
     const filters = [
@@ -53,6 +53,7 @@ export default function ReceiptManager(props) {
                     <Receipt 
                         key={session}
                         setIsBlurred={setIsBlurred}
+                        handleModal={handleModal}
                         orders={archivedOrdersFromStartDate.filter(order => (
                         session === order.session && order       
                     ))}/>

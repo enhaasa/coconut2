@@ -3,7 +3,7 @@ import tools from '.././tools';
 import clockIcon from './../assets/icons/clock-black.png';
 
 export default function Receipt(props) {
-    const { orders, setIsBlurred } = props;
+    const { orders, setIsBlurred, handleModal } = props;
     const { getFirstName, getLastNames } = tools;
 
     const { session, time, table } = orders[0];
@@ -20,7 +20,7 @@ export default function Receipt(props) {
     names = [...new Set(names)];
 
     return (
-        <button className="Receipt" onClick={() => console.log(orders)}>
+        <button className="Receipt" onClick={() => handleModal(true)}>
             <div className="name">
                 {names.length > 1 ? names[0] + ` +${names.length-1}` : names[0]}
             </div>
