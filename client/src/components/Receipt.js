@@ -1,6 +1,7 @@
 import React from 'react';
 import tools from '.././tools';
 import clockIcon from './../assets/icons/clock-black.png';
+import ReceiptModal from './ReceiptModal';
 
 export default function Receipt(props) {
     const { orders, setIsBlurred, handleModal } = props;
@@ -20,7 +21,7 @@ export default function Receipt(props) {
     names = [...new Set(names)];
 
     return (
-        <button className="Receipt" onClick={() => handleModal(true)}>
+        <button className="Receipt" onClick={() => handleModal(<ReceiptModal orders={orders}/>)}>
             <div className="name">
                 {names.length > 1 ? names[0] + ` +${names.length-1}` : names[0]}
             </div>

@@ -1,0 +1,25 @@
+@import 'colorset';
+
+.ReceiptModal {
+    & .paidAmount {
+        display: flex;
+        gap: 5px;
+
+        & label {
+            white-space: nowrap;
+        }
+
+        & input {
+            width: 100%;
+            background: $background-dark;
+            color: white;
+        }
+    }
+
+    & .itemTable {
+
+        & tfoot {
+            color: $cream;
+        }
+    }
+}

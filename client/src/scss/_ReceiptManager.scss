@@ -3,8 +3,7 @@
 .ReceiptManager {
     color: black;
     width: 300px;
-    border-radius: 0 30px 0 0;
-    height: 100%;
+    
 
     & .header {
         background: $gradient-steel;
@@ -29,15 +28,12 @@
     }
 
     & .receiptList {
-
         display: flex;
         flex-direction: column;
         padding-top: 5px;
         font-weight: bold;
         gap: 5px;
-        height: 100%;
         overflow: auto;
-        
     }
 
     & .totalEarnings {

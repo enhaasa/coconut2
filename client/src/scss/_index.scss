@@ -200,13 +200,11 @@ button, select, option {
 
 
   & tbody tr:nth-child(even) {
-    background-color: $grey;
+    background-color: rgba(128, 128, 128, 0.6);
   }
 
   & tr {
     font-size: 14px;
-    
-    
   }
   
   & th {
@@ -224,8 +222,6 @@ button, select, option {
 
     & button {
       border-radius: 100px;
-
-
 
       &.icon {
         display: inline-flex;        

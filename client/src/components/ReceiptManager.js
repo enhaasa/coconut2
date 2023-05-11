@@ -54,9 +54,7 @@ export default function ReceiptManager(props) {
                         key={session}
                         setIsBlurred={setIsBlurred}
                         handleModal={handleModal}
-                        orders={archivedOrdersFromStartDate.filter(order => (
-                        session === order.session && order       
-                    ))}/>
+                        orders={archivedOrdersFromStartDate.filter(order => (session === order.session && order))}/>
                 ))}
             </div>
             <div className="totalEarnings">
