@@ -48,7 +48,7 @@ function ReceiptModal(props) {
                         <td>Total:</td>
                         <td></td>
                         <td></td>
-                        <td>{total.toLocaleString("en-US") + " gil"}</td>
+                        <td>{amountPaid.toLocaleString("en-US") + " gil"}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -59,6 +59,7 @@ function ReceiptModal(props) {
                 value={amountPaid} 
                 onChange={(e) => handleAmountPaid(e.target.value)}></input>
             </div>
+            
         </div>
     );
 }

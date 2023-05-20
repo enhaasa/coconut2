@@ -135,8 +135,6 @@ function App() {
     })
   }
 
-
-  
   /**
    * Initiate and set short-polling interval
    */
@@ -217,7 +215,6 @@ function App() {
       <div className="viewManager">
         {views[view].content}
       </div>
-
     </>
 
   );

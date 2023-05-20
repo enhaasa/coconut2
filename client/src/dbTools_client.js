@@ -5,29 +5,6 @@ import Axios from "axios";
 const baseUrl = 'http://localhost:3001';
 const extUrl = "https://enhasa.dev/cocosoasis/api/db";
 
-function get(endpoint) {
-    return async function() {
-        return await Axios.get(baseUrl + endpoint).then((res) => (
-            res.data
-        ));
-    }
-}
-
-const menu = {
-    endpoint: "/menu",
-    get: async function() {
-        return Axios.get(baseUrl + this.endpoint).then((res) => (
-            res.data.map(item => (
-                {
-                  ...item,
-                  ingredients: item.ingredients.split(","),
-                  type: item.type === 'drink-alc' ? 'drink' : item.type
-                } 
-            ))
-        ))
-    }
-};
-
 const weeklySpecial = {
     get: async function(type) {
         return await fetch(extUrl + "/getMenuWeekly.php?type=" + type)
@@ -37,19 +14,35 @@ const weeklySpecial = {
 }
 
 
+const menu = {
+    table: "menu",
+    get: async function() {
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
+            res.data.map(item => (
+                {
+                  ...item,
+                  ingredients: item.ingredients.split(","),
+                  type: item.type === 'drink-alc' ? 'drink' : item.type
+                } 
+            ))
+        ))
+    }
+}
+
+
 const floors = {
-    endpoint: "/floors",
+    table: "floors",
     get: async function () {
-        return Axios.get(baseUrl + this.endpoint).then((res) => (
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
             res.data
         ));
     }
 }
 
 const staff = {
-    endpoint: "/staff",
+    table: "staff",
     get: async function () {
-        return Axios.get(baseUrl + this.endpoint).then((res) => (
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
             res.data.map(item => (
                 {
                     ...item,
@@ -61,14 +54,14 @@ const staff = {
 }
 
 const tables = {
-    endpoint: "/tables",
+    table: "tables",
     get: async function () {
-        return Axios.get(baseUrl + this.endpoint).then((res) => (
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
             res.data
         ));
     },
     put: async function (key, value, condition_key, condition_value) {
-        Axios.put(baseUrl + this.endpoint, {data: {
+        Axios.post(baseUrl + "/update", {table: this.table, data: {
             key: key, 
             value: value, 
             condition_key: condition_key, 
@@ -77,38 +70,43 @@ const tables = {
 }
 
 const customers = {
-    endpoint: "/customers",
+    table: "customers",
     get: async function () {
-        return Axios.get(baseUrl + this.endpoint).then((res) => (
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
             res.data
         ));
     },
     post: async function (customer) {
-        Axios.post(baseUrl + this.endpoint, {...customer});
+        Axios.post(baseUrl + "/post", {table: this.table, data: {...customer}});
     },
     delete: async function (id) {
-        Axios.delete(baseUrl + this.endpoint, { data: {id: id} });
+        Axios.post(baseUrl + "/delete", {table: this.table, data: {id: id}});
     },
     put: async function (id, name) {
-        Axios.put(baseUrl + this.endpoint, {id: id, name: name});
+        Axios.post(baseUrl + "/update", {table: this.table, data: {
+            key: '`name`',
+            value: name,
+            condition_key: '`id`',
+            condition_value: id
+        }});
     }
 }
 
 const orders = {
-    endpoint: "/orders",
+    table: "orders",
     get: async function () {
-        return Axios.get(baseUrl + this.endpoint).then((res) => (
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
             res.data
         ));
     },
     post: async function (item) {
-        Axios.post(baseUrl + this.endpoint, {...item});
+        Axios.post(baseUrl + "/post", {table: this.table, data: {...item}});
     },
     delete: async function (id) {
-        Axios.delete(baseUrl + this.endpoint, {data: { id: id } });
+        Axios.post(baseUrl + "/delete", {table: this.table, data: { id: id } });
     },
     put: async function (key, value, condition_key, condition_value) {
-        Axios.put(baseUrl + this.endpoint, {data: {
+        Axios.post(baseUrl + "/update", {table: this.table, data: {
             key: key, 
             value: value, 
             condition_key: condition_key, 
@@ -117,35 +115,35 @@ const orders = {
 }
 
 const archivedOrders = {
-    endpoint: "/archivedOrders",
+    table: "archived_orders",
     get: async function () {
-        return Axios.get(baseUrl + this.endpoint).then((res) => (
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
             res.data
         ));
     },
     post: async function (item) {
-        Axios.post(baseUrl + this.endpoint, {...item});
+        Axios.post(baseUrl + "/post", {table: this.table, data: {...item}});
     },
     delete: async function (id) {
-        Axios.delete(baseUrl + this.endpoint, {data: { id: id } });
+        Axios.post(baseUrl + "/delete", {table: this.table, data: { id: id } });
     },
     put: async function (data) {
-        Axios.put(baseUrl + this.endpoint, {data});
+        Axios.post(baseUrl + "/update", {table: this.table, data: data});
     }
 }
 
 const updates = {
-    endpoint: "/updates",
+    table: "updates",
     get: async function () {
-        return Axios.get(baseUrl + this.endpoint).then((res) => (
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
             res.data
         ));
     },
     post: async function (table, id) {
-        Axios.post(baseUrl + this.endpoint, {table: table, id: id})
+        Axios.post(baseUrl + "/post", {table: table, data: {id: id}})
     },
     put: async function (key, value, condition_key, condition_value) {
-        Axios.put(baseUrl + this.endpoint, {data: {
+        Axios.post(baseUrl + "/update", {table: this.table, data: {
             key: key, 
             value: value, 
             condition_key: condition_key, 
