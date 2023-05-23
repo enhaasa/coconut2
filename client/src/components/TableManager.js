@@ -5,6 +5,7 @@ import ConfirmBox from './ConfirmBox';
 import uuid from 'react-uuid';
 import { gsap } from 'gsap';
 import animations from '../animations.js'
+import db from '../dbTools_client';
 
 import closeIcon from './../assets/icons/close.png';
 import basketIcon from './../assets/icons/shopping-cart.png';
@@ -26,8 +27,6 @@ export default function TableManager(props) {
     const ref = useRef();
 
     useLayoutEffect(() => {
-        //gsap.from(ref.current, animations.softElastic);
-
         const element = ref.current;
         const timeline = gsap.timeline();
         
@@ -74,8 +73,6 @@ export default function TableManager(props) {
         }, 200)
     }
 
-
-
     const customersInTable = customers.get.filter(customer => (
         customer.table === table.id
     ))
@@ -102,12 +99,9 @@ export default function TableManager(props) {
                     prev[table.id].session = null;
                     return [...prev];
                 });
-        
-                customersInTable.forEach(customer => {customers.remove(customer.id, table)});
 
-                
+                customers.removeAllFromTable(table)
                 closeConfirmBox();
-
             },
             closeConfirmBox: function(){closeConfirmBox()},
             title: "Are you sure?",

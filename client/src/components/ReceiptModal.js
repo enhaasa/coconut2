@@ -3,7 +3,6 @@ import { useState } from 'react';
 
 function ReceiptModal(props) {
     const { orders, session } = props;
-    
 
     const total = orders.reduce((total, order) => (total + order.price), 0);
     const [ amountPaid, setAmountPaid ] = useState(total);
@@ -26,8 +25,7 @@ function ReceiptModal(props) {
                 </thead>
             
                 <tbody>
-                    {tools.sortArray(orders).map(order => ( 
-                                
+                    {tools.sortArray(orders).map(order => (  
                         <tr key={order.id}>
                             <td>{order.name}</td>
                             <td>{order.price.toLocaleString("en-US")} gil</td>
@@ -48,7 +46,7 @@ function ReceiptModal(props) {
                         <td>Total:</td>
                         <td></td>
                         <td></td>
-                        <td>{amountPaid.toLocaleString("en-US") + " gil"}</td>
+                        <td>{tools.formatStringAsPrice(amountPaid.toString()) + " gil"}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -58,6 +56,7 @@ function ReceiptModal(props) {
                 <input type="number" 
                 value={amountPaid} 
                 onChange={(e) => handleAmountPaid(e.target.value)}></input>
+                <button disabled={amountPaid === total ? true : false}>Save</button>
             </div>
             
         </div>

@@ -15,8 +15,8 @@ function Payouts(props) {
     return(
         <>
             {modal && 
-                <Modal title="Parent component window title" closeButtonEvent={() => handleModal(null)}> 
-                    {modal}
+                <Modal title={modal.title} closeButtonEvent={() => handleModal(null)}> 
+                    {modal.content}
                 </Modal>
             }
 

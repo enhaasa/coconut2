@@ -53,12 +53,29 @@ function useCustomers(init, props) {
         
         if (customersInTable.length-1 === 0) {
             db.tables.put('session', null, 'id', table.id);
+            updateUpdates("tables");
         }
         
         db.customers.delete(id);
         updateUpdates("customers");
         setSelectedCustomer(null);
     }
+
+    function removeAllFromTable(table) {
+        const customersInTable = customers.filter(customer => (
+            customer.table === table.id
+        ));
+
+        customersInTable.forEach(customer => {
+            orders.removeAllUndelivered(customer.id);
+            orders.removeAllUnpaid(customer.id);
+            remove(customer.id, table);
+        });
+
+        db.tables.put('session', null, 'id', table.id);
+        updateUpdates("tables");
+    }
+
 
     function editName(id, newName, updateServer = true) {
         const index = customers.map(customer => customer.id).indexOf(id);
@@ -83,6 +100,7 @@ function useCustomers(init, props) {
                 get: customers,
                 add: add,
                 remove: remove,
+                removeAllFromTable: removeAllFromTable,
                 editName: editName,
                 refresh: refresh
             }

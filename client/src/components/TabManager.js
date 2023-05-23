@@ -50,9 +50,6 @@ export default function TabManager(props) {
         openConfirmBox({
             callback: function(){ 
 
-
-
-                
                 const session = nanoid(5);
                 const tableNumber = ordersToPay[0].table;
 

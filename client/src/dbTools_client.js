@@ -13,7 +13,6 @@ const weeklySpecial = {
     }
 }
 
-
 const menu = {
     table: "menu",
     get: async function() {
@@ -28,7 +27,6 @@ const menu = {
         ))
     }
 }
-
 
 const floors = {
     table: "floors",

@@ -21,7 +21,7 @@ export default function Receipt(props) {
     names = [...new Set(names)];
 
     return (
-        <button className="Receipt" onClick={() => handleModal(<ReceiptModal orders={orders}/>)}>
+        <button className="Receipt" onClick={() => handleModal({title: "Receipt Details", content: <ReceiptModal orders={orders}/>})}>
             <div className="name">
                 {names.length > 1 ? names[0] + ` +${names.length-1}` : names[0]}
             </div>
