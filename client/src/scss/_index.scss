@@ -39,9 +39,6 @@ body {
   //background: $background-dark;
   //background: rgb(119, 104, 85);
   
-  background-image: url("./../assets/background/background.webp");
-  background-size: cover;
-  background-repeat: no-repeat;
   height: 100vh;
   margin: auto;
 }
@@ -52,17 +49,6 @@ body {
   justify-content: center;
   height: 100%; 
   width:100%;
-}
-
-.blur {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 4;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px);
 }
 
 .transparent {
@@ -286,7 +272,9 @@ button, select, option {
   flex-direction: row;
   justify-content: start;
   gap: 5px;
-  padding: 5px 5px 0 0;
+  padding: 5px;
+  background: $gradient-steel;
+  box-shadow: 0px 4px 10px 1px black;
   
   & .logo {
     & img {
@@ -295,7 +283,7 @@ button, select, option {
   }
 
   & .text {
-    border-bottom: 4px double black;
+    border-bottom: 4px double $grey;
     display: flex;
     align-items: flex-end;
     gap: 5px;

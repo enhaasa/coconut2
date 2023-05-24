@@ -27,7 +27,7 @@ export default function Customer(props) {
         timer.current = setTimeout(() => {
             customers.editName(customer.id, customer.name, true);
         }, 500)
-    }, [ customer.name]);
+    }, [customer.name]);
 
 
     const customerRef = useRef();

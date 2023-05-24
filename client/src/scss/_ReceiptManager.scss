@@ -3,7 +3,7 @@
 .ReceiptManager {
     color: black;
     width: 300px;
-    
+    height: 100%;
 
     & .header {
         background: $gradient-steel;
@@ -34,6 +34,8 @@
         font-weight: bold;
         gap: 5px;
         overflow: auto;
+        max-height: 600px;
+        overflow-y: auto;
     }
 
     & .totalEarnings {
@@ -41,5 +43,6 @@
         margin-top: 5px;
         padding-top: 3px;
         border-top: 1px solid $cream;
+        text-shadow: 0px 2px 4px black;
     }
 }

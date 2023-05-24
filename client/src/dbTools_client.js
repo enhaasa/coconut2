@@ -48,6 +48,13 @@ const staff = {
                 }
             ))
         ));
+    },
+    put: async function (key, value, condition_key, condition_value) {
+        Axios.post(baseUrl + "/update", {table: this.table, data: {
+            key: key, 
+            value: value, 
+            condition_key: condition_key, 
+            condition_value: condition_value}});
     }
 }
 

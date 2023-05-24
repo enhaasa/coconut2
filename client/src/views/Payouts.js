@@ -1,5 +1,7 @@
 import useArchivedOrders from './../hooks/useArchivedOrders';
 import ReceiptManager from './../components/ReceiptManager';
+import AttendingStaff from '../components/AttendingStaff';
+import GeneralTips from '../components/GeneralTips';
 import Modal from '../components/Modal';
 import { useState } from 'react';
 
@@ -21,28 +23,41 @@ function Payouts(props) {
             }
 
             <div className="Payouts">
-                <section>
-                    <div className="title">
-                        General Tips
-                    </div>
+                <div className="column left">
+                    <section>
+                        <div className="title">
+                            General Tips
+                        </div>
+                        <div className="content">
+                            <GeneralTips />
+                        </div>
+                    </section>
 
-                    <div className="content">
-                        
-                    </div>
-                </section>
+                    <section>
+                        <div className="title">
+                            Attending Staff
+                        </div>
 
-                <section>
-                    <div className="title">
-                        Receipts
-                    </div>
-                    <div className="content">
-                        <ReceiptManager 
-                            archivedOrders={archivedOrders} 
-                            setIsBlurred={setIsBlurred}
-                            handleModal={handleModal}
-                        />
-                    </div>
-                </section>
+                        <div className="content">
+                            <AttendingStaff staff={staff} handleModal={handleModal}/>
+                        </div>
+                    </section>
+                </div>
+
+                <div className="column">
+                    <section>
+                        <div className="title">
+                            Receipts
+                        </div>
+                        <div className="content">
+                            <ReceiptManager 
+                                archivedOrders={archivedOrders} 
+                                setIsBlurred={setIsBlurred}
+                                handleModal={handleModal}
+                            />
+                        </div>
+                    </section>
+                </div>
             </div>
         </>
     );

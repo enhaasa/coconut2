@@ -89,7 +89,9 @@ function App() {
 
   const [ menu ] = useMenu([], {selectedTable});
   const [ archivedOrders ] = useArchivedOrders([]);
-  const [ staff ] = useStaff([]);
+  const [ staff ] = useStaff([], {
+    updateUpdates: updateUpdates
+  });
 
   /**
    * List of SQL tables to update.
@@ -99,6 +101,10 @@ function App() {
     name: "tables",
     id: useRef(null),
     refresh: tables.refresh
+  },{
+    name: "staff",
+    id: useRef(null),
+    refresh: staff.refresh
   },{
     name: "customers",
     id: useRef(null),
@@ -202,19 +208,15 @@ function App() {
         </span>
       </div>
 
+      
+      <main>
       {isBlurred === true &&
           <div className="blur" />
           }
-
       {views.map((v, i) => (
-          <button 
-            onClick={() => setView(i)}
-            className={`${i === view && "constructive"}`}
-          >{v.title}</button>
+          v.content
         ))}
-      <div className="viewManager">
-        {views[view].content}
-      </div>
+      </main>
     </>
 
   );

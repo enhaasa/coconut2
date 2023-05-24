@@ -1,0 +1,11 @@
+@import '_colorset'; 
+
+.AttendingStaff {
+    & .deleteStaffButton {
+        
+        &:hover {
+            background: $background-destructive;
+            text-decoration: line-through;
+        }
+    }
+}

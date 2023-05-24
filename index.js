@@ -55,6 +55,7 @@ app.post('/update', (req, res) => {
                 console.log(`Error: Cannot update table ${table}: ${err}`)
             }
             res.send(result);
+            //console.log(`${key} was set to ${value}, where ${condition_key} equals ${condition_value} at table ${table}`)
         }
     );
 });

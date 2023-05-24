@@ -28,6 +28,7 @@
 }
 .TableManagerContainer .TableManager .blur {
   border-radius: inherit;
+  height: 100%;
 }
 .TableManagerContainer .TableManager .header {
   display: grid;
@@ -120,7 +121,7 @@
 
 .FloorContainer {
   margin: 0 auto;
-  width: 1000px;
+  width: 100%;
 }
 .FloorContainer .floorNav {
   display: flex;
@@ -155,14 +156,13 @@
   box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
-  font-size: 20px;
   border-radius: 15px 15px 0 0;
   padding: 6px 14px;
   box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
   border-bottom: none;
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .floorButton .title {
-  font-size: 1.4em;
+  font-size: 28px;
   font-weight: normal;
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .active {
@@ -170,6 +170,7 @@
   color: rgb(196, 177, 166);
   z-index: 2;
   padding-bottom: 10px;
+  text-shadow: 0px 2px 4px black;
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .active .title {
   text-shadow: 0em 4px 12px black;
@@ -229,9 +230,6 @@ body {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
-  background-image: url("./../assets/background/background.webp");
-  background-size: cover;
-  background-repeat: no-repeat;
   height: 100vh;
   margin: auto;
 }
@@ -242,18 +240,6 @@ body {
   justify-content: center;
   height: 100%;
   width: 100%;
-}
-
-.blur {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 4;
-  background-color: rgba(0, 0, 0, 0.3);
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
 }
 
 .transparent {
@@ -460,13 +446,15 @@ button:active, select:active, option:active {
   flex-direction: row;
   justify-content: start;
   gap: 5px;
-  padding: 5px 5px 0 0;
+  padding: 5px;
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  box-shadow: 0px 4px 10px 1px black;
 }
 .appInfo .logo img {
   width: 50px;
 }
 .appInfo .text {
-  border-bottom: 4px double black;
+  border-bottom: 4px double #979797;
   display: flex;
   align-items: flex-end;
   gap: 5px;
@@ -493,7 +481,7 @@ button:active, select:active, option:active {
 
 .FloorContainer {
   margin: 0 auto;
-  width: 1000px;
+  width: 100%;
 }
 .FloorContainer .floorNav {
   display: flex;
@@ -528,14 +516,13 @@ button:active, select:active, option:active {
   box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
-  font-size: 20px;
   border-radius: 15px 15px 0 0;
   padding: 6px 14px;
   box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
   border-bottom: none;
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .floorButton .title {
-  font-size: 1.4em;
+  font-size: 28px;
   font-weight: normal;
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .active {
@@ -543,6 +530,7 @@ button:active, select:active, option:active {
   color: rgb(196, 177, 166);
   z-index: 2;
   padding-bottom: 10px;
+  text-shadow: 0px 2px 4px black;
 }
 .FloorContainer .floorNav .floorColumn .floorSelector .active .title {
   text-shadow: 0em 4px 12px black;
@@ -571,6 +559,7 @@ button:active, select:active, option:active {
 .ReceiptManager {
   color: black;
   width: 300px;
+  height: 100%;
 }
 .ReceiptManager .header {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
@@ -597,12 +586,15 @@ button:active, select:active, option:active {
   font-weight: bold;
   gap: 5px;
   overflow: auto;
+  max-height: 600px;
+  overflow-y: auto;
 }
 .ReceiptManager .totalEarnings {
   color: rgb(196, 177, 166);
   margin-top: 5px;
   padding-top: 3px;
   border-top: 1px solid rgb(196, 177, 166);
+  text-shadow: 0px 2px 4px black;
 }
 
 .Table {
@@ -734,33 +726,43 @@ button:active, select:active, option:active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   box-shadow: 0px 4px 10px 1px black;
   color: white;
-  width: 100%;
   margin: 10px 50px;
   padding: 10px;
   border: 4px solid black;
-  max-width: 1000px;
-  height: 700px;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  width: 1000px;
+  min-height: 700px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr auto;
+  grid-gap: 10px;
 }
-.Payouts section {
+.Payouts .column {
+  display: grid;
+  grid-gap: 10px;
+}
+.Payouts .column.left {
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+.Payouts .column section {
   display: flex;
   flex-direction: column;
+  min-height: 100px;
 }
-.Payouts section .title {
+.Payouts .column section .title {
   font-size: 28px;
   color: rgb(196, 177, 166);
   font-family: "Dancing Script", cursive;
   text-align: center;
   margin-bottom: 5px;
+  text-shadow: 0px 2px 4px black;
 }
-.Payouts section .underTitle {
+.Payouts .column section .underTitle {
   color: rgb(196, 177, 166);
   font-size: 14px;
   text-align: center;
 }
-.Payouts section .content {
+.Payouts .column section .content {
   box-shadow: inset 0px 4px 10px 1px black;
   background: rgb(20, 20, 20);
   border-radius: 20px;
@@ -770,7 +772,7 @@ button:active, select:active, option:active {
 }
 
 .modalContainer {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -824,6 +826,11 @@ button:active, select:active, option:active {
   color: rgb(196, 177, 166);
 }
 
+.AttendingStaff .deleteStaffButton:hover {
+  background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63));
+  text-decoration: line-through;
+}
+
 .TableManagerContainer {
   position: absolute;
   display: grid;
@@ -851,6 +858,7 @@ button:active, select:active, option:active {
 }
 .TableManagerContainer .TableManager .blur {
   border-radius: inherit;
+  height: 100%;
 }
 .TableManagerContainer .TableManager .header {
   display: grid;
@@ -1299,4 +1307,24 @@ button:active, select:active, option:active {
   color: rgb(138, 0, 0);
   display: flex;
   justify-content: space-between;
+}
+
+main {
+  display: grid;
+  place-items: center;
+  background-image: url("./../assets/background/background.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 10px;
+}
+main .blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
 }/*# sourceMappingURL=main.css.map */
