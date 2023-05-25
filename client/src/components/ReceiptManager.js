@@ -1,11 +1,15 @@
 import React from 'react';
 import Receipt from './Receipt';
-import tools from '.././tools';
 import { useState } from 'react';
 
 export default function ReceiptManager(props) {
-    const { getCurrentDate, sortArchivedArray } = tools;
-    const { archivedOrders, setIsBlurred, handleModal } = props;
+    const {  
+        setIsBlurred, 
+        handleModal, 
+        archivedOrdersFromStartDate, 
+        archivedSessions, 
+        total 
+    } = props;
 
     const [ selectedFilter, setSelectedFilter ] = useState(0);
     const filters = [
@@ -22,18 +26,6 @@ export default function ReceiptManager(props) {
             keyword: 'bar'
         }
     ];
-
-    const startDateEpoch = getCurrentDate(date => date -1); //Set date filtering offset in days
-    const archivedOrdersFromStartDate = sortArchivedArray(archivedOrders.get.map(order => (
-        order.date > startDateEpoch && order
-    ))).slice(1);
-
-    //const archivedCustomersFromStartDate = archivedOrdersFromStartDate.filter(customer => archivedOrders.get.filter(order => order.customer === customer.name));
-
-    const total = archivedOrdersFromStartDate.reduce((t, c) => t + c.price, 0).toLocaleString("en-US");
-
-    let archivedSessions = archivedOrdersFromStartDate.map(order => order.session);
-    archivedSessions = [...new Set(archivedSessions)];
     
     function handleFilter(index) {
         setSelectedFilter(index);
@@ -58,7 +50,7 @@ export default function ReceiptManager(props) {
                 ))}
             </div>
             <div className="totalEarnings">
-                Total: {total} gil
+                Total: {total.toLocaleString("en-US")} gil
             </div>
 
         </div>
