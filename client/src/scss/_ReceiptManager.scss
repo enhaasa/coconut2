@@ -4,6 +4,8 @@
     color: black;
     width: 300px;
     height: 100%;
+    display: grid;
+    align-content: space-between;
 
     & .header {
         background: $gradient-steel;

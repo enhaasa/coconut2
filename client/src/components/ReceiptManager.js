@@ -33,24 +33,29 @@ export default function ReceiptManager(props) {
 
     return (
         <div className="ReceiptManager">
-            <nav className="receiptFilter">
-                {filters.map((filter, index) => 
-                    <button 
-                        onClick={() => {handleFilter(index)}}
-                        className={index === selectedFilter ? "constructive" : ""}
-                    >{filter.title}</button>)}
-            </nav>
-            <div className="receiptList">
-                {archivedSessions.map(session => (
-                    <Receipt 
-                        key={session}
-                        setIsBlurred={setIsBlurred}
-                        handleModal={handleModal}
-                        orders={archivedOrdersFromStartDate.filter(order => (session === order.session && order))}/>
-                ))}
+            <div className="row">
+                <nav className="receiptFilter">
+                    {filters.map((filter, index) => 
+                        <button 
+                            onClick={() => {handleFilter(index)}}
+                            className={index === selectedFilter ? "constructive" : ""}
+                        >{filter.title}</button>)}
+                </nav>
+                <div className="receiptList">
+                    {archivedSessions.map(session => (
+                        <Receipt 
+                            key={session}
+                            setIsBlurred={setIsBlurred}
+                            handleModal={handleModal}
+                            orders={archivedOrdersFromStartDate.filter(order => (session === order.session && order))}/>
+                    ))}
+                </div>
             </div>
-            <div className="totalEarnings">
-                Total: {total.toLocaleString("en-US")} gil
+
+            <div className="row">
+                <div className="totalEarnings">
+                    Total: {total.toLocaleString("en-US")} gil
+                </div>
             </div>
 
         </div>

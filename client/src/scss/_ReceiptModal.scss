@@ -22,4 +22,15 @@
             color: $cream;
         }
     }
+
+    & .receiptRP {
+        
+        & a {
+            color: $wine;
+
+            &:visited {
+                color: $wine;
+            }
+        }
+    }
 }

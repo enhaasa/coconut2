@@ -137,6 +137,29 @@ const archivedOrders = {
     }
 }
 
+const tips = {
+    table: "tips",
+    get: async function () {
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
+            res.data
+        ));
+    },
+    post: async function (tip) {
+        Axios.post(baseUrl + "/post", {table: this.table, data: {...tip}});
+    },
+    delete: async function (id) {
+        Axios.post(baseUrl + "/delete", {table: this.table, data: {id: id}});
+    },
+    put: async function (id, selectedKey, newValue) {
+        Axios.post(baseUrl + "/update", {table: this.table, data: {
+            key: selectedKey,
+            value: newValue,
+            condition_key: '`id`',
+            condition_value: id
+        }});
+    }
+}
+
 const updates = {
     table: "updates",
     get: async function () {

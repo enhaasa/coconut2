@@ -58,12 +58,14 @@ export default function Customer(props) {
         <div className="customer" key={customer.id} ref={customerRef}>
             <nav className="nameNav">
                 <input 
+                    spellCheck={false}
                     type="text" 
                     value={customer.name} 
                     placeholder="Enter name..." 
                     maxLength={50}
                     onPaste={handleNamePaste}
                     onChange={handleNameChange}>
+                    
                 </input>
                 <button className="icon" onClick={() => {confirmDeleteCustomer(customer.id, customer.name)}}>
                     <img src={removecustomerIcon} alt="" />

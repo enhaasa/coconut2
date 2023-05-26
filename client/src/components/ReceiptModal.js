@@ -58,6 +58,19 @@ function ReceiptModal(props) {
                 onChange={(e) => handleAmountPaid(e.target.value)}></input>
                 <button disabled={amountPaid === total ? true : false}>Save</button>
             </div>
+            <br />
+
+            <div className="receiptRP">
+                
+                <a href={`https://cocosoasis.info/r.html?id=${session}`}
+                target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a>
+
+                <textarea 
+                    value={`/em hands over the tab: cocosoasis.info/r.html?id=${session} ((${total.toLocaleString("en-US")} gil))`} 
+                    contentEditable={false}
+                    spellCheck={false}
+                />
+            </div>
             
         </div>
     );

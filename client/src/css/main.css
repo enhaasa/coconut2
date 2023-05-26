@@ -565,6 +565,8 @@ button:active, select:active, option:active {
   color: black;
   width: 300px;
   height: 100%;
+  display: grid;
+  align-content: space-between;
 }
 .ReceiptManager .header {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
@@ -735,7 +737,7 @@ button:active, select:active, option:active {
   padding: 10px;
   border: 4px solid black;
   width: 1000px;
-  min-height: 700px;
+  min-height: 600px;
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr auto;
@@ -774,6 +776,25 @@ button:active, select:active, option:active {
   padding: 10px;
   z-index: 2;
   height: 100%;
+}
+
+.GeneralTips {
+  display: flex;
+}
+.GeneralTips .tip {
+  padding: 5px 10px;
+  background: linear-gradient(to bottom right, #D1B464, #8A6E2F);
+  border-radius: 20px;
+}
+.GeneralTips .tip .name {
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+.GeneralTips .tip .amount {
+  color: black;
+  font-weight: normal;
 }
 
 .modalContainer {
@@ -829,6 +850,12 @@ button:active, select:active, option:active {
 }
 .ReceiptModal .itemTable tfoot {
   color: rgb(196, 177, 166);
+}
+.ReceiptModal .receiptRP a {
+  color: rgb(138, 0, 0);
+}
+.ReceiptModal .receiptRP a:visited {
+  color: rgb(138, 0, 0);
 }
 
 .AttendingStaff .deleteStaffButton:hover {

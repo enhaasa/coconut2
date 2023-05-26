@@ -1,0 +1,21 @@
+.GeneralTips {
+    display: flex;
+
+    & .tip {
+        padding: 5px 10px;
+        background: $gradient-gold;
+        border-radius: 20px;
+    
+        & .name {
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+
+        & .amount {
+            color: black;
+            font-weight: normal;
+        }
+    }
+}
