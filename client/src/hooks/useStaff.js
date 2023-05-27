@@ -13,9 +13,6 @@ function useStaff(init, props) {
     }
 
     function toggleIsAttending(id, isAttending) {
-      console.log(id);
-      console.log(isAttending)
-
       db.staff.put("isAttending", isAttending, "id", id);
 
       const index = staff.map(s => s.id).indexOf(id);

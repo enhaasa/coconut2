@@ -137,6 +137,28 @@ const archivedOrders = {
     }
 }
 
+const archivedSessions = {
+    table: "archived_sessions",
+    get: async function () {
+        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
+            res.data
+        ));
+    },
+    post: async function (item) {
+        Axios.post(baseUrl + "/post", {table: this.table, data: {...item}});
+    },
+    delete: async function (id) {
+        Axios.post(baseUrl + "/delete", {table: this.table, data: { id: id } });
+    },
+    put: async function (key, value, condition_key, condition_value) {
+        Axios.post(baseUrl + "/update", {table: this.table, data: {
+            key: key, 
+            value: value, 
+            condition_key: condition_key, 
+            condition_value: condition_value}});
+    }
+}
+
 const tips = {
     table: "tips",
     get: async function () {
@@ -187,6 +209,8 @@ export default {
    tables,
    customers,
    archivedOrders,
+   archivedSessions,
    orders,
+   tips,
    updates
 };

@@ -34,13 +34,15 @@ export default function ReceiptManager(props) {
     return (
         <div className="ReceiptManager">
             <div className="row">
+                {/*
                 <nav className="receiptFilter">
                     {filters.map((filter, index) => 
                         <button 
                             onClick={() => {handleFilter(index)}}
-                            className={index === selectedFilter ? "constructive" : ""}
+                            className={index === selectedFilter ? "steel" : "inactive"}
                         >{filter.title}</button>)}
                 </nav>
+                */}
                 <div className="receiptList">
                     {archivedSessions.map(session => (
                         <Receipt 

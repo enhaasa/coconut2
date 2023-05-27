@@ -1,13 +1,12 @@
-import useArchivedOrders from './../hooks/useArchivedOrders';
 import ReceiptManager from './../components/ReceiptManager';
 import AttendingStaff from '../components/AttendingStaff';
-import GeneralTips from '../components/GeneralTips';
+import TipsManager from '../components/TipsManager';
 import Modal from '../components/Modal';
 import tools from '../tools';
 import { useState } from 'react';
 
 function Payouts(props) {
-    const { staff, archivedOrders, setIsBlurred } = props;
+    const { staff, archivedOrders, setIsBlurred, tips } = props;
     const { getCurrentDate, sortArchivedArray } = tools;
     const [ modal, setModal ] = useState(null);
 
@@ -25,6 +24,8 @@ function Payouts(props) {
     let archivedSessions = archivedOrdersFromStartDate.map(order => order.session);
     archivedSessions = [...new Set(archivedSessions)];
 
+    const tipsTotal = tips.get.reduce((total, current) => total + current.amount, 0);
+
     return(
         <>
             {modal && 
@@ -40,7 +41,11 @@ function Payouts(props) {
                             General Tips
                         </div>
                         <div className="content">
-                            <GeneralTips />
+                            <TipsManager 
+                                handleModal={handleModal} 
+                                tips={tips} 
+                                tipsTotal={tipsTotal}
+                            />
                         </div>
                     </section>
 
@@ -54,6 +59,8 @@ function Payouts(props) {
                                 staff={staff} 
                                 handleModal={handleModal} 
                                 archivedOrders={archivedOrders}
+                                tips={tips}
+                                tipsTotal={tipsTotal}
                                 ordersTotal={total} />
                         </div>
                     </section>

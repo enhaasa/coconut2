@@ -2,6 +2,7 @@
 
 .AttendingStaff {
     & .deleteStaffButton {
+        background: $background-inactive;
         
         &:hover {
             background: $background-destructive;
@@ -9,11 +10,19 @@
         }
     }
 
-    & .perPerson {
+    & .perPerson, & .calculations, & .listTitle {
         color: $cream;
         margin-top: 5px;
         padding-top: 3px;
-        border-top: 1px solid $cream;
         text-shadow: 0px 2px 4px black;
     }
+
+    & .perPerson, & .calculations {
+        border-top: 1px solid $cream;
+    }
+
+    & .perPerson {
+        color: lightgrey;
+    }
+
 }

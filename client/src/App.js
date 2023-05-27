@@ -7,6 +7,7 @@ import useMenu from './hooks/useMenu';
 import useStaff from './hooks/useStaff';
 import useArchivedOrders from './hooks/useArchivedOrders';
 import useTables from './hooks/useTables';
+import useTips from './hooks/useTips';
 
 //Views
 import Payouts from './views/Payouts';
@@ -87,6 +88,10 @@ function App() {
     orders: orders
   });
 
+  const [ tips ] = useTips([], {
+    updateUpdates: updateUpdates
+  });
+
   const [ menu ] = useMenu([], {selectedTable});
   const [ archivedOrders ] = useArchivedOrders([]);
   const [ staff ] = useStaff([], {
@@ -113,6 +118,10 @@ function App() {
     name: "orders",
     id: useRef(null),
     refresh: orders.refresh
+  },{
+    name: "tips",
+    id: useRef(null),
+    refresh: tips.refresh
   },{
     name: "archived_orders",
     id: useRef(null),
@@ -153,6 +162,7 @@ function App() {
     customers.refresh();
     orders.refresh();
     archivedOrders.refresh();
+    tips.refresh();
 
     //Start short polling
     setInterval(() => {
@@ -191,6 +201,7 @@ function App() {
         staff={staff} 
         archivedOrders={archivedOrders}
         setIsBlurred={setIsBlurred}
+        tips={tips}
       />
     }
   ]

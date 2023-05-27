@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import useArchivedOrders from "../hooks/useArchivedOrders";
 
 function AttendingStaff(props) {
-    const { staff, handleModal, ordersTotal } = props;
+    const { staff, handleModal, ordersTotal, tips, tipsTotal } = props;
     const attendingStaff = staff.get.filter(s => s.isAttending);
     const absentStaff = staff.get.filter(s => !s.isAttending);
-    const perPerson = ordersTotal / attendingStaff.length;
+    const tipsAndOrders = ordersTotal + tipsTotal;
+    const perPerson = tipsAndOrders / attendingStaff.length;
+
 
     function handleAttendingModal(isVisible) {
         if (isVisible) {
@@ -39,6 +41,11 @@ function AttendingStaff(props) {
                 </button>
             </div>
 
+            <div className="calculations">
+                <div>{`Orders: ${ordersTotal.toLocaleString("en-US")} gil`}</div>
+                <div>{`General Tips: ${tipsTotal.toLocaleString("en-US")} gil`}</div>
+                <div>{`Total: ${tipsAndOrders.toLocaleString("en-US")} gil divided among ${attendingStaff.length} people`}</div>
+            </div>
             <div className="perPerson">{`${Math.round(perPerson).toLocaleString("en-US")} gil / person`}</div>
         
         </div>
