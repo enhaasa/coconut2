@@ -6,7 +6,7 @@ import tools from '../tools';
 import { useState } from 'react';
 
 function Payouts(props) {
-    const { staff, archivedOrders, setIsBlurred, tips } = props;
+    const { staff, archivedOrders, setIsBlurred, tips, archivedSessions } = props;
     const { getCurrentDate, sortArchivedArray } = tools;
     const [ modal, setModal ] = useState(null);
 
@@ -16,19 +16,13 @@ function Payouts(props) {
     }
 
     const startDateEpoch = getCurrentDate(date => date -1); //Set date filtering offset in days
-    const archivedOrdersFromStartDate = sortArchivedArray(archivedOrders.get.filter(order => (
-        order.date > startDateEpoch && order
-    )));
-    const tipsFromStartDate = tips.get.filter(tip => (
-        tip.date > startDateEpoch && tip
-    ));
 
 
-    const total = archivedOrdersFromStartDate.reduce((t, c) => t + c.price, 0);
-    let archivedSessions = archivedOrdersFromStartDate.map(order => order.session);
-    archivedSessions = [...new Set(archivedSessions)];
+    const total = archivedSessions.get.reduce((t, c) => t + c.paidAmount, 0);
+    //let archivedSessions = archivedOrdersFromStartDate.map(order => order.session);
+    //archivedSessions = [...new Set(archivedSessions)];
 
-    const tipsTotal = tipsFromStartDate.reduce((total, current) => total + current.amount, 0);
+    const tipsTotal = tips.get.reduce((total, current) => total + current.amount, 0);
 
     return(
         <>
@@ -48,7 +42,6 @@ function Payouts(props) {
                             <TipsManager 
                                 handleModal={handleModal} 
                                 tips={tips}
-                                tipsFromStartDate={tipsFromStartDate}
                                 tipsTotal={tipsTotal}
                             />
                         </div>
@@ -82,7 +75,6 @@ function Payouts(props) {
                                 archivedOrders={archivedOrders} 
                                 setIsBlurred={setIsBlurred}
                                 handleModal={handleModal}
-                                archivedOrdersFromStartDate={archivedOrdersFromStartDate}
                                 archivedSessions={archivedSessions}
                                 total={total}
                             />

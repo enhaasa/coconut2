@@ -2,15 +2,22 @@ import tools from "../tools";
 import { useState } from 'react';
 
 function ReceiptModal(props) {
-    const { orders, session } = props;
+    const { session, archivedSessions, handleModal } = props;
 
-    const total = orders.reduce((total, order) => (total + order.price), 0);
-    const [ amountPaid, setAmountPaid ] = useState(total);
+    const total = session.orders.reduce((total, order) => (total + order.price), 0);
+    const [ amountPaid, setAmountPaid ] = useState(session.paidAmount);
     const tips = amountPaid - total < 0 ? 0 : amountPaid - total;
 
     function handleAmountPaid(amount) {
         setAmountPaid(amount);
     }
+
+
+    function handleSave() {
+        archivedSessions.editAmountPaid(session.id, parseInt(amountPaid));
+        handleModal(null);
+    }
+
 
     return(
         <div className="ReceiptModal">
@@ -25,7 +32,7 @@ function ReceiptModal(props) {
                 </thead>
             
                 <tbody>
-                    {tools.sortArray(orders).map(order => (  
+                    {tools.sortArray(session.orders).map(order => (  
                         <tr key={order.id}>
                             <td>{order.name}</td>
                             <td>{order.price.toLocaleString("en-US")} gil</td>
@@ -57,9 +64,13 @@ function ReceiptModal(props) {
             <div className="paidAmount">
                 <label>Amount paid:</label> 
                 <input type="number" 
-                value={amountPaid} 
-                onChange={(e) => handleAmountPaid(e.target.value)}></input>
-                <button disabled={amountPaid === total ? true : false}>Save</button>
+                    value={amountPaid} 
+                    onChange={(e) => handleAmountPaid(e.target.value)}>
+                </input>
+                <button 
+                    onClick={() => handleSave()} 
+                    disabled={amountPaid === total ? true : false}
+                >Save</button>
             </div>
             <br />
             
@@ -70,7 +81,8 @@ function ReceiptModal(props) {
                 target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a>
 
                 <textarea 
-                    value={`/em hands over the tab: cocosoasis.info/r.html?id=${session} ((${total.toLocaleString("en-US")} gil))`} 
+                    value={`/em hands over the tab: cocosoasis.info/r.html?id=${session.id} ((${total.toLocaleString("en-US")} gil))`} 
+                    readOnly
                     contentEditable={false}
                     spellCheck={false}
                 />

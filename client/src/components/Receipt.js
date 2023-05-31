@@ -4,24 +4,38 @@ import clockIcon from './../assets/icons/clock-black.png';
 import ReceiptModal from './ReceiptModal';
 
 export default function Receipt(props) {
-    const { orders, handleModal } = props;
+    const { orders, handleModal, session, archivedSessions } = props;
     const { getFirstName, getLastNames } = tools;
 
-    const { session, time, table } = orders[0];
+    const { time, table } = session;
 
-    const total = orders.reduce((total, customer) => (customer.total + total), 0).toLocaleString("en-US");
+    const total = session.orders.reduce((total, order) => (order.price + total), 0).toLocaleString("en-US");
+
     const formattedTime = tools.epochToTime(parseInt(time)).slice(0, -3);
+
     const link =      
             <div className="link">
                 <a href={`https://cocosoasis.info/r.html?id=${session}`}
                 target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a>
             </div>;
 
-    let names = orders.map(customer => `${getFirstName(customer.customerName)} ${getLastNames(customer.customerName).join("").charAt(0)}`);
+    let names = session.orders.map(customer => `${getFirstName(customer.customerName)} ${getLastNames(customer.customerName).join("").charAt(0)}`);
     names = [...new Set(names)];
 
+
     return (
-        <button className="Receipt progressive" onClick={() => handleModal({title: "Receipt Details", content: <ReceiptModal orders={orders} session={session}/>})}>
+        <button 
+            className="Receipt progressive" 
+            onClick={() => handleModal(
+                    {
+                        title: "Receipt Details", 
+                        content: <ReceiptModal 
+                        session={session} 
+                        handleModal={handleModal}
+                        archivedSessions={archivedSessions}/>
+                    }
+                )}
+        >
             <div className="name">
                 {names.length > 1 ? names[0] + ` +${names.length-1}` : names[0]}
             </div>
@@ -32,7 +46,7 @@ export default function Receipt(props) {
                     Table {table +1}
                 </span>
 
-                <span className="amount">{`${total} gil`}</span>
+                <span className="amount">{`${session.paidAmount.toLocaleString("en-US")} gil`}</span>
                 
             </div>
         </button>

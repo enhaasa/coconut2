@@ -167,6 +167,7 @@ function App() {
     staff.refresh();
     customers.refresh();
     orders.refresh();
+    archivedSessions.refresh();
     archivedOrders.refresh();
     tips.refresh();
 

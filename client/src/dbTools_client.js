@@ -7,7 +7,6 @@ const baseUrl = 'http://localhost:3001';
 const extUrl = "https://enhasa.dev/cocosoasis/api/db";
 
 const archivedDateOffset = tools.getCurrentDate(date => (date -1));
-console.log(archivedDateOffset)
 
 const weeklySpecial = {
     get: async function(type) {
@@ -126,7 +125,6 @@ const orders = {
 const archivedOrders = {
     table: "archived_orders",
     get: async function () {
-        console.log("WHERE `date` > " + archivedDateOffset)
         return Axios.post(baseUrl + "/get", {table: this.table, condition: "WHERE `date` >= " + `"${archivedDateOffset}"`}).then((res) => (
             res.data
         ));

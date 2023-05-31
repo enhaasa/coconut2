@@ -6,10 +6,19 @@ export default function ReceiptManager(props) {
     const {  
         setIsBlurred, 
         handleModal, 
-        archivedOrdersFromStartDate, 
+        archivedOrders,
         archivedSessions, 
         total 
     } = props;
+
+    const sessions = archivedSessions.get.map(session => {
+        const ordersInSession = archivedOrders.get.filter(order => session.id === order.session && order);
+
+        return {
+            ...session,
+            orders: ordersInSession
+        }
+    });
 
     const [ selectedFilter, setSelectedFilter ] = useState(0);
     const filters = [
@@ -44,12 +53,14 @@ export default function ReceiptManager(props) {
                 </nav>
                 */}
                 <div className="receiptList">
-                    {archivedSessions.map(session => (
+                    {sessions.map(session => (
                         <Receipt 
-                            key={session}
+                            key={session.id}
                             setIsBlurred={setIsBlurred}
                             handleModal={handleModal}
-                            orders={archivedOrdersFromStartDate.filter(order => (session === order.session && order))}/>
+                            session={session}
+                            archivedSessions={archivedSessions}
+                        />
                     ))}
                 </div>
             </div>
