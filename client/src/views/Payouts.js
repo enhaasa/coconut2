@@ -16,15 +16,19 @@ function Payouts(props) {
     }
 
     const startDateEpoch = getCurrentDate(date => date -1); //Set date filtering offset in days
-    const archivedOrdersFromStartDate = sortArchivedArray(archivedOrders.get.map(order => (
+    const archivedOrdersFromStartDate = sortArchivedArray(archivedOrders.get.filter(order => (
         order.date > startDateEpoch && order
-    ))).slice(1);
+    )));
+    const tipsFromStartDate = tips.get.filter(tip => (
+        tip.date > startDateEpoch && tip
+    ));
+
 
     const total = archivedOrdersFromStartDate.reduce((t, c) => t + c.price, 0);
     let archivedSessions = archivedOrdersFromStartDate.map(order => order.session);
     archivedSessions = [...new Set(archivedSessions)];
 
-    const tipsTotal = tips.get.reduce((total, current) => total + current.amount, 0);
+    const tipsTotal = tipsFromStartDate.reduce((total, current) => total + current.amount, 0);
 
     return(
         <>
@@ -43,7 +47,8 @@ function Payouts(props) {
                         <div className="content">
                             <TipsManager 
                                 handleModal={handleModal} 
-                                tips={tips} 
+                                tips={tips}
+                                tipsFromStartDate={tipsFromStartDate}
                                 tipsTotal={tipsTotal}
                             />
                         </div>
@@ -61,7 +66,8 @@ function Payouts(props) {
                                 archivedOrders={archivedOrders}
                                 tips={tips}
                                 tipsTotal={tipsTotal}
-                                ordersTotal={total} />
+                                ordersTotal={total} 
+                            />
                         </div>
                     </section>
                 </div>

@@ -4,7 +4,7 @@ import clockIcon from './../assets/icons/clock-black.png';
 import ReceiptModal from './ReceiptModal';
 
 export default function Receipt(props) {
-    const { orders, setIsBlurred, handleModal } = props;
+    const { orders, handleModal } = props;
     const { getFirstName, getLastNames } = tools;
 
     const { session, time, table } = orders[0];

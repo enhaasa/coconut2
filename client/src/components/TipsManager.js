@@ -1,7 +1,7 @@
 import TipModal from "./TipModal";
 
 function TipsManager(props) {
-    const { tips, tipsTotal, handleModal } = props;
+    const { tips, tipsTotal, handleModal, tipsFromStartDate } = props;
 
     function handleEdit(tip) {
         handleModal({
@@ -21,7 +21,7 @@ function TipsManager(props) {
     return(
         <div className="TipsManager">
             <div className="list">
-                {tips.get.map(tip => (
+                {tipsFromStartDate.map(tip => (
                 <button className="tip inactive" key={tip.id} onClick={() => handleEdit(tip)}>
                     <div className="name">{tip.name}</div>
                     <div className="amount">{tip.amount.toLocaleString("en-US") + " gil"}</div>

@@ -6,6 +6,7 @@ import useOrders from './hooks/useOrders';
 import useMenu from './hooks/useMenu';
 import useStaff from './hooks/useStaff';
 import useArchivedOrders from './hooks/useArchivedOrders';
+import useArchivedSessions from './hooks/useArchivedSessions';
 import useTables from './hooks/useTables';
 import useTips from './hooks/useTips';
 
@@ -93,7 +94,8 @@ function App() {
   });
 
   const [ menu ] = useMenu([], {selectedTable});
-  const [ archivedOrders ] = useArchivedOrders([]);
+  const [ archivedOrders ] = useArchivedOrders([], {updateUpdates});
+  const [ archivedSessions ] = useArchivedSessions([], {updateUpdates});
   const [ staff ] = useStaff([], {
     updateUpdates: updateUpdates
   });
@@ -126,6 +128,10 @@ function App() {
     name: "archived_orders",
     id: useRef(null),
     refresh: archivedOrders.refresh
+  },{
+    name: "archived_sessions",
+    id: useRef(null),
+    refresh: archivedSessions.refresh
   }];
 
   /**
@@ -201,6 +207,7 @@ function App() {
         staff={staff} 
         archivedOrders={archivedOrders}
         setIsBlurred={setIsBlurred}
+        archivedSessions={archivedSessions}
         tips={tips}
       />
     }

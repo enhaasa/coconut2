@@ -1,9 +1,13 @@
 import Axios from "axios";
+import tools from "./tools";
  
 //`https://${document.location.hostname}`;
 //'http://localhost:3001';
 const baseUrl = 'http://localhost:3001';
 const extUrl = "https://enhasa.dev/cocosoasis/api/db";
+
+const archivedDateOffset = tools.getCurrentDate(date => (date -1));
+console.log(archivedDateOffset)
 
 const weeklySpecial = {
     get: async function(type) {
@@ -122,7 +126,8 @@ const orders = {
 const archivedOrders = {
     table: "archived_orders",
     get: async function () {
-        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
+        console.log("WHERE `date` > " + archivedDateOffset)
+        return Axios.post(baseUrl + "/get", {table: this.table, condition: "WHERE `date` >= " + `"${archivedDateOffset}"`}).then((res) => (
             res.data
         ));
     },
@@ -140,7 +145,7 @@ const archivedOrders = {
 const archivedSessions = {
     table: "archived_sessions",
     get: async function () {
-        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
+        return Axios.post(baseUrl + "/get", {table: this.table, condition: "WHERE `date` >= " + `"${archivedDateOffset}"`}).then((res) => (
             res.data
         ));
     },
@@ -162,7 +167,7 @@ const archivedSessions = {
 const tips = {
     table: "tips",
     get: async function () {
-        return Axios.post(baseUrl + "/get", {table: this.table}).then((res) => (
+        return Axios.post(baseUrl + "/get", {table: this.table, condition: "WHERE `date` >= " + `"${archivedDateOffset}"`}).then((res) => (
             res.data
         ));
     },

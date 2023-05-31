@@ -32,9 +32,13 @@ const db = mysql.createPool({
 });
 
 app.post('/get', (req, res) => {
-    const { table } = req.body;
+    const { table, condition} = req.body;
+    let query = `SELECT * FROM ${table}`;
+    if (condition) {
+        query = query + ` ${condition}`;
+    }
 
-    db.query(`SELECT * FROM ${table}`, (err, result) => {
+    db.query(query, (err, result) => {
         if (err) {
             console.log(`Error: Cannot get table ${table}: ${err}`);
         } else {

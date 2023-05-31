@@ -36,14 +36,14 @@ function ReceiptModal(props) {
                     ))}
                 </tbody>
                 <tfoot>
-                    {/*
+                    {
                     <tr>
                         <td>Tips:</td>
                         <td></td>
                         <td></td>
                         <td>{tips.toLocaleString("en-US") + " gil"}</td>
                     </tr>
-                    */}
+                    }
                     <tr>
                         <td>Total:</td>
                         <td></td>
@@ -53,7 +53,7 @@ function ReceiptModal(props) {
                 </tfoot>
             </table>
 
-            {/*
+            
             <div className="paidAmount">
                 <label>Amount paid:</label> 
                 <input type="number" 
@@ -62,7 +62,7 @@ function ReceiptModal(props) {
                 <button disabled={amountPaid === total ? true : false}>Save</button>
             </div>
             <br />
-            */}
+            
 
             <div className="receiptRP">
                 

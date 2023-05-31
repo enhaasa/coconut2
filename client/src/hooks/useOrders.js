@@ -3,6 +3,7 @@ import db from '../dbTools_client';
 import uuid from 'react-uuid';
 import { nanoid } from 'nanoid';
 import tools from '../tools';
+import useArchivedSessions from './useArchivedSessions';
 
 function useOrders(init, props) {
 
@@ -111,15 +112,23 @@ function useOrders(init, props) {
             pay(order, session);
         })
 
-        /*
-            setTables(prev => {
-                prev[table].session = session;
-                return [...prev];
-            })
-        */
+        const price = ordersToPay.reduce((total, current) => total + current.price, 0);
+        const { floor, date } = ordersToPay[0];
+
+        const archivedSession = {
+            id: session, 
+            price: price,
+            paidAmount: price,
+            floor: floor,
+            date: date,
+            table: table,
+        };
+
+        db.archivedSessions.post(archivedSession);
 
         db.tables.put('session', session, 'id', table);
         updateUpdates("tables");
+        updateUpdates("archived_sessions");
     }
 
     /**
