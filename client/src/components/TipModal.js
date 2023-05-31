@@ -20,7 +20,7 @@ function TipModal(props) {
                 id: tip.id, 
                 date: tip.date, 
                 name: !name ? "Anonymous" : name,
-                amount:!amount ? 0 : amount});
+                amount:!amount ? 0 : parseInt(amount)});
             handleModal(null);
         } else {
             tips.add({
@@ -35,7 +35,6 @@ function TipModal(props) {
         tips.remove(tip);
         handleModal(null);
     }
-
 
 
     return(
