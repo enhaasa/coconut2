@@ -1,0 +1,130 @@
+.CustomerManager {
+    //background: $leather-dark;
+    //background-image: url("./../assets/icons/dark-leather.png");
+    background: $gradient-steel;
+    border-radius: 50px 50px 20px 20px;
+    display: grid;
+    min-width: 450px;
+    color: white;
+    padding: 15px;
+    position: relative;
+    border: 4px solid black;
+    box-shadow: 0px 4px 10px 1px black;
+    
+
+    & .title {
+      text-shadow: 0.1em 0.1em 0.2em black;
+    }
+
+    & .blur {
+      border-radius: inherit;
+      height: 100%;
+    }
+  
+    & .header {
+      display: grid;
+      grid-auto-flow: column;
+      justify-items: center;
+      width: 100%;
+
+      & .customerName {
+        display: grid;
+        justify-self: start;
+        align-content: center;
+
+        & select, & select > {
+          background: $gradient-silver;
+          border-radius: 15px;
+          padding: 2px;
+        }
+      }
+
+  
+      & .tablenumber {
+        display: grid;
+        justify-self: center;
+        place-items: center;
+        border-radius: 100%;
+        border: 6px double black;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        box-shadow: 0px 4px 10px 1px black;
+        
+        font-size: 4.5em;
+        margin-top: -8px;
+        //margin-bottom: 30px;
+        color: black;
+      }
+
+      & .closeButton {
+        justify-self: end;
+        align-self: center;
+        box-shadow: 0px 4px 10px 1px black;
+      }
+    }
+  
+    & .navbar {
+      width: 100%;
+      margin: 5px 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+    
+      & .column {
+        display: grid;
+        align-content: end;
+        grid-gap: 5px;
+        
+
+        & .navsection {
+          display: grid;
+          grid-auto-flow: column;
+          align-items: center;
+          justify-content: space-between;
+          grid-gap: 5px;
+        }
+      }
+    }
+
+    & .resetButton {
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      color: black;
+      margin-top: 10px;
+      box-shadow: 0px 4px 10px 1px black;
+
+      & img {
+        height: 18px;
+        width: 18px;
+      }
+    }
+  
+
+  & .viewTabContainer {
+    display: grid;
+
+    & .viewTabButton {
+      display: grid;
+      grid-auto-flow: column;
+      align-items: end;
+      grid-gap: 5px;
+      border-radius: 15px;
+      padding: 5px;
+      box-shadow: 0px 4px 10px 1px black;
+
+      & .column {
+        display: grid;
+        justify-items: start;
+        align-items: end;
+        grid-gap: 0;
+      }
+
+      & img {
+        height: 32px;
+        width: 32px;
+      }
+    }
+  }
+}

@@ -46,7 +46,6 @@ export default function MenuManager(props) {
           time: tools.getCurrentTime(),
           item: item.item,
           type: item.type,
-          date: tools.epochToSqlDateTime(tools.getCurrentTime()),
           id: uuid()
         }
     }

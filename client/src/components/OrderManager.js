@@ -19,10 +19,6 @@ export default function OrderManager(props) {
         orders
     } = props;
 
-    function openMenu(customer) {
-        setSelectedCustomer(customer);
-    }
-
     function confirmDeleteCustomer(id, customerName) {
 
         const checkedCustomerName = customerName !== "" ? customerName : "the customer";
@@ -66,7 +62,7 @@ export default function OrderManager(props) {
                                 confirmDeleteCustomer={confirmDeleteCustomer}
                                 unDeliveredOrdersInTable={unDeliveredOrdersInTable}
                                 unDeliveredOrderCustomersInTable={unDeliveredOrderCustomersInTable}
-                                openMenu={openMenu}
+                                setSelectedCustomer={setSelectedCustomer}
                                 customers={customers}
                             />
                        ))} 

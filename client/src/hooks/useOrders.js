@@ -30,14 +30,12 @@ function useOrders(init, props) {
             paid: order.paid,
             price: order.price,
             time: order.time,
-            date: order.date,
+            date: tools.epochToSqlDateTime(tools.getCurrentTime()),
             item: order.item,
             type: order.type,
             id: uuid()
         }
 
-        
-    
         setOrders(prev => ([...prev, filteredOrder]));
         db.orders.post(filteredOrder);
         updateUpdates("orders");

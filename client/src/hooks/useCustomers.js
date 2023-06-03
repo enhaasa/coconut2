@@ -47,13 +47,15 @@ function useCustomers(init, props) {
             ))
         ));
 
-        const customersInTable = customers.filter(customer => (
-            customer.table === table.id
-        ));
-        
-        if (customersInTable.length-1 === 0) {
-            db.tables.put('session', null, 'id', table.id);
-            updateUpdates("tables");
+        if(table) {
+            const customersInTable = customers.filter(customer => (
+                customer.table === table.id
+            ));
+            
+            if (customersInTable.length-1 === 0) {
+                db.tables.put('session', null, 'id', table.id);
+                updateUpdates("tables");
+            }
         }
         
         db.customers.delete(id);

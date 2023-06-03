@@ -3,7 +3,7 @@ import tools from "./tools";
  
 //`https://${document.location.hostname}`;
 //'http://localhost:3001';
-const baseUrl = `https://${document.location.hostname}`;
+const baseUrl = "http://localhost:3001";
 const extUrl = "https://enhasa.dev/cocosoasis/api/db";
 
 const archivedDateOffset = tools.getCurrentDate(date => (date -1));

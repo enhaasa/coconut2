@@ -1041,6 +1041,113 @@ button:active, select:active, option:active {
   width: 32px;
 }
 
+.CustomerManager {
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  border-radius: 50px 50px 20px 20px;
+  display: grid;
+  min-width: 450px;
+  color: white;
+  padding: 15px;
+  position: relative;
+  border: 4px solid black;
+  box-shadow: 0px 4px 10px 1px black;
+}
+.CustomerManager .title {
+  text-shadow: 0.1em 0.1em 0.2em black;
+}
+.CustomerManager .blur {
+  border-radius: inherit;
+  height: 100%;
+}
+.CustomerManager .header {
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: center;
+  width: 100%;
+}
+.CustomerManager .header .customerName {
+  display: grid;
+  justify-self: start;
+  align-content: center;
+}
+.CustomerManager .header .customerName select {
+  background: linear-gradient(to bottom right, lightgrey, grey);
+  border-radius: 15px;
+  padding: 2px;
+}
+.CustomerManager .header .tablenumber {
+  display: grid;
+  justify-self: center;
+  place-items: center;
+  border-radius: 100%;
+  border: 6px double black;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  box-shadow: 0px 4px 10px 1px black;
+  font-size: 4.5em;
+  margin-top: -8px;
+  color: black;
+}
+.CustomerManager .header .closeButton {
+  justify-self: end;
+  align-self: center;
+  box-shadow: 0px 4px 10px 1px black;
+}
+.CustomerManager .navbar {
+  width: 100%;
+  margin: 5px 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.CustomerManager .navbar .column {
+  display: grid;
+  align-content: end;
+  grid-gap: 5px;
+}
+.CustomerManager .navbar .column .navsection {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  grid-gap: 5px;
+}
+.CustomerManager .resetButton {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  color: black;
+  margin-top: 10px;
+  box-shadow: 0px 4px 10px 1px black;
+}
+.CustomerManager .resetButton img {
+  height: 18px;
+  width: 18px;
+}
+.CustomerManager .viewTabContainer {
+  display: grid;
+}
+.CustomerManager .viewTabContainer .viewTabButton {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  grid-gap: 5px;
+  border-radius: 15px;
+  padding: 5px;
+  box-shadow: 0px 4px 10px 1px black;
+}
+.CustomerManager .viewTabContainer .viewTabButton .column {
+  display: grid;
+  justify-items: start;
+  align-items: end;
+  grid-gap: 0;
+}
+.CustomerManager .viewTabContainer .viewTabButton img {
+  height: 32px;
+  width: 32px;
+}
+
 .OrderManager {
   background: bisque;
   background-image: url("./../assets/icons/dark-fabric.png");

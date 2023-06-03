@@ -1,5 +1,6 @@
 import Floor from './../components/Floor'
 import TableManager from './../components/TableManager';
+import CustomerManager from '../components/CustomerManager';
 import MenuManager from './../components/MenuManager';
 import ReceiptManager from './../components/ReceiptManager';
 import NotificationBar from './../components/NotificationBar';
@@ -13,9 +14,11 @@ function FloorManager(props) {
         customers,
         setSelectedTable,
         setSelectedCustomer,
+        setSelectedCustomerManager,
         setSelectedFloor,
         menu,
         selectedCustomer,
+        selectedCustomerManager,
         isBlurred,
         loggedInAs,
         selectedTable,
@@ -29,18 +32,31 @@ function FloorManager(props) {
         <div className="FloorManager">
 
         <section className="TableManagerContainer">
-
-          {selectedTable !== null &&         
-            <>
-              <TableManager 
-                staff={staff}
-                orders={orders}
-                tables={tables}
-                customers={customers}
-                table={tables.get[selectedTable]} 
-                setSelectedTable={setSelectedTable}
-                setSelectedCustomer={setSelectedCustomer}
+      
+          
+              {selectedTable !== null &&
+                <TableManager 
+                  staff={staff}
+                  orders={orders}
+                  tables={tables}
+                  customers={customers}
+                  table={tables.get[selectedTable]} 
+                  setSelectedTable={setSelectedTable}
+                  setSelectedCustomer={setSelectedCustomer}
                 />
+              }
+
+              {selectedCustomerManager !== null &&
+                <CustomerManager 
+                  orders={orders}
+                  customers={customers}
+                  customer={selectedCustomerManager}
+                  setSelectedCustomer={setSelectedCustomer}
+                  selectedCustomer={selectedCustomer}
+                  setSelectedCustomerManager={setSelectedCustomerManager}
+                />
+              }
+
 
               {selectedCustomer !== null &&
                 <MenuManager 
@@ -49,9 +65,8 @@ function FloorManager(props) {
                   orders={orders}
                   setSelectedCustomer={setSelectedCustomer}
                 />
-              }
-            </>
-          }
+            }
+     
         </section>
         
         <section className="FloorContainer">
@@ -95,6 +110,8 @@ function FloorManager(props) {
             tables={tables} 
             maxDeliveryTime={maxDeliveryTime}
             setSelectedTable={setSelectedTable}
+            setSelectedCustomer={setSelectedCustomer}
+            setSelectedCustomerManager={setSelectedCustomerManager}
             orders={orders}
             customers={customers}
           />

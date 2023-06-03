@@ -38,6 +38,7 @@ function App() {
   const [ selectedFloor, setSelectedFloor ] = useState(1);
   const [ selectedCustomer, setSelectedCustomer ] = useState(null);
   const [ selectedTable, setSelectedTable ] = useState(null);
+  const [ selectedCustomerManager, setSelectedCustomerManager ] = useState(null);
 
   /**
    * Temporary solution to useEffect not having access to updated values in component state
@@ -51,6 +52,15 @@ function App() {
     setSelectedCustomer(null);
   }, [selectedTable]);
 
+  const selectedCustomerManagerTracker = useRef(null);
+  useEffect(() => {
+    selectedCustomerManagerTracker.current = selectedCustomerManager;
+    selectedCustomerManager !== null ?
+    setIsBlurred(true) :
+    setIsBlurred(false);
+    setSelectedCustomer(null);
+  }, [selectedCustomerManager]);
+
   const updateUpdates = (table) => {
     const newUpdateId = uuid();
     db.updates.put('id', newUpdateId, 'name', table);
@@ -60,13 +70,21 @@ function App() {
   const floors = [
     {
       title: "Basement",
-      type: "basement",
+      name: "basement",
+      type: "restaurant",
       schematics: basement
     },
     {
       title: "Ground Floor",
-      type: "ground",
+      name: "ground",
+      type: "restaurant",
       schematics: ground
+    },
+    {
+      title: "Bar",
+      name: "bar-1",
+      type: "bar",
+      schematics: null
     }
   ];
 
@@ -143,6 +161,7 @@ function App() {
    */
   const checkUpdates = () => {
     if (selectedTableTracker.current !== null) return; //Do not update when a table is open
+    if (selectedCustomerManagerTracker.current !== null) return;
 
     db.updates.get().then(res => {
       tablesToUpdate.forEach(table => {
@@ -189,6 +208,8 @@ function App() {
         tables={tables}
         customers={customers}
         setSelectedTable={setSelectedTable}
+        setSelectedCustomerManager={setSelectedCustomerManager}
+        selectedCustomerManager={selectedCustomerManager}
         setSelectedCustomer={setSelectedCustomer}
         setSelectedFloor={setSelectedFloor}
         menu={menu}

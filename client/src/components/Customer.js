@@ -11,14 +11,16 @@ import infoIcon from './../assets/icons/info.png';
 
 export default function Customer(props) {
     const {
-        unDeliveredOrderCustomersInTable,
         confirmDeleteCustomer,
+        setSelectedCustomer,
         customer,
         customers,
         orders,
-        openMenu,
     } = props;
 
+    const isInTable = customer.table !== null ? true : false;
+    const undeliveredOrders = orders.get.filter(order => !order.delivered && order.customer === customer.id);
+    
     let timer = useRef();
     useEffect(() => {
         if (timer.current) {
@@ -52,7 +54,10 @@ export default function Customer(props) {
             customers.editName(customer.id, event.target.value, false);
         }
     };
-      
+
+    const openMenu = () => {
+        setSelectedCustomer(customer);
+    }
 
     return (
         <div className="customer" key={customer.id} ref={customerRef}>
@@ -65,15 +70,17 @@ export default function Customer(props) {
                     maxLength={50}
                     onPaste={handleNamePaste}
                     onChange={handleNameChange}>
-                    
                 </input>
+
+                {isInTable &&
                 <button className="icon" onClick={() => {confirmDeleteCustomer(customer.id, customer.name)}}>
                     <img src={removecustomerIcon} alt="" />
                 </button>
+                }
             </nav>
 
             <table key={uuid()} className="itemTable">
-                {unDeliveredOrderCustomersInTable.includes(customer.id) &&
+                {undeliveredOrders.length > 0 &&
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -111,7 +118,7 @@ export default function Customer(props) {
                                     <button className="icon" onClick={() => {orders.add({...order, delivered: false})}}>
                                         <img src={plusIcon} alt="" />
                                     </button>
-                                    <button className="text constructive" onClick={() => {orders.deliver(order.ids[0])}}> Deliver </button>
+                                    <button className="text constructive" onClick={() => {orders.deliver(order.ids[0])}}>Deliver </button>
                                 </td>
                             </tr>
                                 
@@ -120,7 +127,8 @@ export default function Customer(props) {
             </table>
             <nav className="customerNav">
                 <button className="text progressive" onClick={() => {openMenu(customer)}}>Add Order</button>
-                {unDeliveredOrderCustomersInTable.includes(customer.id) && 
+
+                {undeliveredOrders.length > 0 &&
                     <button className="text constructive" onClick={() => {orders.deliverAll(customer.id)}}>Deliver All</button>}
             </nav>       
         </div>

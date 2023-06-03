@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import Table from './Table';
+import BarManager from './BarManager';
 import gsap from 'gsap';
 import animations from '../animations';
 
@@ -13,11 +14,15 @@ export default function Floor(props) {
         maxDeliveryTime,
         colorset,
         setSelectedTable,
+        setSelectedCustomer,
+        setSelectedCustomerManager,
         customers,
         orders
     } = props;
 
+
     const FloorRef = useRef();
+    /*
     useLayoutEffect(() => {
         gsap.from(FloorRef.current, animations.fadeSlow);
 
@@ -25,17 +30,15 @@ export default function Floor(props) {
             gsap.to(FloorRef.current, animations.fadeSlow);
         }
     }, []);
+    */
 
     return (
         <div className="Floor" ref={FloorRef}>
             <img className="overlay" src={overlay} alt="" />
-            <img className="floorImage" src={floor.schematics} alt="" />
-            
-            {!floor.schematics && <em>Loading...</em>}
+            {floor.schematics && <img className="floorImage" src={floor.schematics} alt="" />}
 
-            {tables.get.map((table) => {
-
-                if (floor.type === table.floor) {
+            {floor.type === "restaurant" ? tables.get.map((table) => {
+                if (floor.name === table.floor) {
                     return (
                         <Table 
                             loggedInAs={loggedInAs}
@@ -47,13 +50,16 @@ export default function Floor(props) {
                             customers={customers}
                             orders={orders}
                         />
-                    )
+                    ) 
                 } 
 
-                
-
                 return null;
-            })}
+            }) : <BarManager 
+                    customers={customers} 
+                    setSelectedCustomer={setSelectedCustomer} 
+                    setSelectedCustomerManager={setSelectedCustomerManager}
+                />
+            }
         </div>
     );
 }
