@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import db from '../dbTools_client';
 
 function useArchivedOrders(init, props) {

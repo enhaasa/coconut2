@@ -90,13 +90,12 @@ const customers = {
     delete: async function (id) {
         Axios.post(baseUrl + "/delete", {table: this.table, data: {id: id}});
     },
-    put: async function (id, name) {
+    put: async function (key, value, condition_key, condition_value) {
         Axios.post(baseUrl + "/update", {table: this.table, data: {
-            key: '`name`',
-            value: name,
-            condition_key: '`id`',
-            condition_value: id
-        }});
+            key: key, 
+            value: value, 
+            condition_key: condition_key, 
+            condition_value: condition_value}});
     }
 }
 

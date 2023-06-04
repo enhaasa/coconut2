@@ -209,6 +209,7 @@ export default function TableManager(props) {
 
             {viewTab && <TabManager 
                 deliveredOrdersInTable={deliveredOrdersInTable}
+                customers={customers}
                 customersInTable={customersInTable}
                 table={table} 
                 tables={tables}

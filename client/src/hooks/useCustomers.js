@@ -21,6 +21,7 @@ function useCustomers(init, props) {
      * @param {object} table - A table object that the customer will be referenced to.
      */
     function add(table) {
+        console.log(table)
         const newCustomer = {
           name: "",
           floor: table.floor,
@@ -30,7 +31,7 @@ function useCustomers(init, props) {
     
         setCustomers(prev => (
             [...prev, newCustomer]
-        ))
+        ));
     
         db.customers.post(newCustomer);
         updateUpdates("customers");
@@ -88,9 +89,22 @@ function useCustomers(init, props) {
         });
 
         if (updateServer) {
-            db.customers.put(id, newName);
+            db.customers.put("name", newName, "id", id);
             updateUpdates("customers");
         }
+    }
+
+    function setSession(id, sessionID) {
+        const index = customers.map(customer => customer.id).indexOf(id);
+
+        setCustomers(prev => {
+            prev[index].session = sessionID;
+            return [...prev];
+        });
+
+
+        db.customers.put("session", sessionID, "id", id);
+        updateUpdates("customers");
     }
 
     function refresh() {
@@ -103,6 +117,7 @@ function useCustomers(init, props) {
                 add: add,
                 remove: remove,
                 removeAllFromTable: removeAllFromTable,
+                setSession: setSession,
                 editName: editName,
                 refresh: refresh
             }

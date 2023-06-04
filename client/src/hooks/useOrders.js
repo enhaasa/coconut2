@@ -9,7 +9,9 @@ function useOrders(init, props) {
 
     const {
         updateUpdates,
-        tables
+        tables,
+        archivedSessions, 
+        archivedOrders
     } = props;
 
     const [ orders, setOrders ] = useState(init);
@@ -100,9 +102,10 @@ function useOrders(init, props) {
             item: order.item
         }
         
-        db.archivedOrders.post(filteredOrder);
+        //db.archivedOrders.post(filteredOrder);
+        archivedOrders.add(filteredOrder);
         remove(order.id);
-        updateUpdates("archived_orders");
+        //updateUpdates("archived_orders");
     }
 
     function payAll(ordersToPay, table, session) {
@@ -118,15 +121,16 @@ function useOrders(init, props) {
             price: price,
             paidAmount: price,
             floor: floor,
-            date: date,
+            date: tools.epochToSqlDateTime(tools.getCurrentTime()),
             table: table,
         };
 
-        db.archivedSessions.post(archivedSession);
+        //db.archivedSessions.post(archivedSession);
+        archivedSessions.add(archivedSession)
 
         db.tables.put('session', session, 'id', table);
         updateUpdates("tables");
-        updateUpdates("archived_sessions");
+        //updateUpdates("archived_sessions");
     }
 
     /**

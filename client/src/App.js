@@ -24,6 +24,7 @@ import db from './dbTools_client';
 //BACKEND_PLACEHOLDER
 import ground from './assets/schematics/ground.webp';
 import basement from './assets/schematics/basement.webp';
+import bar from './assets/schematics/bar-1.webp';
 import logo from './assets/icons/logo.png';
 
 function App() {
@@ -63,6 +64,9 @@ function App() {
 
   const updateUpdates = (table) => {
     const newUpdateId = uuid();
+
+    //tablesToUpdate.find(t => t.name === table).id.current = newUpdateId;
+    
     db.updates.put('id', newUpdateId, 'name', table);
   }
 
@@ -84,7 +88,7 @@ function App() {
       title: "Bar",
       name: "bar-1",
       type: "bar",
-      schematics: null
+      schematics: bar
     }
   ];
 
@@ -92,13 +96,18 @@ function App() {
   /**
    * Custom Hooks
    */
+  const [ archivedOrders ] = useArchivedOrders([], {updateUpdates});
+  const [ archivedSessions ] = useArchivedSessions([], {updateUpdates});
+
   const [ tables ] = useTables([], {
     selectedTableTracker: selectedTableTracker,
     updateUpdates: updateUpdates
   });
 
   const [ orders ] = useOrders([], {
-    updateUpdates: updateUpdates
+    updateUpdates: updateUpdates,
+    archivedOrders: archivedOrders,
+    archivedSessions: archivedSessions
   });
 
   const [ customers ] = useCustomers([], {
@@ -112,8 +121,6 @@ function App() {
   });
 
   const [ menu ] = useMenu([], {selectedTable});
-  const [ archivedOrders ] = useArchivedOrders([], {updateUpdates});
-  const [ archivedSessions ] = useArchivedSessions([], {updateUpdates});
   const [ staff ] = useStaff([], {
     updateUpdates: updateUpdates
   });

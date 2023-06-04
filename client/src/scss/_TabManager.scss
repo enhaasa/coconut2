@@ -10,6 +10,10 @@
     z-index: 5;
     filter: drop-shadow(0 0 5px $darkgrey);
 
+    & button {
+        transition: none !important;
+    }
+
 
     & .TabManager {
         //background: linear-gradient(to bottom, white, rgb(219, 219, 219));

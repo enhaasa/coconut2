@@ -182,6 +182,7 @@
   box-shadow: 0px 4px 10px 1px black;
   border: 4px solid black;
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  position: relative;
 }
 .FloorContainer .Floor .overlay {
   z-index: 2;
@@ -194,6 +195,8 @@
   width: 1000px;
   height: 700px;
   transform: scale(1);
+  position: absolute;
+  z-index: -1;
 }
 
 * {
@@ -547,6 +550,7 @@ button:active, select:active, option:active {
   box-shadow: 0px 4px 10px 1px black;
   border: 4px solid black;
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  position: relative;
 }
 .FloorContainer .Floor .overlay {
   z-index: 2;
@@ -559,6 +563,8 @@ button:active, select:active, option:active {
   width: 1000px;
   height: 700px;
   transform: scale(1);
+  position: absolute;
+  z-index: -1;
 }
 
 .ReceiptManager {
@@ -1113,15 +1119,19 @@ button:active, select:active, option:active {
   justify-content: space-between;
   grid-gap: 5px;
 }
-.CustomerManager .resetButton {
+.CustomerManager .bottomNav {
   display: flex;
-  align-items: start;
+  justify-content: flex-end;
+}
+.CustomerManager .bottomNav .deleteButton {
+  display: flex;
+  align-items: flex-start;
   justify-content: center;
   color: black;
   margin-top: 10px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.CustomerManager .resetButton img {
+.CustomerManager .bottomNav .deleteButton img {
   height: 18px;
   width: 18px;
 }
@@ -1225,6 +1235,57 @@ button:active, select:active, option:active {
 .OrderManager .ordersNav button.icon img {
   width: 32px;
   height: 32px;
+}
+
+.BarManager {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+}
+.BarManager .customerList {
+  padding: 15px;
+  display: flex;
+  align-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  overflow-y: auto;
+  z-index: 2;
+}
+.BarManager .customerList .customerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.BarManager .customerList .customerContainer .button {
+  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #c59c44 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%);
+  padding: 15px;
+  border-radius: 50%;
+  box-shadow: 0px 1px 6px 1px black;
+}
+.BarManager .customerList .customerContainer .name {
+  text-align: center;
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  box-shadow: 0px 1px 6px 1px black;
+  color: white;
+  padding: 1px 5px;
+  border-radius: 25px;
+  outline: 2px solid black;
+  margin: 2px;
+  font-size: 14px;
+}
+.BarManager .addCustomerButtonContainer {
+  display: grid;
+  place-items: center;
+  padding: 15px;
+  border-top: 4px solid black;
+  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+}
+.BarManager .addCustomerButtonContainer .addCustomerButton {
+  background: none;
+  border: none;
+  outline: none;
 }
 
 .TableManagerContainer .MenuManager {
@@ -1408,6 +1469,9 @@ button:active, select:active, option:active {
   height: 100%;
   z-index: 5;
   filter: drop-shadow(0 0 5px rgb(41, 41, 41));
+}
+.TabManagerContainer button {
+  transition: none !important;
 }
 .TabManagerContainer .TabManager {
   background-image: url("./../assets/icons/paper.webp");

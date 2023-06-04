@@ -1,6 +1,6 @@
 import React from 'react';
 import Receipt from './Receipt';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function ReceiptManager(props) {
     const {  

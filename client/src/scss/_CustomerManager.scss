@@ -87,20 +87,24 @@
       }
     }
 
-    & .resetButton {
-      display: flex;
-      align-items: start;
-      justify-content: center;
-      color: black;
-      margin-top: 10px;
-      box-shadow: 0px 4px 10px 1px black;
+    & .bottomNav {
+        display: flex;
+        justify-content: flex-end;
 
-      & img {
-        height: 18px;
-        width: 18px;
-      }
+        & .deleteButton {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            color: black;
+            margin-top: 10px;
+            box-shadow: 0px 4px 10px 1px black;
+      
+            & img {
+              height: 18px;
+              width: 18px;
+            }
+        }
     }
-  
 
   & .viewTabContainer {
     display: grid;

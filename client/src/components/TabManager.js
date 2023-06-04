@@ -13,14 +13,16 @@ export default function TabManager(props) {
         setConfirmBox,
         deliveredOrdersInTable,
         customersInTable,
+        customers,
         table,
         tables,
         orders,
+        overriddenSession
     } = props;
 
     const [ isBlurred, setIsBlurred ] = useState(false);
     const [ tabView, setTabView ] = useState('combined');
-    const total = deliveredOrdersInTable.reduce((t, c) => t + c.price, 0).toLocaleString("en-US");
+    const [ session, setSession ] = useState(overriddenSession !== undefined ? overriddenSession : table.session);
 
     const TabManagerRef = useRef();
     useLayoutEffect(() => {
@@ -50,18 +52,23 @@ export default function TabManager(props) {
         openConfirmBox({
             callback: function(){ 
 
-                const session = nanoid(5);
+                const newSession = nanoid(5);
+                setSession(newSession);
                 const tableNumber = ordersToPay[0].table;
+                const customerID = ordersToPay[0].customer;
 
-                orders.payAll(ordersToPay, tableNumber, session);
-                tables.set(prev => {
-                    prev[tableNumber].session = session;
-                    return [...prev];
-                });
-                
+                orders.payAll(ordersToPay, tableNumber, newSession);
+
+                if (tableNumber) {
+                    tables.set(prev => {
+                        prev[tableNumber].session = newSession;
+                        return [...prev];
+                    });
+                } else {
+                    customers.setSession(customerID, newSession);
+                }
                 
                 closeConfirmBox();
-                
             },
             closeConfirmBox: function(){
                 closeConfirmBox()
@@ -70,6 +77,8 @@ export default function TabManager(props) {
             message: `Paying the orders will also delete them from this list.`
         })
     }
+
+
 
     return(
         <div className="TabManagerContainer" ref={TabManagerRef}>
@@ -121,8 +130,8 @@ export default function TabManager(props) {
 
                 <nav className="tabNav">
                     <span className="receipt">
-                        {table.session !== null ?
-                        <a href={`https://cocosoasis.info/r.html?id=${table.session}`}
+                        {session !== null ?
+                        <a href={`https://cocosoasis.info/r.html?id=${session}`}
                         target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a> :
                         <span className="noresult">No Receipt Available</span>}
                     </span>
@@ -133,10 +142,11 @@ export default function TabManager(props) {
                     onClick={() => {confirmPayOrders(deliveredOrdersInTable.map(order => order))}}>Pay & Archive</button>
                 </nav>
 
-                {table.session !== null &&
+                {session !== null &&
                     <div className="receiptRP">
                         <textarea 
-                            defaultValue={`/em hands over the tab (( cocosoasis.info/r.html?id=${table.session} ))`} 
+                            value={`/em hands over the tab: cocosoasis.info/r.html?id=${session}`} 
+                            readOnly
                         />
                     </div>
                 }
