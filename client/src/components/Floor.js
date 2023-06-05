@@ -55,6 +55,7 @@ export default function Floor(props) {
 
                 return null;
             }) : <BarManager 
+                    orders={orders}
                     floor={floor}
                     customers={customers} 
                     setSelectedCustomer={setSelectedCustomer} 

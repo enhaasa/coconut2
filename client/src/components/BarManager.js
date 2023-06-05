@@ -3,7 +3,6 @@ import customerIcon from './../assets/icons/mediumuser-black.png';
 import addcustomerIcon from './../assets/icons/add-user-white.png';
 import tools from "../tools";
 
-import { useState, useEffect } from 'react';
 
 export default function BarManager(props) {
 
@@ -14,18 +13,50 @@ export default function BarManager(props) {
     }
 
     const { 
+        orders,
         floor,
         customers,  
         setSelectedCustomerManager 
     } = props;
+
+    function getOrdersByCustomer(customer) {
+        let delivered = [];
+        let undelivered= [];
+
+        orders.get.forEach(order => {
+            if (order.customer !== customer.id) return;
+            order.delivered ? delivered.push(order) : undelivered.push(order)
+        });
+
+        return {
+            all: delivered + undelivered, 
+            delivered: delivered, 
+            undelivered: undelivered
+        };
+    }
+
 
     return (
         <div className="BarManager">
 
             <div className="customerList">
 
-            {customers.get.filter(c => c.floor === floor.name).map(customer => (
-                    <span className="customerContainer" key={customer.id}>
+            {customers.get.filter(c => c.floor === floor.name).map(customer => {
+                    const amount = getOrdersByCustomer(customer).undelivered.length;
+
+                    return <span className="customerContainer" key={customer.id}>
+                        <div className="notificationContainer">
+                            {amount > 0 && 
+                            <div className={`notification progressive`}>
+                                {amount}
+                            </div>}
+
+                            {/* <div className="addendum">
+                                <img src={stopwatchIcon} />
+                                {formatTime(timeSinceLastOrder)}
+                            </div>*/}
+                        </div>
+
                         <button 
                             onClick={() => setSelectedCustomerManager(customer)}
                             className="button"
@@ -37,7 +68,7 @@ export default function BarManager(props) {
                         </div>}
                     </span>
 
-                ))
+                })
                 }
             </div>
 

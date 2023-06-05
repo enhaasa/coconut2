@@ -19,8 +19,15 @@
             align-items: center;
             gap: 5px;
 
+            & .notificationContainer {
+                transform:rotate(340deg) translate(30px, 0px) rotate(-340deg);
+                position:absolute;
+                z-index: 5;
+                pointer-events: none;
+            }
+
             & .button {
-                background: $background-progressive;
+                background: $background-inactive;
                 padding: 15px;
                 border-radius: 50%;
                 box-shadow: 0px 1px 6px 1px black;

@@ -1068,7 +1068,7 @@ button:active, select:active, option:active {
 .CustomerManager .header {
   display: grid;
   grid-auto-flow: column;
-  justify-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 .CustomerManager .header .customerName {
@@ -1146,6 +1146,7 @@ button:active, select:active, option:active {
   border-radius: 15px;
   padding: 5px;
   box-shadow: 0px 4px 10px 1px black;
+  transition: none !important;
 }
 .CustomerManager .viewTabContainer .viewTabButton .column {
   display: grid;
@@ -1258,8 +1259,14 @@ button:active, select:active, option:active {
   align-items: center;
   gap: 5px;
 }
+.BarManager .customerList .customerContainer .notificationContainer {
+  transform: rotate(340deg) translate(30px, 0px) rotate(-340deg);
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
 .BarManager .customerList .customerContainer .button {
-  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #c59c44 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%);
+  background: radial-gradient(ellipse farthest-corner at right bottom, rgb(216, 215, 215) 0%, rgb(173, 173, 173) 8%, rgb(165, 165, 165) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(214, 214, 214) 8%, rgb(170, 170, 170) 25%);
   padding: 15px;
   border-radius: 50%;
   box-shadow: 0px 1px 6px 1px black;

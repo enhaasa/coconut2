@@ -4,6 +4,7 @@ import trashcanIcon from './../assets/icons/trash-can-black.png';
 import Customer from './Customer';
 import ConfirmBox from './ConfirmBox';
 import TabManager from './TabManager';
+import basketIcon from './../assets/icons/shopping-cart.png';
 
 import { useState } from 'react';
 
@@ -11,7 +12,6 @@ export default function CustomerManager(props) {
 
     const {
         orders,
-        selectedCustomer,
         customer,
         customers,
         setSelectedCustomerManager,
@@ -21,6 +21,10 @@ export default function CustomerManager(props) {
     const [ viewTab, setViewTab ] = useState(false);
     const [confirmBox, setConfirmBox] = useState(null);
     const [isBlurred, setIsBlurred] = useState(false);
+
+    const unpaidOrders = orders.get.filter(order => !order.paid && order.delivered && order.customer === customer.id);
+    const total = unpaidOrders.reduce((total, order) => total + order.price, 0);
+
 
     function handleViewTab(state) {
         setViewTab(state);
@@ -60,7 +64,18 @@ export default function CustomerManager(props) {
             
 
             <div className="header">
-                <button className="customerName" onClick={() => handleViewTab(true)}>Tab</button>
+                <span className="viewTabContainer">
+                        <button className="viewTabButton progressive" onClick={() => handleViewTab(true)}>
+                            <span className="column">
+                                <img src={basketIcon} alt="" />
+                            </span>
+
+                            <span className="column">
+                                <span className="items">{unpaidOrders.length} items</span>
+                                <span className="total">{total.toLocaleString("en-US")} gil</span>
+                            </span>
+                        </button>
+                </span>
 
                 <button className="closeButton" onClick={() => setSelectedCustomerManager(null)}>
                     <img src={closeIcon} alt="" />

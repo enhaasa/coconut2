@@ -24,7 +24,7 @@
     & .header {
       display: grid;
       grid-auto-flow: column;
-      justify-items: center;
+      justify-content: space-between;
       width: 100%;
 
       & .customerName {
@@ -117,6 +117,7 @@
       border-radius: 15px;
       padding: 5px;
       box-shadow: 0px 4px 10px 1px black;
+      transition: none !important;
 
       & .column {
         display: grid;
