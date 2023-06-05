@@ -77,7 +77,7 @@ function ReceiptModal(props) {
 
             <div className="receiptRP">
                 
-                <a href={`https://cocosoasis.info/r.html?id=${session}`}
+                <a href={`https://cocosoasis.info/r.html?id=${session.id}`}
                 target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a>
 
                 <textarea 
