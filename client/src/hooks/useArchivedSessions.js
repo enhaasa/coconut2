@@ -23,7 +23,7 @@ function useArchivedSessions(init, props) {
         ));
     
         db.archivedSessions.post(session);
-        updateUpdates("archivedSessions");
+        updateUpdates("archived_sessions");
     }
 
     function editAmountPaid(id, amount) {
@@ -35,7 +35,7 @@ function useArchivedSessions(init, props) {
         });
 
         db.archivedSessions.put("paidAmount", amount, "id", id);
-        updateUpdates("archivedSessions");
+        updateUpdates("archived_sessions");
     }
 
     return [

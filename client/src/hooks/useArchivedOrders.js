@@ -15,7 +15,8 @@ function useArchivedOrders(init, props) {
         ));
     
         db.archivedOrders.post(order);
-        updateUpdates("archivedSessions");
+        updateUpdates("archived_orders");
+        updateUpdates("archived_sessions");
     }
 
     return [
