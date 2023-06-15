@@ -28,6 +28,7 @@ function FloorManager(props) {
     } = props;
 
 
+
     return(
         <div className="FloorManager">
 

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
@@ -22,13 +24,13 @@ app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 //DB Stuff
 const db = mysql.createPool({
-    user: 'linroot',
-    host: 'lin-13330-7942-mysql-primary.servers.linodedb.net',
-    password: 'nk7PTUbmdz0Xl^62',
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
     ssl: {
         ca: fs.readFileSync(__dirname + '/certs/EnhasicSoftware-ca-certificate.crt')
     },
-    database: 'coconut_cocosoasis'
+    database: process.env.DB_DATABASE
 });
 
 app.post('/get', (req, res) => {

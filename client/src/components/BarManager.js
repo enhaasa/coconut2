@@ -10,6 +10,7 @@ export default function BarManager(props) {
 
     function handleAdd() {
         customers.add({floor: floor.name, table: null});
+        //setSelectedCustomerManager(customers.get[customers.get.length]);
     }
 
     const { 

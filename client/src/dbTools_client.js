@@ -1,9 +1,7 @@
 import Axios from "axios";
 import tools from "./tools";
  
-//`https://${document.location.hostname}`;
-//'http://localhost:3001';
-const baseUrl = `https://${document.location.hostname}`;
+const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : `https://${document.location.hostname}`;
 const extUrl = "https://enhasa.dev/cocosoasis/api/db";
 
 const archivedDateOffset = tools.getCurrentDate(date => (date -1));
