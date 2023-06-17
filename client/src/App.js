@@ -64,9 +64,8 @@ function App() {
 
   const updateUpdates = (table) => {
     const newUpdateId = uuid();
-
-    //tablesToUpdate.find(t => t.name === table).id.current = newUpdateId;
-    console.log(table)
+    //console.log("Updated " + table);
+    tablesToUpdate.find(t => t.name === table).id.current = newUpdateId;
     
     db.updates.put('id', newUpdateId, 'name', table);
   }
@@ -176,6 +175,7 @@ function App() {
         const currentId = res.find(obj => obj.name === table.name).id;
 
         if (table.id.current !== currentId) {
+          //console.log("Grabbing fresh copy of " + table.name)
           table.refresh();
           table.id.current = currentId;
         }
