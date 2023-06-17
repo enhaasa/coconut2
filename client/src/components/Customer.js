@@ -40,14 +40,14 @@ export default function Customer(props) {
 
     const handleNamePaste = (event) => {
         const pastedValue = event.clipboardData.getData("text");
-        
+        if (pastedValue.length + customer.name.length > 50) {
           event.preventDefault();
-        
+        }
     };
 
     const handleNameChange = (event) => {
         const { value } = event.target;
-        
+        if (value.length <= 50) {
             customers.editName(customer.id, event.target.value, false);
         
 
@@ -61,7 +61,7 @@ export default function Customer(props) {
                 db.customers.put('name', customer.name, 'id', customer.id);
                 updateUpdates("customers");
             }, 500);
-        
+        }
     };
 
     const openMenu = () => {
@@ -76,7 +76,7 @@ export default function Customer(props) {
                     type="text" 
                     value={customer.name} 
                     placeholder="Enter name..." 
-                    
+                    maxLength={50}
                     onPaste={handleNamePaste}
                     onChange={handleNameChange}>
                 </input>
