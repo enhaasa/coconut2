@@ -47,9 +47,9 @@ export default function Customer(props) {
 
     const handleNameChange = (event) => {
         const { value } = event.target;
-        if (value.length <= 35) {
+        //if (value.length <= 35) {
             customers.editName(customer.id, event.target.value, false);
-        }
+        //}
 
         if (timer.current) {
             clearTimeout(timer.current);
