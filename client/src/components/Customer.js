@@ -18,18 +18,12 @@ export default function Customer(props) {
         orders,
     } = props;
 
+
+
     const isInTable = customer.table !== null ? true : false;
     const undeliveredOrders = orders.get.filter(order => !order.delivered && order.customer === customer.id);
     
     let timer = useRef();
-    useEffect(() => {
-        if (timer.current) {
-            clearTimeout(timer.current);
-        }
-        timer.current = setTimeout(() => {
-            customers.editName(customer.id, customer.name, true);
-        }, 500)
-    }, [customer.name]);
 
 
     const customerRef = useRef();
@@ -53,6 +47,14 @@ export default function Customer(props) {
         if (value.length <= 35) {
             customers.editName(customer.id, event.target.value, false);
         }
+
+        if (timer.current) {
+            clearTimeout(timer.current);
+        }
+
+        timer.current = setTimeout(() => {
+            customers.editName(customer.id, customer.name, true);
+        }, 500);
     };
 
     const openMenu = () => {

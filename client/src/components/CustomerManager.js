@@ -28,11 +28,11 @@ export default function CustomerManager(props) {
 
     function handleViewTab(state) {
         setViewTab(state);
-    }
+    };
 
     function openConfirmBox(data) {
         setConfirmBox(data);
-    }
+    };
 
     function closeConfirmBox() {
         setConfirmBox(null);
@@ -49,7 +49,7 @@ export default function CustomerManager(props) {
             title: "Are you sure?",
             message: `This will delete both the customer and any unpaid orders.`
         })
-    }
+    };
 
     const deliveredOrders = orders.get.filter(order => order.delivered && order.customer === customer.id);
 

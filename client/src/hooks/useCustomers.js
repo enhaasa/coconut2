@@ -21,7 +21,6 @@ function useCustomers(init, props) {
      * @param {object} table - A table object that the customer will be referenced to.
      */
     function add(table) {
-        console.log(table)
         const newCustomer = {
           name: "",
           floor: table.floor,
