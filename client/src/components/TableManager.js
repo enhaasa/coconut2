@@ -18,6 +18,7 @@ export default function TableManager(props) {
         staff,
         orders,
         customers,
+        updateUpdates,
         setSelectedCustomer,
         setSelectedTable,
         archivedOrders,
@@ -226,6 +227,7 @@ export default function TableManager(props) {
                 orders={orders}
                 customers={customers}
                 customersInTable={customersInTable}
+                updateUpdates={updateUpdates}
                 unDeliveredOrdersInTable={unDeliveredOrdersInTable}
                 setSelectedCustomer={setSelectedCustomer}
                 openConfirmBox={openConfirmBox}

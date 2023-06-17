@@ -13,6 +13,7 @@ export default function OrderManager(props) {
         setSelectedCustomer,
         customersInTable,
         unDeliveredOrdersInTable, 
+        updateUpdates,
         customers, 
         table, 
         tables,
@@ -59,6 +60,7 @@ export default function OrderManager(props) {
                                 key={customer.id}
                                 customer={customer}
                                 orders={orders}
+                                updateUpdates={updateUpdates}
                                 confirmDeleteCustomer={confirmDeleteCustomer}
                                 unDeliveredOrdersInTable={unDeliveredOrdersInTable}
                                 unDeliveredOrderCustomersInTable={unDeliveredOrderCustomersInTable}

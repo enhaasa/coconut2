@@ -215,6 +215,7 @@ function App() {
         orders={orders}
         tables={tables}
         customers={customers}
+        updateUpdates={updateUpdates}
         setSelectedTable={setSelectedTable}
         setSelectedCustomerManager={setSelectedCustomerManager}
         selectedCustomerManager={selectedCustomerManager}

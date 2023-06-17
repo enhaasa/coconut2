@@ -14,6 +14,7 @@ export default function CustomerManager(props) {
         orders,
         customer,
         customers,
+        updateUpdates,
         setSelectedCustomerManager,
         setSelectedCustomer
     } = props;
@@ -24,7 +25,6 @@ export default function CustomerManager(props) {
 
     const unpaidOrders = orders.get.filter(order => !order.paid && order.delivered && order.customer === customer.id);
     const total = unpaidOrders.reduce((total, order) => total + order.price, 0);
-
 
     function handleViewTab(state) {
         setViewTab(state);
@@ -100,6 +100,7 @@ export default function CustomerManager(props) {
                         orders={orders}
                         customers={customers}
                         customer={customer}
+                        updateUpdates={updateUpdates}
                         setSelectedCustomer={setSelectedCustomer}
                     />
                 </div>

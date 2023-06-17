@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useLayoutEffect} from 'react';
 import uuid from 'react-uuid';
 import tools from '../tools';
+import db from '../dbTools_client';
 import removecustomerIcon from './../assets/icons/remove-user.png';
 import plusIcon from './../assets/icons/plus-black.png';
 import minusIcon from './../assets/icons/minus-black.png';
@@ -9,10 +10,12 @@ import animations from '../animations';
 import infoIcon from './../assets/icons/info.png';
 
 
+
 export default function Customer(props) {
     const {
         confirmDeleteCustomer,
         setSelectedCustomer,
+        updateUpdates,
         customer,
         customers,
         orders,
@@ -53,7 +56,10 @@ export default function Customer(props) {
         }
 
         timer.current = setTimeout(() => {
-            customers.editName(customer.id, customer.name, true);
+           
+            //customers.editName(customer.id, customer.name, true);
+            db.customers.put('name', customer.name, 'id', customer.id);
+            updateUpdates("customers");
         }, 500);
     };
 
