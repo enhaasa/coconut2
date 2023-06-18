@@ -89,6 +89,8 @@ app.post('/delete', (req, res) => {
     const { table } = req.body;
     const { id } = req.body.data;
 
+    console.log(`DELETE FROM ${table} WHERE id=${id}`)
+
     db.query(
         `DELETE FROM ${table} WHERE id=?`, 
         [id],

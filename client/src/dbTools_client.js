@@ -170,6 +170,7 @@ const tips = {
         Axios.post(baseUrl + "/post", {table: this.table, data: {...tip}});
     },
     delete: async function (id) {
+        console.log("Sending delete request for tip id: " + id)
         Axios.post(baseUrl + "/delete", {table: this.table, data: {id: id}});
     },
     put: async function (id, selectedKey, newValue) {

@@ -7,6 +7,7 @@ function useTips(init, props) {
     const { updateUpdates } = props;
 
     function refresh() {
+        console.log("Refreshed tips.");
         db.tips.get().then(res => {
             setTips(res)
         });
