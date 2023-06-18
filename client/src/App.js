@@ -67,7 +67,7 @@ function App() {
     tablesToUpdate.find(t => t.name === table).id.current = newUpdateId;
 
     db.updates.put('id', newUpdateId, 'name', table);
-    console.log("Updated " + table + " with the ID " + newUpdateId);
+    //console.log("Updated " + table + " with the ID " + newUpdateId);
   }
 
   //BACKEND_PLACEHOLDER

@@ -7,15 +7,16 @@ function useTips(init, props) {
     const { updateUpdates } = props;
 
     function refresh() {
-        console.log("Refreshed tips.");
+        //console.log("Refreshed tips.");
         db.tips.get().then(res => {
             setTips(res)
         });
     }
 
     function add(tip) {
-        db.tips.post({id: uuid(), ...tip});
-        setTips(prev => [...prev, tip]);
+        const id = uuid();
+        db.tips.post({id: id, ...tip});
+        setTips(prev => [...prev, {...tip, id: id}]);
         updateUpdates("tips");
     }
 

@@ -5,7 +5,7 @@ function TipModal(props) {
     const { handleModal, tip, tips } = props;
 
     const [ name, setName ] = useState(tip ? tip.name : "");
-    const [ amount, setAmount ] = useState(tip ? tip.amount : null);
+    const [ amount, setAmount ] = useState(tip ? tip.amount : 0);
 
     function handleNameChange(newValue) {
         setName(newValue);
@@ -35,7 +35,6 @@ function TipModal(props) {
         tips.remove(tip);
         handleModal(null);
     }
-
 
     return(
         <div className="TipModal">
