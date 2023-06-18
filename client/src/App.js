@@ -64,10 +64,10 @@ function App() {
 
   const updateUpdates = (table) => {
     const newUpdateId = uuid();
-    //console.log("Updated " + table);
     tablesToUpdate.find(t => t.name === table).id.current = newUpdateId;
-    
+
     db.updates.put('id', newUpdateId, 'name', table);
+    console.log("Updated " + table + " with the ID " + newUpdateId);
   }
 
   //BACKEND_PLACEHOLDER
