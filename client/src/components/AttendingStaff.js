@@ -5,8 +5,10 @@ function AttendingStaff(props) {
     const { staff, handleModal, ordersTotal, tips, tipsTotal } = props;
     const attendingStaff = staff.get.filter(s => s.isAttending);
     const absentStaff = staff.get.filter(s => !s.isAttending);
-    const tipsAndOrders = ordersTotal + tipsTotal;
+    const tipsAndOrders = parseInt(ordersTotal) + parseInt(tipsTotal);
     const perPerson = tipsAndOrders / attendingStaff.length;
+
+    console.log()
 
 
     function handleAttendingModal(isVisible) {

@@ -1,4 +1,5 @@
 import TipModal from "./TipModal";
+import tools from "../tools";
 
 function TipsManager(props) {
     const { tips, tipsTotal, handleModal } = props;
@@ -24,7 +25,7 @@ function TipsManager(props) {
                 {tips.get.map(tip => (
                 <button className="tip inactive" key={tip.id} onClick={() => handleEdit(tip)}>
                     <div className="name">{tip.name}</div>
-                    <div className="amount">{tip.amount.toLocaleString("en-US") + " gil"}</div>
+                    <div className="amount">{tools.formatStringAsPrice(tip.amount.toString()) + " gil"}</div>
                 </button>  
                 ))}
                 <button className="progressive" onClick={() => handleAdd()}>

@@ -78,8 +78,6 @@ export default function TabManager(props) {
         })
     }
 
-
-
     return(
         <div className="TabManagerContainer" ref={TabManagerRef}>
             <section className="TabManager">

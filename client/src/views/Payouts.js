@@ -22,7 +22,7 @@ function Payouts(props) {
     //let archivedSessions = archivedOrdersFromStartDate.map(order => order.session);
     //archivedSessions = [...new Set(archivedSessions)];
 
-    const tipsTotal = tips.get.reduce((total, current) => total + current.amount, 0);
+    const tipsTotal = tips.get.reduce((total, current) => total + parseInt(current.amount), 0);
 
     return(
         <>
