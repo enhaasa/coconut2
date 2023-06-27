@@ -21,7 +21,7 @@ function useOrders(init, props) {
      * 
      * @param {object} order - An order object to insert into the orders array.
      */
-    function add(order) {
+    function add(order, isRemoteCall = false) {
         const filteredOrder = {
             customer: order.customer,
             customerName: order.customerName,
@@ -39,8 +39,10 @@ function useOrders(init, props) {
         }
 
         setOrders(prev => ([...prev, filteredOrder]));
-        db.orders.post(filteredOrder);
-        updateUpdates("orders");
+        if (!isRemoteCall) {
+            db.orders.post(filteredOrder);
+            updateUpdates("orders");
+        }
     }
     
 

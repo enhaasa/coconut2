@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import io from 'socket.io-client';
 
 //Hooks
 import useCustomers from './hooks/useCustomers';
@@ -28,6 +29,16 @@ import bar from './assets/schematics/bar-1.webp';
 import logo from './assets/icons/logo.png';
 
 function App() {
+
+  /*
+  useEffect(() => {
+    const socket = io('http://localhost:3001');
+
+    socket.on('connect', () => {
+      console.log('Connected to the server!');
+    });
+  }, []);
+  */
 
   const loggedInAs = "Coco Shev'rin"; //BACKEND_PLACEHOLDER
   const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second

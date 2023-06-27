@@ -53,9 +53,7 @@ export default function CustomerManager(props) {
 
     const deliveredOrders = orders.get.filter(order => order.delivered && order.customer === customer.id);
 
-    let overriddenSession = null || customer.session;
-
-
+    let overriddenSession = customer.session || null;
 
     return (
         <div className="CustomerManager">

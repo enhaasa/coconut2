@@ -2,6 +2,15 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
+
+const httpServer = require('http').createServer(app);
+const io = require('socket.io')(httpServer, {
+    cors: {
+        origin: 'http://localhost:3000',
+        methods: ['GET', 'POST']
+    }
+});
+
 const mysql = require('mysql');
 const fs = require('fs');
 const cors = require('cors');
@@ -12,7 +21,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
-app.listen(PORT); 
+httpServer.listen(PORT); 
 
 /*
 app.get('/', (req, res) => {
@@ -20,7 +29,7 @@ app.get('/', (req, res) => {
   });
 */
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(express.static(path.resolve(__dirname, './client/build')));
 
 //DB Stuff
 const db = mysql.createPool({
@@ -32,6 +41,11 @@ const db = mysql.createPool({
     },
     database: process.env.DB_DATABASE
 });
+
+/*
+io.on('connection', socket => {
+    console.log(socket);
+});*/
 
 app.post('/get', (req, res) => {
     const { table, condition} = req.body;
