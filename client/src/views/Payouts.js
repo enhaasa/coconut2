@@ -6,7 +6,7 @@ import tools from '../tools';
 import { useState } from 'react';
 
 function Payouts(props) {
-    const { staff, archivedOrders, setIsBlurred, tips, archivedSessions } = props;
+    const { staff, archivedOrders, setIsBlurred, tips, archivedSessions, floors } = props;
     const { getCurrentDate, sortArchivedArray } = tools;
     const [ modal, setModal ] = useState(null);
 
@@ -76,6 +76,7 @@ function Payouts(props) {
                                 setIsBlurred={setIsBlurred}
                                 handleModal={handleModal}
                                 archivedSessions={archivedSessions}
+                                floors={floors}
                                 total={total}
                             />
                         </div>

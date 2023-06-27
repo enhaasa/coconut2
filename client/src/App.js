@@ -247,6 +247,7 @@ function App() {
       content:  
       <Payouts 
         staff={staff} 
+        floors={floors}
         archivedOrders={archivedOrders}
         setIsBlurred={setIsBlurred}
         archivedSessions={archivedSessions}

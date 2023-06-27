@@ -24,7 +24,6 @@ export default function Receipt(props) {
 
     const parsedTable = table ? `Table ${table +1}` : "Bar";
 
-    console.log(session)
  
     return (
         <button 

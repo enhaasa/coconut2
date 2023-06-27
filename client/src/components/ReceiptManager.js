@@ -8,7 +8,8 @@ export default function ReceiptManager(props) {
         handleModal, 
         archivedOrders,
         archivedSessions, 
-        total 
+        total ,
+        floors
     } = props;
 
     const sessions = archivedSessions.get.map(session => {
@@ -27,18 +28,32 @@ export default function ReceiptManager(props) {
             keyword: false,
         },
         {
-            title: "Tables",
-            keyword: 'table'
+            title: "Restaurant",
+            keyword: 'restaurant'
         },
         {
             title: "Bar",
             keyword: 'bar'
         }
     ];
+    const sessionsByFilter = sessions.filter(session => (
+        !filters[selectedFilter] ||
+        (
+            !filters[selectedFilter].keyword ||
+            getFloorNameByFloorType(session.floor) === filters[selectedFilter].keyword
+        ) && session
+    ));
+    const totalByFilteredSessions = sessionsByFilter.reduce((total, current) => total + parseInt(current.paidAmount), 0);
+
+    function getFloorNameByFloorType(type) {
+        return floors.find(f => f.name === type).type
+    }
     
     function handleFilter(index) {
         setSelectedFilter(index);
     }
+
+   
 
     return (
         <div className="ReceiptManager">
@@ -53,13 +68,13 @@ export default function ReceiptManager(props) {
                 </nav>
                 }
                 <div className="receiptList">
-                    {sessions.map(session => (
+                    {sessionsByFilter.map(session => (
                         <Receipt 
-                            key={session.id}
-                            setIsBlurred={setIsBlurred}
-                            handleModal={handleModal}
-                            session={session}
-                            archivedSessions={archivedSessions}
+                        key={session.id}
+                        setIsBlurred={setIsBlurred}
+                        handleModal={handleModal}
+                        session={session}
+                        archivedSessions={archivedSessions}
                         />
                     ))}
                 </div>
@@ -67,7 +82,7 @@ export default function ReceiptManager(props) {
 
             <div className="row">
                 <div className="totalEarnings">
-                    Total: {total.toLocaleString("en-US")} gil
+                    Total: {totalByFilteredSessions.toLocaleString("en-US")} gil
                 </div>
             </div>
 
