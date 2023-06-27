@@ -22,7 +22,10 @@ export default function Receipt(props) {
     let names = session.orders.map(customer => `${getFirstName(customer.customerName)} ${getLastNames(customer.customerName).join("").charAt(0)}`);
     names = [...new Set(names)];
 
+    const parsedTable = table ? `Table ${table +1}` : "Bar";
 
+    console.log(session)
+ 
     return (
         <button 
             className="Receipt progressive" 
@@ -43,7 +46,7 @@ export default function Receipt(props) {
             <div className="data">
 
                 <span className="table">
-                    Table {table +1}
+                {parsedTable}
                 </span>
 
                 <span className="amount">{`${session.paidAmount.toLocaleString("en-US")} gil`}</span>

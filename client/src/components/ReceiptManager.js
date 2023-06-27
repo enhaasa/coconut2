@@ -43,7 +43,7 @@ export default function ReceiptManager(props) {
     return (
         <div className="ReceiptManager">
             <div className="row">
-                {/*
+                {
                 <nav className="receiptFilter">
                     {filters.map((filter, index) => 
                         <button 
@@ -51,7 +51,7 @@ export default function ReceiptManager(props) {
                             className={index === selectedFilter ? "steel" : "inactive"}
                         >{filter.title}</button>)}
                 </nav>
-                */}
+                }
                 <div className="receiptList">
                     {sessions.map(session => (
                         <Receipt 
