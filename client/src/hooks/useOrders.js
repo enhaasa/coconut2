@@ -8,7 +8,6 @@ import useArchivedSessions from './useArchivedSessions';
 function useOrders(init, props) {
 
     const {
-        updateUpdates,
         tables,
         archivedSessions, 
         archivedOrders
@@ -41,7 +40,6 @@ function useOrders(init, props) {
         setOrders(prev => ([...prev, filteredOrder]));
         if (!isRemoteCall) {
             db.orders.post(filteredOrder);
-            updateUpdates("orders");
         }
     }
     
@@ -60,7 +58,6 @@ function useOrders(init, props) {
         ));
         
         db.orders.delete(id);
-        updateUpdates("orders");
     }
 
     /**
@@ -131,7 +128,6 @@ function useOrders(init, props) {
         archivedSessions.add(archivedSession)
 
         db.tables.put('session', session, 'id', table);
-        updateUpdates("tables");
         //updateUpdates("archived_sessions");
     }
 
@@ -148,7 +144,6 @@ function useOrders(init, props) {
         ));
 
         db.orders.put('delivered', true, 'id', id);
-        updateUpdates("orders");
     }
 
     /**

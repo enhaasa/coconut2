@@ -30,15 +30,19 @@ import logo from './assets/icons/logo.png';
 
 function App() {
 
-  /*
+  const [ socket, setSocket ] = useState(null);
+  
   useEffect(() => {
-    const socket = io('http://localhost:3001');
+    const newSocket = io('http://localhost:3001');
+    setSocket(newSocket);
 
-    socket.on('connect', () => {
+    newSocket.on('connect', () => {
       console.log('Connected to the server!');
     });
+
   }, []);
-  */
+
+  
 
   const loggedInAs = "Coco Shev'rin"; //BACKEND_PLACEHOLDER
   const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second
@@ -73,13 +77,6 @@ function App() {
     setSelectedCustomer(null);
   }, [selectedCustomerManager]);
 
-  const updateUpdates = (table) => {
-    const newUpdateId = uuid();
-    tablesToUpdate.find(t => t.name === table).id.current = newUpdateId;
-
-    db.updates.put('id', newUpdateId, 'name', table);
-    //console.log("Updated " + table + " with the ID " + newUpdateId);
-  }
 
   //BACKEND_PLACEHOLDER
   const floors = [
@@ -107,92 +104,30 @@ function App() {
   /**
    * Custom Hooks
    */
-  const [ archivedOrders ] = useArchivedOrders([], {updateUpdates});
-  const [ archivedSessions ] = useArchivedSessions([], {updateUpdates});
 
-  const [ tables ] = useTables([], {
-    selectedTableTracker: selectedTableTracker,
-    updateUpdates: updateUpdates
-  });
+    const [ archivedOrders ] = useArchivedOrders([]);
+    const [ archivedSessions ] = useArchivedSessions([]);
 
-  const [ orders ] = useOrders([], {
-    updateUpdates: updateUpdates,
-    archivedOrders: archivedOrders,
-    archivedSessions: archivedSessions
-  });
+    const [ tables ] = useTables([], {
+      selectedTableTracker: selectedTableTracker,
+    });
 
-  const [ customers ] = useCustomers([], {
-    updateUpdates: updateUpdates, 
-    setSelectedCustomer,
-    orders: orders
-  });
+    const [ orders ] = useOrders([], {
+      archivedOrders: archivedOrders,
+      archivedSessions: archivedSessions
+    });
 
-  const [ tips ] = useTips([], {
-    updateUpdates: updateUpdates
-  });
+    const [ customers ] = useCustomers([], {
+      setSelectedCustomer,
+      orders: orders,
+      socket: socket
+    });
 
-  const [ menu ] = useMenu([], {selectedTable});
-  const [ staff ] = useStaff([], {
-    updateUpdates: updateUpdates
-  });
+    const [ tips ] = useTips([]);
+    const [ menu ] = useMenu([], {selectedTable});
+    const [ staff ] = useStaff([]);
 
-  /**
-   * List of SQL tables to update.
-   */
-  const tablesToUpdate = [
-  {
-    name: "tables",
-    id: useRef(null),
-    refresh: tables.refresh
-  },{
-    name: "staff",
-    id: useRef(null),
-    refresh: staff.refresh
-  },{
-    name: "customers",
-    id: useRef(null),
-    refresh: customers.refresh
-  },{
-    name: "orders",
-    id: useRef(null),
-    refresh: orders.refresh
-  },{
-    name: "tips",
-    id: useRef(null),
-    refresh: tips.refresh
-  },{
-    name: "archived_orders",
-    id: useRef(null),
-    refresh: archivedOrders.refresh
-  },{
-    name: "archived_sessions",
-    id: useRef(null),
-    refresh: archivedSessions.refresh
-  }];
 
-  /**
-   * Requests a list of all update ID's from the server, then checks if they match the ID's on the client.
-   * If it doesn't match then it will grab a fresh copy of the corresponding SQL table and update the state
-   * of the relevant array with the new data. 
-   * 
-   * This will prevent needless refreshing and expensive traffic.
-   */
-  const checkUpdates = () => {
-    if (selectedTableTracker.current !== null) return; //Do not update when a table is open
-    if (selectedCustomerManagerTracker.current !== null) return;
-
-    db.updates.get().then(res => {
-      tablesToUpdate.forEach(table => {
-        const currentId = res.find(obj => obj.name === table.name).id;
-
-        if (table.id.current !== currentId) {
-          //console.log("Grabbing fresh copy of " + table.name)
-          table.refresh();
-          table.id.current = currentId;
-        }
-      })
-    })
-  }
 
   /**
    * Initiate and set short-polling interval
@@ -200,23 +135,18 @@ function App() {
   const pollingInterval = 2000; //Time in milliseconds
   useEffect(() => {
     //Initial updates when app is first loaded
-    menu.refresh();
-    tables.refresh();
-    staff.refresh();
-    customers.refresh();
-    orders.refresh();
-    archivedSessions.refresh();
-    archivedOrders.refresh();
-    tips.refresh();
+    if (socket) {
+      menu.refresh();
+      tables.refresh();
+      staff.refresh();
+      customers.refresh();
+      orders.refresh();
+      archivedSessions.refresh();
+      archivedOrders.refresh();
+      tips.refresh();
+    }
+  }, [socket]);
 
-    //Start short polling
-    setInterval(() => {
-      checkUpdates();
-    }, pollingInterval);
-
-  }, []);
-
-  const [ view, setView ] = useState(0);
   const views = [
     {
       title: "Floor Manager",
@@ -226,7 +156,6 @@ function App() {
         orders={orders}
         tables={tables}
         customers={customers}
-        updateUpdates={updateUpdates}
         setSelectedTable={setSelectedTable}
         setSelectedCustomerManager={setSelectedCustomerManager}
         selectedCustomerManager={selectedCustomerManager}
@@ -274,9 +203,9 @@ function App() {
       {isBlurred === true &&
           <div className="blur" />
           }
-      {views.map((v, i) => (
+      {socket ? views.map((v, i) => (
           v.content
-        ))}
+        )) : "Loading"}
       </main>
     </>
 

@@ -15,7 +15,6 @@ export default function Customer(props) {
     const {
         confirmDeleteCustomer,
         setSelectedCustomer,
-        updateUpdates,
         customer,
         customers,
         orders,
@@ -58,8 +57,8 @@ export default function Customer(props) {
             timer.current = setTimeout(() => {
             
                 //customers.editName(customer.id, customer.name, true);
-                db.customers.put('name', customer.name, 'id', customer.id);
-                updateUpdates("customers");
+                //db.customers.put('name', customer.name, 'id', customer.id);
+                customers.editName(customer.id, customer.name);
             }, 500);
         }
     };

@@ -14,7 +14,6 @@ export default function CustomerManager(props) {
         orders,
         customer,
         customers,
-        updateUpdates,
         setSelectedCustomerManager,
         setSelectedCustomer
     } = props;
@@ -98,7 +97,6 @@ export default function CustomerManager(props) {
                         orders={orders}
                         customers={customers}
                         customer={customer}
-                        updateUpdates={updateUpdates}
                         setSelectedCustomer={setSelectedCustomer}
                     />
                 </div>

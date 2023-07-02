@@ -3,7 +3,6 @@ import db from '../dbTools_client';
 import uuid from 'react-uuid';
 
 function useArchivedSessions(init, props) {
-    const { updateUpdates } = props;
 
     const [ archivedSessions, setArchivedSessions ] = useState(init);
 
@@ -23,7 +22,6 @@ function useArchivedSessions(init, props) {
         ));
     
         db.archivedSessions.post(session);
-        updateUpdates("archived_sessions");
     }
 
     function editAmountPaid(id, amount) {
@@ -35,7 +33,6 @@ function useArchivedSessions(init, props) {
         });
 
         db.archivedSessions.put("paidAmount", amount, "id", id);
-        updateUpdates("archived_sessions");
     }
 
     return [

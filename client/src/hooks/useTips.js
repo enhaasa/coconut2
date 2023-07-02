@@ -4,7 +4,6 @@ import uuid from 'react-uuid';
 
 function useTips(init, props) {
     const [ tips, setTips ] = useState(init);
-    const { updateUpdates } = props;
 
     function refresh() {
         //console.log("Refreshed tips.");
@@ -17,7 +16,6 @@ function useTips(init, props) {
         const id = uuid();
         db.tips.post({id: id, ...tip});
         setTips(prev => [...prev, {...tip, id: id}]);
-        updateUpdates("tips");
     }
 
     function edit(tip) {
@@ -30,7 +28,6 @@ function useTips(init, props) {
             prev[index] = tip;
             return prev;
         })
-        updateUpdates("tips");
     }
 
     function remove(tip) {
@@ -39,7 +36,6 @@ function useTips(init, props) {
         db.tips.delete(tip.id);
 
         setTips(prev => prev.filter(item => item.id !== tip.id));
-        updateUpdates("tips");
     }
 
     return [

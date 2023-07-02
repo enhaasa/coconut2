@@ -4,7 +4,6 @@ import db from '../dbTools_client';
 function useTables(init, props) {
     const { 
         selectedTableTracker,
-        updateUpdates
     } = props;
 
     const [tables, setTables] = useState(init);
@@ -21,7 +20,6 @@ function useTables(init, props) {
         })
 
         db.tables.put('isAvailable', option, 'id', table.id);
-        updateUpdates("tables");
     }
 
     function toggleIsReserved(table) {
@@ -36,7 +34,6 @@ function useTables(init, props) {
         })
         
         db.tables.put('isReserved', option, 'id', table.id);
-        updateUpdates("tables");
     }
 
     function toggleIsPhotography(table) {
@@ -51,7 +48,6 @@ function useTables(init, props) {
         })
         
         db.tables.put('isPhotography', option, 'id', table.id);
-        updateUpdates("tables");
     }
 
     function setWaiter(table, name) {
@@ -61,7 +57,6 @@ function useTables(init, props) {
         })
 
         db.tables.put('waiter', name, 'id', table.id);
-        updateUpdates("tables");
     }
 
     function refresh() {

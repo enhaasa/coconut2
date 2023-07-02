@@ -2,8 +2,6 @@ import { useState } from 'react';
 import db from '../dbTools_client';
 
 function useStaff(init, props) {
-    const { updateUpdates } = props;
-
     const [staff, setStaff] = useState(init);
 
     function refresh() {
@@ -20,7 +18,6 @@ function useStaff(init, props) {
         prev[index].isAttending = isAttending;
         return [...prev]; 
       });
-      updateUpdates("staff");
     }
 
     return [

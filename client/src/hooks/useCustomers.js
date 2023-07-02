@@ -1,43 +1,63 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import db from '../dbTools_client';
-import uuid from 'react-uuid';
-import tools from '../tools';
-
 
 function useCustomers(init, props) {
     const { 
-        updateUpdates,
         orders,
-        setSelectedCustomer
+        setSelectedCustomer,
+        socket
     } = props;
 
-    const [ customers, setCustomers ] = useState(init);
+    const [customers, setCustomers] = useState(init);
 
-    const updateId = useRef(null);
+    useEffect(() => {
+      if (socket) {
+        const addCustomerListener = (customer) => {
+          add(customer, false);
+        };
+      
+        const removeCustomerListener = (id, table) => {
+          remove(id, table, false);
+        };
+      
+        const editCustomerNameListener = (id, name) => {
+          editName(id, name, false);
+        };
+    
+        socket.on("addCustomer", addCustomerListener);
+        socket.on("removeCustomer", removeCustomerListener);
+        socket.on("editCustomerName", editCustomerNameListener);
+    
+        return () => {
+          socket.off("addCustomer", addCustomerListener);
+          socket.off("removeCustomer", removeCustomerListener);
+          socket.off("editCustomerName", editCustomerNameListener);
+        };
+      }
+    }, [socket, customers]);
+    
+    
+
 
     /**
      * Add a new customer.
      * 
      * @param {object} table - A table object that the customer will be referenced to.
      */
-    function add(table) {
-        const newCustomer = {
-          name: "",
-          floor: table.floor,
-          table: table.id,
-          id: uuid()
-        }
-    
+    function add(customer, updateDatabase = true) {
         setCustomers(prev => (
-            [...prev, newCustomer]
+            [...prev, customer]
         ));
     
-        db.customers.post(newCustomer);
-        updateUpdates("customers");
-        setSelectedCustomer(null);
+        //db.customers.post(newCustomer);
+
+        if (updateDatabase) {
+            socket.emit("addCustomer", { customer: customer });
+            setSelectedCustomer(null);
+        }
     }
 
-    function remove(id, table){
+    function remove(id, table, updateDatabase = true){
         orders.removeAllUndelivered(id);
         orders.removeAllUnpaid(id);
 
@@ -54,13 +74,13 @@ function useCustomers(init, props) {
             
             if (customersInTable.length-1 === 0) {
                 db.tables.put('session', null, 'id', table.id);
-                updateUpdates("tables");
             }
         }
         
-        db.customers.delete(id);
-        updateUpdates("customers");
-        setSelectedCustomer(null);
+        if (updateDatabase) {
+            socket.emit("removeCustomer", { id: id, table: table });
+            setSelectedCustomer(null);
+        }
     }
 
     function removeAllFromTable(table) {
@@ -75,21 +95,21 @@ function useCustomers(init, props) {
         });
 
         db.tables.put('session', null, 'id', table.id);
-        updateUpdates("tables");
     }
 
 
-    function editName(id, newName, updateServer = true) {
+    function editName(id, newName, updateDatabase = true) {
         const index = customers.map(customer => customer.id).indexOf(id);
+
 
         setCustomers(prev => {
             prev[index].name = newName;
             return [...prev];
         });
 
-        if (updateServer) {
-            db.customers.put("name", newName, "id", id);
-            updateUpdates("customers");
+        if (updateDatabase) {
+            //db.customers.put("name", newName, "id", id);
+            socket.emit("editCustomerName", { id: id, name: newName});
         }
     }
 
@@ -103,7 +123,6 @@ function useCustomers(init, props) {
 
 
         db.customers.put("session", sessionID, "id", id);
-        updateUpdates("customers");
     }
 
     function refresh() {

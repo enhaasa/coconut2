@@ -19,7 +19,6 @@ function FloorManager(props) {
         menu,
         selectedCustomer,
         selectedCustomerManager,
-        updateUpdates,
         loggedInAs,
         selectedTable,
         selectedFloor,
@@ -41,7 +40,6 @@ function FloorManager(props) {
                   orders={orders}
                   tables={tables}
                   customers={customers}
-                  updateUpdates={updateUpdates}
                   table={tables.get[selectedTable]} 
                   setSelectedTable={setSelectedTable}
                   setSelectedCustomer={setSelectedCustomer}
@@ -52,7 +50,6 @@ function FloorManager(props) {
                 <CustomerManager 
                   orders={orders}
                   customers={customers}
-                  updateUpdates={updateUpdates}
                   customer={selectedCustomerManager}
                   setSelectedCustomer={setSelectedCustomer}
                   selectedCustomer={selectedCustomer}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Customer from './Customer';
-
+import uuid from 'react-uuid';
 
 //import trashcanIcon from './../assets/icons/trash-can-black.png';
 import addcustomerIcon from './../assets/icons/add-user-black.png';
@@ -45,6 +45,17 @@ export default function OrderManager(props) {
     let unDeliveredOrderCustomersInTable = unDeliveredOrdersInTable ? 
     unDeliveredOrdersInTable.map(order => order.customer) : [];
 
+    function handleAdd(table) {
+        const newCustomer = {
+            name: "",
+            floor: table.floor,
+            table: table.id,
+            id: uuid()
+          }
+
+          customers.add(newCustomer)
+    }
+
     return (
         <>
             <section className="OrderManager">
@@ -72,7 +83,7 @@ export default function OrderManager(props) {
                 
 
                 <nav className="ordersNav">
-                    <button className="icon" onClick={() => {customers.add(table)}}>
+                    <button className="icon" onClick={() => {handleAdd(table)}}>
                         <img src={addcustomerIcon} alt="" />
                     </button>
                 </nav>

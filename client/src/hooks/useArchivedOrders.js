@@ -3,7 +3,6 @@ import db from '../dbTools_client';
 
 function useArchivedOrders(init, props) {
     const [ archivedOrders, setArchivedOrders ] = useState(init);
-    const { updateUpdates } = props;
 
     function refresh() {
         db.archivedOrders.get().then(res => {setArchivedOrders(res)});
@@ -15,8 +14,6 @@ function useArchivedOrders(init, props) {
         ));
     
         db.archivedOrders.post(order);
-        updateUpdates("archived_orders");
-        updateUpdates("archived_sessions");
     }
 
     return [

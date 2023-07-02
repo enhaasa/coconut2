@@ -11,8 +11,8 @@ const io = require('socket.io')(httpServer, {
     }
 });
 
-const mysql = require('mysql');
 const fs = require('fs');
+const mysql = require('mysql');
 const cors = require('cors');
 const path = require("path");
 const { convertSQLKeywords } = require('./dbTools_server');
@@ -23,15 +23,16 @@ app.use(cors());
 app.use(express.json());
 httpServer.listen(PORT); 
 
-/*
-app.get('/', (req, res) => {
-    res.redirect('https://www.google.se/');
-  });
-*/
+//Dynamically load and register handlers for each table
+(async () => {
+    const tableFiles = fs.readdirSync("./tables");
 
-app.use(express.static(path.resolve(__dirname, './client/build')));
+    for (const file of tableFiles) {
+        const registerHandlers = await require(`./tables/${file}`);
+        registerHandlers(io);
+    }
+})();
 
-//DB Stuff
 const db = mysql.createPool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
@@ -42,10 +43,7 @@ const db = mysql.createPool({
     database: process.env.DB_DATABASE
 });
 
-/*
-io.on('connection', socket => {
-    console.log(socket);
-});*/
+app.use(express.static(path.resolve(__dirname, './client/build')));
 
 app.post('/get', (req, res) => {
     const { table, condition} = req.body;
