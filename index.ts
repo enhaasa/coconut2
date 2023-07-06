@@ -15,7 +15,7 @@ const fs = require('fs');
 const mysql = require('mysql');
 const cors = require('cors');
 const path = require("path");
-const { convertSQLKeywords } = require('./dbTools_server');
+const { convertSQLKeywords, convertSQLKeyword } = require('./dbTools_server');
 
 const PORT = process.env.PORT || 3001;
 
@@ -63,7 +63,10 @@ app.post('/get', (req, res) => {
 
 app.post('/update', (req, res) => {
     const { table } = req.body;
-    const [ key, value, condition_key, condition_value ] = convertSQLKeywords(Object.values(req.body.data));
+    const [ key, value, condition_key, condition_value ] = Object.values(req.body.data);
+    convertSQLKeyword(key);
+    convertSQLKeyword(condition_key);
+
 
     console.log(`UPDATE ${table} SET ${key}=${value} WHERE ${condition_key}=${condition_value}`)
 
@@ -83,7 +86,7 @@ app.post('/update', (req, res) => {
 app.post('/post', (req, res) => {
     const { table } = req.body;
     const keys = convertSQLKeywords(Object.keys(req.body.data));
-    const values = convertSQLKeywords(Object.values(req.body.data));
+    const values = Object.values(req.body.data);
 
     db.query(
         `INSERT INTO ${table} (${keys}) VALUES (${values.map(value => ("?")).toString()})`, 

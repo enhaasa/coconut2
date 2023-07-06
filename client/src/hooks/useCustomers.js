@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import useSocketListener from './useSocketListener';
 import db from '../dbTools_client';
 
 function useCustomers(init, props) {
@@ -9,33 +10,25 @@ function useCustomers(init, props) {
     } = props;
 
     const [customers, setCustomers] = useState(init);
+    const eventHandlers = {
+        addCustomer: (customer) => {
+            add(customer, false);
+        },
+    
+        removeCustomer: (id, table) => {
+            remove(id, table, false);
+        },
+    
+        editCustomerName: (id, name) => {
+            editName(id, name, false);
+        },
 
-    useEffect(() => {
-      if (socket) {
-        const addCustomerListener = (customer) => {
-          add(customer, false);
-        };
-      
-        const removeCustomerListener = (id, table) => {
-          remove(id, table, false);
-        };
-      
-        const editCustomerNameListener = (id, name) => {
-          editName(id, name, false);
-        };
-    
-        socket.on("addCustomer", addCustomerListener);
-        socket.on("removeCustomer", removeCustomerListener);
-        socket.on("editCustomerName", editCustomerNameListener);
-    
-        return () => {
-          socket.off("addCustomer", addCustomerListener);
-          socket.off("removeCustomer", removeCustomerListener);
-          socket.off("editCustomerName", editCustomerNameListener);
-        };
-      }
-    }, [socket, customers]);
-    
+        setCustomerSession: (id, session) => {
+            setSession(id, session, false);
+        },
+    }
+ 
+    useSocketListener(socket, eventHandlers);
     
 
 
@@ -99,8 +92,7 @@ function useCustomers(init, props) {
 
 
     function editName(id, newName, updateDatabase = true) {
-        const index = customers.map(customer => customer.id).indexOf(id);
-
+        const index = customers.findIndex(customer => customer.id === id);
 
         setCustomers(prev => {
             prev[index].name = newName;
@@ -113,16 +105,18 @@ function useCustomers(init, props) {
         }
     }
 
-    function setSession(id, sessionID) {
-        const index = customers.map(customer => customer.id).indexOf(id);
+    function setSession(id, newSession, updateDatabase = true) {
+        const index = customers.findIndex(customer => customer.id === id);
 
         setCustomers(prev => {
-            prev[index].session = sessionID;
+            prev[index].session = newSession;
             return [...prev];
         });
 
-
-        db.customers.put("session", sessionID, "id", id);
+        if (updateDatabase) {
+            socket.emit("setCustomerSession", { session: newSession, id: id })
+        }
+        //db.customers.put("session", newSession, "id", id);
     }
 
     function refresh() {

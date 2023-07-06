@@ -53,6 +53,14 @@ export default function TabManager(props) {
             callback: function(){ 
 
                 const newSession = nanoid(5);
+                const customerID = ordersToPay[0].customer;
+
+                customers.setSession(customerID, newSession);
+                closeConfirmBox();
+                
+                /*
+
+                const newSession = nanoid(5);
                 setSession(newSession);
                 const tableNumber = ordersToPay[0].table;
                 const customerID = ordersToPay[0].customer;
@@ -69,6 +77,7 @@ export default function TabManager(props) {
                 }
                 
                 closeConfirmBox();
+                */
             },
             closeConfirmBox: function(){
                 closeConfirmBox()
