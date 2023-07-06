@@ -26,6 +26,10 @@ function useCustomers(init, props) {
         setCustomerSession: (id, session) => {
             setSession(id, session, false);
         },
+
+        removeAllCustomersFromTable: () => {
+            removeAllFromTable();
+        }
     }
  
     useSocketListener(socket, eventHandlers);
@@ -50,7 +54,7 @@ function useCustomers(init, props) {
         }
     }
 
-    function remove(id, table, updateDatabase = true){
+    function remove(id, tableID, updateDatabase = true){
         orders.removeAllUndelivered(id);
         orders.removeAllUnpaid(id);
 
@@ -60,34 +64,34 @@ function useCustomers(init, props) {
             ))
         ));
 
-        if(table) {
+        if(tableID) {
             const customersInTable = customers.filter(customer => (
-                customer.table === table.id
+                customer.table === tableID
             ));
             
             if (customersInTable.length-1 === 0) {
-                db.tables.put('session', null, 'id', table.id);
+                db.tables.put('session', null, 'id', tableID);
             }
         }
         
         if (updateDatabase) {
-            socket.emit("removeCustomer", { id: id, table: table });
+            socket.emit("removeCustomer", { id: id, tableID: tableID });
             setSelectedCustomer(null);
         }
     }
 
-    function removeAllFromTable(table) {
+    function removeAllFromTable(tableID) {
         const customersInTable = customers.filter(customer => (
-            customer.table === table.id
+            customer.table === tableID
         ));
 
         customersInTable.forEach(customer => {
             orders.removeAllUndelivered(customer.id);
             orders.removeAllUnpaid(customer.id);
-            remove(customer.id, table);
+            remove(customer.id, tableID);
         });
 
-        db.tables.put('session', null, 'id', table.id);
+        socket.emit("removeAllCustomersFromTable", { id: tableID })
     }
 
 

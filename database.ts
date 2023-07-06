@@ -15,7 +15,12 @@ export default class Database {
         database: process.env.DB_DATABASE
     });
 
-    public static add(table, row) {
+    /**
+     * 
+     * @param table Target SQL table.
+     * @param row An object in which every key represents every column to change, and every corresponding value represents the new value for said column.
+     */
+    public static add(table:string, row:object) {
         const keys = convertSQLKeywords(Object.keys(row));
         const values = Object.values(row);
     
@@ -32,7 +37,11 @@ export default class Database {
         );
     }
 
-    public static get(table, condition = null) {
+    /**
+     * @param table Target SQL table.
+     * @param condition Optional, additional search criteria in SQL format. Example: 'WHERE date >= 27.01.1996'.
+     */
+    public static get(table:string, condition:string = null) {
         let query = `SELECT * FROM ${table}`;
     
         if (condition) {
@@ -49,26 +58,38 @@ export default class Database {
         });
     }
 
-    public static update(table, key, value, id) {
-        convertSQLKeywords(Object.values([key, value]));
+    /**
+     * 
+     * @param table Target SQL table.
+     * @param key Column of which value to change.
+     * @param value New value to the column.
+     * @param con_key Condition key. Equal to SQL 'WHERE'.
+     * @param con_val Condition value. Equal to SQL 'IS'.
+     */
+    public static update(table, key, value, con_key, con_val) {
+        convertSQLKeywords(Object.values([key, value, con_key]));
 
         this.pool.query(
-            `UPDATE ${table} SET ${key}=? WHERE id=?`,
-            [value, id], 
+            `UPDATE ${table} SET ${key}=? WHERE ${con_key}=?`,
+            [value, con_val], 
             (err, result) => {
                 if (err) {
                     console.log(`Error: Cannot update table ${table}: ${err}`)
                 }
                 return result;
-                //console.log(`${key} was set to ${value}, where ${condition_key} equals ${condition_value} at table ${table}`)
             }
         );
     }
 
-    public static remove(table, id) {
+    /**
+     * @param table Target SQL table.
+     * @param con_key Condition key. Equal to SQL 'WHERE'.
+     * @param con_val Condition value. Equal to SQL 'IS'.
+     */
+    public static remove(table:string, con_key:string, con_val:number|string|boolean) {
         this.pool.query(
-            `DELETE FROM ${table} WHERE id=?`, 
-            [id],
+            `DELETE FROM ${table} WHERE ${con_key}=?`, 
+            [con_val],
             (err, result) => {
                 if (err) throw err;
                 return result;

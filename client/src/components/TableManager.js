@@ -100,7 +100,7 @@ export default function TableManager(props) {
                     return [...prev];
                 });
 
-                customers.removeAllFromTable(table)
+                customers.removeAllFromTable(table.id)
                 closeConfirmBox();
             },
             closeConfirmBox: function(){closeConfirmBox()},
