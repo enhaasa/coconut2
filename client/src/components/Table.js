@@ -33,15 +33,18 @@ export default function Table(props) {
         if (timeSinceLastOrder > maxDeliveryTime) return "destructive";
     }
 
-    let noBlankNames = customers.get.filter((customer) => (
-        customer.table === table.id &&
-            customer.name !== ""
-    ))
-    let blankNames = customers.get.filter((customer) => (
-        customer.table === table.id && 
-            customer.floor === table.floor &&
-                customer.name === ""
-    ))
+    let noBlankNames = [];
+    let blankNames = [];
+
+    customers.get.forEach(customer => {
+        if (customer.table_id !== table.id) return;
+        if (customer.name.length === 0) {
+            blankNames.push(customer);
+        } else {
+            noBlankNames.push(customer);
+        }
+    });
+
 
     const maxPreview = 2;
     let exceedingMaxPreview = noBlankNames.filter((customer, index) => (
@@ -66,7 +69,6 @@ export default function Table(props) {
             }
         }
     });
-
     
     const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrdersInTable)));
 
@@ -89,16 +91,17 @@ export default function Table(props) {
             <div 
                 className={`Table`}
                 ref={TableRef}
-                key={table.id}
+                key={`table${table.number}`}
                 style={{
-                    left:table.posX, 
-                    top:table.posY
+                    left:table.pos_x, 
+                    top:table.pos_y
             }}>
 
                 {table.waiter !== "" &&
                     <div className={`waiter waiterContainer`}>
                     <img src={waiterIcon}/> 
-                    {getFirstName(table.waiter)}
+                    {/*getFirstName(table.waiter)*/}
+                    Test
                 </div>}
 
                 {false &&
@@ -110,7 +113,7 @@ export default function Table(props) {
 
                 <button 
                     className={`numberDisplay ${tablenumberColor()}`}
-                    onClick={() => {setSelectedTable(table.id)}}>
+                    onClick={() => {setSelectedTable(table.index)}}>
 
                     {
                         <div className="isPhotographyContainer">
@@ -154,7 +157,7 @@ export default function Table(props) {
                         }
 
                     <span className="number">
-                        {table.id + 1}
+                        {table.number}
                     </span>
                 
                 </button>

@@ -19,14 +19,11 @@ function FloorManager(props) {
         menu,
         selectedCustomer,
         selectedCustomerManager,
-        loggedInAs,
         selectedTable,
         selectedFloor,
-        floors,
+        sections,
         maxDeliveryTime
     } = props;
-
-
 
     return(
         <div className="FloorManager">
@@ -72,7 +69,7 @@ function FloorManager(props) {
         <section className="FloorContainer">
           <nav className="floorNav">
             <span className="floorColumn">
-              {floors.map((floor, index) => {
+              {sections.map((section, index) => {
                   return (
                       <div className="floorSelector" key={uuid()}>
                         {
@@ -81,11 +78,11 @@ function FloorManager(props) {
                             <NotificationBar
                               customers={
                                 customers.get.filter(customer => 
-                                  customer.floor === floor.type && 
+                                  customer.section === section.type && 
                                     !tables.get.find(table => table.id === customer.table 
                                       && table).isAvailable && customer)}
 
-                              orders={orders.get.filter(order => order.floor === floor.type && !order.delivered && order)}
+                              orders={orders.get.filter(order => order.section === section.type && !order.delivered && order)}
                           />
                         }
 
@@ -93,7 +90,7 @@ function FloorManager(props) {
                           className={`floorButton ${selectedFloor === index ? "active" : "inactive"}`} 
                           key={index} 
                           onClick={() => {setSelectedFloor(index)}}>
-                          <span className="title cursive">{floor.title}</span>
+                          <span className="title cursive">{section.name}</span>
                         </button>
                       </div>
                   )
@@ -103,10 +100,9 @@ function FloorManager(props) {
 
 
           </nav>
-            
-          <Floor 
-            loggedInAs={loggedInAs}
-            floor={floors[selectedFloor]} 
+          
+          {sections[selectedFloor] && <Floor 
+            section={sections[selectedFloor]} 
             tables={tables} 
             maxDeliveryTime={maxDeliveryTime}
             setSelectedTable={setSelectedTable}
@@ -114,7 +110,7 @@ function FloorManager(props) {
             setSelectedCustomerManager={setSelectedCustomerManager}
             orders={orders}
             customers={customers}
-          />
+          />}
           
         </section>
 

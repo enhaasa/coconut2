@@ -10,6 +10,7 @@ import useArchivedOrders from './hooks/useArchivedOrders';
 import useArchivedSessions from './hooks/useArchivedSessions';
 import useTables from './hooks/useTables';
 import useTips from './hooks/useTips';
+import useSections from './hooks/useSections';
 
 //Views
 import Payouts from './views/Payouts';
@@ -79,6 +80,7 @@ function App() {
 
 
   //BACKEND_PLACEHOLDER
+  /*
   const floors = [
     {
       title: "Basement",
@@ -99,6 +101,7 @@ function App() {
       schematics: bar
     }
   ];
+  */
 
 
   /**
@@ -108,13 +111,19 @@ function App() {
     const [ archivedOrders ] = useArchivedOrders([]);
     const [ archivedSessions ] = useArchivedSessions([]);
 
+    const [ sections ] = useSections([], {
+      socket: socket
+    })
+
     const [ tables ] = useTables([], {
-      selectedTableTracker: selectedTableTracker,
+      selectedTableTracker: selectedTableTracker, 
+      socket: socket
     });
 
     const [ orders ] = useOrders([], {
       archivedOrders: archivedOrders,
-      archivedSessions: archivedSessions
+      archivedSessions: archivedSessions,
+      socket: socket
     });
 
     const [ customers ] = useCustomers([], {
@@ -126,8 +135,6 @@ function App() {
     const [ tips ] = useTips([]);
     const [ menu ] = useMenu([], {selectedTable});
     const [ staff ] = useStaff([]);
-
-
 
   /**
    * Initiate and set short-polling interval
@@ -144,6 +151,7 @@ function App() {
       archivedSessions.refresh();
       archivedOrders.refresh();
       tips.refresh();
+      sections.refresh();
     }
   }, [socket]);
 
@@ -167,22 +175,24 @@ function App() {
         loggedInAs={loggedInAs}
         selectedTable={selectedTable}
         selectedFloor={selectedFloor}
-        floors={floors}
+        sections={sections.get}
         maxDeliveryTime={maxDeliveryTime}
       />
     },
+    /*
     {
       title: "Payouts",
       content:  
       <Payouts 
         staff={staff} 
-        floors={floors}
+        sections.get={floors}
         archivedOrders={archivedOrders}
         setIsBlurred={setIsBlurred}
         archivedSessions={archivedSessions}
         tips={tips}
       />
     }
+    */
   ]
 
   return (
@@ -200,6 +210,7 @@ function App() {
 
       
       <main>
+        <button onClick={() => {console.log(tables.get)}}>Test Tables</button>
       {isBlurred === true &&
           <div className="blur" />
           }

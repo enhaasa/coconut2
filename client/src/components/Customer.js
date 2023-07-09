@@ -47,7 +47,7 @@ export default function Customer(props) {
     const handleNameChange = (event) => {
         const { value } = event.target;
         if (value.length <= 50) {
-            customers.editName(customer.id, event.target.value, false);
+            customers.editName(customer.uuid, event.target.value, false);
         
 
             if (timer.current) {
@@ -58,7 +58,7 @@ export default function Customer(props) {
             
                 //customers.editName(customer.id, customer.name, true);
                 //db.customers.put('name', customer.name, 'id', customer.id);
-                customers.editName(customer.id, customer.name);
+                customers.editName(customer.uuid, customer.name);
             }, 500);
         }
     };
@@ -81,7 +81,7 @@ export default function Customer(props) {
                 </input>
 
                 {isInTable &&
-                <button className="icon" onClick={() => {confirmDeleteCustomer(customer.id, customer.name)}}>
+                <button className="icon" onClick={() => {confirmDeleteCustomer(customer.uuid, customer.name)}}>
                     <img src={removecustomerIcon} alt="" />
                 </button>
                 }

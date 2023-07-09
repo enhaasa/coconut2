@@ -143,7 +143,7 @@ export default function TableManager(props) {
                         
                 <span className={`tablenumber ${tablenumberColor()}`}>
 
-                    {table.id +1}
+                    {table.number}
                 </span>
 
                 <button className="closeButton" onClick={handleClose}>

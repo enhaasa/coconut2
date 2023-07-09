@@ -1,26 +1,34 @@
 import { useState } from 'react';
 import db from '../dbTools_client';
-import uuid from 'react-uuid';
-import { nanoid } from 'nanoid';
 import tools from '../tools';
-import useArchivedSessions from './useArchivedSessions';
+import useSocketListener from './useSocketListener';
 
 function useOrders(init, props) {
-
     const {
         tables,
         archivedSessions, 
-        archivedOrders
+        archivedOrders,
+        socket
     } = props;
 
     const [ orders, setOrders ] = useState(init);
+    const eventHandlers = {
+        addOrder: (order) => {
+            add(order, false);
+        },
+        removeOrder: (id) => {
+            remove(id, false);
+        }
+    }
+
+    useSocketListener(socket, eventHandlers);
 
     /**
      * Add a new order to the orders array.
      * 
      * @param {object} order - An order object to insert into the orders array.
      */
-    function add(order, isRemoteCall = false) {
+    function add(order, updateDatabase = true) {
         const filteredOrder = {
             customer: order.customer,
             customerName: order.customerName,
@@ -34,12 +42,12 @@ function useOrders(init, props) {
             date: tools.epochToSqlDateTime(tools.getCurrentTime()),
             item: order.item,
             type: order.type,
-            id: uuid()
+            id: order.id
         }
 
         setOrders(prev => ([...prev, filteredOrder]));
-        if (!isRemoteCall) {
-            db.orders.post(filteredOrder);
+        if (updateDatabase) {
+            socket.emit("addOrder", { order: filteredOrder });
         }
     }
     
@@ -49,15 +57,17 @@ function useOrders(init, props) {
      * 
      * @param {string} id - The id of the order to remove from the orders array.
      */
-    function remove(id) {
-    
+    function remove(id, updateDatabase = true) {
+
         setOrders(prev => (
             prev.filter(order => (
                 order.id !== id
             ))
         ));
-        
-        db.orders.delete(id);
+
+        if (updateDatabase) {
+            socket.emit("removeOrder", { id: id });
+        }
     }
 
     /**

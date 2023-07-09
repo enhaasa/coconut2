@@ -1,12 +1,25 @@
 import { useState } from 'react';
+import useSocketListener from './useSocketListener';
 import db from '../dbTools_client';
 
 function useTables(init, props) {
     const { 
-        selectedTableTracker,
+        selectedTableTracker, 
+        socket
     } = props;
 
     const [tables, setTables] = useState(init);
+    const eventHandlers = {
+        getTables: (tables) => {
+            add(tables);
+        }
+    }
+
+    useSocketListener(socket, eventHandlers);
+
+    function add(tables) {
+        setTables(tables);
+    }
 
     function toggleIsAvailable(table) {
         const current = tables[table.id].isAvailable;
@@ -60,8 +73,11 @@ function useTables(init, props) {
     }
 
     function refresh() {
+        /*
         selectedTableTracker.current === null &&
             db.tables.get().then(res => {setTables(res)});
+            */
+        socket.emit("getTables");
     }
 
     return [

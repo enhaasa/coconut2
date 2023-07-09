@@ -20,12 +20,12 @@ export default function OrderManager(props) {
         orders
     } = props;
 
-    function confirmDeleteCustomer(id, customerName) {
+    function confirmDeleteCustomer(uuid, customerName) {
 
         const checkedCustomerName = customerName !== "" ? customerName : "the customer";
         openConfirmBox({
             callback: function(){
-                customers.remove(id, table);
+                customers.remove(uuid, table);
 
                 if (customersInTable.length -1 === 0) {
                     tables.set(prev => {
@@ -48,9 +48,10 @@ export default function OrderManager(props) {
     function handleAdd(table) {
         const newCustomer = {
             name: "",
-            floor: table.floor,
-            table: table.id,
-            id: uuid()
+            section_id: table.section_id,
+            table_id: table.id,
+            realm_id: 1,
+            uuid: uuid()
           }
 
           customers.add(newCustomer)
@@ -66,7 +67,7 @@ export default function OrderManager(props) {
                 <div className="customerContainer">
                     {customers.get.map(customer => (
                     
-                        table.id === customer.table && 
+                        table.id === customer.table_id && 
                             <Customer 
                                 key={customer.id}
                                 customer={customer}

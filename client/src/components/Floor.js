@@ -8,9 +8,8 @@ import overlay from './../assets/icons/dark-fabric.png';
 
 export default function Floor(props) {
     const {
-        floor,
+        section,
         tables,
-        loggedInAs,
         maxDeliveryTime,
         colorset,
         setSelectedTable,
@@ -32,16 +31,38 @@ export default function Floor(props) {
     }, []);
     */
 
-    return (
-        <div className="Floor" ref={FloorRef}>
-            <img className="overlay" src={overlay} alt="" />
-            {floor.schematics && <img className="floorImage" src={floor.schematics} alt="" />}
 
-            {floor.type === "restaurant" ? tables.get.map((table) => {
-                if (floor.name === table.floor) {
-                    return (
+    let tablesInSection = [];
+
+    tables.get.forEach((table, index) => {
+        if (table.section_name === section.name)
+            tablesInSection.push({
+                ...table, index: index
+            })
+    });
+
+
+    /*  
+        <BarManager 
+            orders={orders}
+            section={section}
+            customers={customers} 
+            setSelectedCustomer={setSelectedCustomer} 
+            setSelectedCustomerManager={setSelectedCustomerManager}
+        />
+
+    */
+
+    return (
+
+       
+            <div className="Floor" ref={FloorRef}>
+           
+                <img className="overlay" src={overlay} alt="" />
+                {/*section.schematics && <img className="floorImage" src={floor.schematics} alt="" />*/}
+
+                {tablesInSection.map((table) => (
                         <Table 
-                            loggedInAs={loggedInAs}
                             table={table}
                             maxDeliveryTime={maxDeliveryTime}
                             colorset={colorset} 
@@ -50,18 +71,10 @@ export default function Floor(props) {
                             customers={customers}
                             orders={orders}
                         />
-                    ) 
-                } 
-
-                return null;
-            }) : <BarManager 
-                    orders={orders}
-                    floor={floor}
-                    customers={customers} 
-                    setSelectedCustomer={setSelectedCustomer} 
-                    setSelectedCustomerManager={setSelectedCustomerManager}
-                />
-            }
-        </div>
+                    )) 
+                }
+            
+            </div>
+        
     );
 }

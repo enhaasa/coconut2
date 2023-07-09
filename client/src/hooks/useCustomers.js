@@ -11,16 +11,20 @@ function useCustomers(init, props) {
 
     const [customers, setCustomers] = useState(init);
     const eventHandlers = {
+        getCustomers: (customers) => {
+            setCustomers(customers);
+        },
+
         addCustomer: (customer) => {
             add(customer, false);
         },
     
-        removeCustomer: (id, table) => {
-            remove(id, table, false);
+        removeCustomer: (uuid, table) => {
+            remove(uuid, table, false);
         },
     
-        editCustomerName: (id, name) => {
-            editName(id, name, false);
+        editCustomerName: (uuid, name) => {
+            editName(uuid, name, false);
         },
 
         setCustomerSession: (id, session) => {
@@ -33,8 +37,6 @@ function useCustomers(init, props) {
     }
  
     useSocketListener(socket, eventHandlers);
-    
-
 
     /**
      * Add a new customer.
@@ -54,13 +56,13 @@ function useCustomers(init, props) {
         }
     }
 
-    function remove(id, tableID, updateDatabase = true){
-        orders.removeAllUndelivered(id);
-        orders.removeAllUnpaid(id);
+    function remove(uuid, tableID, updateDatabase = true){
+        //orders.removeAllUndelivered(id);
+        //orders.removeAllUnpaid(id);
 
         setCustomers(prev => (
             prev.filter(customer => (
-                customer.id !== id
+                customer.uuid !== uuid
             ))
         ));
 
@@ -69,13 +71,14 @@ function useCustomers(init, props) {
                 customer.table === tableID
             ));
             
+            /*
             if (customersInTable.length-1 === 0) {
                 db.tables.put('session', null, 'id', tableID);
-            }
+            }*/
         }
         
         if (updateDatabase) {
-            socket.emit("removeCustomer", { id: id, tableID: tableID });
+            socket.emit("removeCustomer", { uuid: uuid, tableID: tableID });
             setSelectedCustomer(null);
         }
     }
@@ -95,17 +98,16 @@ function useCustomers(init, props) {
     }
 
 
-    function editName(id, newName, updateDatabase = true) {
-        const index = customers.findIndex(customer => customer.id === id);
-
+    function editName(uuid, newName, updateDatabase = true) {
+        const index = customers.findIndex(customer => customer.uuid === uuid);
+        
         setCustomers(prev => {
             prev[index].name = newName;
             return [...prev];
         });
 
         if (updateDatabase) {
-            //db.customers.put("name", newName, "id", id);
-            socket.emit("editCustomerName", { id: id, name: newName});
+            socket.emit("editCustomerName", { uuid: uuid, name: newName});
         }
     }
 
@@ -124,7 +126,7 @@ function useCustomers(init, props) {
     }
 
     function refresh() {
-        db.customers.get().then(res => {setCustomers(res)});
+        socket.emit("getCustomers");
     }
 
     return [ 
