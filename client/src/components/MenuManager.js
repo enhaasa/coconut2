@@ -46,7 +46,7 @@ export default function MenuManager(props) {
           time: tools.getCurrentTime(),
           item: item.item,
           type: item.type,
-          id: uuid()
+          uuid: uuid()
         }
     }
 

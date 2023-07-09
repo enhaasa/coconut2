@@ -21,12 +21,10 @@ export default function Customer(props) {
     } = props;
 
 
-
     const isInTable = customer.table !== null ? true : false;
     const undeliveredOrders = orders.get.filter(order => !order.delivered && order.customer === customer.id);
     
     let timer = useRef();
-
 
     const customerRef = useRef();
     useLayoutEffect(() => {
@@ -49,7 +47,6 @@ export default function Customer(props) {
         if (value.length <= 50) {
             customers.editName(customer.uuid, event.target.value, false);
         
-
             if (timer.current) {
                 clearTimeout(timer.current);
             }

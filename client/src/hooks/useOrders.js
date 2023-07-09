@@ -42,7 +42,7 @@ function useOrders(init, props) {
             date: tools.epochToSqlDateTime(tools.getCurrentTime()),
             item: order.item,
             type: order.type,
-            id: order.id
+            uuid: order.uuid
         }
 
         setOrders(prev => ([...prev, filteredOrder]));
