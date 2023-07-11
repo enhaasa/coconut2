@@ -13,9 +13,13 @@ function useOrders(init, props) {
 
     const [ orders, setOrders ] = useState(init);
     const eventHandlers = {
-        addOrder: (order) => {
-            add(order, false);
+        getOrders: (menu_items) => {
+            setOrders(menu_items);
         },
+        addOrder: (order) => {
+            setOrders(prev => ([...prev, order]));
+        },
+        
         removeOrder: (id) => {
             remove(id, false);
         }
@@ -28,27 +32,8 @@ function useOrders(init, props) {
      * 
      * @param {object} order - An order object to insert into the orders array.
      */
-    function add(order, updateDatabase = true) {
-        const filteredOrder = {
-            customer: order.customer,
-            customerName: order.customerName,
-            delivered: order.delivered,
-            floor: order.floor,
-            table: order.table,
-            name: order.name,
-            paid: order.paid,
-            price: order.price,
-            time: order.time,
-            date: tools.epochToSqlDateTime(tools.getCurrentTime()),
-            item: order.item,
-            type: order.type,
-            uuid: order.uuid
-        }
-
-        setOrders(prev => ([...prev, filteredOrder]));
-        if (updateDatabase) {
-            socket.emit("addOrder", { order: filteredOrder });
-        }
+    function add(order) {
+        socket.emit("addOrder", { order: order });
     }
     
 
@@ -168,6 +153,7 @@ function useOrders(init, props) {
     }
 
     function refresh() {
+        /*
         db.orders.get().then(res => {
             setOrders(res.map(item => (
             {...item,
@@ -176,6 +162,9 @@ function useOrders(init, props) {
             }
             )))
         });
+        */
+
+        socket.emit("getOrders");
     }
 
     return [

@@ -11,6 +11,7 @@ import useArchivedSessions from './hooks/useArchivedSessions';
 import useTables from './hooks/useTables';
 import useTips from './hooks/useTips';
 import useSections from './hooks/useSections';
+import useSessions from './hooks/useSessions';
 
 //Views
 import Payouts from './views/Payouts';
@@ -43,7 +44,7 @@ function App() {
 
   }, []);
 
-  
+
 
   const loggedInAs = "Coco Shev'rin"; //BACKEND_PLACEHOLDER
   const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second
@@ -79,29 +80,6 @@ function App() {
   }, [selectedCustomerManager]);
 
 
-  //BACKEND_PLACEHOLDER
-  /*
-  const floors = [
-    {
-      title: "Basement",
-      name: "basement",
-      type: "restaurant",
-      schematics: basement
-    },
-    {
-      title: "Ground Floor",
-      name: "ground",
-      type: "restaurant",
-      schematics: ground
-    },
-    {
-      title: "Bar",
-      name: "bar-1",
-      type: "bar",
-      schematics: bar
-    }
-  ];
-  */
 
 
   /**
@@ -132,9 +110,19 @@ function App() {
       socket: socket
     });
 
+    const [ sessions ] = useSessions([], {
+      socket: socket
+    })
+
     const [ tips ] = useTips([]);
-    const [ menu ] = useMenu([], {selectedTable});
+    const [ menu ] = useMenu([], {
+      selectedTable, 
+      socket: socket
+    });
     const [ staff ] = useStaff([]);
+
+    console.log(customers.get)
+
 
   /**
    * Initiate and set short-polling interval
@@ -152,6 +140,7 @@ function App() {
       archivedOrders.refresh();
       tips.refresh();
       sections.refresh();
+      sessions.refresh();
     }
   }, [socket]);
 

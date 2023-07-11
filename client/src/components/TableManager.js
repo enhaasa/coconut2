@@ -74,20 +74,53 @@ export default function TableManager(props) {
     }
 
     const customersInTable = customers.get.filter(customer => (
-        customer.table === table.id
+        customer.table_id === table.id
     ))
+
+    
+
+
 
     let deliveredOrdersInTable = [];
     let unDeliveredOrdersInTable = [];
-    customersInTable.forEach(customer => {
-        orders.get.forEach(order => {
-            order.delivered ?
-                !order.paid &&
-                    customer.id === order.customer && 
-                        deliveredOrdersInTable.push(order) :
-                        unDeliveredOrdersInTable.push(order);
-        })
-    });
+
+    const customerIds = new Set(customersInTable.map((customer) => customer.id));
+
+    for (const order of orders.get) {
+        if (order.is_delivered) {
+            if (!order.is_paid && customerIds.has(order.customer_id)) {
+            deliveredOrdersInTable.push(order);
+            }
+        } else {
+            unDeliveredOrdersInTable.push(order);
+        }
+    }
+
+    function combineCustomersWithOrders(customers, orders) {
+        const customerMap = new Map();
+        
+        // Create a map of customers using their IDs as keys
+        for (const customer of customers.get) {
+          customerMap.set(customer.id, {
+            ...customer,
+            orders: [] // Initialize an empty orders array
+          });
+        }
+      
+        // Add orders to the corresponding customers
+        for (const order of orders.get) {
+          const customerId = order.customer_id;
+          if (customerMap.has(customerId)) {
+            customerMap.get(customerId).orders.push(order);
+          }
+        }
+      
+        // Return the combined array of customers with orders
+        return Array.from(customerMap.values());
+    }
+      
+    const customerMap = combineCustomersWithOrders(customers, orders);
+
 
     function resetTable() {
         openConfirmBox({

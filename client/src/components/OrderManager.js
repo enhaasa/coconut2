@@ -43,13 +43,15 @@ export default function OrderManager(props) {
     }
 
     let unDeliveredOrderCustomersInTable = unDeliveredOrdersInTable ? 
-    unDeliveredOrdersInTable.map(order => order.customer) : [];
+    unDeliveredOrdersInTable.map(order => order.customer_id) : [];
+
 
     function handleAdd(table) {
         const newCustomer = {
             name: "",
             section_id: table.section_id,
             table_id: table.id,
+            session_id: table.session_id,
             realm_id: 1,
             uuid: uuid()
           }

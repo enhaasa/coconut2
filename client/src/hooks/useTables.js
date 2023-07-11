@@ -11,14 +11,23 @@ function useTables(init, props) {
     const [tables, setTables] = useState(init);
     const eventHandlers = {
         getTables: (tables) => {
-            add(tables);
+            setTables(tables);
+        },
+        setTableSessionID: (data) => {
+            const { id, session_id } = data;
+            const index = tables.findIndex(table => table.id === id);
+            
+            setTables(prev => {
+                prev[index].session_id = session_id;
+                return [...prev];
+            });
         }
     }
 
     useSocketListener(socket, eventHandlers);
 
-    function add(tables) {
-        setTables(tables);
+    function setSessionID(id, session_id) {
+        socket.emit("setTableSessionID", { id: id, session_id: session_id});
     }
 
     function toggleIsAvailable(table) {
@@ -86,6 +95,7 @@ function useTables(init, props) {
             set: setTables,
             toggleIsAvailable,
             setIsAvailable,
+            setSessionID,
             toggleIsPhotography,
             setIsPhotography,
             toggleIsReserved,

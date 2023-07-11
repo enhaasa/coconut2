@@ -128,6 +128,7 @@ const getCurrentTime = () => {
     const today = new Date();
     return today.getTime();
 }
+
 function getCurrentDate(offset) {
 
     const date = new Date();

@@ -1,4 +1,4 @@
-import { convertSQLKeywords, pgConvertSQLKeywords } from './dbTools_server';
+import { SQL } from './dbTools_server';
 const mysql3 = require('mysql');
 import { Pool } from 'pg';
 import fs = require('fs');
@@ -22,24 +22,34 @@ export default class Database {
      * @param table Target SQL table.
      * @param row An object in which every key represents every column to change, and every corresponding value represents the new value for said column.
      */
-    public static add(table:string, row:object) {
-        const keys = pgConvertSQLKeywords(Object.keys(row));
-        const values = Object.values(row);
-    
-        const query = `INSERT INTO ${table} (${keys}) VALUES (${values.map((value, index) => ("$"+(index+1))).toString()})`;
-    
-        console.log(query)
-
-        this.pool.query(
-            query, [...values], 
-            (err, result) => {
-                if (err) {
-                    console.log(err);
-                }
-                
+    public static async add(table: string, row: object, returnQuery: string | null = null) {
+        return new Promise((resolve, reject) => {
+          const keys = SQL.pgConvertSQLKeywords(Object.keys(row));
+          const values = Object.values(row);
+      
+          let query = `INSERT INTO ${table} (${keys}) VALUES (${values.map((value, index) => ("$"+(index+1))).toString()})`;
+      
+          if (returnQuery) {
+            query += ` RETURNING ${returnQuery}`;
+          }
+      
+          console.log(query);
+      
+          this.pool.query(query, [...values], (err, result) => {
+            if (err) {
+              console.log(err);
+              reject(err);
+            } else {
+              if (returnQuery) {
+                resolve(result.rows[0].id);
+              } else {
+                resolve(null);
+              }
             }
-        );
-    }
+          });
+        });
+      }
+      
 
     /**
      * @param table Target SQL table.
@@ -73,10 +83,10 @@ export default class Database {
      * @param con_val Condition value. Equal to SQL 'IS'.
      */
     public static update(table, key, value, con_key, con_val) {
-        convertSQLKeywords(Object.values([key, value, con_key]));
+        SQL.convertSQLKeywords(Object.values([key, value, con_key]));
 
         const query = `UPDATE ${table} SET ${key}=$1 WHERE ${con_key}=$2`;
-        console.log(query)
+        console.log(`UPDATE ${table} SET ${key}=${value} WHERE ${con_key}=${con_val}`)
 
         this.pool.query(
             query, [value, con_val], 

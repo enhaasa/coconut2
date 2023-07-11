@@ -1,21 +1,32 @@
 import { useState } from 'react';
+import useSocketListener from './useSocketListener';
 import db from '../dbTools_client';
 
 function useMenu(init, props) {
     const {
-        selectedTable
+        selectedTable,
+        socket
     } = props;
 
     const [menu, setMenu] = useState(init);
+    const eventHandlers = {
+        getMenu: (menu_items) => {
+            setMenu(menu_items);
+        }
+    }
+
+    useSocketListener(socket, eventHandlers);
 
     async function refresh() {
+        /*
         selectedTable === null &&
             db.menu.get().then(raw => {
 
                 //setMenu(raw) //Swap out with below to activate special prices.
                 sortWeeklySpecials(raw).then(sorted => setMenu(sorted));
             });
-
+        */
+            socket.emit("getMenu");
     }
 
     

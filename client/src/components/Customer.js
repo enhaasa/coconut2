@@ -65,7 +65,7 @@ export default function Customer(props) {
     }
 
     return (
-        <div className="customer" key={customer.id} ref={customerRef}>
+        <div className="customer" key={customer.uuid} ref={customerRef}>
             <nav className="nameNav">
                 <input 
                     spellCheck={false}
@@ -99,9 +99,9 @@ export default function Customer(props) {
 
                     <tbody>
                     {tools.sortArrayByCustomer(orders.get, false).map(order => (  
-                        order.customer === customer.id && 
+                        order.customer_id === customer.id && 
                                 
-                            <tr key={order.id}>
+                            <tr key={order.uuid}>
                                 <td>{order.name}</td>
                                 <td>{order.price.toLocaleString("en-US")} gil</td>
                                 <td>{order.amount}</td>

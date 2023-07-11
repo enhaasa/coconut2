@@ -35,18 +35,12 @@ export default function MenuManager(props) {
 
     function filterItem(item) {
         return {
-          customer: selectedCustomer.id,
-          customerName: selectedCustomer.name,
-          floor: selectedCustomer.floor, 
-          table: selectedCustomer.table,
-          delivered: false,
-          paid: false,
-          name: item.name,
-          price: item.price,
-          time: tools.getCurrentTime(),
-          item: item.item,
-          type: item.type,
-          uuid: uuid()
+            name: item.name,
+            is_delivered: false,
+            price: item.price,
+            section_id: selectedCustomer.section_id,
+            customer_id: selectedCustomer.id,
+            menu_id: item.id,
         }
     }
 
@@ -101,8 +95,7 @@ export default function MenuManager(props) {
 
                                                         <button className="constructive" onClick={() => {orders.add({
                                                             ...filterItem(item), 
-                                                            price: 0, 
-                                                            id: item.id + "0"
+                                                            price: 0
                                                         })}}>Free</button>
                                                     </nav>
                                                 </div>

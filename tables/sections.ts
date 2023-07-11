@@ -1,4 +1,4 @@
-import db from './../database';
+import Database from './../database';
 import { Socket } from 'socket.io';
 
 module.exports = function registerHandlers(io) {
@@ -11,7 +11,7 @@ class Sections {
     private static table = 'sections';
 
     public static async get(socket: Socket) {
-        socket.emit('getSections', await db.get(this.table));
+        socket.emit('getSections', await Database.get(this.table));
     }
 
 }

@@ -45,7 +45,6 @@ export default function Table(props) {
         }
     });
 
-
     const maxPreview = 2;
     let exceedingMaxPreview = noBlankNames.filter((customer, index) => (
         index >= maxPreview
