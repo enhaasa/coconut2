@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, useState, useLayoutEffect } from 'react';
+import React, { useRef, useEffect, useState, useLayoutEffect, useContext } from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
 import tools from '../tools';
 import gsap from 'gsap';
 import animations from '../animations';
@@ -9,7 +10,13 @@ import cameraIcon from './../assets/icons/camera.png';
 import waiterIcon from './../assets/icons/waiter.png';
 
 export default function Table(props) {
-    const { orders, table, customers, maxDeliveryTime, setSelectedTable } = props;
+    const { table, maxDeliveryTime, setSelectedTable } = props;
+
+    const {
+        orders,
+        customers,
+    } = useContext(DynamicDataContext);
+
     const { getFirstName, getLastNames, getTimeSinceOldestOrder, getOldestOrder, formatTime } = tools;
 
     const TableRef = useRef();

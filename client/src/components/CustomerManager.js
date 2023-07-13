@@ -6,17 +6,22 @@ import ConfirmBox from './ConfirmBox';
 import TabManager from './TabManager';
 import basketIcon from './../assets/icons/shopping-cart.png';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
+
 
 export default function CustomerManager(props) {
 
     const {
-        orders,
         customer,
-        customers,
         setSelectedCustomerManager,
         setSelectedCustomer
     } = props;
+
+    const {
+        orders,
+        customers
+    } = useContext(DynamicDataContext)
 
     const [ viewTab, setViewTab ] = useState(false);
     const [confirmBox, setConfirmBox] = useState(null);
@@ -83,8 +88,6 @@ export default function CustomerManager(props) {
             <TabManager 
                 deliveredOrdersInTable={deliveredOrders}
                 customersInTable={[customer]}
-                customers={customers}
-                orders={orders}
                 overriddenSession={overriddenSession}
                 handleViewTab={handleViewTab}
                 setConfirmBox={setConfirmBox}
@@ -94,8 +97,6 @@ export default function CustomerManager(props) {
             <section className="OrderManager">
                 <div className="customerContainer">
                     <Customer
-                        orders={orders}
-                        customers={customers}
                         customer={customer}
                         setSelectedCustomer={setSelectedCustomer}
                     />

@@ -1,4 +1,5 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
 import tools from '../tools';
 import SplitTab from './SplitTab';
 import CombinedTab from './CombinedTab';
@@ -13,12 +14,15 @@ export default function TabManager(props) {
         setConfirmBox,
         deliveredOrdersInTable,
         customersInTable,
-        customers,
         table,
+        overriddenSession,
+    } = props;
+
+    const {
+        customers,
         tables,
         orders,
-        overriddenSession
-    } = props;
+    } = useContext(DynamicDataContext)
 
     const [ isBlurred, setIsBlurred ] = useState(false);
     const [ tabView, setTabView ] = useState('combined');

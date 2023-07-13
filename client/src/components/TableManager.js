@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useState, useRef }from 'react';
+import React, { useLayoutEffect, useState, useRef, useContext }from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
 import OrderManager from './OrderManager';
 import TabManager from './TabManager';
 import ConfirmBox from './ConfirmBox';
@@ -14,14 +15,16 @@ import resetIcon from './../assets/icons/reset-black.png';
 export default function TableManager(props) {
     const { 
         table, 
-        tables,
-        staff,
-        orders,
-        customers,
         setSelectedCustomer,
         setSelectedTable,
-        archivedOrders,
     } = props;
+
+    const {
+        tables,
+        orders,
+        staff,
+        customers,
+    } = useContext(DynamicDataContext);
 
     //Mount animations
     const ref = useRef();
@@ -242,12 +245,8 @@ export default function TableManager(props) {
 
             {viewTab && <TabManager 
                 deliveredOrdersInTable={deliveredOrdersInTable}
-                customers={customers}
                 customersInTable={customersInTable}
                 table={table} 
-                tables={tables}
-                orders={orders}
-                archivedOrders={archivedOrders}
                 handleViewTab={handleViewTab}
                 tabTotal={tabTotal}
                 setConfirmBox={setConfirmBox}
@@ -255,9 +254,6 @@ export default function TableManager(props) {
 
             <OrderManager 
                 table={table} 
-                tables={tables}
-                orders={orders}
-                customers={customers}
                 customersInTable={customersInTable}
                 unDeliveredOrdersInTable={unDeliveredOrdersInTable}
                 setSelectedCustomer={setSelectedCustomer}

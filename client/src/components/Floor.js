@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useContext } from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
 import Table from './Table';
 import BarManager from './BarManager';
 import gsap from 'gsap';
@@ -9,16 +10,18 @@ import overlay from './../assets/icons/dark-fabric.png';
 export default function Floor(props) {
     const {
         section,
-        tables,
         maxDeliveryTime,
         colorset,
         setSelectedTable,
         setSelectedCustomer,
         setSelectedCustomerManager,
-        customers,
-        orders
     } = props;
 
+    const {
+        customers,
+        orders,
+        tables,
+    } = useContext(DynamicDataContext);
 
     const FloorRef = useRef();
     /*
@@ -68,8 +71,6 @@ export default function Floor(props) {
                             colorset={colorset} 
                             setSelectedTable={setSelectedTable}
                             key={table.id}
-                            customers={customers}
-                            orders={orders}
                         />
                     )) 
                 }

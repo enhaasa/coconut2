@@ -2,16 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 
 //Hooks
-import useCustomers from './hooks/useCustomers';
-import useOrders from './hooks/useOrders';
-import useMenu from './hooks/useMenu';
-import useStaff from './hooks/useStaff';
-import useArchivedOrders from './hooks/useArchivedOrders';
-import useArchivedSessions from './hooks/useArchivedSessions';
-import useTables from './hooks/useTables';
-import useTips from './hooks/useTips';
-import useSections from './hooks/useSections';
-import useSessions from './hooks/useSessions';
+import useMenu from './api/hooks/useMenu';
+import useStaff from './api/hooks/useStaff';
 
 //Views
 import Payouts from './views/Payouts';
@@ -29,6 +21,7 @@ import ground from './assets/schematics/ground.webp';
 import basement from './assets/schematics/basement.webp';
 import bar from './assets/schematics/bar-1.webp';
 import logo from './assets/icons/logo.png';
+import { DynamicDataProvider } from './api/DynamicData';
 
 function App() {
 
@@ -43,8 +36,6 @@ function App() {
     });
 
   }, []);
-
-
 
   const loggedInAs = "Coco Shev'rin"; //BACKEND_PLACEHOLDER
   const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second
@@ -70,6 +61,7 @@ function App() {
     setSelectedCustomer(null);
   }, [selectedTable]);
 
+  /*
   const selectedCustomerManagerTracker = useRef(null);
   useEffect(() => {
     selectedCustomerManagerTracker.current = selectedCustomerManager;
@@ -78,95 +70,31 @@ function App() {
     setIsBlurred(false);
     setSelectedCustomer(null);
   }, [selectedCustomerManager]);
+  */
 
-
-
-
-  /**
-   * Custom Hooks
-   */
-
-    const [ archivedOrders ] = useArchivedOrders([]);
-    const [ archivedSessions ] = useArchivedSessions([]);
-
-    const [ sections ] = useSections([], {
-      socket: socket
-    })
-
-    const [ tables ] = useTables([], {
-      selectedTableTracker: selectedTableTracker, 
-      socket: socket
-    });
-
-    const [ orders ] = useOrders([], {
-      archivedOrders: archivedOrders,
-      archivedSessions: archivedSessions,
-      socket: socket
-    });
-
-    const [ customers ] = useCustomers([], {
-      setSelectedCustomer,
-      orders: orders,
-      socket: socket
-    });
-
-    const [ sessions ] = useSessions([], {
-      socket: socket
-    })
-
-    const [ tips ] = useTips([]);
-    const [ menu ] = useMenu([], {
-      selectedTable, 
-      socket: socket
-    });
-    const [ staff ] = useStaff([]);
-
-    console.log(customers.get)
-
-
-  /**
-   * Initiate and set short-polling interval
-   */
-  const pollingInterval = 2000; //Time in milliseconds
-  useEffect(() => {
-    //Initial updates when app is first loaded
-    if (socket) {
-      menu.refresh();
-      tables.refresh();
-      staff.refresh();
-      customers.refresh();
-      orders.refresh();
-      archivedSessions.refresh();
-      archivedOrders.refresh();
-      tips.refresh();
-      sections.refresh();
-      sessions.refresh();
-    }
-  }, [socket]);
 
   const views = [
     {
       title: "Floor Manager",
       content: 
-      <FloorManager 
-        staff={staff}
-        orders={orders}
-        tables={tables}
-        customers={customers}
-        setSelectedTable={setSelectedTable}
-        setSelectedCustomerManager={setSelectedCustomerManager}
-        selectedCustomerManager={selectedCustomerManager}
-        setSelectedCustomer={setSelectedCustomer}
-        setSelectedFloor={setSelectedFloor}
-        menu={menu}
-        selectedCustomer={selectedCustomer}
-        isBlurred={isBlurred}
-        loggedInAs={loggedInAs}
-        selectedTable={selectedTable}
-        selectedFloor={selectedFloor}
-        sections={sections.get}
-        maxDeliveryTime={maxDeliveryTime}
-      />
+      <DynamicDataProvider 
+        socket={socket} 
+        selectedTableTracker={selectedTableTracker} 
+        setSelectedCustomer={setSelectedCustomer}>
+        <FloorManager 
+          setSelectedTable={setSelectedTable}
+          setSelectedCustomerManager={setSelectedCustomerManager}
+          selectedCustomerManager={selectedCustomerManager}
+          setSelectedCustomer={setSelectedCustomer}
+          setSelectedFloor={setSelectedFloor}
+          selectedCustomer={selectedCustomer}
+          isBlurred={isBlurred}
+          loggedInAs={loggedInAs}
+          selectedTable={selectedTable}
+          selectedFloor={selectedFloor}
+          maxDeliveryTime={maxDeliveryTime}
+        />
+      </DynamicDataProvider>
     },
     /*
     {
@@ -184,6 +112,7 @@ function App() {
     */
   ]
 
+
   return (
     <>
       <div className="appInfo">
@@ -199,7 +128,7 @@ function App() {
 
       
       <main>
-        <button onClick={() => {console.log(tables.get)}}>Test Tables</button>
+
       {isBlurred === true &&
           <div className="blur" />
           }

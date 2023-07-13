@@ -6,8 +6,8 @@ import uuid = require('react-uuid');
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getOrders', () => Orders.get(socket));
-        socket.on('addOrder', (data) => Orders.add(io, data));
-        socket.on('removeOrder', (data) => Orders.remove(socket, data));
+        socket.on('addOrder', (order) => Orders.add(io, order));
+        socket.on('removeOrder', (uuid) => Orders.remove(socket, uuid));
         socket.on('removeAllOrdersByTableID', (data) => Orders.removeAllByTableID(socket, data));
     }));
 }
@@ -17,30 +17,31 @@ export class Orders {
 
     public static async get(socket: Socket) {
         const query = `SELECT * from ${this.table}`;
-        const result = await db.pool.query(query);
+        const result = await Database.pool.query(query);
 
         socket.emit('getOrders', result.rows)
     }
 
-    public static add(io: Server, data) {
-        //db.add(this.table, data.order);
+    public static add(io: Server, order) {
         
-        const order = {
-            ...data.order,
+        
+        
+        const parsed_order = {
+            ...order,
             realm_id: 1,
             time: Time.getCurrentTime(),
             date: Time.getCurrentDateTime(),
             uuid: uuid(),
         }
-
-        //io.emit('addOrder', data.order);
-        Database.add(this.table, order);
-        console.log(order)
+        
+        io.emit('addOrder', parsed_order);
+        Database.add(this.table, parsed_order);
+        
         
     }
 
     public static remove(socket: Socket, data) {
-        Database.remove(this.table, 'id', data.id);
+        Database.remove(this.table, 'uuid', data.id);
         socket.broadcast.emit('removeOrder', data.id);
     }
 

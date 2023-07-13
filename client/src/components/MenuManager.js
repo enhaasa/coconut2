@@ -1,4 +1,5 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
 import Infobox from './Infobox';
 import tools from '../tools';
 import uuid from 'react-uuid';
@@ -10,11 +11,14 @@ import infoIcon from './../assets/icons/info-small-black.png';
 
 export default function MenuManager(props) {
     const { 
-        menu,
-        orders,
         setSelectedCustomer,
         selectedCustomer,
     } = props;
+
+    const {
+        menu,
+        orders
+    } = useContext(DynamicDataContext);
 
     const MenuManagerRef = useRef();
     useLayoutEffect(() => {

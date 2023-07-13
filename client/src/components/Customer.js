@@ -1,29 +1,30 @@
-import React, { useRef, useEffect, useLayoutEffect} from 'react';
+import React, { useRef, useEffect, useLayoutEffect, useContext } from 'react';
 import uuid from 'react-uuid';
 import tools from '../tools';
-import db from '../dbTools_client';
 import removecustomerIcon from './../assets/icons/remove-user.png';
 import plusIcon from './../assets/icons/plus-black.png';
 import minusIcon from './../assets/icons/minus-black.png';
 import gsap from 'gsap';
 import animations from '../animations';
 import infoIcon from './../assets/icons/info.png';
-
-
+import { DynamicDataContext } from '../api/DynamicData';
 
 export default function Customer(props) {
     const {
         confirmDeleteCustomer,
         setSelectedCustomer,
         customer,
-        customers,
-        orders,
     } = props;
+
+    const {
+        customers,
+        orders
+    } = useContext(DynamicDataContext);
 
 
     const isInTable = customer.table !== null ? true : false;
-    const undeliveredOrders = orders.get.filter(order => !order.delivered && order.customer === customer.id);
-    
+    const undeliveredOrders = orders.get.filter(order => !order.is_delivered && order.customer_id === customer.id);
+
     let timer = useRef();
 
     const customerRef = useRef();
@@ -52,9 +53,7 @@ export default function Customer(props) {
             }
 
             timer.current = setTimeout(() => {
-            
-                //customers.editName(customer.id, customer.name, true);
-                //db.customers.put('name', customer.name, 'id', customer.id);
+
                 customers.editName(customer.uuid, customer.name);
             }, 500);
         }
@@ -78,7 +77,7 @@ export default function Customer(props) {
                 </input>
 
                 {isInTable &&
-                <button className="icon" onClick={() => {confirmDeleteCustomer(customer.uuid, customer.name)}}>
+                <button className="icon" onClick={() => {confirmDeleteCustomer(customer)}}>
                     <img src={removecustomerIcon} alt="" />
                 </button>
                 }
@@ -120,7 +119,7 @@ export default function Customer(props) {
                                     <button className="icon" onClick={() => {orders.remove(order.ids[order.ids.length -1])}}>
                                         <img src={minusIcon} alt="" />
                                     </button>
-                                    <button className="icon" onClick={() => {orders.add({...order, delivered: false})}}>
+                                    <button className="icon" onClick={() => {orders.add({...order, delivered: false, customer_id: customer.id})}}>
                                         <img src={plusIcon} alt="" />
                                     </button>
                                     <button className="text constructive" onClick={() => {orders.deliver(order.ids[0])}}>Deliver </button>

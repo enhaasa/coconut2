@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import useSocketListener from './useSocketListener';
-import db from '../dbTools_client';
+import useSocketListener from './../useSocketListener';
 
 function useCustomers(init, props) {
     const { 
@@ -23,10 +22,10 @@ function useCustomers(init, props) {
             setSelectedCustomer(null);
         },
     
-        removeCustomer: (uuid) => {
+        removeCustomer: (customerToRemove) => {
             setCustomers(prev => (
                 prev.filter(customer => (
-                    customer.uuid !== uuid
+                    customer.uuid !== customerToRemove.uuid
                 ))
             ));
 
@@ -54,16 +53,16 @@ function useCustomers(init, props) {
      * @param {object} table - A table object that the customer will be referenced to.
      */
     function add(customer) {
-        socket.emit("addCustomer", { customer: customer });
+        socket.emit("addCustomer", { ...customer });
     }
 
-    function remove(uuid){        
-        socket.emit("removeCustomer", { uuid: uuid });
+    function remove(customerToRemove){        
+        socket.emit("removeCustomer", { ...customerToRemove });
     }
 
     function editName(uuid, name, isDebounced = true) {
         if (isDebounced) {
-            socket.emit("editCustomerName", { uuid: uuid, name: name});
+            socket.emit("editCustomerName", { uuid: uuid, name: name });
         }
 
         const index = customers.findIndex(customer => customer.uuid === uuid);

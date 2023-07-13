@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useArchivedOrders from "../hooks/useArchivedOrders";
+import useArchivedOrders from "../api/hooks/useArchivedOrders";
 
 function AttendingStaff(props) {
     const { staff, handleModal, ordersTotal, tips, tipsTotal } = props;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import useSocketListener from './useSocketListener';
-import db from '../dbTools_client';
+import useSocketListener from './../useSocketListener';
+import db from '../../dbTools_client';
 
 function useMenu(init, props) {
     const {

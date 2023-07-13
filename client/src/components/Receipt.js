@@ -32,9 +32,9 @@ export default function Receipt(props) {
                     {
                         title: "Receipt Details", 
                         content: <ReceiptModal 
-                        session={session} 
-                        handleModal={handleModal}
-                        archivedSessions={archivedSessions}/>
+                            session={session} 
+                            handleModal={handleModal}
+                            archivedSessions={archivedSessions}/>
                     }
                 )}
         >

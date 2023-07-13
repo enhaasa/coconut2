@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import db from '../dbTools_client';
+import db from '../../dbTools_client';
 import uuid from 'react-uuid';
 
 function useTips(init, props) {

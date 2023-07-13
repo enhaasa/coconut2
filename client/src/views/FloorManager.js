@@ -5,25 +5,24 @@ import MenuManager from './../components/MenuManager';
 import ReceiptManager from './../components/ReceiptManager';
 import NotificationBar from './../components/NotificationBar';
 import uuid from 'react-uuid';
+import React, { useContext, useEffect } from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
 
 function FloorManager(props) {
     const {
-        staff,
-        orders,
-        tables,
-        customers,
         setSelectedTable,
         setSelectedCustomer,
         setSelectedCustomerManager,
         setSelectedFloor,
-        menu,
         selectedCustomer,
         selectedCustomerManager,
         selectedTable,
         selectedFloor,
-        sections,
         maxDeliveryTime
     } = props;
+
+    const { sections, tables, customers, orders, menu, staff } = useContext(DynamicDataContext);
+
 
     return(
         <div className="FloorManager">
@@ -57,9 +56,7 @@ function FloorManager(props) {
 
               {selectedCustomer !== null &&
                 <MenuManager 
-                  menu={menu}
                   selectedCustomer={selectedCustomer}
-                  orders={orders}
                   setSelectedCustomer={setSelectedCustomer}
                 />
             }
@@ -69,7 +66,7 @@ function FloorManager(props) {
         <section className="FloorContainer">
           <nav className="floorNav">
             <span className="floorColumn">
-              {sections.map((section, index) => {
+              {sections.get.map((section, index) => {
                   return (
                       <div className="floorSelector" key={uuid()}>
                         {
@@ -97,19 +94,14 @@ function FloorManager(props) {
                 })
               }
             </span>
-
-
           </nav>
           
-          {sections[selectedFloor] && <Floor 
-            section={sections[selectedFloor]} 
-            tables={tables} 
+          {sections.get[selectedFloor] && <Floor 
+            section={sections.get[selectedFloor]} 
             maxDeliveryTime={maxDeliveryTime}
             setSelectedTable={setSelectedTable}
             setSelectedCustomer={setSelectedCustomer}
             setSelectedCustomerManager={setSelectedCustomerManager}
-            orders={orders}
-            customers={customers}
           />}
           
         </section>

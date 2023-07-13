@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext} from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
 import Customer from './Customer';
 import uuid from 'react-uuid';
 
@@ -13,19 +14,22 @@ export default function OrderManager(props) {
         setSelectedCustomer,
         customersInTable,
         unDeliveredOrdersInTable, 
-        updateUpdates,
-        customers, 
+        updateUpdates, 
         table, 
-        tables,
-        orders
     } = props;
 
-    function confirmDeleteCustomer(uuid, customerName) {
+    const { 
+        customers,
+        tables,
+        orders
+    } = useContext(DynamicDataContext)
 
-        const checkedCustomerName = customerName !== "" ? customerName : "the customer";
+    function confirmDeleteCustomer(customer) {
+
+        const checkedCustomerName = customer.name !== "" ? customer.name : "the customer";
         openConfirmBox({
             callback: function(){
-                customers.remove(uuid, table);
+                customers.remove(customer);
 
                 if (customersInTable.length -1 === 0) {
                     tables.set(prev => {

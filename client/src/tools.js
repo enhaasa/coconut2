@@ -12,14 +12,14 @@ const sortArrayByCustomer = (array, sortDelivered) => {
 
     array.forEach((arrayItem, index) => {
 
-        if (arrayItem.delivered === sortDelivered) {
+        if (arrayItem.is_delivered === sortDelivered) {
             let duplicate = false;
             let duplicateIndex = 0;
 
             sortedArray.forEach((sortedItem, index) => {
                 if(sortedItem.name === arrayItem.name 
                     && sortedItem.price === arrayItem.price
-                        && sortedItem.customer === arrayItem.customer) {
+                        && sortedItem.customer_id === arrayItem.customer_id) {
                         duplicate = true;
                         duplicateIndex = index;
                     } 

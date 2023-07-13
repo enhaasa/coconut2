@@ -1,17 +1,19 @@
 import Database from './../database';
 import { Socket, Server } from 'socket.io';
 import { Time } from '../dbTools_server';
+import { Customer } from '../shared/types';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getCustomers', () => Customers.get(socket));
-        socket.on('addCustomer', (data) => Customers.add(io, data));
-        socket.on('removeCustomer', (data) => Customers.remove(io, data));
+        socket.on('addCustomer', (customer: Customer) => Customers.add(io, customer));
+        socket.on('removeCustomer', (customer: Customer) => Customers.remove(io, customer));
         socket.on('editCustomerName', (data) => Customers.editName(io, data));
         socket.on('setCustomerSession', (data) => Customers.setSession(socket, data));
         socket.on('removeAllCustomersFromTable', (data) => Customers.removeAllFromTable(socket, data));
     }));
 }
+
 
 export default class Customers {
     private static table = 'customers';
@@ -20,45 +22,53 @@ export default class Customers {
         socket.emit('getCustomers', await Database.get(this.table));
     }
 
-    public static async add(io: Server, data) {
-        
+    public static async add(io: Server, customer: Customer) {
+
         const is_first_query = `
             SELECT EXISTS (
                 SELECT 1
                 FROM sessions
-                WHERE realm_id = ${data.customer.realm_id} 
-                AND table_id = ${data.customer.table_id} AND is_paid = false
+                WHERE realm_id = ${customer.realm_id} 
+                AND table_id = ${customer.table_id}
             );
         `;
 
         const is_first_check = await Database.pool.query(is_first_query);
-        const is_first = !is_first_check.rows[0].exists
-            
+        const is_first = !is_first_check.rows[0].exists;
+
         if (is_first) {
             const new_session = {
                 price: null,
-                is_paid: false,
                 datetime: Time.getCurrentDateTime(),
-                table_id: data.customer.table_id,
-                realm_id: data.customer.realm_id,
-                section_id: data.customer.section_id
+                table_id: customer.table_id,
+                realm_id: customer.realm_id,
+                section_id: customer.section_id
             };
 
             const new_session_id = await Database.add('sessions', new_session, "id");
             io.emit('addSession', {...new_session, id: new_session_id});
-            io.emit('setTableSessionID', { id: data.customer.table_id, session_id: new_session_id });
-            Database.update('tables', 'session_id', new_session_id, 'id', data.customer.table_id);
+            io.emit('setTableSessionID', { id: customer.table_id, session_id: new_session_id });
+            Database.update('tables', 'session_id', new_session_id, 'id', customer.table_id);
 
-            data.customer.session_id = new_session_id;
+            customer.session_id = new_session_id;
         }
 
-        Database.add(this.table, data.customer);
-        io.emit('addCustomer', data.customer);
+        Database.add(this.table, customer);
+        io.emit('addCustomer', customer);
     }
 
-    public static remove(io: Server, data) {
-        Database.remove(this.table, 'uuid', data.uuid);7
-        io.emit('removeCustomer', data.uuid);
+    public static remove(io: Server, customer: Customer) {
+        const is_last_query = `
+            SELECT EXISTS (
+                SELECT 1 
+                FROM customers
+                WHERE realm_id = 1
+                AND table_id = ${customer.table_id}
+            );
+        `;
+
+        Database.remove(this.table, 'uuid', customer.uuid);
+        io.emit('removeCustomer', customer);
     }
 
     public static editName(io: Server, data) {

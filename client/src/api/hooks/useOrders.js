@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import db from '../dbTools_client';
-import tools from '../tools';
-import useSocketListener from './useSocketListener';
+import db from '../../dbTools_client';
+import tools from '../../tools';
+import useSocketListener from './../useSocketListener';
 
 function useOrders(init, props) {
     const {
@@ -33,7 +33,8 @@ function useOrders(init, props) {
      * @param {object} order - An order object to insert into the orders array.
      */
     function add(order) {
-        socket.emit("addOrder", { order: order });
+
+        socket.emit("addOrder", { ...order });
     }
     
 
@@ -44,6 +45,7 @@ function useOrders(init, props) {
      */
     function remove(id, updateDatabase = true) {
 
+        /*
         setOrders(prev => (
             prev.filter(order => (
                 order.id !== id
@@ -53,6 +55,7 @@ function useOrders(init, props) {
         if (updateDatabase) {
             socket.emit("removeOrder", { id: id });
         }
+        */
     }
 
     /**
