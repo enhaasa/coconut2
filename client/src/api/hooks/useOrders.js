@@ -25,7 +25,12 @@ function useOrders(init, props) {
                     order.uuid !== ordertoRemove.uuid
                 ))
             ));
+        },
 
+        removeAllOrdersFromTable: (table) => {
+            setOrders(prev => (
+                prev.filter(order => order.table_id !== table.id)
+            ));
         }
     }
 
@@ -92,10 +97,8 @@ function useOrders(init, props) {
             item: order.item
         }
         
-        //db.archivedOrders.post(filteredOrder);
         archivedOrders.add(filteredOrder);
         remove(order.id);
-        //updateUpdates("archived_orders");
     }
 
     function payAll(ordersToPay, table, session) {

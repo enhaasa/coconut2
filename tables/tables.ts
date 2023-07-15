@@ -6,6 +6,7 @@ module.exports = function registerHandlers(io) {
         socket.on('getTables', () => Tables.get(socket));
         socket.on('setTableSessionID', (data) => Tables.setSessionID(io, data));
         socket.on('setTableAttribute', (data) => Tables.setAttribute(io, data));
+        socket.on('resetTable', (table) => Tables.reset(io, table));
     }));
 }
 
@@ -37,4 +38,37 @@ export class Tables {
         io.emit('setTableAttribute', data);
     }
 
+    public static async reset(io: Server, table) {
+        
+        const deleteOrdersQuery = 'DELETE FROM "orders" WHERE "table_id" = $1';
+        const deleteCustomerQuery = 'DELETE FROM "customers" WHERE "table_id" = $1';
+        
+        const resetTableQuery = `
+            UPDATE ${this.table}
+            SET "is_available" = true, "is_reserved" = false, "is_photography" = false
+            WHERE "id" = $1;
+        `;
+        
+        Database.pool.query(deleteOrdersQuery, [table.id], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                Database.pool.query(deleteCustomerQuery, [table.id], (err, result) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        Database.pool.query(resetTableQuery, [table.id], (err, result) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        })
+                    }
+                });
+            }
+        });
+
+        io.emit('removeAllOrdersFromTable', table);
+        io.emit('removeAllCustomersFromTable', table);
+        io.emit('resetTable', table);
+    }
 }

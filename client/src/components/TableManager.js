@@ -106,15 +106,7 @@ export default function TableManager(props) {
     function resetTable() {
         openConfirmBox({
             callback: function(){
-                tables.setIsAvailable(table, true);
-                tables.setIsReserved(table, false);
-                tables.setIsPhotography(table, false);
-                tables.set(prev => {
-                    prev[table.id].session = null;
-                    return [...prev];
-                });
-
-                customers.removeAllFromTable(table.id)
+                tables.reset(table);
                 closeConfirmBox();
             },
             closeConfirmBox: function(){closeConfirmBox()},

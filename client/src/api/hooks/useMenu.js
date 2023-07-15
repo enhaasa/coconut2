@@ -29,7 +29,6 @@ function useMenu(init, props) {
         );
     
         let specialItems = await Promise.all(promises);
-        console.log(specialItems)
     
         // Adjust prices
         const parsedMenu = menu_items.map(item => {

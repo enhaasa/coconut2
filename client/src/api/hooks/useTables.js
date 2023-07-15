@@ -23,11 +23,21 @@ function useTables(init, props) {
         },
         setTableAttribute: (data) => {
             const { table, attribute, value } = data;
+            const index = tables.findIndex(t => t.id === table.id);
 
             setTables(prev => {
-                const index = prev.findIndex(t => t.id === table.id);
-
                 prev[index][attribute] = value;
+                return [...prev];
+            });
+        },
+        resetTable: (tableToReset) => {
+            const index = tables.findIndex(table => table.id === tableToReset.id);
+
+            setTables(prev => {
+                prev[index].is_available = true;
+                prev[index].is_reserved = false;
+                prev[index].is_photography = false;
+
                 return [...prev];
             });
         }
@@ -41,12 +51,15 @@ function useTables(init, props) {
 
     function toggleAttribute(table, attribute) {
         const current = tables.find(t => t.id === table.id)[attribute];
-        console.log(attribute + " is " + current)
         setAttribute(table, attribute, !current);
     }
 
     function setAttribute(table, attribute, value) {
         socket.emit('setTableAttribute', { table, attribute, value })
+    }
+
+    function reset(table) {
+        socket.emit("resetTable", { ...table })
     }
 
     function refresh() {
@@ -57,6 +70,7 @@ function useTables(init, props) {
         {
             get: tables,
             set: setTables,
+            reset,
             toggleAttribute,
             setAttribute,
             setSessionID,

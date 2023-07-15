@@ -40,8 +40,10 @@ function useCustomers(init, props) {
             setSession(id, session, false);
         },
 
-        removeAllCustomersFromTable: () => {
-            removeAllFromTable();
+        removeAllCustomersFromTable: (table) => {
+            setCustomers(prev => (
+                prev.filter(customer => customer.table_id !== table.id)
+            ));
         }
     }
  
@@ -72,18 +74,8 @@ function useCustomers(init, props) {
         });
     }
 
-    function removeAllFromTable(tableID) {
-        const customersInTable = customers.filter(customer => (
-            customer.table === tableID
-        ));
-
-        customersInTable.forEach(customer => {
-            orders.removeAllUndelivered(customer.id);
-            orders.removeAllUnpaid(customer.id);
-            remove(customer.id, tableID);
-        });
-
-        socket.emit("removeAllCustomersFromTable", { id: tableID })
+    function removeAllFromTable(table) {
+        socket.emit("removeAllCustomersFromTable", { ...table });
     }
 
     function setSession(id, newSession, updateDatabase = true) {

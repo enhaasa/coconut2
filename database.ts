@@ -106,7 +106,7 @@ export default class Database {
 
         const query = `DELETE FROM ${table} WHERE ${con_key}=$1`;
 
-        console.log(query)
+        console.log(query);
 
         this.pool.query(
             query, 

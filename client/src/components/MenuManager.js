@@ -20,8 +20,6 @@ export default function MenuManager(props) {
         orders
     } = useContext(DynamicDataContext);
 
-    console.log(menu.get)
-
     const MenuManagerRef = useRef();
     useLayoutEffect(() => {
         gsap.from(MenuManagerRef.current, animations.appearY);
