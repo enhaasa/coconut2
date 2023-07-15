@@ -51,48 +51,7 @@ function useTables(init, props) {
         socket.emit('setTableAttribute', { table, attribute, value })
     }
 
-    function toggleIsReserved(table) {
-        const current = tables[table.id].isReserved;
-        setIsReserved(table, !current)
-    }
-
-    function setIsReserved(table, option) {
-        setTables(prev => {
-            prev[table.id].isReserved = option;
-            return [...prev];
-        })
-        
-        db.tables.put('isReserved', option, 'id', table.id);
-    }
-
-    function toggleIsPhotography(table) {
-        const current = tables[table.id].isPhotography;
-        setIsPhotography(table, !current);
-    }
-
-    function setIsPhotography(table, option) {
-        setTables(prev => {
-            prev[table.id].isPhotography = option;
-            return [...prev];
-        })
-        
-        db.tables.put('isPhotography', option, 'id', table.id);
-    }
-
-    function setWaiter(table, name) {
-        setTables(prev => {
-            prev[table.id].waiter = name;
-            return [...prev];
-        })
-
-        db.tables.put('waiter', name, 'id', table.id);
-    }
-
     function refresh() {
-        /*
-        selectedTableTracker.current === null &&
-            db.tables.get().then(res => {setTables(res)});
-            */
         socket.emit("getTables");
     }
 
@@ -103,11 +62,6 @@ function useTables(init, props) {
             toggleAttribute,
             setAttribute,
             setSessionID,
-            toggleIsPhotography,
-            setIsPhotography,
-            toggleIsReserved,
-            setIsReserved,
-            setWaiter,
             refresh: refresh
         }
     ]
