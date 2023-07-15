@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import useSocketListener from './../useSocketListener';
-import db from '../../dbTools_client';
 
 function useTables(init, props) {
     const { 
