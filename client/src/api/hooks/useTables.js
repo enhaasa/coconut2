@@ -22,8 +22,7 @@ function useTables(init, props) {
             });
         },
         setTableAttribute: (data) => {
-            const {table, attribute, value} = data;
-            console.log("received")
+            const { table, attribute, value } = data;
 
             setTables(prev => {
                 const index = prev.findIndex(t => t.id === table.id);

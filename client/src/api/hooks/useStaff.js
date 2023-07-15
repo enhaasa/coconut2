@@ -1,30 +1,41 @@
 import { useState } from 'react';
-import db from '../../dbTools_client';
+import useSocketListener from '../useSocketListener';
 
 function useStaff(init, props) {
     const [staff, setStaff] = useState(init);
+    const { socket } = props;
 
-    function refresh() {
-      db.staff.get().then(res => {setStaff(
-        res.filter(s => s.isActive)
-      )});
+    const eventHandlers = {
+      getStaff: (staff) => {
+          setStaff(staff);
+      },
+      setStaffAttribute: (data) => {
+        const { staff_member, attribute, value } = data;
+
+        setStaff(prev => {
+          const index = prev.findIndex(t => t.id === staff_member.id);
+
+          prev[index][attribute] = value;
+          return [...prev];
+        })
+      }
     }
 
-    function toggleIsAttending(id, isAttending) {
-      db.staff.put("isAttending", isAttending, "id", id);
+    useSocketListener(socket, eventHandlers);
 
-      const index = staff.map(s => s.id).indexOf(id);
-      setStaff(prev => {
-        prev[index].isAttending = isAttending;
-        return [...prev]; 
-      });
+    function refresh() {
+      socket.emit('getStaff');
+    }
+
+    function setAttribute(staff_member, attribute, value) {
+      socket.emit('setStaffAttribute', { staff_member, attribute, value })
     }
 
     return [
         {
             get: staff,
-            refresh: refresh,
-            toggleIsAttending: toggleIsAttending
+            refresh,
+            setAttribute,
         }
     ]
 }

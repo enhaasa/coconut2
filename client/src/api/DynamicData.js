@@ -16,7 +16,7 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
   const [ archivedOrders ] = useArchivedOrders([]);
   const [ archivedSessions ] = useArchivedSessions([]);
   const [ tips ] = useTips([]);
-  const [ staff ] = useStaff([]);
+  const [ staff ] = useStaff([], { socket: socket });
 
   const [ sections ] = useSections([], {
       socket: socket
@@ -49,7 +49,6 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
   });
 
   function getDataTree() {
-    console.log("Recalc")
     const dataTree = [];
     const sectionMap = new Map();
     const tableMap = new Map();

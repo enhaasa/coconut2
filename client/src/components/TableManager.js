@@ -35,6 +35,7 @@ export default function TableManager(props) {
         setTable(dataTree[sectionIndex].tables.find(section => section.id === selectedTable.id));
     }, [ dataTree ]);
 
+
     //Mount animations
     const ref = useRef();
 
