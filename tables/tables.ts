@@ -25,7 +25,7 @@ export class Tables {
     }
 
     public static async setSessionID(io: Server, data) {
-        console.log(data)
+        //console.log(data)
         io.emit('setTableSessionID', data);
     }
 

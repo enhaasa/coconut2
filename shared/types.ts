@@ -1,4 +1,5 @@
 export type Customer = {
+    id?: number;
     name: string;
     section_id: number;
     table_id: number;

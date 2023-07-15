@@ -5,38 +5,44 @@ import MenuManager from './../components/MenuManager';
 import ReceiptManager from './../components/ReceiptManager';
 import NotificationBar from './../components/NotificationBar';
 import uuid from 'react-uuid';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 
 function FloorManager(props) {
     const {
-        setSelectedTable,
-        setSelectedCustomer,
-        setSelectedCustomerManager,
-        setSelectedFloor,
-        selectedCustomer,
-        selectedCustomerManager,
-        selectedTable,
-        selectedFloor,
-        maxDeliveryTime
+      setSelectedTable,
+      setSelectedCustomer,
+      setSelectedCustomerManager,
+      setSelectedFloor,
+      selectedCustomer,
+      selectedCustomerManager,
+      selectedTable,
+      selectedFloor,
+      maxDeliveryTime,
     } = props;
 
-    const { sections, tables, customers, orders, menu, staff } = useContext(DynamicDataContext);
+    const { 
+      sections, 
+      tables, 
+      customers, 
+      orders, 
+      menu, 
+      staff,
+      dataTree
+    } = useContext(DynamicDataContext);
+
+    function getFloor() {
+      return dataTree[selectedFloor]
+    }
 
 
     return(
         <div className="FloorManager">
 
         <section className="TableManagerContainer">
-      
-          
               {selectedTable !== null &&
                 <TableManager 
-                  staff={staff}
-                  orders={orders}
-                  tables={tables}
-                  customers={customers}
-                  table={tables.get[selectedTable]} 
+                  selectedTable={selectedTable} 
                   setSelectedTable={setSelectedTable}
                   setSelectedCustomer={setSelectedCustomer}
                 />
@@ -96,8 +102,10 @@ function FloorManager(props) {
             </span>
           </nav>
           
-          {sections.get[selectedFloor] && <Floor 
+          {sections.get[selectedFloor] && 
+          <Floor 
             section={sections.get[selectedFloor]} 
+            floor={getFloor()}
             maxDeliveryTime={maxDeliveryTime}
             setSelectedTable={setSelectedTable}
             setSelectedCustomer={setSelectedCustomer}

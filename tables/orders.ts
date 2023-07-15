@@ -7,7 +7,7 @@ module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getOrders', () => Orders.get(socket));
         socket.on('addOrder', (order) => Orders.add(io, order));
-        socket.on('removeOrder', (uuid) => Orders.remove(socket, uuid));
+        socket.on('removeOrder', (uuid) => Orders.remove(io, uuid));
         socket.on('removeAllOrdersByTableID', (data) => Orders.removeAllByTableID(socket, data));
     }));
 }
@@ -24,8 +24,6 @@ export class Orders {
 
     public static add(io: Server, order) {
         
-        
-        
         const parsed_order = {
             ...order,
             realm_id: 1,
@@ -37,12 +35,12 @@ export class Orders {
         io.emit('addOrder', parsed_order);
         Database.add(this.table, parsed_order);
         
-        
     }
 
-    public static remove(socket: Socket, data) {
-        Database.remove(this.table, 'uuid', data.id);
-        socket.broadcast.emit('removeOrder', data.id);
+    public static remove(io: Server, order) {
+        console.log("Removing " + order.uuid);
+        Database.remove(this.table, 'uuid', order.uuid);
+        io.emit('removeOrder', order);
     }
 
     public static removeAllByTableID(socket: Socket, data) {

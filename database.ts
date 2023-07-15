@@ -9,7 +9,7 @@ export default class Database {
 
     public static pool = new Pool({
         connectionString: process.env.DATABASE_URL,
-        max: 20,
+        max: 10,
         idleTimeoutMillis: 30000,
         connectionTimeoutMillis: 2000,
         ssl: {
@@ -33,8 +33,6 @@ export default class Database {
             query += ` RETURNING ${returnQuery}`;
           }
       
-          console.log(query);
-      
           this.pool.query(query, [...values], (err, result) => {
             if (err) {
               console.log(err);
@@ -48,7 +46,7 @@ export default class Database {
             }
           });
         });
-      }
+    }
       
 
     /**

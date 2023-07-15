@@ -1,6 +1,5 @@
-import React, { useRef, useEffect, useLayoutEffect, useContext } from 'react';
+import React, { useRef, useLayoutEffect, useContext } from 'react';
 import uuid from 'react-uuid';
-import tools from '../tools';
 import removecustomerIcon from './../assets/icons/remove-user.png';
 import plusIcon from './../assets/icons/plus-black.png';
 import minusIcon from './../assets/icons/minus-black.png';
@@ -8,6 +7,7 @@ import gsap from 'gsap';
 import animations from '../animations';
 import infoIcon from './../assets/icons/info.png';
 import { DynamicDataContext } from '../api/DynamicData';
+import { useState } from 'react';
 
 export default function Customer(props) {
     const {
@@ -18,13 +18,13 @@ export default function Customer(props) {
 
     const {
         customers,
-        orders
+        orders,
     } = useContext(DynamicDataContext);
 
+    const [ nameBuffer, setNameBuffer ] = useState(customer.name);
 
     const isInTable = customer.table !== null ? true : false;
-    const undeliveredOrders = orders.get.filter(order => !order.is_delivered && order.customer_id === customer.id);
-
+    const undeliveredOrders = customer.orders.filter(order => !order.is_delivered);
     let timer = useRef();
 
     const customerRef = useRef();
@@ -36,28 +36,45 @@ export default function Customer(props) {
         }
     }, []);
 
+
+    function handleAddOrder(order) {
+        const orderToDuplicate = order.units[0];
+        delete orderToDuplicate.id;
+
+        orders.add({...orderToDuplicate});
+    }
+
+    function handleRemoveOrder(order) {
+        orders.remove(order.units[order.units.length-1]);
+    }
+
     const handleNamePaste = (event) => {
+        
         const pastedValue = event.clipboardData.getData("text");
         if (pastedValue.length + customer.name.length > 50) {
+          setNameBuffer(pastedValue);
           event.preventDefault();
         }
+        
     };
 
     const handleNameChange = (event) => {
         const { value } = event.target;
         if (value.length <= 50) {
-            customers.editName(customer.uuid, event.target.value, false);
-        
-            if (timer.current) {
-                clearTimeout(timer.current);
-            }
-
-            timer.current = setTimeout(() => {
-
-                customers.editName(customer.uuid, customer.name);
-            }, 500);
+          setNameBuffer(value);
+      
+          if (timer.current) {
+            clearTimeout(timer.current);
+          }
+      
+          const currentNameBuffer = value; 
+      
+          timer.current = setTimeout(() => {
+            customers.editName(customer.uuid, currentNameBuffer); 
+          }, 500);
         }
     };
+      
 
     const openMenu = () => {
         setSelectedCustomer(customer);
@@ -69,7 +86,7 @@ export default function Customer(props) {
                 <input 
                     spellCheck={false}
                     type="text" 
-                    value={customer.name} 
+                    value={nameBuffer} 
                     placeholder="Enter name..." 
                     maxLength={50}
                     onPaste={handleNamePaste}
@@ -97,12 +114,11 @@ export default function Customer(props) {
                     </thead>}
 
                     <tbody>
-                    {tools.sortArrayByCustomer(orders.get, false).map(order => (  
-                        order.customer_id === customer.id && 
-                                
+                    {customer.orders.map(order => (  
+
                             <tr key={order.uuid}>
                                 <td>{order.name}</td>
-                                <td>{order.price.toLocaleString("en-US")} gil</td>
+                                <td>{order.total.toLocaleString("en-US")} gil</td>
                                 <td>{order.amount}</td>
                                 <td>{order.total.toLocaleString("en-US")} gil</td>
                                 <td className="tableNav">
@@ -116,10 +132,10 @@ export default function Customer(props) {
                                 </td>
 
                                 <td className="tableNav end">
-                                    <button className="icon" onClick={() => {orders.remove(order.ids[order.ids.length -1])}}>
+                                    <button className="icon" onClick={() => {handleRemoveOrder(order)}}>
                                         <img src={minusIcon} alt="" />
                                     </button>
-                                    <button className="icon" onClick={() => {orders.add({...order, delivered: false, customer_id: customer.id})}}>
+                                    <button className="icon" onClick={() => {handleAddOrder(order)}}>
                                         <img src={plusIcon} alt="" />
                                     </button>
                                     <button className="text constructive" onClick={() => {orders.deliver(order.ids[0])}}>Deliver </button>

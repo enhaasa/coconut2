@@ -7,6 +7,7 @@ function debounce(func, timeout = 300){
 }
 
 
+
 const sortArrayByCustomer = (array, sortDelivered) => {
     let sortedArray = [];
 
@@ -203,9 +204,16 @@ function compareDates(date1, date2) {
 
 const formatTime = (epoch) => {
     if (!epoch) return "0s";
-    if (epoch >= 60000) return Math.floor(epoch / 60000) + "m";
+    if (epoch >= 3600000) {
+      const hours = Math.floor(epoch / 3600000);
+      return hours + "h";
+    }
+    if (epoch >= 60000) {
+      const minutes = Math.floor(epoch / 60000);
+      return minutes + "m";
+    }
     return Math.floor(epoch / 1000) + "s";
-}
+  };
 
 const getOldestOrder = (orders) => (
     orders.reduce((oldest, current) => (

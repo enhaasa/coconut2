@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useLayoutEffect, useContext } from 'react';
+import React, { useRef, useEffect, useState, useLayoutEffect, useContext, useMemo } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 import tools from '../tools';
 import gsap from 'gsap';
@@ -11,13 +11,27 @@ import waiterIcon from './../assets/icons/waiter.png';
 
 export default function Table(props) {
     const { table, maxDeliveryTime, setSelectedTable } = props;
-
     const {
         orders,
         customers,
     } = useContext(DynamicDataContext);
 
     const { getFirstName, getLastNames, getTimeSinceOldestOrder, getOldestOrder, formatTime } = tools;
+
+    const NAME_PREVIEW__MAX_AMOUNT = 2;
+
+    const [deliveredOrders, undeliveredOrders] = useMemo(() => {
+        const delivered = [];
+        const undelivered = [];
+      
+        table.customers.forEach(customer => {
+            const { orders } = customer;
+            delivered.push(...orders.filter(order => order.is_delivered));
+            undelivered.push(...orders.filter(order => !order.is_delivered));
+        });
+      
+        return [delivered, undelivered];
+    }, [table.customers]);
 
     const TableRef = useRef();
     useLayoutEffect(() => {
@@ -40,57 +54,42 @@ export default function Table(props) {
         if (timeSinceLastOrder > maxDeliveryTime) return "destructive";
     }
 
-    let noBlankNames = [];
-    let blankNames = [];
+    const [noBlankNames, blankNames] = useMemo(() => {
+        const filteredCustomers = customers.get.filter(customer => customer.table_id === table.id);
+        const noBlank = filteredCustomers.filter(customer => customer.name.length !== 0);
+        const blank = filteredCustomers.filter(customer => customer.name.length === 0);
+        
+        return [noBlank, blank]; 
+      }, [customers.get, table.id]);
 
-    customers.get.forEach(customer => {
-        if (customer.table_id !== table.id) return;
-        if (customer.name.length === 0) {
-            blankNames.push(customer);
-        } else {
-            noBlankNames.push(customer);
-        }
-    });
 
-    const maxPreview = 2;
     let exceedingMaxPreview = noBlankNames.filter((customer, index) => (
-        index >= maxPreview
+        index >= NAME_PREVIEW__MAX_AMOUNT
     ))
 
     const totalAdditions = exceedingMaxPreview.length + blankNames.length;
 
-    const customersInTable = customers.get.filter(customer => (
-        customer.table === table.id
-    ))
-        
-    let deliveredOrdersInTable = [];
-    let undeliveredOrdersInTable = [];
-    const customerIds = customersInTable.map(c => c.id);
-    orders.get.forEach(order => {
-        if (customerIds.includes(order.customer)) {
-            if (order.delivered) {
-                deliveredOrdersInTable.push(order);
-            } else {
-                undeliveredOrdersInTable.push(order);
-            }
-        }
-    });
+    function handleSetSelectedTable(selectedTable) {
+        setSelectedTable(selectedTable);
+    }
     
-    const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrdersInTable)));
+    
+    const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrders)));
 
     useEffect(() => {
         //Not the most elegant solution but will make sure timers start at 0 from first second
-        setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrdersInTable))); 
+        setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrders))); 
 
         const timer = setInterval(() => {
-            undeliveredOrdersInTable.length > 0 &&
-                setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrdersInTable)));
+            undeliveredOrders.length > 0 &&
+                setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrders)));
         }, 1000);
 
         return () => {
             clearInterval(timer);
         }
-    }, [undeliveredOrdersInTable]);
+    }, [undeliveredOrders]);
+
 
     return (
         <div>          
@@ -119,7 +118,7 @@ export default function Table(props) {
 
                 <button 
                     className={`numberDisplay ${tablenumberColor()}`}
-                    onClick={() => {setSelectedTable(table.index)}}>
+                    onClick={() => {handleSetSelectedTable(table)}}>
 
                     {
                         <div className="isPhotographyContainer">
@@ -138,7 +137,7 @@ export default function Table(props) {
                     {
                         <div className="unPaidTabContainer">
                             <span className="unPaidTab">
-                                {deliveredOrdersInTable.length > 0 ? 
+                                {deliveredOrders.length > 0 ? 
                                 
                                     <div className="">
                                         <img src={unPaidTabIcon} /> 
@@ -149,10 +148,10 @@ export default function Table(props) {
                     }
 
 
-                    {undeliveredOrdersInTable.length > 0 && 
+                    {undeliveredOrders.length > 0 && 
                         <div className="notificationContainer">
                             <div className={`notification ${notificationColor()}`}>
-                                {undeliveredOrdersInTable.length}
+                                {undeliveredOrders.reduce((total, order) => total + order.amount, 0)}
                             </div>
 
                             <div className="addendum">
@@ -171,7 +170,7 @@ export default function Table(props) {
                 <div className="customers">
                     <ul>
                         {noBlankNames.map((customer, index) => ( 
-                            index < maxPreview &&
+                            index < NAME_PREVIEW__MAX_AMOUNT &&
                                 <li key={customer.id}>{`${getFirstName(customer.name)} ${getLastNames(customer.name).join("").charAt(0)}`}</li>
                         ))}
                         {totalAdditions > 0 && <li>+{totalAdditions}</li>}

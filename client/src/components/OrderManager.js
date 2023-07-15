@@ -71,9 +71,7 @@ export default function OrderManager(props) {
                 </div>
 
                 <div className="customerContainer">
-                    {customers.get.map(customer => (
-                    
-                        table.id === customer.table_id && 
+                    {table.customers.map(customer => (
                             <Customer 
                                 key={customer.id}
                                 customer={customer}

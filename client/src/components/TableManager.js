@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useRef, useContext }from 'react';
+import React, { useLayoutEffect, useState, useRef, useContext, useEffect }from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 import OrderManager from './OrderManager';
 import TabManager from './TabManager';
@@ -14,7 +14,7 @@ import resetIcon from './../assets/icons/reset-black.png';
 
 export default function TableManager(props) {
     const { 
-        table, 
+        selectedTable, 
         setSelectedCustomer,
         setSelectedTable,
     } = props;
@@ -24,7 +24,16 @@ export default function TableManager(props) {
         orders,
         staff,
         customers,
+        dataTree
     } = useContext(DynamicDataContext);
+
+    const [ table, setTable ] = useState(selectedTable);
+    
+    useEffect(() => {
+        const sectionIndex = dataTree.findIndex(section => section.id === selectedTable.section_id);
+        
+        setTable(dataTree[sectionIndex].tables.find(section => section.id === selectedTable.id));
+    }, [ dataTree ]);
 
     //Mount animations
     const ref = useRef();
@@ -76,13 +85,7 @@ export default function TableManager(props) {
         }, 200)
     }
 
-    const customersInTable = customers.get.filter(customer => (
-        customer.table_id === table.id
-    ))
-
-    
-
-
+    const customersInTable = table.customers;
 
     let deliveredOrdersInTable = [];
     let unDeliveredOrdersInTable = [];
@@ -98,33 +101,7 @@ export default function TableManager(props) {
             unDeliveredOrdersInTable.push(order);
         }
     }
-
-    function combineCustomersWithOrders(customers, orders) {
-        const customerMap = new Map();
-        
-        // Create a map of customers using their IDs as keys
-        for (const customer of customers.get) {
-          customerMap.set(customer.id, {
-            ...customer,
-            orders: [] // Initialize an empty orders array
-          });
-        }
       
-        // Add orders to the corresponding customers
-        for (const order of orders.get) {
-          const customerId = order.customer_id;
-          if (customerMap.has(customerId)) {
-            customerMap.get(customerId).orders.push(order);
-          }
-        }
-      
-        // Return the combined array of customers with orders
-        return Array.from(customerMap.values());
-    }
-      
-    const customerMap = combineCustomersWithOrders(customers, orders);
-
-
     function resetTable() {
         openConfirmBox({
             callback: function(){

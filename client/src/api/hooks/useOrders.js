@@ -5,7 +5,6 @@ import useSocketListener from './../useSocketListener';
 
 function useOrders(init, props) {
     const {
-        tables,
         archivedSessions, 
         archivedOrders,
         socket
@@ -20,8 +19,13 @@ function useOrders(init, props) {
             setOrders(prev => ([...prev, order]));
         },
         
-        removeOrder: (id) => {
-            remove(id, false);
+        removeOrder: (ordertoRemove) => {
+            setOrders(prev => (
+                prev.filter(order => (
+                    order.uuid !== ordertoRemove.uuid
+                ))
+            ));
+
         }
     }
 
@@ -43,19 +47,8 @@ function useOrders(init, props) {
      * 
      * @param {string} id - The id of the order to remove from the orders array.
      */
-    function remove(id, updateDatabase = true) {
-
-        /*
-        setOrders(prev => (
-            prev.filter(order => (
-                order.id !== id
-            ))
-        ));
-
-        if (updateDatabase) {
-            socket.emit("removeOrder", { id: id });
-        }
-        */
+    function remove(order) {
+        socket.emit("removeOrder", { ...order });
     }
 
     /**
@@ -111,7 +104,7 @@ function useOrders(init, props) {
         })
 
         const price = ordersToPay.reduce((total, current) => total + current.price, 0);
-        const { floor, date } = ordersToPay[0];
+        const { floor } = ordersToPay[0];
 
         const archivedSession = {
             id: session, 

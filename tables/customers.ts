@@ -19,7 +19,10 @@ export default class Customers {
     private static table = 'customers';
 
     public static async get(socket: Socket) {
-        socket.emit('getCustomers', await Database.get(this.table));
+        const customers = await Database.get(this.table);
+
+        socket.emit('getCustomers', customers);
+        //console.log(customers)
     }
 
     public static async add(io: Server, customer: Customer) {
@@ -45,7 +48,7 @@ export default class Customers {
                 section_id: customer.section_id
             };
 
-            const new_session_id = await Database.add('sessions', new_session, "id");
+            const new_session_id = await Database.add('sessions', new_session, 'id');
             io.emit('addSession', {...new_session, id: new_session_id});
             io.emit('setTableSessionID', { id: customer.table_id, session_id: new_session_id });
             Database.update('tables', 'session_id', new_session_id, 'id', customer.table_id);
@@ -53,8 +56,8 @@ export default class Customers {
             customer.session_id = new_session_id;
         }
 
-        Database.add(this.table, customer);
-        io.emit('addCustomer', customer);
+        const new_customer_id = await Database.add(this.table, customer, 'id');
+        io.emit('addCustomer', {...customer, id: new_customer_id});
     }
 
     public static remove(io: Server, customer: Customer) {
@@ -67,7 +70,19 @@ export default class Customers {
             );
         `;
 
-        Database.remove(this.table, 'uuid', customer.uuid);
+        const delete_customer_and_related_orders_query = 
+        `
+            DELETE FROM "orders" WHERE "customer_id" = $1;
+            DELETE FROM "customers" WHERE "id" = $1;
+        `;
+
+        Database.pool.query(delete_customer_and_related_orders_query,
+            [ customer.id ], (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+
         io.emit('removeCustomer', customer);
     }
 

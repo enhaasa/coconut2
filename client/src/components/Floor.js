@@ -10,11 +10,12 @@ import overlay from './../assets/icons/dark-fabric.png';
 export default function Floor(props) {
     const {
         section,
-        maxDeliveryTime,
+        maxDeliveryTime, 
         colorset,
         setSelectedTable,
         setSelectedCustomer,
         setSelectedCustomerManager,
+        floor
     } = props;
 
     const {
@@ -24,16 +25,6 @@ export default function Floor(props) {
     } = useContext(DynamicDataContext);
 
     const FloorRef = useRef();
-    /*
-    useLayoutEffect(() => {
-        gsap.from(FloorRef.current, animations.fadeSlow);
-
-        return () => {
-            gsap.to(FloorRef.current, animations.fadeSlow);
-        }
-    }, []);
-    */
-
 
     let tablesInSection = [];
 
@@ -43,7 +34,6 @@ export default function Floor(props) {
                 ...table, index: index
             })
     });
-
 
     /*  
         <BarManager 
@@ -64,7 +54,7 @@ export default function Floor(props) {
                 <img className="overlay" src={overlay} alt="" />
                 {/*section.schematics && <img className="floorImage" src={floor.schematics} alt="" />*/}
 
-                {tablesInSection.map((table) => (
+                {floor.tables.map((table) => (
                         <Table 
                             table={table}
                             maxDeliveryTime={maxDeliveryTime}
