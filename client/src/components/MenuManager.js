@@ -20,6 +20,8 @@ export default function MenuManager(props) {
         orders
     } = useContext(DynamicDataContext);
 
+    console.log(menu.get)
+
     const MenuManagerRef = useRef();
     useLayoutEffect(() => {
         gsap.from(MenuManagerRef.current, animations.appearY);
@@ -73,7 +75,7 @@ export default function MenuManager(props) {
                     
                     <div className="menuContainer">
 
-                        {menu.length === 0 ? "Loading..." :
+                        {menu.get.length === 0 ? "Loading..." :
                         menuTypes.map(menuType => (
                             <div className="type" key={uuid()}>
                                 <div className="typeTitle cursive">{tools.capitalizeFirstLetter(menuType) + "s"}</div>

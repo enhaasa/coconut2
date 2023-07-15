@@ -70,18 +70,21 @@ export default class Customers {
             );
         `;
 
-        const delete_customer_and_related_orders_query = 
-        `
-            DELETE FROM "orders" WHERE "customer_id" = $1;
-            DELETE FROM "customers" WHERE "id" = $1;
-        `;
-
-        Database.pool.query(delete_customer_and_related_orders_query,
-            [ customer.id ], (err, result) => {
-                if (err) {
-                    console.log(err);
-                }
-            });
+        
+        const deleteOrdersQuery = 'DELETE FROM "orders" WHERE "customer_id" = $1';
+        const deleteCustomerQuery = 'DELETE FROM "customers" WHERE "id" = $1';
+        
+        Database.pool.query(deleteOrdersQuery, [customer.id], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                Database.pool.query(deleteCustomerQuery, [customer.id], (err, result) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        });
 
         io.emit('removeCustomer', customer);
     }
