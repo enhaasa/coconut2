@@ -31,7 +31,7 @@ export default function TableManager(props) {
     
     useEffect(() => {
         const sectionIndex = dataTree.findIndex(section => section.id === selectedTable.section_id);
-        
+
         setTable(dataTree[sectionIndex].tables.find(section => section.id === selectedTable.id));
     }, [ dataTree ]);
 
@@ -71,9 +71,9 @@ export default function TableManager(props) {
     }
 
     function tablenumberColor() {
-        if (table.isAvailable && !table.isReserved) return "constructive"
-        if (!table.isAvailable) return "destructive";
-        if (table.isReserved) return "progressive";
+        if (table.is_available && !table.is_reserved) return "constructive"
+        if (!table.is_available) return "destructive";
+        if (table.is_reserved) return "progressive";
     }
 
     function handleClose(){
@@ -139,7 +139,7 @@ export default function TableManager(props) {
                             name="waiters" 
                             id="waiters" 
                             value={table.waiter} 
-                            onChange={(e) => {tables.setWaiter(table, e.target.value)}
+                            onChange={(e) => {tables.setAttribute(table, 'waiter', e.target.value)}
                         }>
                             <option key={uuid()}></option>
                             {staff.get.map(member => {
@@ -173,8 +173,8 @@ export default function TableManager(props) {
                             <input 
                                 type="checkbox" 
                                 readOnly 
-                                checked={table.isAvailable}
-                                onClick={() => tables.toggleIsAvailable(table)} />
+                                checked={table.is_available}
+                                onClick={() => tables.toggleAttribute(table, 'is_available')} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -185,8 +185,8 @@ export default function TableManager(props) {
                             <input 
                             type="checkbox" 
                             readOnly 
-                            checked={table.isReserved} 
-                            onClick={() => tables.toggleIsReserved(table)} />
+                            checked={table.is_reserved} 
+                            onClick={() => tables.toggleAttribute(table, 'is_reserved')} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -197,8 +197,8 @@ export default function TableManager(props) {
                             <input 
                                 type="checkbox" 
                                 readOnly 
-                                checked={table.isPhotography}
-                                onClick={() => tables.toggleIsPhotography(table)} />
+                                checked={table.is_photography}
+                                onClick={() => tables.toggleAttribute(table, 'is_photography')} />
                             <span className="slider" />
                         </label>
                     </span>

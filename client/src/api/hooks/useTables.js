@@ -21,6 +21,17 @@ function useTables(init, props) {
                 prev[index].session_id = session_id;
                 return [...prev];
             });
+        },
+        setTableAttribute: (data) => {
+            const {table, attribute, value} = data;
+            console.log("received")
+
+            setTables(prev => {
+                const index = prev.findIndex(t => t.id === table.id);
+
+                prev[index][attribute] = value;
+                return [...prev];
+            });
         }
     }
 
@@ -30,18 +41,14 @@ function useTables(init, props) {
         socket.emit("setTableSessionID", { id: id, session_id: session_id});
     }
 
-    function toggleIsAvailable(table) {
-        const current = tables[table.id].isAvailable;
-        setIsAvailable(table, !current);
+    function toggleAttribute(table, attribute) {
+        const current = tables.find(t => t.id === table.id)[attribute];
+        console.log(attribute + " is " + current)
+        setAttribute(table, attribute, !current);
     }
 
-    function setIsAvailable(table, option) {
-        setTables(prev => { 
-            prev[table.id].isAvailable = option;
-            return [...prev];
-        })
-
-        db.tables.put('isAvailable', option, 'id', table.id);
+    function setAttribute(table, attribute, value) {
+        socket.emit('setTableAttribute', { table, attribute, value })
     }
 
     function toggleIsReserved(table) {
@@ -93,8 +100,8 @@ function useTables(init, props) {
         {
             get: tables,
             set: setTables,
-            toggleIsAvailable,
-            setIsAvailable,
+            toggleAttribute,
+            setAttribute,
             setSessionID,
             toggleIsPhotography,
             setIsPhotography,

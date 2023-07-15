@@ -5,6 +5,7 @@ module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getTables', () => Tables.get(socket));
         socket.on('setTableSessionID', (data) => Tables.setSessionID(io, data));
+        socket.on('setTableAttribute', (data) => Tables.setTableAttribute(io, data));
     }));
 }
 
@@ -27,6 +28,13 @@ export class Tables {
     public static async setSessionID(io: Server, data) {
         //console.log(data)
         io.emit('setTableSessionID', data);
+    }
+
+    public static async setTableAttribute(io: Server, data) {
+        const {table, attribute, value} = data;
+
+        Database.update(this.table, attribute, value, 'id', table.id);
+        io.emit('setTableAttribute', data)
     }
 
 }

@@ -43,9 +43,9 @@ export default function Table(props) {
     }, []);
 
     const tablenumberColor = () => {
-        if (table.isAvailable && !table.isReserved) return "constructive";
-        if (!table.isAvailable) return "destructive";
-        if (table.isReserved) return "progressive";
+        if (table.is_available && !table.is_reserved) return "constructive";
+        if (!table.is_available) return "destructive";
+        if (table.is_reserved) return "progressive";
     }
 
     const notificationColor = () => {
@@ -105,8 +105,8 @@ export default function Table(props) {
                 {table.waiter !== "" &&
                     <div className={`waiter waiterContainer`}>
                     <img src={waiterIcon}/> 
-                    {/*getFirstName(table.waiter)*/}
-                    Test
+                    {getFirstName(table.waiter)}
+                    
                 </div>}
 
                 {false &&
@@ -123,7 +123,7 @@ export default function Table(props) {
                     {
                         <div className="isPhotographyContainer">
                         <span className="isPhotography">
-                            {table.isPhotography ? 
+                            {table.is_photography ? 
                             
                                 <div className="">
                                     <img src={cameraIcon} /> 
