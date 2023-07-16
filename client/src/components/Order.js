@@ -14,14 +14,7 @@ export default function Order(props) {
     } = useContext(DynamicDataContext);
 
     function handleAddOrder(order) {
-
         const orderToDuplicate = order.units[0];
-        delete orderToDuplicate.id;
-        delete orderToDuplicate.amount;
-        delete orderToDuplicate.uuid;
-
-        console.log(orderToDuplicate);
-
         orders.add(orderToDuplicate);
     }
 

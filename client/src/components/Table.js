@@ -118,7 +118,7 @@ export default function Table(props) {
 
                 {table.waiter !== "" &&
                     <div className={`waiter waiterContainer`}>
-                    <img src={waiterIcon}/> 
+                    <img src={waiterIcon} alt="Waiter Icon"/> 
                     {getFirstName(table.waiter)}
                     
                 </div>}
@@ -140,7 +140,7 @@ export default function Table(props) {
                             {table.is_photography ? 
                             
                                 <div className="">
-                                    <img src={cameraIcon} /> 
+                                    <img src={cameraIcon} alt="Camera Icon" /> 
                                 </div>
                                 : ""}
                         </span>
@@ -169,7 +169,7 @@ export default function Table(props) {
                             </div>
 
                             <div className="addendum">
-                                <img src={stopwatchIcon} />
+                                <img src={stopwatchIcon} alt="Stopwatch Icon"/>
                                 {formatTime(timeSinceLastOrder)}
                             </div>
                         </div>
