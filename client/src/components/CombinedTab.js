@@ -1,5 +1,4 @@
-
-import tools from '../tools';
+import React from "react";
 
 export default function CombinedTab(props) {
 

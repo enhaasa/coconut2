@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Order from './Order';
-import tools from '../tools';
-import plusIcon from './../assets/icons/plus-black.png';
-import minusIcon from './../assets/icons/minus-black.png';
 
 export default function SplitTab(props) {
     const { 
         customersInTable,
         deliveredOrdersInTable,
-        orders
     } = props;
 
     function parseOrderList(list) {
@@ -35,9 +31,6 @@ export default function SplitTab(props) {
 
         return parsedDeliveredOrders;
     }
-
-
-
 
     return( 
         customersInTable.map(customer => (
@@ -67,9 +60,7 @@ export default function SplitTab(props) {
                         <td></td>
                         <td></td>
                         <td>{
-                            deliveredOrdersInTable.map(order => (
-                                customer.id === order.customer && order.price
-                            )).reduce(((total, order) => total + order), 0).toLocaleString("en-US") + " gil"
+                            customer.deliveredOrders.reduce(((total, order) => total + order.price), 0).toLocaleString("en-US") + " gil"
                         }</td>
                     </tr>
                 </tfoot>

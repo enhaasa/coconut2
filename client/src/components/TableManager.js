@@ -6,7 +6,6 @@ import ConfirmBox from './ConfirmBox';
 import uuid from 'react-uuid';
 import { gsap } from 'gsap';
 import animations from '../animations.js'
-import db from '../dbTools_client';
 
 import closeIcon from './../assets/icons/close.png';
 import basketIcon from './../assets/icons/shopping-cart.png';
@@ -23,7 +22,6 @@ export default function TableManager(props) {
         tables,
         orders,
         staff,
-        customers,
         dataTree
     } = useContext(DynamicDataContext);
 
@@ -100,8 +98,7 @@ export default function TableManager(props) {
         }
     }
 
-    
-    
+
       
     function resetTable() {
         openConfirmBox({
