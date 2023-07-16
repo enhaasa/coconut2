@@ -4,14 +4,13 @@ import clockIcon from './../assets/icons/clock-black.png';
 import ReceiptModal from './ReceiptModal';
 
 export default function Receipt(props) {
-    const { orders, handleModal, session, archivedSessions } = props;
-    const { getFirstName, getLastNames } = tools;
+    const { handleModal, session, archivedSessions } = props;
 
     const { time, table } = session;
 
-    const total = session.orders.reduce((total, order) => (order.price + total), 0).toLocaleString("en-US");
+    //const total = session.orders.reduce((total, order) => (order.price + total), 0).toLocaleString("en-US");
 
-    const formattedTime = tools.epochToTime(parseInt(time)).slice(0, -3);
+    //const formattedTime = tools.epochToTime(parseInt(time)).slice(0, -3);
 
     const link =      
             <div className="link">
@@ -19,18 +18,14 @@ export default function Receipt(props) {
                 target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a>
             </div>;
 
-    let names = session.orders.map(customer => `${getFirstName(customer.customerName)} ${getLastNames(customer.customerName).join("").charAt(0)}`);
-    names = [...new Set(names)];
-
-    const parsedTable = table ? `Table ${table +1}` : "Bar";
-
+    const displayName = session.customers.length > 1 ? `${session.customers[0]} & more` : session.customers[0];
  
     return (
         <button 
             className="Receipt progressive" 
             onClick={() => handleModal(
                     {
-                        title: "Receipt Details", 
+                        title: displayName, 
                         content: <ReceiptModal 
                             session={session} 
                             handleModal={handleModal}
@@ -39,23 +34,21 @@ export default function Receipt(props) {
                 )}
         >
             <div className="name">
-                {names.length > 1 ? names[0] + ` +${names.length-1}` : names[0]}
+                {displayName}
             </div>
 
             <div className="data">
 
                 <span className="table">
-                {parsedTable}
+                {session.channel.name}
                 </span>
 
-                <span className="amount">{`${session.paidAmount.toLocaleString("en-US")} gil`}</span>
+                <span className="amount">{session.price.toLocaleString('en-us') + " gil"}</span>
                 
             </div>
         </button>
     );
 }
-
-
 
 /*
 <span className="time">

@@ -2,7 +2,11 @@ import TipModal from "./TipModal";
 import tools from "../tools";
 
 function TipsManager(props) {
-    const { tips, tipsTotal, handleModal } = props;
+    const { tipsTotal, handleModal } = props;
+
+    const tips ={
+        get: []
+    }
 
     function handleEdit(tip) {
         handleModal({

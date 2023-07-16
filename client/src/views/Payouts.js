@@ -3,7 +3,8 @@ import AttendingStaff from '../components/AttendingStaff';
 import TipsManager from '../components/TipsManager';
 import Modal from '../components/Modal';
 import tools from '../tools';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
 
 function Payouts(props) {
     const { staff, archivedOrders, setIsBlurred, tips, archivedSessions, floors } = props;
@@ -18,11 +19,11 @@ function Payouts(props) {
     const startDateEpoch = getCurrentDate(date => date -1); //Set date filtering offset in days
 
 
-    const total = archivedSessions.get.reduce((t, c) => t + c.paidAmount, 0);
+    //const total = archivedSessions.get.reduce((t, c) => t + c.paidAmount, 0);
     //let archivedSessions = archivedOrdersFromStartDate.map(order => order.session);
     //archivedSessions = [...new Set(archivedSessions)];
 
-    const tipsTotal = tips.get.reduce((total, current) => total + parseInt(current.amount), 0);
+    //const tipsTotal = tips.get.reduce((total, current) => total + parseInt(current.amount), 0);
 
     return(
         <>
@@ -42,7 +43,7 @@ function Payouts(props) {
                             <TipsManager 
                                 handleModal={handleModal} 
                                 tips={tips}
-                                tipsTotal={tipsTotal}
+                                tipsTotal={0}
                             />
                         </div>
                     </section>
@@ -58,8 +59,8 @@ function Payouts(props) {
                                 handleModal={handleModal} 
                                 archivedOrders={archivedOrders}
                                 tips={tips}
-                                tipsTotal={tipsTotal}
-                                ordersTotal={total} 
+                                tipsTotal={0}
+                                ordersTotal={0} 
                             />
                         </div>
                     </section>
@@ -77,7 +78,7 @@ function Payouts(props) {
                                 handleModal={handleModal}
                                 archivedSessions={archivedSessions}
                                 floors={floors}
-                                total={total}
+                                total={0}
                             />
                         </div>
                     </section>

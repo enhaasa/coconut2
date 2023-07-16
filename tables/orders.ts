@@ -11,6 +11,7 @@ module.exports = function registerHandlers(io) {
         socket.on('deliverAllByCustomer', (customer => Orders.deliverAllByCustomer(io, customer)));
         socket.on('removeOrder', (uuid) => Orders.remove(io, uuid));
         socket.on('removeAllOrdersByTableID', (data) => Orders.removeAllByTableID(socket, data));
+        socket.on('payOrdersInTable', (data) => Orders.payOrdersInTable(io, data))
     }));
 }
 
@@ -56,6 +57,32 @@ export class Orders {
         Database.update(this.table, 'is_delivered', true, 'customer_id', customer.id);
         
         io.emit('deliverAllByCustomer', customer);
+    }
+
+    public static async payOrdersInTable(io: Server, data) {
+        const { orders, table } = data;
+
+        const { waiter, customers, section_name, number } = table;
+        const price = orders.reduce((total: number, order) => (total + order.price), 0);
+
+        const channel = {
+            name: number,
+            section_name,
+        }
+
+        const archived_session = {
+            waiter,
+            channel: JSON.stringify(channel),
+            customers: JSON.stringify(customers.map(customer => customer.name)),
+            orders: JSON.stringify(orders),
+            price,
+            datetime: Time.getCurrentDateTime(),
+            amount_paid: price,
+            realm_id: 1,
+        }
+
+        const session_id = await Database.add('archived_sessions', archived_session, 'id');
+        io.emit('addArchivedSession', {...archived_session, id: session_id});
     }
 
     public static remove(io: Server, order) {

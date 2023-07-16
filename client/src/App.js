@@ -110,8 +110,8 @@ function App() {
         tips={tips}
       />
     }
-    */
-  ]
+    
+  */  ]
 
 
   return (
@@ -133,9 +133,33 @@ function App() {
       {isBlurred === true &&
           <div className="blur" />
           }
-      {socket ? views.map((v, i) => (
-          v.content
-        )) : "Loading"}
+      {socket && 
+              <DynamicDataProvider 
+              socket={socket} 
+              selectedTableTracker={selectedTableTracker} 
+              setSelectedCustomer={setSelectedCustomer}>
+              <FloorManager 
+                key={uuid()}
+                setSelectedTable={setSelectedTable}
+                setSelectedCustomerManager={setSelectedCustomerManager}
+                selectedCustomerManager={selectedCustomerManager}
+                setSelectedCustomer={setSelectedCustomer}
+                setSelectedFloor={setSelectedFloor}
+                selectedCustomer={selectedCustomer}
+                isBlurred={isBlurred}
+                loggedInAs={loggedInAs}
+                selectedTable={selectedTable}
+                selectedFloor={selectedFloor}
+                maxDeliveryTime={maxDeliveryTime}
+              />
+
+              <Payouts 
+                setIsBlurred={setIsBlurred}
+              />
+            </DynamicDataProvider>
+      
+      
+      }
       </main>
     </>
 

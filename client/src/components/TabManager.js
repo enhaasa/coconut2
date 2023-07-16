@@ -55,33 +55,8 @@ export default function TabManager(props) {
         setIsBlurred(true);
         openConfirmBox({
             callback: function(){ 
-
-                const newSession = nanoid(5);
-                const customerID = ordersToPay[0].customer;
-
-                customers.setSession(customerID, newSession);
-                closeConfirmBox();
-                
-                /*
-
-                const newSession = nanoid(5);
-                setSession(newSession);
-                const tableNumber = ordersToPay[0].table;
-                const customerID = ordersToPay[0].customer;
-
-                orders.payAll(ordersToPay, tableNumber, newSession);
-
-                if (tableNumber) {
-                    tables.set(prev => {
-                        prev[tableNumber].session = newSession;
-                        return [...prev];
-                    });
-                } else {
-                    customers.setSession(customerID, newSession);
-                }
-                
-                closeConfirmBox();
-                */
+                orders.pay(ordersToPay, table);
+                closeConfirmBox();     
             },
             closeConfirmBox: function(){
                 closeConfirmBox();
@@ -151,7 +126,7 @@ export default function TabManager(props) {
                     <button 
                     className={`payButton ${deliveredOrdersInTable.map(order => order).length === 0 ? "inactive" : "constructive"}`}
                     disabled={deliveredOrdersInTable.map(order => order).length === 0}
-                    onClick={() => {confirmPayOrders(deliveredOrdersInTable.map(order => order))}}>Pay & Archive</button>
+                    onClick={() => {confirmPayOrders(deliveredOrdersInTable)}}>Pay & Archive</button>
                 </nav>
 
                 {session !== null &&

@@ -6,7 +6,6 @@ import useSocketListener from './../useSocketListener';
 function useOrders(init, props) {
     const {
         archivedSessions, 
-        archivedOrders,
         socket
     } = props;
 
@@ -71,74 +70,20 @@ function useOrders(init, props) {
     }
     
 
-    /**
-     * Remove a new order to the orders array.
-     * 
-     * @param {string} id - The id of the order to remove from the orders array.
-     */
     function remove(order) {
         socket.emit("removeOrder", { ...order });
     }
 
-
-
-    function pay(order, session) {
-        const filteredOrder = {
-            id: order.id,
-            customerName: order.customerName,
-            floor: order.floor,
-            name: order.name,
-            table: order.table,
-            price: order.price,
-            type: order.type,
-            session: session,
-            time: order.time,
-            date: tools.convertDatetimeFormat(order.date),
-            item: order.item
-        }
-        
-        archivedOrders.add(filteredOrder);
-        remove(order.id);
+    function pay(orders, table) {
+        socket.emit('payOrdersInTable', {orders, table});
     }
 
-    function payAll(ordersToPay, table, session) {
-        ordersToPay.forEach(order => {
-            pay(order, session);
-        })
 
-        const price = ordersToPay.reduce((total, current) => total + current.price, 0);
-        const { floor } = ordersToPay[0];
-
-        const archivedSession = {
-            id: session, 
-            price: price,
-            paidAmount: price,
-            floor: floor,
-            date: tools.epochToSqlDateTime(tools.getCurrentTime()),
-            table: table,
-        };
-
-        //db.archivedSessions.post(archivedSession);
-        archivedSessions.add(archivedSession)
-
-        db.tables.put('session', session, 'id', table);
-        //updateUpdates("archived_sessions");
-    }
-
-    /**
-     * Set the "delivered" property of an order to true.
-     * 
-     * @param {string} id - The order id of which the delivered property should be set to true.
-     */
     function deliver(order) {
         socket.emit('deliverOrder', { ...order});
     }
 
-    /**
-     * Set the "delivered" property to true for all orders related to a customer.
-     * 
-     * @param {string} customer - The customer id of which all related orders should be set to true.
-     */
+
     function deliverAllByCustomer(customer) {
         socket.emit('deliverAllByCustomer', customer);
     }
@@ -156,7 +101,6 @@ function useOrders(init, props) {
             deliverAllByCustomer: deliverAllByCustomer,
             refresh,
             pay,
-            payAll
         }
     ];
 }

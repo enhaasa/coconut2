@@ -4,8 +4,8 @@ import { useState } from 'react';
 function ReceiptModal(props) {
     const { session, archivedSessions, handleModal } = props;
 
-    const total = session.orders.reduce((total, order) => (total + order.price), 0);
-    const [ amountPaid, setAmountPaid ] = useState(session.paidAmount);
+    const total = session.price;
+    const [ amountPaid, setAmountPaid ] = useState(session.amount_paid);
     const tips = amountPaid - total < 0 ? 0 : amountPaid - total;
 
     function handleAmountPaid(amount) {
@@ -55,7 +55,7 @@ function ReceiptModal(props) {
                         <td>Total:</td>
                         <td></td>
                         <td></td>
-                        <td>{tools.formatStringAsPrice(amountPaid.toString()) + " gil"}</td>
+                        <td>{session.amount_paid.toLocaleString("en-us") + " gil"}</td>
                     </tr>
                 </tfoot>
             </table>

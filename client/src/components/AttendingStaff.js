@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
-import useArchivedOrders from "../api/hooks/useArchivedOrders";
+import React, { useEffect, useState } from "react";
 
 function AttendingStaff(props) {
-    const { staff, handleModal, ordersTotal, tips, tipsTotal } = props;
-    const attendingStaff = staff.get.filter(s => s.isAttending);
-    const absentStaff = staff.get.filter(s => !s.isAttending);
+    const { staff, handleModal, ordersTotal, tipsTotal } = props;
+
+    
+    //const attendingStaff = staff.get.filter(s => s.isAttending);
+    const attendingStaff = [];
+    const absentStaff = [];
+    //const absentStaff = staff.get.filter(s => !s.isAttending);
     const tipsAndOrders = parseInt(ordersTotal) + parseInt(tipsTotal);
     const perPerson = tipsAndOrders / attendingStaff.length;
 
-    console.log()
+
 
 
     function handleAttendingModal(isVisible) {

@@ -1,7 +1,6 @@
 import React, { useMemo, createContext, useEffect } from 'react';
 import useSections from './hooks/useSections';
 import useTables from './hooks/useTables';
-import useArchivedOrders from './hooks/useArchivedOrders';
 import useArchivedSessions from './hooks/useArchivedSessions';
 import useOrders from './hooks/useOrders';
 import useCustomers from './hooks/useCustomers';
@@ -13,8 +12,9 @@ import useStaff from './hooks/useStaff';
 const DynamicDataContext = createContext();
 
 function DynamicDataProvider({ children, socket, selectedTableTracker, setSelectedCustomer }) {
-  const [ archivedOrders ] = useArchivedOrders([]);
-  const [ archivedSessions ] = useArchivedSessions([]);
+  const [ archivedSessions ] = useArchivedSessions([], {
+    socket: socket
+  });
   const [ tips ] = useTips([]);
   const [ staff ] = useStaff([], { socket: socket });
 
@@ -28,7 +28,6 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
   });
 
   const [ orders ] = useOrders([], {
-      archivedOrders: archivedOrders,
       archivedSessions: archivedSessions,
       socket: socket
   });
@@ -124,7 +123,6 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
           orders.refresh();
           customers.refresh();
           archivedSessions.refresh();
-          archivedOrders.refresh();
           sessions.refresh();
           tips.refresh();
           menu.refresh();
@@ -143,7 +141,6 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
               tables,
               menu,
               staff,
-              archivedOrders, 
               archivedSessions,
               dataTree,
           }}>
