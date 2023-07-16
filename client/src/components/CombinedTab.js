@@ -1,10 +1,31 @@
-import React, { useEffect, useState } from 'react';
+
 import tools from '../tools';
 
 export default function CombinedTab(props) {
 
     const { deliveredOrdersInTable } = props;
     
+    let parsedDeliveredOrders = [];
+    deliveredOrdersInTable.forEach(order => {
+
+        const currentOrder = parsedDeliveredOrders.find(parsedOrder => parsedOrder.name === order.name && parsedOrder.price === order.price);
+
+        if (!currentOrder) {
+            parsedDeliveredOrders.push({
+                amount: 1,
+                name: order.name,
+                item: order.item,
+                price: order.price,
+                total: order.price,
+                units: [order]
+            })
+        } else {
+            currentOrder.amount += 1;
+            currentOrder.total += order.price;
+            currentOrder.units.push(order);
+        }
+    });
+
 
     return( 
         <>
@@ -19,7 +40,7 @@ export default function CombinedTab(props) {
                 </thead>
             
                 <tbody>
-                    {tools.sortArray(props.deliveredOrdersInTable, true).map(order => ( 
+                    {parsedDeliveredOrders.map(order => ( 
                                 
                         <tr key={order.id}>
                             <td>{order.name}</td>

@@ -26,7 +26,7 @@ export class Orders {
     public static async add(io: Server, order) {
         
         const parsed_order = {
-            is_delivered: false,
+            is_delivered: order.is_delivered,
             name: order.name,
             price: order.price,
             section_id: order.section_id,

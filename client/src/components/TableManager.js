@@ -89,19 +89,19 @@ export default function TableManager(props) {
     const customersInTable = table.customers;
 
     let deliveredOrdersInTable = [];
-    let unDeliveredOrdersInTable = [];
 
     const customerIds = new Set(customersInTable.map((customer) => customer.id));
 
     for (const order of orders.get) {
         if (order.is_delivered) {
-            if (!order.is_paid && customerIds.has(order.customer_id)) {
+            if (customerIds.has(order.customer_id)) {
             deliveredOrdersInTable.push(order);
             }
-        } else {
-            unDeliveredOrdersInTable.push(order);
         }
     }
+
+    
+    
       
     function resetTable() {
         openConfirmBox({
@@ -225,7 +225,6 @@ export default function TableManager(props) {
             <OrderManager 
                 table={table} 
                 customersInTable={customersInTable}
-                unDeliveredOrdersInTable={unDeliveredOrdersInTable}
                 setSelectedCustomer={setSelectedCustomer}
                 openConfirmBox={openConfirmBox}
                 closeConfirmBox={closeConfirmBox}

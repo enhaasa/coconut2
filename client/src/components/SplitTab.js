@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Order from './Order';
 import tools from '../tools';
 import plusIcon from './../assets/icons/plus-black.png';
 import minusIcon from './../assets/icons/minus-black.png';
@@ -9,6 +10,34 @@ export default function SplitTab(props) {
         deliveredOrdersInTable,
         orders
     } = props;
+
+    function parseOrderList(list) {
+        let parsedDeliveredOrders = [];
+        list.forEach(order => {
+    
+            const currentOrder = parsedDeliveredOrders.find(parsedOrder => parsedOrder.name === order.name && parsedOrder.price === order.price);
+    
+            if (!currentOrder) {
+                parsedDeliveredOrders.push({
+                    amount: 1,
+                    name: order.name,
+                    item: order.item,
+                    price: order.price,
+                    total: order.price,
+                    units: [order]
+                })
+            } else {
+                currentOrder.amount += 1;
+                currentOrder.total += order.price;
+                currentOrder.units.push(order);
+            }
+        });
+
+        return parsedDeliveredOrders;
+    }
+
+
+
 
     return( 
         customersInTable.map(customer => (
@@ -22,28 +51,12 @@ export default function SplitTab(props) {
                             <th>Amount</th>
                             <th>Total</th>
                             <th></th>
-                            
                         </tr>
                     </thead>
 
                     <tbody>
-                        {tools.sortArrayByCustomer(deliveredOrdersInTable, true).map(order => (  
-                            order.customer === customer.id &&   
-                                <tr key={order.id}>
-                                    <td>{order.name}</td>
-                                    <td>{order.price.toLocaleString("en-US")} gil</td>
-                                    <td>{order.amount}</td>
-                                    <td>{order.total.toLocaleString("en-US")} gil</td>
-        
-                                    <td className="tableNav">
-                                        <button className="icon" onClick={() => {orders.remove(order.ids[order.ids.length -1])}}>
-                                            <img src={minusIcon} alt="" />
-                                        </button>
-                                        <button className="icon" onClick={() => {orders.add({...order, delivered: true})}}>
-                                            <img src={plusIcon} alt="" />
-                                        </button>
-                                    </td>
-                                </tr>  
+                        {parseOrderList(customer.deliveredOrders).map(order => (   
+                                <Order order={order} /> 
                         ))}
                     </tbody>
 

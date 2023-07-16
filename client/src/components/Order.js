@@ -26,14 +26,15 @@ export default function Order(props) {
         orders.deliver(order.units[(order.units.length-1)]);
     }
 
-
     return (
         <tr>
             <td>{order.name}</td>
             <td>{order.price.toLocaleString("en-US")} gil</td>
             <td>{order.units.length}</td>
             <td>{order.total.toLocaleString("en-US")} gil</td>
-            <td className="tableNav">
+
+            {!order.units[0].is_delivered &&
+                <td className="tableNav">
                 <button className="icon tooltip">
                     <img src={infoIcon} alt="" className="tooltip" />
 
@@ -41,7 +42,7 @@ export default function Order(props) {
                         {order.item}
                     </span>
                 </button>
-            </td>
+            </td>}
 
             <td className="tableNav end">
                 <button className="icon" onClick={() => {handleRemoveOrder(order)}}>
@@ -50,7 +51,9 @@ export default function Order(props) {
                 <button className="icon" onClick={() => {handleAddOrder(order)}}>
                     <img src={plusIcon} alt="" />
                 </button>
-                <button className="text constructive" onClick={() => {handleDeliverOrder(order)}}>Deliver </button>
+
+                {!order.units[0].is_delivered &&
+                    <button className="text constructive" onClick={() => {handleDeliverOrder(order)}}>Deliver </button>}
             </td>
         </tr>
     )

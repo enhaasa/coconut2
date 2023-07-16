@@ -1,6 +1,5 @@
 import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
-import tools from '../tools';
 import SplitTab from './SplitTab';
 import CombinedTab from './CombinedTab';
 import closeIcon from './../assets/icons/close.png';
@@ -22,11 +21,12 @@ export default function TabManager(props) {
         customers,
         tables,
         orders,
-    } = useContext(DynamicDataContext)
+    } = useContext(DynamicDataContext);
 
     const [ isBlurred, setIsBlurred ] = useState(false);
     const [ tabView, setTabView ] = useState('combined');
     const [ session, setSession ] = useState(overriddenSession !== undefined ? overriddenSession : table.session);
+
 
     const TabManagerRef = useRef();
     useLayoutEffect(() => {
@@ -84,12 +84,14 @@ export default function TabManager(props) {
                 */
             },
             closeConfirmBox: function(){
-                closeConfirmBox()
+                closeConfirmBox();
             },
             title: "Are you sure?",
             message: `Paying the orders will also delete them from this list.`
-        })
+        });
     }
+
+
 
     return(
         <div className="TabManagerContainer" ref={TabManagerRef}>
@@ -134,7 +136,6 @@ export default function TabManager(props) {
                     {tabView === 'combined' &&
                         <CombinedTab
                             deliveredOrdersInTable={deliveredOrdersInTable}
-                            customersInTable={customersInTable}
                         />
                     }
                 </div>
