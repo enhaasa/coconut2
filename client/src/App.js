@@ -82,6 +82,7 @@ function App() {
         selectedTableTracker={selectedTableTracker} 
         setSelectedCustomer={setSelectedCustomer}>
         <FloorManager 
+          key={uuid()}
           setSelectedTable={setSelectedTable}
           setSelectedCustomerManager={setSelectedCustomerManager}
           selectedCustomerManager={selectedCustomerManager}

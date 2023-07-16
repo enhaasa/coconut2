@@ -20,6 +20,20 @@ export default function Table(props) {
 
     const NAME_PREVIEW__MAX_AMOUNT = 2;
 
+    let undeliveredOrders = [];
+    let deliveredOrders = [];
+
+    table.customers.forEach(customer => {
+        customer.undeliveredOrders.forEach(order => {
+            undeliveredOrders.push(order);
+        })
+        customer.deliveredOrders.forEach(order => {
+            deliveredOrders.push(order);
+        })
+    });
+
+
+    /*
     const [deliveredOrders, undeliveredOrders] = useMemo(() => {
         const delivered = [];
         const undelivered = [];
@@ -31,7 +45,7 @@ export default function Table(props) {
         });
       
         return [delivered, undelivered];
-    }, [table.customers]);
+    }, [table.customers]);*/
 
     const TableRef = useRef();
     useLayoutEffect(() => {
@@ -151,7 +165,7 @@ export default function Table(props) {
                     {undeliveredOrders.length > 0 && 
                         <div className="notificationContainer">
                             <div className={`notification ${notificationColor()}`}>
-                                {undeliveredOrders.reduce((total, order) => total + order.amount, 0)}
+                                {undeliveredOrders.length}
                             </div>
 
                             <div className="addendum">

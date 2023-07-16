@@ -16,6 +16,7 @@ function useOrders(init, props) {
             setOrders(menu_items);
         },
         addOrder: (order) => {
+
             setOrders(prev => ([...prev, order]));
         },
         
@@ -31,8 +32,18 @@ function useOrders(init, props) {
             setOrders(prev => (
                 prev.filter(order => order.table_id !== table.id)
             ));
+        },
+
+        deliverOrder: (orderToDeliver) => {
+            setOrders(prev => {
+                const index = orders.findIndex(order => order.uuid === orderToDeliver.uuid);
+
+                prev[index].is_delivered = true;
+                return [...prev];
+            })
         }
     }
+
 
     useSocketListener(socket, eventHandlers);
 
@@ -130,14 +141,8 @@ function useOrders(init, props) {
      * 
      * @param {string} id - The order id of which the delivered property should be set to true.
      */
-    function deliver(id) {
-        const index = orders.findIndex(order => order.id === id);
-
-        setOrders(prev => (
-            [...prev, prev[index].delivered = true]
-        ));
-
-        db.orders.put('delivered', true, 'id', id);
+    function deliver(order) {
+        socket.emit('deliverOrder', { ...order});
     }
 
     /**
@@ -152,17 +157,6 @@ function useOrders(init, props) {
     }
 
     function refresh() {
-        /*
-        db.orders.get().then(res => {
-            setOrders(res.map(item => (
-            {...item,
-                paid: item.paid === 1 ? true : false,
-                delivered: item.delivered === 1 ? true : false
-            }
-            )))
-        });
-        */
-
         socket.emit("getOrders");
     }
 

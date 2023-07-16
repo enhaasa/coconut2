@@ -1,13 +1,11 @@
 import React, { useRef, useLayoutEffect, useContext } from 'react';
 import uuid from 'react-uuid';
 import removecustomerIcon from './../assets/icons/remove-user.png';
-import plusIcon from './../assets/icons/plus-black.png';
-import minusIcon from './../assets/icons/minus-black.png';
 import gsap from 'gsap';
 import animations from '../animations';
-import infoIcon from './../assets/icons/info.png';
 import { DynamicDataContext } from '../api/DynamicData';
 import { useState } from 'react';
+import Order from './Order';
 
 export default function Customer(props) {
     const {
@@ -24,7 +22,28 @@ export default function Customer(props) {
     const [ nameBuffer, setNameBuffer ] = useState(customer.name);
 
     const isInTable = customer.table !== null ? true : false;
-    const undeliveredOrders = customer.orders.filter(order => !order.is_delivered);
+    
+    let undeliveredOrders = [];
+    customer.undeliveredOrders.forEach(order => {
+
+        const currentOrder = undeliveredOrders.find(parsedOrder => parsedOrder.name === order.name && parsedOrder.price === order.price);
+
+        if (!currentOrder) {
+            undeliveredOrders.push({
+                amount: 1,
+                name: order.name,
+                item: order.item,
+                price: order.price,
+                total: order.price,
+                units: [order]
+            })
+        } else {
+            currentOrder.amount += 1;
+            currentOrder.total += order.price;
+            currentOrder.units.push(order);
+        }
+    });
+
     let timer = useRef();
 
     const customerRef = useRef();
@@ -36,17 +55,6 @@ export default function Customer(props) {
         }
     }, []);
 
-
-    function handleAddOrder(order) {
-        const orderToDuplicate = order.units[0];
-        delete orderToDuplicate.id;
-
-        orders.add({...orderToDuplicate});
-    }
-
-    function handleRemoveOrder(order) {
-        orders.remove(order.units[order.units.length-1]);
-    }
 
     const handleNamePaste = (event) => {
         
@@ -75,7 +83,6 @@ export default function Customer(props) {
         }
     };
       
-
     const openMenu = () => {
         setSelectedCustomer(customer);
     }
@@ -101,7 +108,7 @@ export default function Customer(props) {
             </nav>
 
             <table key={uuid()} className="itemTable">
-                {undeliveredOrders.length > 0 &&
+                {customer.undeliveredOrders.length > 0 &&
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -114,41 +121,19 @@ export default function Customer(props) {
                     </thead>}
 
                     <tbody>
-                    {customer.orders.map(order => (  
-
-                            <tr key={order.uuid}>
-                                <td>{order.name}</td>
-                                <td>{order.total.toLocaleString("en-US")} gil</td>
-                                <td>{order.amount}</td>
-                                <td>{order.total.toLocaleString("en-US")} gil</td>
-                                <td className="tableNav">
-                                    <button className="icon tooltip">
-                                        <img src={infoIcon} alt="" className="tooltip" />
-
-                                        <span className="tooltiptext">
-                                            {order.item}
-                                        </span>
-                                    </button>
-                                </td>
-
-                                <td className="tableNav end">
-                                    <button className="icon" onClick={() => {handleRemoveOrder(order)}}>
-                                        <img src={minusIcon} alt="" />
-                                    </button>
-                                    <button className="icon" onClick={() => {handleAddOrder(order)}}>
-                                        <img src={plusIcon} alt="" />
-                                    </button>
-                                    <button className="text constructive" onClick={() => {orders.deliver(order.ids[0])}}>Deliver </button>
-                                </td>
-                            </tr>
-                                
+                    {customer.undeliveredOrders.length > 0 && 
+                        undeliveredOrders.map(order => (  
+                            <Order 
+                                key={uuid()}
+                                order={order} 
+                            />
                         ))}
                     </tbody>
             </table>
             <nav className="customerNav">
                 <button className="text progressive" onClick={() => {openMenu(customer)}}>Add Order</button>
 
-                {undeliveredOrders.length > 0 &&
+                {customer.undeliveredOrders.length > 0 &&
                     <button className="text constructive" onClick={() => {orders.deliverAll(customer.id)}}>Deliver All</button>}
             </nav>       
         </div>

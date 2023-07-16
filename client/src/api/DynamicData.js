@@ -59,7 +59,7 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
       sectionMap.set(section.id, sectionData);
     });
   
-    tables.get.forEach((table, index) => {
+    tables.get.forEach(table => {
       const sectionData = sectionMap.get(table.section_id);
   
       if (sectionData) {
@@ -73,42 +73,42 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
       const tableData = tableMap.get(customer.table_id);
   
       if (tableData) {
-        const customerData = { ...customer, orders: [] };
+        const customerData = { ...customer, undeliveredOrders: [], deliveredOrders: [] };
         tableData.customers.push(customerData);
       }
     });
-
+  
     orders.get.forEach(order => {
       const tableData = tableMap.get(order.table_id);
-  
+    
       if (tableData) {
         const customerData = tableData.customers.find(
           customer => customer.id === order.customer_id
         );
-  
+    
         if (customerData) {
-          const existingGroup = customerData.orders.find(group => group.name === order.name);
-
-          if (existingGroup) {
-            existingGroup.units.push(order);
-            existingGroup.amount += 1;
-            existingGroup.total += order.price;
+          const orderData = {
+            name: order.name,
+            amount: 1,
+            total: order.price,
+            ...order,
+          };
+    
+          if (order.is_delivered) {
+            customerData.deliveredOrders.push(orderData);
           } else {
-            customerData.orders.push({
-              name: order.name,
-              units: [order],
-              amount: 1,
-              total: order.price,
-              item: order.item,
-              time: order.time,
-            });
+            customerData.undeliveredOrders.push(orderData);
           }
         }
       }
     });
+    
+          
+    
   
     return dataTree;
   }
+  
   
     
   const dataTree = useMemo(() => {
@@ -130,6 +130,7 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
           menu.refresh();
           staff.refresh();
       }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
 
   return (

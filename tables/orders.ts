@@ -7,6 +7,7 @@ module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getOrders', () => Orders.get(socket));
         socket.on('addOrder', (order) => Orders.add(io, order));
+        socket.on('deliverOrder', (order => Orders.deliver(io, order)));
         socket.on('removeOrder', (uuid) => Orders.remove(io, uuid));
         socket.on('removeAllOrdersByTableID', (data) => Orders.removeAllByTableID(socket, data));
     }));
@@ -22,19 +23,34 @@ export class Orders {
         socket.emit('getOrders', result.rows)
     }
 
-    public static add(io: Server, order) {
+    public static async add(io: Server, order) {
         
         const parsed_order = {
-            ...order,
+            is_delivered: false,
+            name: order.name,
+            price: order.price,
+            section_id: order.section_id,
+            menu_id: order.menu_id,
+            customer_id: order.customer_id,
+            table_id: order.table_id,
+            item: order.item,
             realm_id: 1,
             time: Time.getCurrentTime(),
             date: Time.getCurrentDateTime(),
             uuid: uuid(),
         }
         
-        io.emit('addOrder', parsed_order);
-        Database.add(this.table, parsed_order);
         
+        const new_order_id = await Database.add(this.table, parsed_order, "id");
+
+        io.emit('addOrder', parsed_order);
+        
+    }
+
+    public static deliver(io: Server, order) {
+        Database.update(this.table, 'is_delivered', true, 'uuid', order.uuid);
+
+        io.emit('deliverOrder', order)
     }
 
     public static remove(io: Server, order) {
