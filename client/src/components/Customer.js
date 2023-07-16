@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useContext } from 'react';
+import React, { useRef, useLayoutEffect, useContext, useEffect } from 'react';
 import uuid from 'react-uuid';
 import removecustomerIcon from './../assets/icons/remove-user.png';
 import gsap from 'gsap';
@@ -55,6 +55,9 @@ export default function Customer(props) {
         }
     }, []);
 
+    function handleDeliverAllOrdersByCustomer(customer) {
+        orders.deliverAllByCustomer(customer);
+    }
 
     const handleNamePaste = (event) => {
         
@@ -134,7 +137,7 @@ export default function Customer(props) {
                 <button className="text progressive" onClick={() => {openMenu(customer)}}>Add Order</button>
 
                 {customer.undeliveredOrders.length > 0 &&
-                    <button className="text constructive" onClick={() => {orders.deliverAll(customer.id)}}>Deliver All</button>}
+                    <button className="text constructive" onClick={() => {handleDeliverAllOrdersByCustomer(customer)}}>Deliver All</button>}
             </nav>       
         </div>
     );

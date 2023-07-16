@@ -8,6 +8,7 @@ module.exports = function registerHandlers(io) {
         socket.on('getOrders', () => Orders.get(socket));
         socket.on('addOrder', (order) => Orders.add(io, order));
         socket.on('deliverOrder', (order => Orders.deliver(io, order)));
+        socket.on('deliverAllByCustomer', (customer => Orders.deliverAllByCustomer(io, customer)));
         socket.on('removeOrder', (uuid) => Orders.remove(io, uuid));
         socket.on('removeAllOrdersByTableID', (data) => Orders.removeAllByTableID(socket, data));
     }));
@@ -49,6 +50,12 @@ export class Orders {
         Database.update(this.table, 'is_delivered', true, 'uuid', order.uuid);
 
         io.emit('deliverOrder', order)
+    }
+
+    public static deliverAllByCustomer(io: Server, customer) {
+        Database.update(this.table, 'is_delivered', true, 'customer_id', customer.id);
+        
+        io.emit('deliverAllByCustomer', customer);
     }
 
     public static remove(io: Server, order) {

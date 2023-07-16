@@ -41,6 +41,19 @@ function useOrders(init, props) {
                 prev[index].is_delivered = true;
                 return [...prev];
             })
+        },
+
+        deliverAllByCustomer: (customer) => {
+            
+            setOrders(prev => {
+                prev.forEach((order, index) => {
+                    if(order.customer_id === customer.id) {
+                        prev[index].is_delivered = true;
+                    }
+                });
+
+                return [...prev];
+            });
         }
     }
 
@@ -67,31 +80,7 @@ function useOrders(init, props) {
         socket.emit("removeOrder", { ...order });
     }
 
-    /**
-     * Remove all undelivered orders related to a specific customer.
-     * 
-     * @param {string} customer - The customer id of which all undelivered orders should be removed.
-     */
-    function removeAllUndelivered(customer) {
-        orders.forEach(order => {
-            order.customer === customer && 
-                order.delivered === false && 
-                    remove(order.id)
-        })
-    }
 
-    /**
-     * Remove all unpaid orders related to a specific customer.
-     * 
-     * @param {string} customer - The customer id of which all unpaid orders should be removed.
-     */
-    function removeAllUnpaid(customer) {
-        orders.forEach(order => {
-            order.customer === customer && 
-            order.paid === false && 
-                remove(order.id)
-        })
-    }
 
     function pay(order, session) {
         const filteredOrder = {
@@ -150,10 +139,8 @@ function useOrders(init, props) {
      * 
      * @param {string} customer - The customer id of which all related orders should be set to true.
      */
-    function deliverAll(customer) {
-        orders.forEach(order => {
-            order.customer === customer && deliver(order.id)
-        });
+    function deliverAllByCustomer(customer) {
+        socket.emit('deliverAllByCustomer', customer);
     }
 
     function refresh() {
@@ -165,10 +152,8 @@ function useOrders(init, props) {
             get: orders,
             add: add,
             remove: remove,
-            removeAllUndelivered: removeAllUndelivered,
-            removeAllUnpaid: removeAllUnpaid,
             deliver: deliver,
-            deliverAll: deliverAll,
+            deliverAllByCustomer: deliverAllByCustomer,
             refresh,
             pay,
             payAll
