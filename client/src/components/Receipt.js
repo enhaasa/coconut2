@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import tools from '.././tools';
 import clockIcon from './../assets/icons/clock-black.png';
+import { DynamicDataContext } from '../api/DynamicData';
 import ReceiptModal from './ReceiptModal';
 
 export default function Receipt(props) {
-    const { handleModal, session, archivedSessions } = props;
+    const { handleModal, sessionID, session } = props;
 
-    const { time, table } = session;
+    const { archivedSessions } = useContext(DynamicDataContext);
+
+
+
 
     //const total = session.orders.reduce((total, order) => (order.price + total), 0).toLocaleString("en-US");
-
     //const formattedTime = tools.epochToTime(parseInt(time)).slice(0, -3);
 
     const link =      
@@ -18,7 +21,7 @@ export default function Receipt(props) {
                 target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a>
             </div>;
 
-    const displayName = session.customers.length > 1 ? `${session.customers[0]} & more` : session.customers[0];
+    const displayName = session.customers.length > 1 ? `${session.customers[0]} & others` : session.customers[0];
  
     return (
         <button 
@@ -43,7 +46,7 @@ export default function Receipt(props) {
                 {session.channel.name}
                 </span>
 
-                <span className="amount">{session.price.toLocaleString('en-us') + " gil"}</span>
+                <span className="amount">{session.amount_paid.toLocaleString('en-us') + " gil"}</span>
                 
             </div>
         </button>

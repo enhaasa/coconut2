@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useSocketListener from '../useSocketListener';
 
 function useArchivedSessions(init, props) {
@@ -19,6 +19,16 @@ function useArchivedSessions(init, props) {
             session.orders = JSON.parse(session.orders);
 
             setArchivedSessions(prev => [...prev, session]);
+        },
+        setArchivedSessionAmountPaid: (data) => {
+            const { session, amount, } = data;
+
+            setArchivedSessions(prev => {
+                const index = archivedSessions.findIndex(s => s.id === session.id);
+
+                prev[index].amount_paid = amount;
+                return [...prev];
+            })
         }
     }
 
@@ -26,6 +36,10 @@ function useArchivedSessions(init, props) {
 
     function add(session) {
         socket.emit('addArchivedSession', session);
+    }
+
+    function setAmountPaid(session, amount) {
+        socket.emit('setArchivedSessionAmountPaid', { session, amount});
     }
 
     function refresh() {
@@ -36,6 +50,7 @@ function useArchivedSessions(init, props) {
         {
             get: archivedSessions,
             add,
+            setAmountPaid,
             refresh
         }
     ]

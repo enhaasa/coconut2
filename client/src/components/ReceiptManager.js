@@ -84,7 +84,6 @@ export default function ReceiptManager(props) {
                             setIsBlurred={setIsBlurred}
                             handleModal={handleModal}
                             session={session}
-                            archivedSessions={archivedSessions}
                         />
                     ))}
                 </div>

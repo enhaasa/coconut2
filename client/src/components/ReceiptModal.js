@@ -14,10 +14,9 @@ function ReceiptModal(props) {
 
 
     function handleSave() {
-        archivedSessions.editAmountPaid(session.id, parseInt(amountPaid));
+        archivedSessions.setAmountPaid(session, parseInt(amountPaid));
         handleModal(null);
     }
-
 
     return(
         <div className="ReceiptModal">
