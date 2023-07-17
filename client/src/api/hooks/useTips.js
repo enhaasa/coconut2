@@ -15,7 +15,7 @@ function useTips(init, props) {
     useSocketListener(socket, eventHandlers);
 
     function refresh() {
-        //socket.emit('getTips');
+        socket.emit('getTips');
     }
 
     function add(tip) {

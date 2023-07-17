@@ -20,9 +20,7 @@ export default class Customers {
 
     public static async get(socket: Socket) {
         const customers = await Database.get(this.table);
-
         socket.emit('getCustomers', customers);
-        //console.log(customers)
     }
 
     public static async add(io: Server, customer: Customer) {
@@ -36,8 +34,8 @@ export default class Customers {
             );
         `;
 
-        const is_first_check = await Database.pool.query(is_first_query);
-        const is_first = !is_first_check.rows[0].exists;
+        const is_first_check = await Database.query(is_first_query);
+        const is_first = !is_first_check[0].exists;
 
         if (is_first) {
             const new_session = {
@@ -74,11 +72,11 @@ export default class Customers {
         const deleteOrdersQuery = 'DELETE FROM "orders" WHERE "customer_id" = $1';
         const deleteCustomerQuery = 'DELETE FROM "customers" WHERE "id" = $1';
         
-        Database.pool.query(deleteOrdersQuery, [customer.id], (err, result) => {
+        Database.query(deleteOrdersQuery, [customer.id], (err, result) => {
             if (err) {
                 console.log(err);
             } else {
-                Database.pool.query(deleteCustomerQuery, [customer.id], (err, result) => {
+                Database.query(deleteCustomerQuery, [customer.id], (err, result) => {
                     if (err) {
                         console.log(err);
                     }

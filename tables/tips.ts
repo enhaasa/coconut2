@@ -13,9 +13,9 @@ class Tips {
 
     public static async get(socket: Socket) {
         const query = `SELECT * from ${this.table}`;
-        const result = await Database.pool.query(query);
+        const result = await Database.query(query);
 
-        socket.emit('getTips', result.rows);
+        socket.emit('getTips', result);
     }
 
     public static async add(io: Server, session) {

@@ -11,7 +11,9 @@ class Sections {
     private static table = 'sections';
 
     public static async get(socket: Socket) {
-        socket.emit('getSections', await Database.get(this.table));
+        const result = await Database.get(this.table);
+
+        socket.emit('getSections', result);
     }
 
 }

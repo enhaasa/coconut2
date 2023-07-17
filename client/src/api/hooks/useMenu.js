@@ -3,7 +3,6 @@ import useSocketListener from './../useSocketListener';
 
 function useMenu(init, props) {
     const {
-        selectedTable,
         socket
     } = props;
 

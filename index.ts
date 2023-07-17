@@ -22,6 +22,11 @@ app.use(cors());
 app.use(express.json());
 httpServer.listen(PORT); 
 
+app.use((error, req, res, next) => {
+    console.error('An error occurred:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+});
+
 //Dynamically load and register handlers for each table
 (async () => {
     const tableFiles = fs.readdirSync("./tables");

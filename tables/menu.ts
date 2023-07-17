@@ -12,9 +12,9 @@ class Menu {
 
     public static async get(socket: Socket) {
         const query = `SELECT * from ${this.table}`;
-        const result = await Database.pool.query(query);
+        const result = await Database.query(query);
 
-        socket.emit('getMenu', result.rows)
+        socket.emit('getMenu', result)
     }
 
 }

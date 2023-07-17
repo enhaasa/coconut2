@@ -31,7 +31,6 @@ function useOrders(init, props) {
         },
 
         removeAllDeliveredOrdersFromTable: (table) => {
-            console.log("Removed delivered orders")
             setOrders(prev => {
                 const fileteredOrders = prev.filter(order => !order.is_delivered || order.table_id !== table.id);
                 return fileteredOrders;

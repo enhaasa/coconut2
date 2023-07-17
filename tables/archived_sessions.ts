@@ -13,9 +13,9 @@ class ArchivedSessions {
 
     public static async get(socket: Socket) {
         const query = `SELECT * from ${this.table}`;
-        const result = await Database.pool.query(query);
+        const result = await Database.query(query);
 
-        socket.emit('getArchivedSessions', result.rows);
+        socket.emit('getArchivedSessions', result);
     }
 
     public static async add(io: Server, session) {

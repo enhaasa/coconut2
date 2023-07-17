@@ -102,13 +102,11 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
       }
     });
     
-          
-    
-  
+
     return dataTree;
   }
   
-  
+
     
   const dataTree = useMemo(() => {
       return [...getDataTree()];

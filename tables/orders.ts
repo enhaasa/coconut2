@@ -20,9 +20,9 @@ export class Orders {
 
     public static async get(socket: Socket) {
         const query = `SELECT * from ${this.table}`;
-        const result = await Database.pool.query(query);
+        const result = await Database.query(query);
 
-        socket.emit('getOrders', result.rows)
+        socket.emit('getOrders', result)
     }
 
     public static async add(io: Server, order) {
@@ -89,7 +89,7 @@ export class Orders {
         `;
 
         if(session_id) {
-            Database.pool.query(delete_delivered_orders_query, (err, result) => {
+            Database.query(delete_delivered_orders_query, [], (err, result) => {
                 if (err) {
                     console.log(err);
                 } else {
@@ -101,7 +101,6 @@ export class Orders {
     }
 
     public static remove(io: Server, order) {
-        console.log("Removing " + order.uuid);
         Database.remove(this.table, 'uuid', order.uuid);
         io.emit('removeOrder', order);
     }

@@ -1,13 +1,11 @@
 import { SQL } from './dbTools_server';
-const mysql3 = require('mysql');
 import { Pool } from 'pg';
-import fs = require('fs');
 
 require('dotenv').config();
 
 export default class Database {
 
-    public static pool = new Pool({
+    private static pool = new Pool({
         connectionString: process.env.DATABASE_URL,
         max: 10,
         idleTimeoutMillis: 30000,
@@ -16,6 +14,18 @@ export default class Database {
           rejectUnauthorized: false
         }
     });
+
+    //Route queries through here to enforce error handling
+    public static async query(query: string, values?: any, callback?: Function): Promise<any> {
+      try {
+        const result = await this.pool.query(query, values);
+        if (callback) callback();
+        return result.rows;
+      } catch (error) {
+        console.error('An error occurred:', error);
+        return { error: 'An error occurred' };
+      }
+    }
 
     /**
      * 
@@ -84,7 +94,6 @@ export default class Database {
         SQL.convertSQLKeywords(Object.values([key, value, con_key]));
 
         const query = `UPDATE ${table} SET ${key}=$1 WHERE ${con_key}=$2`;
-        console.log(`UPDATE ${table} SET ${key}=${value} WHERE ${con_key}=${con_val}`)
 
         this.pool.query(
             query, [value, con_val], 
@@ -105,8 +114,6 @@ export default class Database {
     public static remove(table:string, con_key:string, con_val:number|string|boolean) {
 
         const query = `DELETE FROM ${table} WHERE ${con_key}=$1`;
-
-        console.log(query);
 
         this.pool.query(
             query, 

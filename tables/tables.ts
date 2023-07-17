@@ -21,13 +21,12 @@ export class Tables {
 
         //socket.emit('getTables', await db.get(this.table));
 
-        const result = await Database.pool.query(query);
+        const result = await Database.query(query);
 
-        socket.emit('getTables', result.rows);
+        socket.emit('getTables', result);
     }
 
     public static async setSessionID(io: Server, data) {
-        //console.log(data)
         io.emit('setTableSessionID', data);
     }
 
@@ -49,15 +48,15 @@ export class Tables {
             WHERE "id" = $1;
         `;
         
-        Database.pool.query(deleteOrdersQuery, [table.id], (err, result) => {
+        Database.query(deleteOrdersQuery, [table.id], (err, result) => {
             if (err) {
                 console.log(err);
             } else {
-                Database.pool.query(deleteCustomerQuery, [table.id], (err, result) => {
+                Database.query(deleteCustomerQuery, [table.id], (err, result) => {
                     if (err) {
                         console.log(err);
                     } else {
-                        Database.pool.query(resetTableQuery, [table.id], (err, result) => {
+                        Database.query(resetTableQuery, [table.id], (err, result) => {
                             if (err) {
                                 console.log(err);
                             }
