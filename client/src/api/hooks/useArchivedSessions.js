@@ -34,6 +34,8 @@ function useArchivedSessions(init, props) {
 
     useSocketListener(socket, eventHandlers);
 
+
+
     function add(session) {
         socket.emit('addArchivedSession', session);
     }
