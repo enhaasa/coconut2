@@ -3,7 +3,6 @@ import useSocketListener from './../useSocketListener';
 
 function useTables(init, props) {
     const { 
-        selectedTableTracker, 
         socket
     } = props;
 

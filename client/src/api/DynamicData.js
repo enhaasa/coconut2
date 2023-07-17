@@ -15,7 +15,7 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
   const [ archivedSessions ] = useArchivedSessions([], {
     socket: socket
   });
-  const [ tips ] = useTips([]);
+  const [ tips ] = useTips([], { socket: socket });
   const [ staff ] = useStaff([], { socket: socket });
 
   const [ sections ] = useSections([], {

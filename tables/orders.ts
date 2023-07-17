@@ -88,16 +88,15 @@ export class Orders {
             AND "table_id" = ${table.id}
         `;
 
-        Database.pool.query(delete_delivered_orders_query, (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                io.emit('removeAllDeliveredOrdersFromTable', table);
-            }
-        });
-
-        if (session_id) {
-            io.emit('addArchivedSession', {...archived_session, id: session_id});
+        if(session_id) {
+            Database.pool.query(delete_delivered_orders_query, (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    io.emit('removeAllDeliveredOrdersFromTable', table);
+                    io.emit('addArchivedSession', {...archived_session, id: session_id});
+                }
+            });
         }
     }
 

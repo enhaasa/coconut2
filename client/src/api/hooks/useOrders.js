@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import db from '../../dbTools_client';
-import tools from '../../tools';
 import useSocketListener from './../useSocketListener';
 
 function useOrders(init, props) {
     const {
-        archivedSessions, 
         socket
     } = props;
 
