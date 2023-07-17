@@ -82,7 +82,23 @@ export class Orders {
         }
 
         const session_id = await Database.add('archived_sessions', archived_session, 'id');
-        io.emit('addArchivedSession', {...archived_session, id: session_id});
+        const delete_delivered_orders_query = `
+            DELETE FROM "orders" 
+            WHERE "is_delivered" = true
+            AND "table_id" = ${table.id}
+        `;
+
+        Database.pool.query(delete_delivered_orders_query, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                io.emit('removeAllDeliveredOrdersFromTable', table);
+            }
+        });
+
+        if (session_id) {
+            io.emit('addArchivedSession', {...archived_session, id: session_id});
+        }
     }
 
     public static remove(io: Server, order) {
