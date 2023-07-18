@@ -7,7 +7,9 @@ import { useState, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 
 function Payouts(props) {
-    const { staff, archivedOrders, setIsBlurred, tips, archivedSessions, floors } = props;
+    const { setIsBlurred, floors } = props;
+    const { tips, archivedSessions, staff } = useContext(DynamicDataContext);
+
     const { getCurrentDate, sortArchivedArray } = tools;
     const [ modal, setModal ] = useState(null);
 
@@ -19,11 +21,12 @@ function Payouts(props) {
     const startDateEpoch = getCurrentDate(date => date -1); //Set date filtering offset in days
 
 
-    //const total = archivedSessions.get.reduce((t, c) => t + c.paidAmount, 0);
+    const ordersTotal = archivedSessions.get.reduce((t, c) => t + c.amount_paid, 0);
+
     //let archivedSessions = archivedOrdersFromStartDate.map(order => order.session);
     //archivedSessions = [...new Set(archivedSessions)];
 
-    //const tipsTotal = tips.get.reduce((total, current) => total + parseInt(current.amount), 0);
+    const tipsTotal = tips.get.reduce((total, current) => total + parseInt(current.amount), 0);
 
     return(
         <>
@@ -43,7 +46,7 @@ function Payouts(props) {
                             <TipsManager 
                                 handleModal={handleModal} 
                                 tips={tips}
-                                tipsTotal={0}
+                                tipsTotal={tipsTotal}
                             />
                         </div>
                     </section>
@@ -57,10 +60,9 @@ function Payouts(props) {
                             <AttendingStaff 
                                 staff={staff} 
                                 handleModal={handleModal} 
-                                archivedOrders={archivedOrders}
                                 tips={tips}
-                                tipsTotal={0}
-                                ordersTotal={0} 
+                                tipsTotal={tipsTotal}
+                                ordersTotal={ordersTotal} 
                             />
                         </div>
                     </section>
@@ -73,7 +75,6 @@ function Payouts(props) {
                         </div>
                         <div className="content">
                             <ReceiptManager 
-                                archivedOrders={archivedOrders} 
                                 setIsBlurred={setIsBlurred}
                                 handleModal={handleModal}
                                 archivedSessions={archivedSessions}

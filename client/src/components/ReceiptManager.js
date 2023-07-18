@@ -14,18 +14,7 @@ export default function ReceiptManager(props) {
         archivedSessions
     } = useContext(DynamicDataContext);
 
-    /*
-    const sessions = archivedSessions.get.map(session => {
-        const ordersInSession = archivedOrders.get.filter(order => session.id === order.session && order);
 
-        return {
-            ...session,
-            orders: ordersInSession
-        }
-    });
-    */
-
-    const sessions = [];
 
     const [ selectedFilter, setSelectedFilter ] = useState(0);
     const filters = [

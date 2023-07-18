@@ -7,12 +7,11 @@ function ReceiptModal(props) {
     const total = session.price;
     const [ amountPaid, setAmountPaid ] = useState(session.amount_paid);
     const tips = amountPaid - total < 0 ? 0 : amountPaid - total;
+    
 
     function handleAmountPaid(amount) {
         setAmountPaid(amount);
     }
-
-
     function handleSave() {
         archivedSessions.setAmountPaid(session, parseInt(amountPaid));
         handleModal(null);

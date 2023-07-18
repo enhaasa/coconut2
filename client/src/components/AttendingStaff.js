@@ -1,36 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { DynamicDataContext } from "../api/DynamicData";
 
 function AttendingStaff(props) {
-    const { staff, handleModal, ordersTotal, tipsTotal } = props;
+    const { handleModal, ordersTotal, tipsTotal } = props;
 
+    const { staff } = useContext(DynamicDataContext);
     
-    //const attendingStaff = staff.get.filter(s => s.isAttending);
-    const attendingStaff = [];
-    const absentStaff = [];
-    //const absentStaff = staff.get.filter(s => !s.isAttending);
+    const attendingStaff = staff.get.filter(s => s.is_attending);
+    const absentStaff = staff.get.filter(s => !s.is_attending);
     const tipsAndOrders = parseInt(ordersTotal) + parseInt(tipsTotal);
     const perPerson = tipsAndOrders / attendingStaff.length;
 
-
-
-
     function handleAttendingModal(isVisible) {
+
+        
         if (isVisible) {
             handleModal({
                 title: "Add attending staff",
                 content:
                 <div className="addStaffModal">
-                    {absentStaff.map(s => <button onClick={() => toggleIsAttending(s, true)}>{s.name}</button>)}
+                    {absentStaff.map(s => <button onClick={() => staff.setAttribute(s, 'is_attending', true)}>{s.name}</button>)}
                 </div>
             });
         } else {
             handleModal(null);
         }
     }
-
-    function toggleIsAttending(staffItem, isAttending) {
-        staff.toggleIsAttending(staffItem.id, isAttending);
-    }
+    
 
     return (
         <div className="AttendingStaff">
@@ -39,7 +35,7 @@ function AttendingStaff(props) {
                 <button 
                     className="deleteStaffButton"
                     key={`attendingStaff${i}`}
-                    onClick={() => {toggleIsAttending(s, false)}}
+                    onClick={() => {staff.setAttribute(s, 'is_attending', false)}}
                 >{s.name}</button>)}
                 <button onClick={() => {handleAttendingModal(true)}} className="addStaffButton progressive">
                     Add

@@ -23,6 +23,8 @@ class Staff {
     public static async setAttribute(io: Server, data) {
         const { staff_member, attribute, value } = data;
 
+        console.log(data)
+
         Database.update(this.table, attribute, value, 'id', staff_member.id);
         io.emit('setStaffAttribute', data);
     }

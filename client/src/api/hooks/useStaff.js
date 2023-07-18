@@ -28,6 +28,7 @@ function useStaff(init, props) {
     }
 
     function setAttribute(staff_member, attribute, value) {
+      console.log(attribute)
       socket.emit('setStaffAttribute', { staff_member, attribute, value })
     }
 
