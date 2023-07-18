@@ -16,9 +16,17 @@ function useTips(init, props) {
             ));
         },
         removeTip: (tip) => {
-            setTips(prev => {
+            setTips(prev => (
                 prev.filter(t => t.id !== tip.id)
-            });
+            ));
+        },
+        editTip: (tip, key, value) => {
+            setTips(prev => {
+                const index = prev.findIndex(t => t.id === tip.id);
+
+                prev[index][key] = value;
+                return [...prev];
+            })
         }
     }
 
@@ -32,7 +40,10 @@ function useTips(init, props) {
         socket.emit('addTip', tip);
     }
 
-    function edit(tip, newName, newAmount) {
+    function edit(data) {
+        const { tip, newName, newAmount } = data;
+        
+        console.log(newName, newAmount)
         socket.emit('editTip', {tip, newName, newAmount});
     }
 

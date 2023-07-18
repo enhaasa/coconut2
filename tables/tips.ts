@@ -36,6 +36,7 @@ class Tips {
     }
 
     public static async remove(io: Server, tip) {
+        console.log(tip)
 
         Database.remove(this.table, 'id', tip.id);
         io.emit('removeTip', tip);
@@ -44,23 +45,18 @@ class Tips {
     public static async edit(io: Server, data) {
 
         try {
-            const { tip, newName, newAmount } = data;
+            const { tip, newName, newAmount } = data; 
             const columnsToChange = [];
-            
-            if (tip.name !== newName) columnsToChange.push({key: 'name', value: newName});
-            if (tip.amount !== newAmount) columnsToChange.push({key: 'amount', value: newAmount});
 
-            console.log(tip);
-            console.log(newAmount)
+            if (newName) columnsToChange.push({key: 'name', value: newName});
+            if (newAmount) columnsToChange.push({key: 'amount', value: newAmount});
 
             if (columnsToChange.length > 0) {
-                let query = `UPDATE ${this.table} 
-                SET ${columnsToChange.map(column => `${column.key} = ${column.value},`)}
-                WHERE "id" = ${tip.id}
-                `;
+                columnsToChange.forEach(column => {
+                    Database.update(this.table, column.key, column.value, 'id', tip.id);
 
-                console.log(query)
-                Database.query(query);
+                    io.emit('editTip', tip, column.key, column.value);
+                });
             }
 
         } catch (error) {

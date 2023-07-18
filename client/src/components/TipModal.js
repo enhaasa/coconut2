@@ -22,7 +22,7 @@ function TipModal(props) {
             tips.edit({
                 tip: tip, 
                 newName: !name ? "Anonymous" : name,
-                newAmount:!amount ? 0 : parseInt(amount)
+                newAmount: !amount ? 0 : parseInt(amount)
             });
             handleModal(null);
         } else {
