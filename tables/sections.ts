@@ -14,5 +14,5 @@ class Sections {
         const result = await Database.get(this.table);
         socket.emit('getSections', result);
     }
-
+ 
 }
