@@ -7,11 +7,10 @@ export default function ReceiptManager(props) {
     const {  
         setIsBlurred, 
         handleModal, 
-        floors
     } = props;
 
     const {
-        archivedSessions
+        archivedSessions, sections
     } = useContext(DynamicDataContext);
 
 
@@ -19,18 +18,21 @@ export default function ReceiptManager(props) {
     const [ selectedFilter, setSelectedFilter ] = useState(0);
     const filters = [
         {
+            title: "Mine",
+            parse: arr => arr
+        },
+        {
             title: "All",
-            keyword: false,
+            parse: arr => arr
         },
-        {
-            title: "Restaurant",
-            keyword: 'restaurant'
-        },
-        {
-            title: "Bar",
-            keyword: 'bar'
-        }
+        ...sections.get.map(section => ({
+            title: section.name,
+            parse: arr => arr.filter(i => i.channel.section_name === section.name)
+        }))
     ];
+
+    const sessionsByFilter = filters[selectedFilter].parse(archivedSessions.get);
+    const totalByFilteredSessions = sessionsByFilter.reduce((total, current) => total + parseInt(current.amount_paid), 0);
 
     /*
     const sessionsByFilter = sessions.filter(session => (
@@ -42,22 +44,21 @@ export default function ReceiptManager(props) {
     ));
         
 
-    const totalByFilteredSessions = sessionsByFilter.reduce((total, current) => total + parseInt(current.paidAmount), 0);
+    const totalByFilteredSessions = sessionsByFilter.reduce((total, current) => total + parseInt(current.amount_paid), 0);
             
     function getFloorNameByFloorType(type) {
         return floors.find(f => f.name === type).type
     }
+    */
     
     function handleFilter(index) {
         setSelectedFilter(index);
     }
-    */
-   
 
     return (
         <div className="ReceiptManager">
             <div className="row">
-                {/*
+                {
                 <nav className="receiptFilter">
                     {filters.map((filter, index) => 
                         <button 
@@ -65,9 +66,9 @@ export default function ReceiptManager(props) {
                             className={index === selectedFilter ? "steel" : "inactive"}
                         >{filter.title}</button>)}
                 </nav>
-                    */}
+                    }
                 <div className="receiptList">
-                    {archivedSessions.get.map(session => (
+                    {sessionsByFilter.map(session => (
                         <Receipt 
                             key={session.id}
                             setIsBlurred={setIsBlurred}
@@ -80,7 +81,7 @@ export default function ReceiptManager(props) {
 
             <div className="row">
                 <div className="totalEarnings">
-                    Total: 0{/*totalByFilteredSessions.toLocaleString("en-US")*/} gil
+                    Total: {totalByFilteredSessions.toLocaleString("en-US")} gil
                 </div>
             </div>
 

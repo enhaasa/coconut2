@@ -26,37 +26,12 @@ export default class Customers {
 
     public static async add(io: Server, customer: Customer) {
 
-        const is_first_query = `
-            SELECT EXISTS (
-                SELECT 1
-                FROM sessions
-                WHERE realm_id = ${customer.realm_id} 
-                AND table_id = ${customer.table_id}
-            );
-        `;
-
-        const is_first_check = await Database.query(is_first_query);
-        const is_first = !is_first_check[0].exists;
-
-        if (is_first) {
-            const new_session = {
-                price: null,
-                datetime: Time.getCurrentDateTime(),
-                table_id: customer.table_id,
-                realm_id: customer.realm_id,
-                section_id: customer.section_id
-            };
-
-            const new_session_id = await Database.add('sessions', new_session, 'id');
-            io.emit('addSession', {...new_session, id: new_session_id});
-            io.emit('setTableSessionID', { id: customer.table_id, session_id: new_session_id });
-            Database.update('tables', 'session_id', new_session_id, 'id', customer.table_id);
-
-            customer.session_id = new_session_id;
-        }
-
         const new_customer_id = await Database.add(this.table, customer, 'id');
-        io.emit('addCustomer', {...customer, id: new_customer_id});
+
+        console.log(new_customer_id[0].id)
+
+    
+        io.emit('addCustomer', {...customer, id: new_customer_id[0].id});
     }
 
     public static remove(io: Server, customer: Customer) {

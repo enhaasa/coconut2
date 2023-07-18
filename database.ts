@@ -17,12 +17,14 @@ export default class Database {
 
     //Route queries through here to enforce error handling
     public static async query(query: string, values?: any, callback?: Function): Promise<any> {
+
       try {
         const result = await this.pool.query(query, values);
         if (callback) callback();
+        
         return result.rows;
       } catch (error) {
-        console.log(query)
+        
         console.error('An error occurred:', error);
         return { error: 'An error occurred' };
       }
@@ -41,22 +43,23 @@ export default class Database {
           let query = `INSERT INTO ${table} (${keys}) VALUES (${values.map((value, index) => ("$"+(index+1))).toString()})`;
 
           if (returnQuery) {
-            query += ` RETURNING ${returnQuery}`;
+            query += ` RETURNING "${returnQuery}"`;
           }
-      
+          
+  
           this.query(query, [...values], (err, result) => {
             if (err) {
               console.log(err);
               reject(err);
-            } else {
-              if (returnQuery) {
-                resolve(result);
-              } else {
-                resolve(null);
-              }
-            }
-          });
+            } 
+          }).then(res => {
+            if (returnQuery) {
+              resolve(res);
+            } 
+          })
         });
+
+
     }
       
 

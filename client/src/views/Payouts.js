@@ -18,14 +18,8 @@ function Payouts(props) {
         state ? setIsBlurred(true) : setIsBlurred(false);
     }
 
-    const startDateEpoch = getCurrentDate(date => date -1); //Set date filtering offset in days
-
 
     const ordersTotal = archivedSessions.get.reduce((t, c) => t + c.amount_paid, 0);
-
-    //let archivedSessions = archivedOrdersFromStartDate.map(order => order.session);
-    //archivedSessions = [...new Set(archivedSessions)];
-
     const tipsTotal = tips.get.reduce((total, current) => total + parseInt(current.amount), 0);
 
     return(

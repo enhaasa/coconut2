@@ -94,9 +94,11 @@ export class Orders {
                     console.log(err);
                 } else {
                     io.emit('removeAllDeliveredOrdersFromTable', table);
-                    io.emit('addArchivedSession', {...archived_session, id: session_id});
+                    io.emit('addArchivedSession', {...archived_session, id: session_id[0].id});
                 }
             });
+        } else {
+            console.log("Failed to get new session ID from database.")
         }
     }
 
