@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { DynamicDataContext } from '../api/DynamicData';
 import tools from '../tools';
 
 function TipModal(props) {
-    const { handleModal, tip, tips } = props;
+    const { handleModal, tip } = props;
+
+    const { tips } = useContext(DynamicDataContext);
 
     const [ name, setName ] = useState(tip ? tip.name : "");
     const [ amount, setAmount ] = useState(tip ? tip.amount : 0);
@@ -17,16 +20,16 @@ function TipModal(props) {
     function handleSubmit() {
         if(tip) {
             tips.edit({
-                id: tip.id, 
-                date: tip.date, 
-                name: !name ? "Anonymous" : name,
-                amount:!amount ? 0 : parseInt(amount)});
+                tip: tip, 
+                newName: !name ? "Anonymous" : name,
+                newAmount:!amount ? 0 : parseInt(amount)
+            });
             handleModal(null);
         } else {
             tips.add({
                 name: !name ? "Anonymous" : name, 
                 amount: !amount ? 0 : amount, 
-                date: tools.getCurrentDate(res => res)});
+            });
             handleModal(null);
         }
     }

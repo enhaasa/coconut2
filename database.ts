@@ -22,6 +22,7 @@ export default class Database {
         if (callback) callback();
         return result.rows;
       } catch (error) {
+        console.log(query)
         console.error('An error occurred:', error);
         return { error: 'An error occurred' };
       }
@@ -38,18 +39,18 @@ export default class Database {
           const values = Object.values(row);
       
           let query = `INSERT INTO ${table} (${keys}) VALUES (${values.map((value, index) => ("$"+(index+1))).toString()})`;
-      
+
           if (returnQuery) {
             query += ` RETURNING ${returnQuery}`;
           }
       
-          this.pool.query(query, [...values], (err, result) => {
+          this.query(query, [...values], (err, result) => {
             if (err) {
               console.log(err);
               reject(err);
             } else {
               if (returnQuery) {
-                resolve(result.rows[0].id);
+                resolve(result);
               } else {
                 resolve(null);
               }
@@ -63,22 +64,19 @@ export default class Database {
      * @param table Target SQL table.
      * @param condition Optional, additional search criteria in SQL format. Example: 'WHERE date >= 27.01.1996'.
      */
-    public static get(table:string, condition:string = null): any {
-        return new Promise((resolve, reject) => {
-            let query = `SELECT * FROM ${table}`;
+    public static async get(table:string, condition?:string): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            let query = `SELECT * FROM "${table}"`;
         
             if (condition) {
                 query = query + ` ${condition}`;
             }
-        
-            this.pool.query(query, (err, result) => {
-                if (err) {
-                    console.log(`Error: Cannot get table ${table}: ${err}`);
-                    reject(err);
-                } else {
-                    resolve(result.rows);
-                }
-            });
+
+            const result = await this.query(query);
+
+            if (result) {
+              resolve(result);
+            }
         });
     }
 
@@ -95,7 +93,7 @@ export default class Database {
 
         const query = `UPDATE ${table} SET ${key}=$1 WHERE ${con_key}=$2`;
 
-        this.pool.query(
+        this.query(
             query, [value, con_val], 
             (err, result) => {
                 if (err) {
@@ -115,7 +113,7 @@ export default class Database {
 
         const query = `DELETE FROM ${table} WHERE ${con_key}=$1`;
 
-        this.pool.query(
+        this.query(
             query, 
             [con_val],
             (err, result) => {

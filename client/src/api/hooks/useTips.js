@@ -9,6 +9,16 @@ function useTips(init, props) {
     const eventHandlers = {
         getTips: (tips) => {
             setTips(tips);
+        },
+        addTip: (tip) => {
+            setTips(prev => (
+                [...prev, tip]
+            ));
+        },
+        removeTip: (tip) => {
+            setTips(prev => {
+                prev.filter(t => t.id !== tip.id)
+            });
         }
     }
 
@@ -19,26 +29,15 @@ function useTips(init, props) {
     }
 
     function add(tip) {
-        const id = uuid();
-
-        setTips(prev => [...prev, {...tip, id: id}]);
+        socket.emit('addTip', tip);
     }
 
-    function edit(tip) {
-        const index = tips.map(t => t.id).indexOf(tip.id);
-
-        setTips(prev =>  {
-            prev[index] = tip;
-            return prev;
-        })
+    function edit(tip, newName, newAmount) {
+        socket.emit('editTip', {tip, newName, newAmount});
     }
 
     function remove(tip) {
-        const index = tips.map(t => t.id).indexOf(tip.id);
-
-
-
-        setTips(prev => prev.filter(item => item.id !== tip.id));
+        socket.emit('removeTip', tip);
     }
 
     return [

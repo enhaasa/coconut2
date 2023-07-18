@@ -20,6 +20,7 @@ export default class Customers {
 
     public static async get(socket: Socket) {
         const customers = await Database.get(this.table);
+        
         socket.emit('getCustomers', customers);
     }
 

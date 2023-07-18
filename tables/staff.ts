@@ -12,8 +12,10 @@ class Staff {
     private static table = 'characters';
 
     public static async get(socket: Socket) {
-        const condition_query = `WHERE "is_active" = true`;
-        const result = await Database.get(this.table, condition_query);
+        const condition_query = `
+            SELECT * FROM ${this.table} WHERE "is_active" = true AND realm_id = 1
+        `;
+        const result = await Database.query(condition_query);
 
         socket.emit('getStaff', result)
     }

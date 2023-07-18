@@ -22,6 +22,7 @@ export class Tables {
         //socket.emit('getTables', await db.get(this.table));
 
         const result = await Database.query(query);
+        
 
         socket.emit('getTables', result);
     }
