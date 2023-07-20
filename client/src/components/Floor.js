@@ -52,7 +52,7 @@ export default function Floor(props) {
             <div className="Floor" ref={FloorRef}>
            
                 <img className="overlay" src={overlay} alt="" />
-                {/*section.schematics && <img className="floorImage" src={floor.schematics} alt="" />*/}
+                {floor.image_url && <img className="floorImage" src={floor.image_url} alt="" />}
 
                 {floor.tables.map((table) => (
                         <Table 

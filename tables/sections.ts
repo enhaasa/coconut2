@@ -12,6 +12,7 @@ class Sections {
 
     public static async get(socket: Socket) {
         const result = await Database.get(this.table);
+        
         socket.emit('getSections', result);
     }
  

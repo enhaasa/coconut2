@@ -4,7 +4,6 @@ import useTables from './hooks/useTables';
 import useArchivedSessions from './hooks/useArchivedSessions';
 import useOrders from './hooks/useOrders';
 import useCustomers from './hooks/useCustomers';
-import useSessions from './hooks/useSessions';
 import useTips from './hooks/useTips';
 import useMenu from './hooks/useMenu';
 import useStaff from './hooks/useStaff';
@@ -35,10 +34,6 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
   const [ customers ] = useCustomers([], {
       setSelectedCustomer,
       orders: orders,
-      socket: socket
-  });
-
-  const [ sessions ] = useSessions([], {
       socket: socket
   });
 
@@ -106,14 +101,11 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
     return dataTree;
   }
   
-
-    
   const dataTree = useMemo(() => {
       return [...getDataTree()];
   }, [sections.get, tables.get, customers.get, orders.get]);
 
 
-  
   useEffect(() => {
       if (socket) {
           sections.refresh();
@@ -121,7 +113,6 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
           orders.refresh();
           customers.refresh();
           archivedSessions.refresh();
-          sessions.refresh();
           tips.refresh();
           menu.refresh();
           staff.refresh();
@@ -134,7 +125,6 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
               orders,
               customers,
               sections, 
-              sessions,
               tips,
               tables,
               menu,

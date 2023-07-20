@@ -79,6 +79,8 @@ export default class Database {
 
             if (result) {
               resolve(result);
+            } else {
+              reject(result);
             }
         });
     }
