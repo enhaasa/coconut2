@@ -7,14 +7,13 @@ import useStaff from './api/hooks/useStaff';
 
 //Views
 import Payouts from './views/Payouts';
-import FloorManager from './views/FloorManager';
+import SectionManager from './views/SectionManager';
 
 //Components
 import ReceiptManager from './components/ReceiptManager';
 
 //Tools
 import uuid from 'react-uuid';
-import db from './dbTools_client';
 
 //BACKEND_PLACEHOLDER
 import ground from './assets/schematics/ground.webp';
@@ -44,22 +43,22 @@ function App() {
    * Controlstates to know which windows to load.
    */
   const [ isBlurred, setIsBlurred ] = useState(false);
-  const [ selectedFloor, setSelectedFloor ] = useState(1);
+  const [ selectedSection, setSelectedSection ] = useState(1);
   const [ selectedCustomer, setSelectedCustomer ] = useState(null);
-  const [ selectedTable, setSelectedTable ] = useState(null);
+  const [ selectedSeating, setSelectedSeating ] = useState(null);
   const [ selectedCustomerManager, setSelectedCustomerManager ] = useState(null);
 
   /**
    * Temporary solution to useEffect not having access to updated values in component state
   */
-  const selectedTableTracker = useRef(null);  
+  const selectedSeatingTracker = useRef(null);  
   useEffect(() => {
-    selectedTableTracker.current = selectedTable;
-    selectedTable !== null ?
+    selectedSeatingTracker.current = selectedSeating;
+    selectedSeating !== null ?
     setIsBlurred(true) :
     setIsBlurred(false);
     setSelectedCustomer(null);
-  }, [selectedTable]);
+  }, [selectedSeating]);
 
   /*
   const selectedCustomerManagerTracker = useRef(null);
@@ -72,46 +71,6 @@ function App() {
   }, [selectedCustomerManager]);
   */
 
-
-  const views = [
-    {
-      title: "Floor Manager",
-      content: 
-      <DynamicDataProvider 
-        socket={socket} 
-        selectedTableTracker={selectedTableTracker} 
-        setSelectedCustomer={setSelectedCustomer}>
-        <FloorManager 
-          key={uuid()}
-          setSelectedTable={setSelectedTable}
-          setSelectedCustomerManager={setSelectedCustomerManager}
-          selectedCustomerManager={selectedCustomerManager}
-          setSelectedCustomer={setSelectedCustomer}
-          setSelectedFloor={setSelectedFloor}
-          selectedCustomer={selectedCustomer}
-          isBlurred={isBlurred}
-          loggedInAs={loggedInAs}
-          selectedTable={selectedTable}
-          selectedFloor={selectedFloor}
-          maxDeliveryTime={maxDeliveryTime}
-        />
-      </DynamicDataProvider>
-    },
-    /*
-    {
-      title: "Payouts",
-      content:  
-      <Payouts 
-        staff={staff} 
-        sections.get={floors}
-        archivedOrders={archivedOrders}
-        setIsBlurred={setIsBlurred}
-        archivedSessions={archivedSessions}
-        tips={tips}
-      />
-    }
-    
-  */  ]
 
 
   return (
@@ -134,22 +93,22 @@ function App() {
           <div className="blur" />
           }
       {socket && 
-              <DynamicDataProvider 
+            <DynamicDataProvider 
               socket={socket} 
-              selectedTableTracker={selectedTableTracker} 
+              selectedSeatingTracker={selectedSeatingTracker} 
               setSelectedCustomer={setSelectedCustomer}>
-              <FloorManager 
+              <SectionManager 
                 key={uuid()}
-                setSelectedTable={setSelectedTable}
+                setSelectedSeating={setSelectedSeating}
                 setSelectedCustomerManager={setSelectedCustomerManager}
                 selectedCustomerManager={selectedCustomerManager}
                 setSelectedCustomer={setSelectedCustomer}
-                setSelectedFloor={setSelectedFloor}
+                setSelectedSection={setSelectedSection}
                 selectedCustomer={selectedCustomer}
                 isBlurred={isBlurred}
                 loggedInAs={loggedInAs}
-                selectedTable={selectedTable}
-                selectedFloor={selectedFloor}
+                selectedSeating={selectedSeating}
+                selectedSection={selectedSection}
                 maxDeliveryTime={maxDeliveryTime}
               />
 

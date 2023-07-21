@@ -10,8 +10,8 @@ module.exports = function registerHandlers(io) {
         socket.on('deliverOrder', (order => Orders.deliver(io, order)));
         socket.on('deliverAllByCustomer', (customer => Orders.deliverAllByCustomer(io, customer)));
         socket.on('removeOrder', (uuid) => Orders.remove(io, uuid));
-        socket.on('removeAllOrdersByTableID', (data) => Orders.removeAllByTableID(socket, data));
-        socket.on('payOrdersInTable', (data) => Orders.payOrdersInTable(io, data))
+        socket.on('removeAllOrdersBySeatingID', (data) => Orders.removeAllBySeatingID(socket, data));
+        socket.on('payOrdersInSeating', (data) => Orders.payOrdersInSeating(io, data))
     }));
 }
 
@@ -34,7 +34,7 @@ export class Orders {
             section_id: order.section_id,
             menu_id: order.menu_id,
             customer_id: order.customer_id,
-            table_id: order.table_id,
+            seating_id: order.seating_id,
             item: order.item,
             realm_id: 1,
             time: Time.getCurrentTime(),
@@ -59,10 +59,10 @@ export class Orders {
         io.emit('deliverAllByCustomer', customer);
     }
 
-    public static async payOrdersInTable(io: Server, data) {
-        const { orders, table } = data;
+    public static async payOrdersInSeating(io: Server, data) {
+        const { orders, seating } = data;
 
-        const { waiter, customers, section_name, number } = table;
+        const { waiter, customers, section_name, number } = seating;
         const price = orders.reduce((total: number, order) => (total + order.price), 0);
 
         const channel = {
@@ -85,7 +85,7 @@ export class Orders {
         const delete_delivered_orders_query = `
             DELETE FROM "orders" 
             WHERE "is_delivered" = true
-            AND "table_id" = ${table.id}
+            AND "seating_id" = ${seating.id}
         `;
 
         if(session_id) {
@@ -93,7 +93,7 @@ export class Orders {
                 if (err) {
                     console.log(err);
                 } else {
-                    io.emit('removeAllDeliveredOrdersFromTable', table);
+                    io.emit('removeAllDeliveredOrdersFromSeating', seating);
                     io.emit('addArchivedSession', {...archived_session, id: session_id[0].id});
                 }
             });
@@ -107,8 +107,8 @@ export class Orders {
         io.emit('removeOrder', order);
     }
 
-    public static removeAllByTableID(socket: Socket, data) {
-        Database.remove(this.table, '`table`', data.id);
-        socket.broadcast.emit('removeAllOrdersByTableID');
+    public static removeAllBySeatingID(socket: Socket, data) {
+        Database.remove(this.table, '`seating`', data.id);
+        socket.broadcast.emit('removeAllOrdersBySeatingID');
     }
 }

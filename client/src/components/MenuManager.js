@@ -43,7 +43,7 @@ export default function MenuManager(props) {
             is_delivered: false,
             price: item.price,
             item: item.item,
-            table_id: selectedCustomer.table_id,
+            seating_id: selectedCustomer.seating_id,
             section_id: selectedCustomer.section_id,
             customer_id: selectedCustomer.id,
             menu_id: item.id,

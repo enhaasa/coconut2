@@ -86,8 +86,8 @@ export default function CustomerManager(props) {
 
             {viewTab &&
             <TabManager 
-                deliveredOrdersInTable={deliveredOrders}
-                customersInTable={[customer]}
+                deliveredOrdersInSection={deliveredOrders}
+                customersInSection={[customer]}
                 overriddenSession={overriddenSession}
                 handleViewTab={handleViewTab}
                 setConfirmBox={setConfirmBox}

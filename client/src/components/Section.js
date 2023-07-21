@@ -1,37 +1,37 @@
 import React, { useLayoutEffect, useRef, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
-import Table from './Table';
+import Seating from './Seating';
 import BarManager from './BarManager';
 import gsap from 'gsap';
 import animations from '../animations';
 
 import overlay from './../assets/icons/dark-fabric.png';
 
-export default function Floor(props) {
+export default function Section(props) {
     const {
         section,
         maxDeliveryTime, 
         colorset,
-        setSelectedTable,
+        setSelectedSeating,
         setSelectedCustomer,
         setSelectedCustomerManager,
-        floor
+        parsedSection
     } = props;
 
     const {
         customers,
         orders,
-        tables,
+        seatings,
     } = useContext(DynamicDataContext);
 
-    const FloorRef = useRef();
+    const SectionRef = useRef();
 
-    let tablesInSection = [];
+    let seatingsInSection = [];
 
-    tables.get.forEach((table, index) => {
-        if (table.section_name === section.name)
-            tablesInSection.push({
-                ...table, index: index
+    seatings.get.forEach((seating, index) => {
+        if (seating.section_name === section.name)
+            seatingsInSection.push({
+                ...seating, index: index
             })
     });
 
@@ -49,18 +49,18 @@ export default function Floor(props) {
     return (
 
        
-            <div className="Floor" ref={FloorRef}>
+            <div className="Floor" ref={SectionRef}>
            
                 <img className="overlay" src={overlay} alt="" />
-                {floor.image_url && <img className="floorImage" src={floor.image_url} alt="" />}
+                {parsedSection.image_url && <img className="floorImage" src={parsedSection.image_url} alt="" />}
 
-                {floor.tables.map((table) => (
-                        <Table 
-                            table={table}
+                {parsedSection.seatings.map((seating) => (
+                        <Seating 
+                            seating={seating}
                             maxDeliveryTime={maxDeliveryTime}
                             colorset={colorset} 
-                            setSelectedTable={setSelectedTable}
-                            key={table.id}
+                            setSelectedSeating={setSelectedSeating}
+                            key={seating.id}
                         />
                     )) 
                 }

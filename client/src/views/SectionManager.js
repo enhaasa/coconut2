@@ -1,29 +1,29 @@
-import Floor from './../components/Floor'
-import TableManager from './../components/TableManager';
+import Section from '../components/Section'
+import SeatingManager from '../components/SeatingManager';
 import CustomerManager from '../components/CustomerManager';
-import MenuManager from './../components/MenuManager';
-import ReceiptManager from './../components/ReceiptManager';
-import NotificationBar from './../components/NotificationBar';
+import MenuManager from '../components/MenuManager';
+import ReceiptManager from '../components/ReceiptManager';
+import NotificationBar from '../components/NotificationBar';
 import uuid from 'react-uuid';
 import React, { useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 
-function FloorManager(props) {
+function SectionManager(props) {
     const {
-      setSelectedTable,
+      setSelectedSeating,
       setSelectedCustomer,
       setSelectedCustomerManager,
-      setSelectedFloor,
+      setSelectedSection,
       selectedCustomer,
       selectedCustomerManager,
-      selectedTable,
-      selectedFloor,
+      selectedSeating,
+      selectedSection,
       maxDeliveryTime,
     } = props;
 
     const { 
       sections, 
-      tables, 
+      seatings, 
       customers, 
       orders, 
       menu, 
@@ -31,8 +31,8 @@ function FloorManager(props) {
       dataTree
     } = useContext(DynamicDataContext);
 
-    function getFloor() {
-      return dataTree[selectedFloor]
+    function getParsedSection() {
+      return dataTree[selectedSection]
     }
 
 
@@ -40,10 +40,10 @@ function FloorManager(props) {
         <div className="FloorManager">
 
         <section className="TableManagerContainer">
-              {selectedTable !== null &&
-                <TableManager 
-                  selectedTable={selectedTable} 
-                  setSelectedTable={setSelectedTable}
+              {selectedSeating !== null &&
+                <SeatingManager 
+                  selectedSeating={selectedSeating} 
+                  setSelectedSeating={setSelectedSeating}
                   setSelectedCustomer={setSelectedCustomer}
                 />
               }
@@ -77,22 +77,22 @@ function FloorManager(props) {
                       <div className="floorSelector" key={uuid()}>
                         {
                           customers.get.length > 0 &&
-                          tables.get.length > 0 &&
+                          seatings.get.length > 0 &&
                             <NotificationBar
                               customers={
                                 customers.get.filter(customer => 
                                   customer.section === section.type && 
-                                    !tables.get.find(table => table.id === customer.table 
-                                      && table).isAvailable && customer)}
+                                    !seatings.get.find(seating => seating.id === customer.seating
+                                      && seating).isAvailable && customer)}
 
                               orders={orders.get.filter(order => order.section === section.type && !order.delivered && order)}
                           />
                         }
 
                         <button 
-                          className={`floorButton ${selectedFloor === index ? "active" : "inactive"}`} 
+                          className={`floorButton ${selectedSeating === index ? "active" : "inactive"}`} 
                           key={index} 
-                          onClick={() => {setSelectedFloor(index)}}>
+                          onClick={() => {setSelectedSection(index)}}>
                           <span className="title cursive">{section.name}</span>
                         </button>
                       </div>
@@ -102,12 +102,12 @@ function FloorManager(props) {
             </span>
           </nav>
           
-          {sections.get[selectedFloor] && 
-          <Floor 
-            section={sections.get[selectedFloor]} 
-            floor={getFloor()}
+          {sections.get[selectedSection] && 
+          <Section 
+            section={sections.get[selectedSection]} 
+            parsedSection={getParsedSection()}
             maxDeliveryTime={maxDeliveryTime}
-            setSelectedTable={setSelectedTable}
+            setSelectedSeating={setSelectedSeating}
             setSelectedCustomer={setSelectedCustomer}
             setSelectedCustomerManager={setSelectedCustomerManager}
           />}
@@ -127,4 +127,4 @@ function FloorManager(props) {
     )
 }
 
-export default FloorManager;
+export default SectionManager;

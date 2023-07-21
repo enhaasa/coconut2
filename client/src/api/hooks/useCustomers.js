@@ -40,20 +40,16 @@ function useCustomers(init, props) {
             setSession(id, session, false);
         },
 
-        removeAllCustomersFromTable: (table) => {
+        removeAllCustomersFromSeating: (seating) => {
             setCustomers(prev => (
-                prev.filter(customer => customer.table_id !== table.id)
+                prev.filter(customer => customer.seating_id !== seating.id)
             ));
         }
     }
  
     useSocketListener(socket, eventHandlers);
 
-    /**
-     * Add a new customer.
-     * 
-     * @param {object} table - A table object that the customer will be referenced to.
-     */
+
     function add(customer) {
         socket.emit("addCustomer", { ...customer });
     }
@@ -74,8 +70,8 @@ function useCustomers(init, props) {
         });
     }
 
-    function removeAllFromTable(table) {
-        socket.emit("removeAllCustomersFromTable", { ...table });
+    function removeAllFromSeating(seating) {
+        socket.emit("removeAllCustomersFromSeating", { ...seating });
     }
 
     function setSession(id, newSession, updateDatabase = true) {
@@ -101,7 +97,7 @@ function useCustomers(init, props) {
                 get: customers,
                 add: add,
                 remove: remove,
-                removeAllFromTable: removeAllFromTable,
+                removeAllFromSeating: removeAllFromSeating,
                 setSession: setSession,
                 editName: editName,
                 refresh: refresh

@@ -9,8 +9,8 @@ import unPaidTabIcon from './../assets/icons/unPaidTab.png';
 import cameraIcon from './../assets/icons/camera.png';
 import waiterIcon from './../assets/icons/waiter.png';
 
-export default function Table(props) {
-    const { table, maxDeliveryTime, setSelectedTable } = props;
+export default function Seating(props) {
+    const { seating, maxDeliveryTime, setSelectedSeating } = props;
     const {
         orders,
         customers,
@@ -23,7 +23,7 @@ export default function Table(props) {
     let undeliveredOrders = [];
     let deliveredOrders = [];
 
-    table.customers.forEach(customer => {
+    seating.customers.forEach(customer => {
         customer.undeliveredOrders.forEach(order => {
             undeliveredOrders.push(order);
         })
@@ -32,34 +32,19 @@ export default function Table(props) {
         })
     });
 
-
-    /*
-    const [deliveredOrders, undeliveredOrders] = useMemo(() => {
-        const delivered = [];
-        const undelivered = [];
-      
-        table.customers.forEach(customer => {
-            const { orders } = customer;
-            delivered.push(...orders.filter(order => order.is_delivered));
-            undelivered.push(...orders.filter(order => !order.is_delivered));
-        });
-      
-        return [delivered, undelivered];
-    }, [table.customers]);*/
-
-    const TableRef = useRef();
+    const SeatingRef = useRef();
     useLayoutEffect(() => {
-        gsap.from(TableRef.current, animations.appearY);
+        gsap.from(SeatingRef.current, animations.appearY);
 
         return () => {
-            gsap.to(TableRef.current, animations.appearY);
+            gsap.to(SeatingRef.current, animations.appearY);
         }
     }, []);
 
-    const tablenumberColor = () => {
-        if (table.is_available && !table.is_reserved) return "constructive";
-        if (!table.is_available) return "destructive";
-        if (table.is_reserved) return "progressive";
+    const seatingnumberColor = () => {
+        if (seating.is_available && !seating.is_reserved) return "constructive";
+        if (!seating.is_available) return "destructive";
+        if (seating.is_reserved) return "progressive";
     }
 
     const notificationColor = () => {
@@ -69,12 +54,12 @@ export default function Table(props) {
     }
 
     const [noBlankNames, blankNames] = useMemo(() => {
-        const filteredCustomers = customers.get.filter(customer => customer.table_id === table.id);
+        const filteredCustomers = customers.get.filter(customer => customer.seating_id === seating.id);
         const noBlank = filteredCustomers.filter(customer => customer.name.length !== 0);
         const blank = filteredCustomers.filter(customer => customer.name.length === 0);
         
         return [noBlank, blank]; 
-      }, [customers.get, table.id]);
+      }, [customers.get, seating.id]);
 
 
     let exceedingMaxPreview = noBlankNames.filter((customer, index) => (
@@ -83,8 +68,8 @@ export default function Table(props) {
 
     const totalAdditions = exceedingMaxPreview.length + blankNames.length;
 
-    function handleSetSelectedTable(selectedTable) {
-        setSelectedTable(selectedTable);
+    function handleSetSelectedSeating(selectedSeating) {
+        setSelectedSeating(selectedSeating);
     }
     
     
@@ -109,17 +94,17 @@ export default function Table(props) {
         <div>          
             <div 
                 className={`Table`}
-                ref={TableRef}
-                key={`table${table.number}`}
+                ref={SeatingRef}
+                key={`table${seating.number}`}
                 style={{
-                    left:table.pos_x, 
-                    top:table.pos_y
+                    left:seating.pos_x, 
+                    top:seating.pos_y
             }}>
 
-                {table.waiter !== "" &&
+                {seating.waiter !== "" &&
                     <div className={`waiter waiterContainer`}>
                     <img src={waiterIcon} alt="Waiter Icon"/> 
-                    {getFirstName(table.waiter)}
+                    {getFirstName(seating.waiter)}
                     
                 </div>}
 
@@ -131,13 +116,13 @@ export default function Table(props) {
             
 
                 <button 
-                    className={`numberDisplay ${tablenumberColor()}`}
-                    onClick={() => {handleSetSelectedTable(table)}}>
+                    className={`numberDisplay ${seatingnumberColor()}`}
+                    onClick={() => {handleSetSelectedSeating(seating)}}>
 
                     {
                         <div className="isPhotographyContainer">
                         <span className="isPhotography">
-                            {table.is_photography ? 
+                            {seating.is_photography ? 
                             
                                 <div className="">
                                     <img src={cameraIcon} alt="Camera Icon" /> 
@@ -176,7 +161,7 @@ export default function Table(props) {
                         }
 
                     <span className="number">
-                        {table.number}
+                        {seating.number}
                     </span>
                 
                 </button>

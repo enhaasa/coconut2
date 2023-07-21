@@ -11,21 +11,21 @@ export default function TabManager(props) {
     const { 
         handleViewTab, 
         setConfirmBox,
-        deliveredOrdersInTable,
-        customersInTable,
-        table,
+        deliveredOrdersInSeating,
+        customersInSeating,
+        seating,
         overriddenSession,
     } = props;
 
     const {
         customers,
-        tables,
+        seatings,
         orders,
     } = useContext(DynamicDataContext);
 
     const [ isBlurred, setIsBlurred ] = useState(false);
     const [ tabView, setTabView ] = useState('combined');
-    const [ session, setSession ] = useState(overriddenSession !== undefined ? overriddenSession : table.session);
+    const [ session, setSession ] = useState(overriddenSession !== undefined ? overriddenSession : seating.session);
 
 
     const TabManagerRef = useRef();
@@ -55,7 +55,7 @@ export default function TabManager(props) {
         setIsBlurred(true);
         openConfirmBox({
             callback: function(){ 
-                orders.pay(ordersToPay, table);
+                orders.pay(ordersToPay, seating);
                 closeConfirmBox();     
             },
             closeConfirmBox: function(){
@@ -102,15 +102,15 @@ export default function TabManager(props) {
                 <div className="tabList">
                     {tabView === 'split' &&
                         <SplitTab 
-                            deliveredOrdersInTable={deliveredOrdersInTable}
-                            customersInTable={customersInTable}
+                            deliveredOrdersInSeating={deliveredOrdersInSeating}
+                            customersInSeating={customersInSeating}
                             orders={orders}
                         />
                     }
                         
                     {tabView === 'combined' &&
                         <CombinedTab
-                            deliveredOrdersInTable={deliveredOrdersInTable}
+                            deliveredOrdersInSeating={deliveredOrdersInSeating}
                         />
                     }
                 </div>
@@ -124,9 +124,9 @@ export default function TabManager(props) {
                     </span>
 
                     <button 
-                    className={`payButton ${deliveredOrdersInTable.map(order => order).length === 0 ? "inactive" : "constructive"}`}
-                    disabled={deliveredOrdersInTable.map(order => order).length === 0}
-                    onClick={() => {confirmPayOrders(deliveredOrdersInTable)}}>Pay & Archive</button>
+                    className={`payButton ${deliveredOrdersInSeating.map(order => order).length === 0 ? "inactive" : "constructive"}`}
+                    disabled={deliveredOrdersInSeating.map(order => order).length === 0}
+                    onClick={() => {confirmPayOrders(deliveredOrdersInSeating)}}>Pay & Archive</button>
                 </nav>
 
                 {session !== null &&

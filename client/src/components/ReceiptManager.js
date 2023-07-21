@@ -33,23 +33,6 @@ export default function ReceiptManager(props) {
 
     const sessionsByFilter = filters[selectedFilter].parse(archivedSessions.get);
     const totalByFilteredSessions = sessionsByFilter.reduce((total, current) => total + parseInt(current.amount_paid), 0);
-
-    /*
-    const sessionsByFilter = sessions.filter(session => (
-        !filters[selectedFilter] ||
-        (
-            !filters[selectedFilter].keyword ||
-            getFloorNameByFloorType(session.floor) === filters[selectedFilter].keyword
-        ) && session
-    ));
-        
-
-    const totalByFilteredSessions = sessionsByFilter.reduce((total, current) => total + parseInt(current.amount_paid), 0);
-            
-    function getFloorNameByFloorType(type) {
-        return floors.find(f => f.name === type).type
-    }
-    */
     
     function handleFilter(index) {
         setSelectedFilter(index);

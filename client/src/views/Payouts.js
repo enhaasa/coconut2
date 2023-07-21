@@ -7,7 +7,7 @@ import { useState, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 
 function Payouts(props) {
-    const { setIsBlurred, floors } = props;
+    const { setIsBlurred, sections } = props;
     const { tips, archivedSessions, staff } = useContext(DynamicDataContext);
 
     const { getCurrentDate, sortArchivedArray } = tools;
@@ -72,7 +72,7 @@ function Payouts(props) {
                                 setIsBlurred={setIsBlurred}
                                 handleModal={handleModal}
                                 archivedSessions={archivedSessions}
-                                floors={floors}
+                                sections={sections}
                                 total={0}
                             />
                         </div>

@@ -9,13 +9,13 @@ export default function BarManager(props) {
     const { getFirstName, getLastNames } = tools;
 
     function handleAdd() {
-        customers.add({floor: floor.name, table: null});
+        customers.add({section: section.name, seating: null});
         //setSelectedCustomerManager(customers.get[customers.get.length]);
     }
 
     const { 
         orders,
-        floor,
+        section,
         customers,  
         setSelectedCustomerManager 
     } = props;
@@ -42,7 +42,7 @@ export default function BarManager(props) {
 
             <div className="customerList">
 
-            {customers.get.filter(c => c.floor === floor.name).map(customer => {
+            {customers.get.filter(c => c.section === section.name).map(customer => {
                     const amount = getOrdersByCustomer(customer).undelivered.length;
 
                     return <span className="customerContainer" key={customer.id}>

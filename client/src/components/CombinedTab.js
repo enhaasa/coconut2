@@ -2,10 +2,10 @@ import React from "react";
 
 export default function CombinedTab(props) {
 
-    const { deliveredOrdersInTable } = props;
+    const { deliveredOrdersInSeating } = props;
     
     let parsedDeliveredOrders = [];
-    deliveredOrdersInTable.forEach(order => {
+    deliveredOrdersInSeating.forEach(order => {
 
         const currentOrder = parsedDeliveredOrders.find(parsedOrder => parsedOrder.name === order.name && parsedOrder.price === order.price);
 
@@ -55,7 +55,7 @@ export default function CombinedTab(props) {
                         <td>Total:</td>
                         <td></td>
                         <td></td>
-                        <td>{deliveredOrdersInTable.reduce((total, order) => (total + order.price), 0).toLocaleString("en-US") + " gil"}</td>
+                        <td>{deliveredOrdersInSeating.reduce((total, order) => (total + order.price), 0).toLocaleString("en-US") + " gil"}</td>
                     </tr>
                 </tfoot>
             </table>

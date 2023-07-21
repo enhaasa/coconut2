@@ -10,7 +10,7 @@ module.exports = function registerHandlers(io) {
         socket.on('removeCustomer', (customer: Customer) => Customers.remove(io, customer));
         socket.on('editCustomerName', (data) => Customers.editName(io, data));
         socket.on('setCustomerSession', (data) => Customers.setSession(socket, data));
-        socket.on('removeAllCustomersFromTable', (data) => Customers.removeAllFromTable(socket, data));
+        socket.on('removeAllCustomersFromSeating', (data) => Customers.removeAllFromSeating(socket, data));
     }));
 }
 
@@ -40,7 +40,7 @@ export default class Customers {
                 SELECT 1 
                 FROM customers
                 WHERE realm_id = 1
-                AND table_id = ${customer.table_id}
+                AND seating_id = ${customer.seating_id}
             );
         `;
 
@@ -73,8 +73,8 @@ export default class Customers {
         socket.broadcast.emit('setCustomerSession', data.id, data.session);
     }
 
-    public static removeAllFromTable(socket: Socket, data) {
-        Database.remove(this.table, '`table`', data.id);
-        socket.broadcast.emit('removeAllCustomersFromTable');
+    public static removeAllFromSeating(socket: Socket, data) {
+        Database.remove(this.table, '`seating`', data.id);
+        socket.broadcast.emit('removeAllCustomersFromSeating');
     }
 }

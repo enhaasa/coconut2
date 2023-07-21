@@ -1,6 +1,6 @@
 import React, { useMemo, createContext, useEffect } from 'react';
 import useSections from './hooks/useSections';
-import useTables from './hooks/useTables';
+import useSeatings from './hooks/useSeatings';
 import useArchivedSessions from './hooks/useArchivedSessions';
 import useOrders from './hooks/useOrders';
 import useCustomers from './hooks/useCustomers';
@@ -10,7 +10,7 @@ import useStaff from './hooks/useStaff';
 
 const DynamicDataContext = createContext();
 
-function DynamicDataProvider({ children, socket, selectedTableTracker, setSelectedCustomer }) {
+function DynamicDataProvider({ children, socket, selectedSeatingTracker, setSelectedCustomer }) {
   const [ archivedSessions ] = useArchivedSessions([], {
     socket: socket
   });
@@ -21,8 +21,8 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
       socket: socket
   });
 
-  const [ tables ] = useTables([], {
-      selectedTableTracker: selectedTableTracker, 
+  const [ seatings ] = useSeatings([], {
+      selectedSeatingTracker: selectedSeatingTracker, 
       socket: socket
   });
 
@@ -38,45 +38,45 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
   });
 
   const [ menu ] = useMenu([], {
-      selectedTableTracker, 
+      selectedSeatingTracker, 
       socket: socket
   });
 
   function getDataTree() {
     const dataTree = [];
     const sectionMap = new Map();
-    const tableMap = new Map();
+    const seatingMap = new Map();
   
     sections.get.forEach(section => {
-      const sectionData = { ...section, tables: [] };
+      const sectionData = { ...section, seatings: [] };
       dataTree.push(sectionData);
       sectionMap.set(section.id, sectionData);
     });
   
-    tables.get.forEach(table => {
-      const sectionData = sectionMap.get(table.section_id);
+    seatings.get.forEach(seating => {
+      const sectionData = sectionMap.get(seating.section_id);
   
       if (sectionData) {
-        const tableData = { ...table, customers: [] };
-        sectionData.tables.push(tableData);
-        tableMap.set(table.id, tableData);
+        const seatingData = { ...seating, customers: [] };
+        sectionData.seatings.push(seatingData);
+        seatingMap.set(seating.id, seatingData);
       }
     });
   
     customers.get.forEach(customer => {
-      const tableData = tableMap.get(customer.table_id);
+      const seatingData = seatingMap.get(customer.seating_id);
   
-      if (tableData) {
+      if (seatingData) {
         const customerData = { ...customer, undeliveredOrders: [], deliveredOrders: [] };
-        tableData.customers.push(customerData);
+        seatingData.customers.push(customerData);
       }
     });
   
     orders.get.forEach(order => {
-      const tableData = tableMap.get(order.table_id);
+      const seatingData = seatingMap.get(order.seating_id);
     
-      if (tableData) {
-        const customerData = tableData.customers.find(
+      if (seatingData) {
+        const customerData = seatingData.customers.find(
           customer => customer.id === order.customer_id
         );
     
@@ -103,13 +103,13 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
   
   const dataTree = useMemo(() => {
       return [...getDataTree()];
-  }, [sections.get, tables.get, customers.get, orders.get]);
+  }, [sections.get, seatings.get, customers.get, orders.get]);
 
 
   useEffect(() => {
       if (socket) {
           sections.refresh();
-          tables.refresh();
+          seatings.refresh();
           orders.refresh();
           customers.refresh();
           archivedSessions.refresh();
@@ -126,7 +126,7 @@ function DynamicDataProvider({ children, socket, selectedTableTracker, setSelect
               customers,
               sections, 
               tips,
-              tables,
+              seatings,
               menu,
               staff,
               archivedSessions,

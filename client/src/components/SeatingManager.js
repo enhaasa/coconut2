@@ -11,26 +11,26 @@ import closeIcon from './../assets/icons/close.png';
 import basketIcon from './../assets/icons/shopping-cart.png';
 import resetIcon from './../assets/icons/reset-black.png';
 
-export default function TableManager(props) {
+export default function SeatingManager(props) {
     const { 
-        selectedTable, 
+        selectedSeating, 
         setSelectedCustomer,
-        setSelectedTable,
+        setSelectedSeating,
     } = props;
 
     const {
-        tables,
+        seatings,
         orders,
         staff,
         dataTree
     } = useContext(DynamicDataContext);
 
-    const [ table, setTable ] = useState(selectedTable);
+    const [ seating, setSeating ] = useState(selectedSeating);
     
     useEffect(() => {
-        const sectionIndex = dataTree.findIndex(section => section.id === selectedTable.section_id);
+        const sectionIndex = dataTree.findIndex(section => section.id === selectedSeating.section_id);
 
-        setTable(dataTree[sectionIndex].tables.find(section => section.id === selectedTable.id));
+        setSeating(dataTree[sectionIndex].seatings.find(section => section.id === selectedSeating.id));
     }, [ dataTree ]);
 
 
@@ -69,10 +69,10 @@ export default function TableManager(props) {
         setIsBlurred(newValue);
     }
 
-    function tablenumberColor() {
-        if (table.is_available && !table.is_reserved) return "constructive"
-        if (!table.is_available) return "destructive";
-        if (table.is_reserved) return "progressive";
+    function seatingnumberColor() {
+        if (seating.is_available && !seating.is_reserved) return "constructive"
+        if (!seating.is_available) return "destructive";
+        if (seating.is_reserved) return "progressive";
     }
 
     function handleClose(){
@@ -80,30 +80,30 @@ export default function TableManager(props) {
 
         setTimeout(()=> {
             setSelectedCustomer(null);
-            setSelectedTable(null);
+            setSelectedSeating(null);
         }, 200)
     }
 
-    const customersInTable = table.customers;
+    const customersInSeating = seating.customers;
 
-    let deliveredOrdersInTable = [];
+    let deliveredOrdersInSeating = [];
 
-    const customerIds = new Set(customersInTable.map((customer) => customer.id));
+    const customerIds = new Set(customersInSeating.map((customer) => customer.id));
 
     for (const order of orders.get) {
         if (order.is_delivered) {
             if (customerIds.has(order.customer_id)) {
-            deliveredOrdersInTable.push(order);
+            deliveredOrdersInSeating.push(order);
             }
         }
     }
 
 
       
-    function resetTable() {
+    function resetSeating() {
         openConfirmBox({
             callback: function(){
-                tables.reset(table);
+                seatings.reset(seating);
                 closeConfirmBox();
             },
             closeConfirmBox: function(){closeConfirmBox()},
@@ -112,11 +112,11 @@ export default function TableManager(props) {
         })
     }
 
-    let tabTotal = deliveredOrdersInTable.length > 0 ? 
-        deliveredOrdersInTable.reduce((total, order) => total + order.price, 0) : 0;
+    let tabTotal = deliveredOrdersInSeating.length > 0 ? 
+        deliveredOrdersInSeating.reduce((total, order) => total + order.price, 0) : 0;
     
     return (
-        table.id !== null &&
+        seating.id !== null &&
         <div className="TableManager" ref={ref}>
             {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
             {isBlurred && <div className="blur" />}
@@ -128,8 +128,8 @@ export default function TableManager(props) {
                         <select 
                             name="waiters" 
                             id="waiters" 
-                            value={table.waiter} 
-                            onChange={(e) => {tables.setAttribute(table, 'waiter', e.target.value)}
+                            value={seating.waiter} 
+                            onChange={(e) => {seating.setAttribute(seating, 'waiter', e.target.value)}
                         }>
                             <option key={uuid()}></option>
                             {staff.get.map(member => {
@@ -144,9 +144,9 @@ export default function TableManager(props) {
                 </div>
 
                         
-                <span className={`tablenumber ${tablenumberColor()}`}>
+                <span className={`tablenumber ${seatingnumberColor()}`}>
 
-                    {table.number}
+                    {seating.number}
                 </span>
 
                 <button className="closeButton" onClick={handleClose}>
@@ -163,8 +163,8 @@ export default function TableManager(props) {
                             <input 
                                 type="checkbox" 
                                 readOnly 
-                                checked={table.is_available}
-                                onClick={() => tables.toggleAttribute(table, 'is_available')} />
+                                checked={seating.is_available}
+                                onClick={() => seatings.toggleAttribute(seating, 'is_available')} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -175,8 +175,8 @@ export default function TableManager(props) {
                             <input 
                             type="checkbox" 
                             readOnly 
-                            checked={table.is_reserved} 
-                            onClick={() => tables.toggleAttribute(table, 'is_reserved')} />
+                            checked={seating.is_reserved} 
+                            onClick={() => seatings.toggleAttribute(seating, 'is_reserved')} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -187,8 +187,8 @@ export default function TableManager(props) {
                             <input 
                                 type="checkbox" 
                                 readOnly 
-                                checked={table.is_photography}
-                                onClick={() => tables.toggleAttribute(table, 'is_photography')} />
+                                checked={seating.is_photography}
+                                onClick={() => seatings.toggleAttribute(seating, 'is_photography')} />
                             <span className="slider" />
                         </label>
                     </span>
@@ -202,7 +202,7 @@ export default function TableManager(props) {
                             </span>
 
                             <span className="column">
-                                <span className="items">{deliveredOrdersInTable.length} items</span>
+                                <span className="items">{deliveredOrdersInSeating.length} items</span>
                                 <span className="total">{tabTotal.toLocaleString("en-US")} gil</span>
                             </span>
                         </button>
@@ -211,23 +211,23 @@ export default function TableManager(props) {
             </section>
 
             {viewTab && <TabManager 
-                deliveredOrdersInTable={deliveredOrdersInTable}
-                customersInTable={customersInTable}
-                table={table} 
+                deliveredOrdersInSeating={deliveredOrdersInSeating}
+                customersInSeating={customersInSeating}
+                seating={seating} 
                 handleViewTab={handleViewTab}
                 tabTotal={tabTotal}
                 setConfirmBox={setConfirmBox}
             />}
 
             <OrderManager 
-                table={table} 
-                customersInTable={customersInTable}
+                seating={seating} 
+                customersInSeating={customersInSeating}
                 setSelectedCustomer={setSelectedCustomer}
                 openConfirmBox={openConfirmBox}
                 closeConfirmBox={closeConfirmBox}
             />
 
-            <button onClick={() => resetTable()} className="resetButton destructive">
+            <button onClick={() => resetSeating()} className="resetButton destructive">
                 <img src={resetIcon} /> Reset Table
             </button>
 

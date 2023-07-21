@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import uuid from 'react-uuid';
 import useSocketListener from '../useSocketListener';
 
 function useTips(init, props) {

@@ -21,7 +21,7 @@ export default function Customer(props) {
 
     const [ nameBuffer, setNameBuffer ] = useState(customer.name);
 
-    const isInTable = customer.table !== null ? true : false;
+    const isInSeating = customer.seating !== null ? true : false;
     
     let undeliveredOrders = [];
     customer.undeliveredOrders.forEach(order => {
@@ -103,7 +103,7 @@ export default function Customer(props) {
                     onChange={handleNameChange}>
                 </input>
 
-                {isInTable &&
+                {isInSeating &&
                 <button className="icon" onClick={() => {confirmDeleteCustomer(customer)}}>
                     <img src={removecustomerIcon} alt="" />
                 </button>

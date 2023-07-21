@@ -24,15 +24,15 @@ function useOrders(init, props) {
             ));
         },
 
-        removeAllOrdersFromTable: (table) => {
+        removeAllOrdersFromSeating: (seating) => {
             setOrders(prev => (
-                prev.filter(order => order.table_id !== table.id)
+                prev.filter(order => order.seating_id !== seating.id)
             ));
         },
 
-        removeAllDeliveredOrdersFromTable: (table) => {
+        removeAllDeliveredOrdersFromSeating: (seating) => {
             setOrders(prev => {
-                const fileteredOrders = prev.filter(order => !order.is_delivered || order.table_id !== table.id);
+                const fileteredOrders = prev.filter(order => !order.is_delivered || order.seating_id !== seating.id);
                 return fileteredOrders;
             });
         },
@@ -78,8 +78,8 @@ function useOrders(init, props) {
         socket.emit("removeOrder", { ...order });
     }
 
-    function pay(orders, table) {
-        socket.emit('payOrdersInTable', {orders, table});
+    function pay(orders, seating) {
+        socket.emit('payOrdersInSeating', {orders, seating});
     }
 
 

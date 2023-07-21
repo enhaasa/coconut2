@@ -3,8 +3,8 @@ import Order from './Order';
 
 export default function SplitTab(props) {
     const { 
-        customersInTable,
-        deliveredOrdersInTable,
+        customersInSeating,
+        deliveredOrdersInSeating,
     } = props;
 
     function parseOrderList(list) {
@@ -33,7 +33,7 @@ export default function SplitTab(props) {
     }
 
     return( 
-        customersInTable.map(customer => (
+        customersInSeating.map(customer => (
             <div key={customer.id}>
                 <span className="name">{customer.name}</span>
                 <table className="itemTable" >

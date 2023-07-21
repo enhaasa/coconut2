@@ -12,15 +12,15 @@ export default function OrderManager(props) {
         openConfirmBox, 
         closeConfirmBox, 
         setSelectedCustomer,
-        customersInTable,
-        unDeliveredOrdersInTable, 
+        customersInSeating,
+        unDeliveredOrdersInSeating, 
         updateUpdates, 
-        table, 
+        seating, 
     } = props;
 
     const { 
         customers,
-        tables,
+        seatings,
         orders
     } = useContext(DynamicDataContext)
 
@@ -31,9 +31,9 @@ export default function OrderManager(props) {
             callback: function(){
                 customers.remove(customer);
 
-                if (customersInTable.length -1 === 0) {
-                    tables.set(prev => {
-                        prev[table.id].session = null;
+                if (customersInSeating.length -1 === 0) {
+                    seatings.set(prev => {
+                        prev[seating.id].session = null;
                         return [...prev];
                     });
                 }
@@ -46,16 +46,16 @@ export default function OrderManager(props) {
         })
     }
 
-    let unDeliveredOrderCustomersInTable = unDeliveredOrdersInTable ? 
-    unDeliveredOrdersInTable.map(order => order.customer_id) : [];
+    let unDeliveredOrderCustomersInSeating = unDeliveredOrdersInSeating ? 
+    unDeliveredOrdersInSeating.map(order => order.customer_id) : [];
 
 
-    function handleAdd(table) {
+    function handleAdd(seating) {
         const newCustomer = {
             name: "",
-            section_id: table.section_id,
-            table_id: table.id,
-            session_id: table.session_id,
+            section_id: seating.section_id,
+            seating_id: seating.id,
+            session_id: seating.session_id,
             realm_id: 1,
             uuid: uuid()
           }
@@ -71,15 +71,15 @@ export default function OrderManager(props) {
                 </div>
 
                 <div className="customerContainer">
-                    {table.customers.map(customer => (
+                    {seating.customers.map(customer => (
                             <Customer 
                                 key={customer.id}
                                 customer={customer}
                                 orders={orders}
                                 updateUpdates={updateUpdates}
                                 confirmDeleteCustomer={confirmDeleteCustomer}
-                                unDeliveredOrdersInTable={unDeliveredOrdersInTable}
-                                unDeliveredOrderCustomersInTable={unDeliveredOrderCustomersInTable}
+                                unDeliveredOrdersInSeating={unDeliveredOrdersInSeating}
+                                unDeliveredOrderCustomersInSeating={unDeliveredOrderCustomersInSeating}
                                 setSelectedCustomer={setSelectedCustomer}
                                 customers={customers}
                             />
@@ -88,7 +88,7 @@ export default function OrderManager(props) {
                 
 
                 <nav className="ordersNav">
-                    <button className="icon" onClick={() => {handleAdd(table)}}>
+                    <button className="icon" onClick={() => {handleAdd(seating)}}>
                         <img src={addcustomerIcon} alt="" />
                     </button>
                 </nav>
