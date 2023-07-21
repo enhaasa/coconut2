@@ -1,4 +1,4 @@
-@import '_TableManager', '_Floor', '_colorset';
+@import '_SeatingManager', '_Section', '_colorset';
 @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
@@ -44,7 +44,7 @@ body {
   margin: auto;
 }
 
-.FloorManager {
+.SectionManager {
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
@@ -204,7 +204,7 @@ button, select, option {
     padding: 3px 0;
   }
 
-  & .tableNav {
+  & .seatingNav {
 
 
     & button {

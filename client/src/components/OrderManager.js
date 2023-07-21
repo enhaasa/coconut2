@@ -73,7 +73,7 @@ export default function OrderManager(props) {
                 <div className="customerContainer">
                     {seating.customers.map(customer => (
                             <Customer 
-                                key={customer.id}
+                                key={uuid()}
                                 customer={customer}
                                 orders={orders}
                                 updateUpdates={updateUpdates}

@@ -93,7 +93,7 @@ export default function Seating(props) {
     return (
         <div>          
             <div 
-                className={`Table`}
+                className={`Seating`}
                 ref={SeatingRef}
                 key={`table${seating.number}`}
                 style={{

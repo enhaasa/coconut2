@@ -49,10 +49,10 @@ export default function Section(props) {
     return (
 
        
-            <div className="Floor" ref={SectionRef}>
+            <div className="Section" ref={SectionRef}>
            
                 <img className="overlay" src={overlay} alt="" />
-                {parsedSection.image_url && <img className="floorImage" src={parsedSection.image_url} alt="" />}
+                {parsedSection.image_url && <img className="sectionImage" src={parsedSection.image_url} alt="" />}
 
                 {parsedSection.seatings.map((seating) => (
                         <Seating 

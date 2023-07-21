@@ -1,5 +1,6 @@
 import tools from "../tools";
 import { useState } from 'react';
+import uuid from "react-uuid";
 
 function ReceiptModal(props) {
     const { session, archivedSessions, handleModal } = props;
@@ -31,7 +32,7 @@ function ReceiptModal(props) {
             
                 <tbody>
                     {tools.sortArray(session.orders).map(order => (  
-                        <tr key={order.id}>
+                        <tr key={uuid()}>
                             <td>{order.name}</td>
                             <td>{order.price.toLocaleString("en-US")} gil</td>
                             <td>{order.amount}</td>

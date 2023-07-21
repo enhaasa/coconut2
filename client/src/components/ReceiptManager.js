@@ -2,6 +2,7 @@ import React from 'react';
 import Receipt from './Receipt';
 import { useState, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
+import uuid from 'react-uuid';
 
 export default function ReceiptManager(props) {
     const {  
@@ -45,6 +46,7 @@ export default function ReceiptManager(props) {
                 <nav className="receiptFilter">
                     {filters.map((filter, index) => 
                         <button 
+                            key={uuid()}
                             onClick={() => {handleFilter(index)}}
                             className={index === selectedFilter ? "steel" : "inactive"}
                         >{filter.title}</button>)}
@@ -53,7 +55,7 @@ export default function ReceiptManager(props) {
                 <div className="receiptList">
                     {sessionsByFilter.map(session => (
                         <Receipt 
-                            key={session.id}
+                            key={uuid()}
                             setIsBlurred={setIsBlurred}
                             handleModal={handleModal}
                             session={session}

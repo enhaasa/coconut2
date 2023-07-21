@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { DynamicDataContext } from "../api/DynamicData";
+import uuid from "react-uuid";
 
 function AttendingStaff(props) {
     const { handleModal, ordersTotal, tipsTotal } = props;
@@ -19,7 +20,7 @@ function AttendingStaff(props) {
                 title: "Add attending staff",
                 content:
                 <div className="addStaffModal">
-                    {absentStaff.map(s => <button onClick={() => staff.setAttribute(s, 'is_attending', true)}>{s.name}</button>)}
+                    {absentStaff.map(s => <button key={uuid()} onClick={() => staff.setAttribute(s, 'is_attending', true)}>{s.name}</button>)}
                 </div>
             });
         } else {
@@ -34,7 +35,7 @@ function AttendingStaff(props) {
                 {attendingStaff.map((s, i) =>
                 <button 
                     className="deleteStaffButton"
-                    key={`attendingStaff${i}`}
+                    key={uuid()}
                     onClick={() => {staff.setAttribute(s, 'is_attending', false)}}
                 >{s.name}</button>)}
                 <button onClick={() => {handleAttendingModal(true)}} className="addStaffButton progressive">

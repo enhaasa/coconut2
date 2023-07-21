@@ -117,7 +117,7 @@ export default function SeatingManager(props) {
     
     return (
         seating.id !== null &&
-        <div className="TableManager" ref={ref}>
+        <div className="SeatingManager" ref={ref}>
             {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
             {isBlurred && <div className="blur" />}
 
@@ -144,7 +144,7 @@ export default function SeatingManager(props) {
                 </div>
 
                         
-                <span className={`tablenumber ${seatingnumberColor()}`}>
+                <span className={`seatingnumber ${seatingnumberColor()}`}>
 
                     {seating.number}
                 </span>

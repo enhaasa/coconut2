@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
-.TableManagerContainer {
+.SeatingManagerContainer {
   position: absolute;
   display: grid;
   grid-gap: 10px;
@@ -12,7 +12,7 @@
   z-index: 4;
   transform: translate(-50%, -50%);
 }
-.TableManagerContainer .TableManager {
+.SeatingManagerContainer .SeatingManager {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   border-radius: 50px 50px 20px 20px;
   display: grid;
@@ -23,30 +23,30 @@
   border: 4px solid black;
   box-shadow: 0px 4px 10px 1px black;
 }
-.TableManagerContainer .TableManager .title {
+.SeatingManagerContainer .SeatingManager .title {
   text-shadow: 0.1em 0.1em 0.2em black;
 }
-.TableManagerContainer .TableManager .blur {
+.SeatingManagerContainer .SeatingManager .blur {
   border-radius: inherit;
   height: 100%;
 }
-.TableManagerContainer .TableManager .header {
+.SeatingManagerContainer .SeatingManager .header {
   display: grid;
   grid-auto-flow: column;
   justify-items: center;
   width: 100%;
 }
-.TableManagerContainer .TableManager .header .assignWaiter {
+.SeatingManagerContainer .SeatingManager .header .assignWaiter {
   display: grid;
   justify-self: start;
   align-content: center;
 }
-.TableManagerContainer .TableManager .header .assignWaiter select {
+.SeatingManagerContainer .SeatingManager .header .assignWaiter select {
   background: linear-gradient(to bottom right, lightgrey, grey);
   border-radius: 15px;
   padding: 2px;
 }
-.TableManagerContainer .TableManager .header .tablenumber {
+.SeatingManagerContainer .SeatingManager .header .seatingnumber {
   display: grid;
   justify-self: center;
   place-items: center;
@@ -60,31 +60,31 @@
   margin-top: -8px;
   color: black;
 }
-.TableManagerContainer .TableManager .header .closeButton {
+.SeatingManagerContainer .SeatingManager .header .closeButton {
   justify-self: end;
   align-self: center;
   box-shadow: 0px 4px 10px 1px black;
 }
-.TableManagerContainer .TableManager .navbar {
+.SeatingManagerContainer .SeatingManager .navbar {
   width: 100%;
   margin: 5px 0;
   padding: 0;
   display: flex;
   justify-content: space-between;
 }
-.TableManagerContainer .TableManager .navbar .column {
+.SeatingManagerContainer .SeatingManager .navbar .column {
   display: grid;
   align-content: end;
   grid-gap: 5px;
 }
-.TableManagerContainer .TableManager .navbar .column .navsection {
+.SeatingManagerContainer .SeatingManager .navbar .column .navsection {
   display: grid;
   grid-auto-flow: column;
   align-items: center;
   justify-content: space-between;
   grid-gap: 5px;
 }
-.TableManagerContainer .TableManager .resetButton {
+.SeatingManagerContainer .SeatingManager .resetButton {
   display: flex;
   align-items: start;
   justify-content: center;
@@ -92,14 +92,14 @@
   margin-top: 10px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.TableManagerContainer .TableManager .resetButton img {
+.SeatingManagerContainer .SeatingManager .resetButton img {
   height: 18px;
   width: 18px;
 }
-.TableManagerContainer .viewTabContainer {
+.SeatingManagerContainer .viewTabContainer {
   display: grid;
 }
-.TableManagerContainer .viewTabContainer .viewTabButton {
+.SeatingManagerContainer .viewTabContainer .viewTabButton {
   display: grid;
   grid-auto-flow: column;
   align-items: end;
@@ -108,35 +108,35 @@
   padding: 5px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.TableManagerContainer .viewTabContainer .viewTabButton .column {
+.SeatingManagerContainer .viewTabContainer .viewTabButton .column {
   display: grid;
   justify-items: start;
   align-items: end;
   grid-gap: 0;
 }
-.TableManagerContainer .viewTabContainer .viewTabButton img {
+.SeatingManagerContainer .viewTabContainer .viewTabButton img {
   height: 32px;
   width: 32px;
 }
 
-.FloorContainer {
+.SectionContainer {
   margin: 0 auto;
   width: 100%;
 }
-.FloorContainer .floorNav {
+.SectionContainer .sectionNav {
   display: flex;
   justify-content: space-between;
   padding: 5px 0 0 0;
   width: 100%;
 }
-.FloorContainer .floorNav .floorColumn {
+.SectionContainer .sectionNav .sectionColumn {
   display: flex;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector {
   display: grid;
   align-content: end;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .notificationBar {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .notificationBar {
   display: inline-flex;
   justify-content: flex-start;
   flex-direction: row-reverse;
@@ -145,7 +145,7 @@
   z-index: 3;
   pointer-events: none;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .notificationBar .notification {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .notificationBar .notification {
   font-size: 16px;
   display: flex;
   justify-content: center;
@@ -155,27 +155,27 @@
   grid-gap: 3px;
   box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .sectionButton {
   border-radius: 15px 15px 0 0;
   padding: 6px 14px;
   box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
   border-bottom: none;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .floorButton .title {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .sectionButton .title {
   font-size: 28px;
   font-weight: normal;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .active {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   color: rgb(196, 177, 166);
   z-index: 2;
   padding-bottom: 10px;
   text-shadow: 0px 2px 4px black;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .active .title {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .active .title {
   text-shadow: 0em 4px 12px black;
 }
-.FloorContainer .Floor {
+.SectionContainer .Section {
   transform: scale(1);
   width: 1000px;
   height: 700px;
@@ -184,14 +184,14 @@
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   position: relative;
 }
-.FloorContainer .Floor .overlay {
+.SectionContainer .Section .overlay {
   z-index: 2;
   position: absolute;
   width: 1000px;
   height: 700px;
   box-shadow: inset 0px 1px 10px 1px black;
 }
-.FloorContainer .Floor .floorImage {
+.SectionContainer .Section .sectionImage {
   width: 1000px;
   height: 700px;
   transform: scale(1);
@@ -234,7 +234,7 @@ body {
   margin: auto;
 }
 
-.FloorManager {
+.SectionManager {
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
@@ -390,17 +390,17 @@ button:active, select:active, option:active {
 .itemTable td {
   padding: 3px 0;
 }
-.itemTable .tableNav button {
+.itemTable .seatingNav button {
   border-radius: 100px;
 }
-.itemTable .tableNav button.icon {
+.itemTable .seatingNav button.icon {
   display: inline-flex;
   border-radius: 100%;
   background: none;
   padding: 0 2px;
   border: none;
 }
-.itemTable .tableNav button.icon img {
+.itemTable .seatingNav button.icon img {
   width: 20px;
   height: 20px;
 }
@@ -484,24 +484,24 @@ button:active, select:active, option:active {
   padding: 10px;
 }
 
-.FloorContainer {
+.SectionContainer {
   margin: 0 auto;
   width: 100%;
 }
-.FloorContainer .floorNav {
+.SectionContainer .sectionNav {
   display: flex;
   justify-content: space-between;
   padding: 5px 0 0 0;
   width: 100%;
 }
-.FloorContainer .floorNav .floorColumn {
+.SectionContainer .sectionNav .sectionColumn {
   display: flex;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector {
   display: grid;
   align-content: end;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .notificationBar {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .notificationBar {
   display: inline-flex;
   justify-content: flex-start;
   flex-direction: row-reverse;
@@ -510,7 +510,7 @@ button:active, select:active, option:active {
   z-index: 3;
   pointer-events: none;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .notificationBar .notification {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .notificationBar .notification {
   font-size: 16px;
   display: flex;
   justify-content: center;
@@ -520,27 +520,27 @@ button:active, select:active, option:active {
   grid-gap: 3px;
   box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .floorButton {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .sectionButton {
   border-radius: 15px 15px 0 0;
   padding: 6px 14px;
   box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
   border-bottom: none;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .floorButton .title {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .sectionButton .title {
   font-size: 28px;
   font-weight: normal;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .active {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   color: rgb(196, 177, 166);
   z-index: 2;
   padding-bottom: 10px;
   text-shadow: 0px 2px 4px black;
 }
-.FloorContainer .floorNav .floorColumn .floorSelector .active .title {
+.SectionContainer .sectionNav .sectionColumn .sectionSelector .active .title {
   text-shadow: 0em 4px 12px black;
 }
-.FloorContainer .Floor {
+.SectionContainer .Section {
   transform: scale(1);
   width: 1000px;
   height: 700px;
@@ -549,14 +549,14 @@ button:active, select:active, option:active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   position: relative;
 }
-.FloorContainer .Floor .overlay {
+.SectionContainer .Section .overlay {
   z-index: 2;
   position: absolute;
   width: 1000px;
   height: 700px;
   box-shadow: inset 0px 1px 10px 1px black;
 }
-.FloorContainer .Floor .floorImage {
+.SectionContainer .Section .sectionImage {
   width: 1000px;
   height: 700px;
   transform: scale(1);
@@ -607,7 +607,7 @@ button:active, select:active, option:active {
   text-shadow: 0px 2px 4px black;
 }
 
-.Table {
+.Seating {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -622,7 +622,7 @@ button:active, select:active, option:active {
   z-index: 3;
   white-space: nowrap;
 }
-.Table .waiter {
+.Seating .waiter {
   position: absolute;
   color: white;
   padding: 1px 5px;
@@ -636,11 +636,11 @@ button:active, select:active, option:active {
   align-items: center;
   gap: 5px;
 }
-.Table .waiter img {
+.Seating .waiter img {
   width: 20px;
   height: 20px;
 }
-.Table ul {
+.Seating ul {
   list-style: none;
   text-align: center;
   margin: 1px;
@@ -648,7 +648,7 @@ button:active, select:active, option:active {
   display: grid;
   justify-items: center;
 }
-.Table ul li {
+.Seating ul li {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   box-shadow: 0px 1px 6px 1px black;
   color: white;
@@ -658,7 +658,7 @@ button:active, select:active, option:active {
   margin: 2px;
   font-size: 14px;
 }
-.Table .editing {
+.Seating .editing {
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
   border-radius: 100%;
@@ -668,29 +668,29 @@ button:active, select:active, option:active {
   justify-content: center;
   align-content: center;
 }
-.Table .editing:hover {
+.Seating .editing:hover {
   display: none;
 }
-.Table .editing p {
+.Seating .editing p {
   margin: 0;
 }
-.Table .editing .dots {
+.Seating .editing .dots {
   font-size: 50px;
   color: white;
   padding: 0;
   margin: 0;
   margin-top: -8px;
 }
-.Table .editing span {
+.Seating .editing span {
   animation-name: blink;
   animation-duration: 1.4s;
   animation-iteration-count: infinite;
   animation-fill-mode: both;
 }
-.Table .editing span:nth-child(2) {
+.Seating .editing span:nth-child(2) {
   animation-delay: 0.2s;
 }
-.Table .editing span:nth-child(3) {
+.Seating .editing span:nth-child(3) {
   animation-delay: 0.4s;
 }
 @keyframes blink {
@@ -704,7 +704,7 @@ button:active, select:active, option:active {
     opacity: 0.2;
   }
 }
-.Table .numberDisplay {
+.Seating .numberDisplay {
   font-size: 1.5em;
   border-radius: 100%;
   border: 6px double black;
@@ -713,21 +713,21 @@ button:active, select:active, option:active {
   height: 80px;
   transition: all 100ms ease-in-out;
 }
-.Table .numberDisplay:hover {
+.Seating .numberDisplay:hover {
   transform: scale(1.05);
 }
-.Table .numberDisplay .number {
+.Seating .numberDisplay .number {
   font-size: 2em;
 }
-.Table .numberDisplay .notificationContainer {
+.Seating .numberDisplay .notificationContainer {
   transform: rotate(340deg) translate(50px, 5px) rotate(-340deg);
   position: absolute;
 }
-.Table .numberDisplay .unPaidTabContainer {
+.Seating .numberDisplay .unPaidTabContainer {
   transform: rotate(340deg) translate(-18px, -18px) rotate(-340deg);
   position: absolute;
 }
-.Table .numberDisplay .isPhotographyContainer {
+.Seating .numberDisplay .isPhotographyContainer {
   transform: rotate(240deg) translate(-30px, -30px) rotate(-240deg);
   position: absolute;
 }
@@ -926,7 +926,7 @@ button:active, select:active, option:active {
   justify-content: space-between;
 }
 
-.TableManagerContainer {
+.SeatingManagerContainer {
   position: absolute;
   display: grid;
   grid-gap: 10px;
@@ -937,7 +937,7 @@ button:active, select:active, option:active {
   z-index: 4;
   transform: translate(-50%, -50%);
 }
-.TableManagerContainer .TableManager {
+.SeatingManagerContainer .SeatingManager {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   border-radius: 50px 50px 20px 20px;
   display: grid;
@@ -948,30 +948,30 @@ button:active, select:active, option:active {
   border: 4px solid black;
   box-shadow: 0px 4px 10px 1px black;
 }
-.TableManagerContainer .TableManager .title {
+.SeatingManagerContainer .SeatingManager .title {
   text-shadow: 0.1em 0.1em 0.2em black;
 }
-.TableManagerContainer .TableManager .blur {
+.SeatingManagerContainer .SeatingManager .blur {
   border-radius: inherit;
   height: 100%;
 }
-.TableManagerContainer .TableManager .header {
+.SeatingManagerContainer .SeatingManager .header {
   display: grid;
   grid-auto-flow: column;
   justify-items: center;
   width: 100%;
 }
-.TableManagerContainer .TableManager .header .assignWaiter {
+.SeatingManagerContainer .SeatingManager .header .assignWaiter {
   display: grid;
   justify-self: start;
   align-content: center;
 }
-.TableManagerContainer .TableManager .header .assignWaiter select {
+.SeatingManagerContainer .SeatingManager .header .assignWaiter select {
   background: linear-gradient(to bottom right, lightgrey, grey);
   border-radius: 15px;
   padding: 2px;
 }
-.TableManagerContainer .TableManager .header .tablenumber {
+.SeatingManagerContainer .SeatingManager .header .seatingnumber {
   display: grid;
   justify-self: center;
   place-items: center;
@@ -985,31 +985,31 @@ button:active, select:active, option:active {
   margin-top: -8px;
   color: black;
 }
-.TableManagerContainer .TableManager .header .closeButton {
+.SeatingManagerContainer .SeatingManager .header .closeButton {
   justify-self: end;
   align-self: center;
   box-shadow: 0px 4px 10px 1px black;
 }
-.TableManagerContainer .TableManager .navbar {
+.SeatingManagerContainer .SeatingManager .navbar {
   width: 100%;
   margin: 5px 0;
   padding: 0;
   display: flex;
   justify-content: space-between;
 }
-.TableManagerContainer .TableManager .navbar .column {
+.SeatingManagerContainer .SeatingManager .navbar .column {
   display: grid;
   align-content: end;
   grid-gap: 5px;
 }
-.TableManagerContainer .TableManager .navbar .column .navsection {
+.SeatingManagerContainer .SeatingManager .navbar .column .navsection {
   display: grid;
   grid-auto-flow: column;
   align-items: center;
   justify-content: space-between;
   grid-gap: 5px;
 }
-.TableManagerContainer .TableManager .resetButton {
+.SeatingManagerContainer .SeatingManager .resetButton {
   display: flex;
   align-items: start;
   justify-content: center;
@@ -1017,14 +1017,14 @@ button:active, select:active, option:active {
   margin-top: 10px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.TableManagerContainer .TableManager .resetButton img {
+.SeatingManagerContainer .SeatingManager .resetButton img {
   height: 18px;
   width: 18px;
 }
-.TableManagerContainer .viewTabContainer {
+.SeatingManagerContainer .viewTabContainer {
   display: grid;
 }
-.TableManagerContainer .viewTabContainer .viewTabButton {
+.SeatingManagerContainer .viewTabContainer .viewTabButton {
   display: grid;
   grid-auto-flow: column;
   align-items: end;
@@ -1033,13 +1033,13 @@ button:active, select:active, option:active {
   padding: 5px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.TableManagerContainer .viewTabContainer .viewTabButton .column {
+.SeatingManagerContainer .viewTabContainer .viewTabButton .column {
   display: grid;
   justify-items: start;
   align-items: end;
   grid-gap: 0;
 }
-.TableManagerContainer .viewTabContainer .viewTabButton img {
+.SeatingManagerContainer .viewTabContainer .viewTabButton img {
   height: 32px;
   width: 32px;
 }
@@ -1078,7 +1078,7 @@ button:active, select:active, option:active {
   border-radius: 15px;
   padding: 2px;
 }
-.CustomerManager .header .tablenumber {
+.CustomerManager .header .seatingnumber {
   display: grid;
   justify-self: center;
   place-items: center;
@@ -1292,7 +1292,7 @@ button:active, select:active, option:active {
   outline: none;
 }
 
-.TableManagerContainer .MenuManager {
+.SeatingManagerContainer .MenuManager {
   display: grid;
   position: relative;
   background: bisque;
@@ -1301,7 +1301,7 @@ button:active, select:active, option:active {
   border: 4px solid black;
   box-shadow: 0px 4px 10px 1px black;
 }
-.TableManagerContainer .MenuManager .menuTitle {
+.SeatingManagerContainer .MenuManager .menuTitle {
   display: flex;
   justify-self: center;
   justify-content: space-between;
@@ -1312,26 +1312,26 @@ button:active, select:active, option:active {
   width: 100%;
   box-shadow: 0px 2px 4px 1px black;
 }
-.TableManagerContainer .MenuManager .menuTitle .customerTitle {
+.SeatingManagerContainer .MenuManager .menuTitle .customerTitle {
   color: white;
   padding: 0 10px;
   text-shadow: 0.1em 0.1em 0.2em black;
 }
-.TableManagerContainer .MenuManager .menuTitle .closeButton {
+.SeatingManagerContainer .MenuManager .menuTitle .closeButton {
   margin: 5px;
 }
-.TableManagerContainer .MenuManager .menuContainer {
+.SeatingManagerContainer .MenuManager .menuContainer {
   -moz-column-count: 2;
        column-count: 2;
   padding: 5px 10px;
   box-shadow: inset 0px 1px 10px 1px black;
 }
-.TableManagerContainer .MenuManager .menuContainer .type {
+.SeatingManagerContainer .MenuManager .menuContainer .type {
   -moz-column-break-inside: avoid;
        break-inside: avoid;
   padding: 5px;
 }
-.TableManagerContainer .MenuManager .menuContainer .type .typeTitle {
+.SeatingManagerContainer .MenuManager .menuContainer .type .typeTitle {
   border-bottom: 1px solid white;
   font-weight: bold;
   color: black;
@@ -1339,30 +1339,30 @@ button:active, select:active, option:active {
   text-align: center;
   margin: 2px 0;
 }
-.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item {
+.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .item {
   display: flex;
   white-space: nowrap;
   justify-content: space-between;
   gap: 5px;
   margin: 1px 0;
 }
-.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle {
+.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle {
   display: flex;
   gap: 5px;
   align-content: center;
   color: black;
   font-weight: bold;
 }
-.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle .itemInfoButton {
+.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle .itemInfoButton {
   background: none;
   border: none;
   padding: 0;
 }
-.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemNav button {
+.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemNav button {
   box-shadow: 0px 2px 4px 1px black;
   transition: none;
 }
-.TableManagerContainer .MenuManager .menuContainer .type .itemContainer .itemInfo {
+.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .itemInfo {
   display: none;
 }
 

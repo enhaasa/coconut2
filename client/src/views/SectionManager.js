@@ -37,9 +37,9 @@ function SectionManager(props) {
 
 
     return(
-        <div className="FloorManager">
+        <div className="SectionManager">
 
-        <section className="TableManagerContainer">
+        <section className="SeatingManagerContainer">
               {selectedSeating !== null &&
                 <SeatingManager 
                   selectedSeating={selectedSeating} 
@@ -69,28 +69,28 @@ function SectionManager(props) {
      
         </section>
         
-        <section className="FloorContainer">
-          <nav className="floorNav">
-            <span className="floorColumn">
+        <section className="SectionContainer">
+          <nav className="sectionNav">
+            <span className="sectionColumn">
               {sections.get.map((section, index) => {
                   return (
-                      <div className="floorSelector" key={uuid()}>
+                      <div className="sectionSelector" key={uuid()}>
                         {
                           customers.get.length > 0 &&
                           seatings.get.length > 0 &&
                             <NotificationBar
                               customers={
                                 customers.get.filter(customer => 
-                                  customer.section === section.type && 
-                                    !seatings.get.find(seating => seating.id === customer.seating
+                                  customer.section_id === section.id && 
+                                    !seatings.get.find(seating => seating.id === customer.seating_id
                                       && seating).isAvailable && customer)}
 
-                              orders={orders.get.filter(order => order.section === section.type && !order.delivered && order)}
+                              orders={orders.get.filter(order => order.section_id === section.id && !order.is_delivered && order)}
                           />
                         }
 
                         <button 
-                          className={`floorButton ${selectedSeating === index ? "active" : "inactive"}`} 
+                          className={`sectionButton ${selectedSeating === index ? "active" : "inactive"}`} 
                           key={index} 
                           onClick={() => {setSelectedSection(index)}}>
                           <span className="title cursive">{section.name}</span>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Order from './Order';
+import uuid from 'react-uuid';
 
 export default function SplitTab(props) {
     const { 
@@ -34,7 +35,7 @@ export default function SplitTab(props) {
 
     return( 
         customersInSeating.map(customer => (
-            <div key={customer.id}>
+            <div key={uuid()}>
                 <span className="name">{customer.name}</span>
                 <table className="itemTable" >
                     <thead>
@@ -49,21 +50,24 @@ export default function SplitTab(props) {
 
                     <tbody>
                         {parseOrderList(customer.deliveredOrders).map(order => (   
-                                <Order order={order} /> 
+                                <Order 
+                                    key={uuid()}
+                                    order={order} 
+                                /> 
                         ))}
                     </tbody>
 
                     <tfoot>
-                    <tr>
-                        <td>Total:</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{
-                            customer.deliveredOrders.reduce(((total, order) => total + order.price), 0).toLocaleString("en-US") + " gil"
-                        }</td>
-                    </tr>
-                </tfoot>
+                        <tr>
+                            <td>Total:</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{
+                                customer.deliveredOrders.reduce(((total, order) => total + order.price), 0).toLocaleString("en-US") + " gil"
+                            }</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         ))
