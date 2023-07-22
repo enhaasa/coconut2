@@ -22,7 +22,7 @@ export default function Seating(props) {
     } = useContext(DynamicDataContext);
     const {
         setSelectedSeating, 
-        handleItemInMovement, 
+        setItemInMovement, 
         maxDeliveryTime,
     } = useContext(ControlStatesContext);
 
@@ -109,7 +109,7 @@ export default function Seating(props) {
                     top:seating.pos_y
             }}>
 
-                <button onClick={() => {handleItemInMovement(seating)}}>Move</button>
+                <button onClick={() => {setItemInMovement(seating)}}>Move</button>
 
                 <div className="upper-wrapper">
                     {seating.waiter !== "" &&

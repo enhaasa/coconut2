@@ -26,7 +26,7 @@ export default class Database {
       } catch (error) {
         
         console.error('An error occurred:', error);
-        return { error: 'An error occurred' };
+        return null;
       }
     }
 

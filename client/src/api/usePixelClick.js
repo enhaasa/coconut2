@@ -7,7 +7,7 @@ const usePixelClick = () => {
     const x = Math.round(event.clientX - rect.left);
     const y = Math.round(event.clientY - rect.top);
 
-    console.log(`Clicked pixel coordinates: (${x}, ${y})`);
+    return [x, y];
   }, []);
 
   return handleClick;

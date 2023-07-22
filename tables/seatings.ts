@@ -6,6 +6,7 @@ module.exports = function registerHandlers(io) {
         socket.on('getSeatings', () => Seatings.get(socket));
         socket.on('setSeatingAttribute', (data) => Seatings.setAttribute(io, data));
         socket.on('resetTSeating', (seating) => Seatings.reset(io, seating));
+        socket.on('setSeatingLocation', (data) => Seatings.setLocation(io, data));
     }));
 }
 
@@ -62,5 +63,29 @@ export class Seatings {
         io.emit('removeAllOrdersFromSeating', seating);
         io.emit('removeAllCustomersFromSeating', seating);
         io.emit('resetSeating', seating);
+    }
+
+    public static async setLocation(io: Server, data) {
+        try {
+            const { seating, newLocation } = data;
+            const { pos_x, pos_y, section_id } = newLocation;
+
+            const query = `
+                UPDATE ${this.table}
+                SET "pos_x" = ${pos_x}, "pos_y" = ${pos_y}, "section_id" = ${section_id}
+                WHERE "id" = ${seating.id}
+            `;
+
+            Database.query(query).then(res => {
+                if (res) {
+                    io.emit('setSeatingLocation', data);
+                }
+            });
+            
+        } catch(err) {
+            console.log(err);
+        }
+
+    
     }
 }

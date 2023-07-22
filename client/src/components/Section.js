@@ -1,6 +1,7 @@
 import React, { useRef, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
+import usePixelClick from '../api/usePixelClick';
 import Seating from './Seating';
 
 import overlay from './../assets/icons/dark-fabric.png';
@@ -10,7 +11,6 @@ export default function Section(props) {
         section,
         colorset,
         parsedSection,
-        handlePixelClick,
     } = props;
 
     const {
@@ -20,9 +20,28 @@ export default function Section(props) {
     const {
         maxDeliveryTime, 
         itemInMovement,
+        selectedSection,
         setItemInMovement,
         setSelectedSeating,
     } = useContext(ControlStatesContext);
+
+    const getVectorPoint = usePixelClick();
+
+    function handleMoveItem(event) {
+        if (itemInMovement) {
+            const [ x, y ] = getVectorPoint(event);
+
+            const newLocation = {
+                pos_x: x,
+                pos_y: y,
+                section_id: section.id
+            }
+
+            seatings.setLocation(itemInMovement, newLocation);
+            setItemInMovement(null);
+        }
+    }
+
 
     const SectionRef = useRef();
     let seatingsInSection = [];
@@ -35,7 +54,7 @@ export default function Section(props) {
     });
 
     return (
-            <div className={`Section ${itemInMovement && 'moving-item-mode'}`} ref={SectionRef} >
+            <div className={`Section ${itemInMovement && 'moving-item-mode'}`} onClick={handleMoveItem} ref={SectionRef} >
                 
                 {
                     itemInMovement &&

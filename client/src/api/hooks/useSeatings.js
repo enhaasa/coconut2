@@ -21,7 +21,7 @@ function useSeats(init, props) {
             });
         },
         resetSeating: (seatingToReset) => {
-            const index = seatings.findIndex(seating => seating.id === seatingToReset.id);
+            const index = seatings.findIndex(s => s.id === seatingToReset.id);
 
             setSeatings(prev => {
                 prev[index].is_available = true;
@@ -30,6 +30,20 @@ function useSeats(init, props) {
 
                 return [...prev];
             });
+        },
+        setSeatingLocation: (data) => {
+            const { seating, newLocation } = data;
+            console.log(newLocation)
+
+            const index = seatings.findIndex(s => s.id === seating.id);
+
+            setSeatings(prev => {
+                prev[index].pos_x = newLocation.pos_x;
+                prev[index].pos_y = newLocation.pos_y;
+                prev[index].section_id = newLocation.section_id;
+
+                return [...prev];
+            })
         }
     }
 
@@ -38,6 +52,10 @@ function useSeats(init, props) {
     function toggleAttribute(seating, attribute) {
         const current = seatings.find(t => t.id === seating.id)[attribute];
         setAttribute(seating, attribute, !current);
+    }
+
+    function setLocation(seating, newLocation) {
+        socket.emit('setSeatingLocation', { seating, newLocation });
     }
 
     function setAttribute(seating, attribute, value) {
@@ -59,7 +77,8 @@ function useSeats(init, props) {
             reset,
             toggleAttribute,
             setAttribute,
-            refresh: refresh
+            refresh: refresh,
+            setLocation,
         }
     ]
 }
