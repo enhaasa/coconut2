@@ -1,7 +1,7 @@
 @import '_colorset'; 
 
 .AttendingStaff {
-    & .deleteStaffButton {
+    & .delete-staff-button {
         background: $background-inactive;
         
         &:hover {
@@ -10,18 +10,18 @@
         }
     }
 
-    & .perPerson, & .calculations, & .listTitle {
+    & .perPerson, & .calculations {
         color: $cream;
         margin-top: 5px;
         padding-top: 3px;
         text-shadow: 0px 2px 4px black;
     }
 
-    & .perPerson, & .calculations {
+    & .per-person, & .calculations {
         border-top: 1px solid $cream;
     }
 
-    & .perPerson {
+    & .per-person {
         color: lightgrey;
     }
 

@@ -32,14 +32,14 @@
         border-radius: 999px; 
     }
 
-    & .customerContainer {
+    & .customer-container {
         display: grid;
         grid-auto-flow: row;
 
         & .customer {
             margin: 8px 0;
             
-            & .nameNav {
+            & .name-nav {
                 display: flex;
                 justify-content: center;
 
@@ -60,19 +60,19 @@
                 }
             }
 
-            & .customerNav {
+            & .customer-nav {
                 display: flex;
                 justify-content: space-between;
             }
 
-            & .itemTable {
+            & .item-table {
 
                 & .end {
                     display: flex;
                     justify-content: flex-end;
                 }
 
-                & .itemInfoButton {
+                & .item-info-button {
                     background: none;
                     border: none;
                     padding: 0;
@@ -81,7 +81,7 @@
         }
     }
 
-    & .ordersNav {
+    & .orders-nav {
         display: flex;
         justify-content: center;
         padding-top: 3px;

@@ -20,7 +20,7 @@ function ReceiptModal(props) {
 
     return(
         <div className="ReceiptModal">
-            <table className="itemTable">
+            <table className="item-table">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -60,7 +60,7 @@ function ReceiptModal(props) {
             </table>
 
             
-            <div className="paidAmount">
+            <div className="paid-amount">
                 <label>Amount paid:</label> 
                 <input type="number" 
                     value={amountPaid} 
@@ -74,7 +74,7 @@ function ReceiptModal(props) {
             <br />
             
 
-            <div className="receiptRP">
+            <div className="receipt-RP">
                 
                 <a href={`https://cocosoasis.info/r.html?id=${session.id}`}
                 target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a>

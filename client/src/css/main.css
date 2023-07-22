@@ -36,12 +36,12 @@
   justify-items: center;
   width: 100%;
 }
-.SeatingManagerContainer .SeatingManager .header .assignWaiter {
+.SeatingManagerContainer .SeatingManager .header .assign-waiter {
   display: grid;
   justify-self: start;
   align-content: center;
 }
-.SeatingManagerContainer .SeatingManager .header .assignWaiter select {
+.SeatingManagerContainer .SeatingManager .header .assign-waiter select {
   background: linear-gradient(to bottom right, lightgrey, grey);
   border-radius: 15px;
   padding: 2px;
@@ -60,7 +60,7 @@
   margin-top: -8px;
   color: black;
 }
-.SeatingManagerContainer .SeatingManager .header .closeButton {
+.SeatingManagerContainer .SeatingManager .header .close-button {
   justify-self: end;
   align-self: center;
   box-shadow: 0px 4px 10px 1px black;
@@ -84,7 +84,7 @@
   justify-content: space-between;
   grid-gap: 5px;
 }
-.SeatingManagerContainer .SeatingManager .resetButton {
+.SeatingManagerContainer .SeatingManager .reset-button {
   display: flex;
   align-items: start;
   justify-content: center;
@@ -92,14 +92,14 @@
   margin-top: 10px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.SeatingManagerContainer .SeatingManager .resetButton img {
+.SeatingManagerContainer .SeatingManager .reset-button img {
   height: 18px;
   width: 18px;
 }
-.SeatingManagerContainer .viewTabContainer {
+.SeatingManagerContainer .view-tab-container {
   display: grid;
 }
-.SeatingManagerContainer .viewTabContainer .viewTabButton {
+.SeatingManagerContainer .view-tab-container .view-tab-button {
   display: grid;
   grid-auto-flow: column;
   align-items: end;
@@ -108,13 +108,13 @@
   padding: 5px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.SeatingManagerContainer .viewTabContainer .viewTabButton .column {
+.SeatingManagerContainer .view-tab-container .view-tab-button .column {
   display: grid;
   justify-items: start;
   align-items: end;
   grid-gap: 0;
 }
-.SeatingManagerContainer .viewTabContainer .viewTabButton img {
+.SeatingManagerContainer .view-tab-container .view-tab-button img {
   height: 32px;
   width: 32px;
 }
@@ -123,20 +123,20 @@
   margin: 0 auto;
   width: 100%;
 }
-.SectionContainer .sectionNav {
+.SectionContainer .section-nav {
   display: flex;
   justify-content: space-between;
   padding: 5px 0 0 0;
   width: 100%;
 }
-.SectionContainer .sectionNav .sectionColumn {
+.SectionContainer .section-nav .section-column {
   display: flex;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector {
+.SectionContainer .section-nav .section-column .section-selector {
   display: grid;
   align-content: end;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .notificationBar {
+.SectionContainer .section-nav .section-column .section-selector .notification-bar {
   display: inline-flex;
   justify-content: flex-start;
   flex-direction: row-reverse;
@@ -145,7 +145,7 @@
   z-index: 3;
   pointer-events: none;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .notificationBar .notification {
+.SectionContainer .section-nav .section-column .section-selector .notification-bar .notification {
   font-size: 16px;
   display: flex;
   justify-content: center;
@@ -155,24 +155,24 @@
   grid-gap: 3px;
   box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .sectionButton {
+.SectionContainer .section-nav .section-column .section-selector .section-button {
   border-radius: 15px 15px 0 0;
   padding: 6px 14px;
   box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
   border-bottom: none;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .sectionButton .title {
+.SectionContainer .section-nav .section-column .section-selector .section-button .title {
   font-size: 28px;
   font-weight: normal;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .active {
+.SectionContainer .section-nav .section-column .section-selector .active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   color: rgb(196, 177, 166);
   z-index: 2;
   padding-bottom: 10px;
   text-shadow: 0px 2px 4px black;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .active .title {
+.SectionContainer .section-nav .section-column .section-selector .active .title {
   text-shadow: 0em 4px 12px black;
 }
 .SectionContainer .Section {
@@ -191,7 +191,7 @@
   height: 700px;
   box-shadow: inset 0px 1px 10px 1px black;
 }
-.SectionContainer .Section .sectionImage {
+.SectionContainer .Section .section-image {
   width: 1000px;
   height: 700px;
   transform: scale(1);
@@ -268,7 +268,7 @@ button:active, select:active, option:active {
   box-shadow: inset 0px 1px 4px 1px black !important;
 }
 
-.closeButton {
+.close-button {
   border-radius: 100%;
   width: 50px;
   height: 50px;
@@ -276,7 +276,7 @@ button:active, select:active, option:active {
   place-items: center;
   background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63));
 }
-.closeButton img {
+.close-button img {
   width: 28px;
   height: 28px;
 }
@@ -369,52 +369,52 @@ button:active, select:active, option:active {
   visibility: visible;
 }
 
-.itemTable {
+.item-table {
   width: 100%;
   border-bottom: 2px solid black;
   margin: 4px 0;
   border-collapse: collapse;
   align-items: center;
 }
-.itemTable tbody tr:nth-child(even) {
+.item-table tbody tr:nth-child(even) {
   background-color: rgba(128, 128, 128, 0.6);
 }
-.itemTable tr {
+.item-table tr {
   font-size: 14px;
 }
-.itemTable th {
+.item-table th {
   text-align: left;
   background: rgb(36, 30, 11);
   color: white;
 }
-.itemTable td {
+.item-table td {
   padding: 3px 0;
 }
-.itemTable .seatingNav button {
+.item-table .seating-nav button {
   border-radius: 100px;
 }
-.itemTable .seatingNav button.icon {
+.item-table .seating-nav button.icon {
   display: inline-flex;
   border-radius: 100%;
   background: none;
   padding: 0 2px;
   border: none;
 }
-.itemTable .seatingNav button.icon img {
+.item-table .seating-nav button.icon img {
   width: 20px;
   height: 20px;
 }
-.itemTable tfoot {
+.item-table tfoot {
   font-weight: bold;
   color: rgb(138, 0, 0);
   border-top: 2px solid black;
 }
 
-.notificationContainer {
+.notification-container {
   display: flex;
   align-items: center;
 }
-.notificationContainer .notification {
+.notification-container .notification {
   display: grid;
   place-items: center;
   width: 30px;
@@ -425,7 +425,7 @@ button:active, select:active, option:active {
   font-size: 22px;
   z-index: 1;
 }
-.notificationContainer .addendum {
+.notification-container .addendum {
   background: rgb(36, 30, 11);
   color: white;
   border-radius: 0 15px 15px 0;
@@ -441,7 +441,7 @@ button:active, select:active, option:active {
   white-space: nowrap;
 }
 
-.appInfo {
+.app-info {
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -450,16 +450,16 @@ button:active, select:active, option:active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   box-shadow: 0px 4px 10px 1px black;
 }
-.appInfo .logo img {
+.app-info .logo img {
   width: 50px;
 }
-.appInfo .text {
+.app-info .text {
   border-bottom: 4px double #979797;
   display: flex;
   align-items: flex-end;
   gap: 5px;
 }
-.appInfo .text .title {
+.app-info .text .title {
   font-size: 42px !important;
   font-weight: bold;
   background: linear-gradient(to bottom right, rgb(132, 253, 132), rgb(164, 250, 238));
@@ -468,18 +468,18 @@ button:active, select:active, option:active {
   -webkit-text-fill-color: transparent;
   margin-bottom: -5px;
 }
-.appInfo .text .version {
+.app-info .text .version {
   color: white;
 }
 
-.viewManager {
+.view-manager {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
 }
 
-.addStaffModal {
+.add-staff-modal {
   max-width: 600px;
   padding: 10px;
 }
@@ -488,20 +488,20 @@ button:active, select:active, option:active {
   margin: 0 auto;
   width: 100%;
 }
-.SectionContainer .sectionNav {
+.SectionContainer .section-nav {
   display: flex;
   justify-content: space-between;
   padding: 5px 0 0 0;
   width: 100%;
 }
-.SectionContainer .sectionNav .sectionColumn {
+.SectionContainer .section-nav .section-column {
   display: flex;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector {
+.SectionContainer .section-nav .section-column .section-selector {
   display: grid;
   align-content: end;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .notificationBar {
+.SectionContainer .section-nav .section-column .section-selector .notification-bar {
   display: inline-flex;
   justify-content: flex-start;
   flex-direction: row-reverse;
@@ -510,7 +510,7 @@ button:active, select:active, option:active {
   z-index: 3;
   pointer-events: none;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .notificationBar .notification {
+.SectionContainer .section-nav .section-column .section-selector .notification-bar .notification {
   font-size: 16px;
   display: flex;
   justify-content: center;
@@ -520,24 +520,24 @@ button:active, select:active, option:active {
   grid-gap: 3px;
   box-shadow: 0px 1px 4px 1px rgb(36, 30, 11);
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .sectionButton {
+.SectionContainer .section-nav .section-column .section-selector .section-button {
   border-radius: 15px 15px 0 0;
   padding: 6px 14px;
   box-shadow: 0px 4px 6px 1px rgb(36, 30, 11);
   border-bottom: none;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .sectionButton .title {
+.SectionContainer .section-nav .section-column .section-selector .section-button .title {
   font-size: 28px;
   font-weight: normal;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .active {
+.SectionContainer .section-nav .section-column .section-selector .active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   color: rgb(196, 177, 166);
   z-index: 2;
   padding-bottom: 10px;
   text-shadow: 0px 2px 4px black;
 }
-.SectionContainer .sectionNav .sectionColumn .sectionSelector .active .title {
+.SectionContainer .section-nav .section-column .section-selector .active .title {
   text-shadow: 0em 4px 12px black;
 }
 .SectionContainer .Section {
@@ -556,7 +556,7 @@ button:active, select:active, option:active {
   height: 700px;
   box-shadow: inset 0px 1px 10px 1px black;
 }
-.SectionContainer .Section .sectionImage {
+.SectionContainer .Section .section-image {
   width: 1000px;
   height: 700px;
   transform: scale(1);
@@ -581,15 +581,15 @@ button:active, select:active, option:active {
   font-size: 28px;
   color: white;
 }
-.ReceiptManager .header .underTitle {
+.ReceiptManager .header .under-title {
   color: rgb(196, 177, 166);
   font-size: 14px;
 }
-.ReceiptManager .receiptFilter {
+.ReceiptManager .receipt-filter {
   display: flex;
   justify-content: center;
 }
-.ReceiptManager .receiptList {
+.ReceiptManager .receipt-list {
   display: flex;
   flex-direction: column;
   padding-top: 5px;
@@ -599,7 +599,7 @@ button:active, select:active, option:active {
   max-height: 600px;
   overflow-y: auto;
 }
-.ReceiptManager .totalEarnings {
+.ReceiptManager .total-earnings {
   color: lightgrey;
   margin-top: 5px;
   padding-top: 3px;
@@ -622,41 +622,83 @@ button:active, select:active, option:active {
   z-index: 3;
   white-space: nowrap;
 }
-.Seating .waiter {
+.Seating .upper-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 50px;
+  margin-top: -42px;
+  align-items: center;
+  gap: 2px;
   position: absolute;
+  z-index: 1;
+}
+.Seating .upper-wrapper .orderinfo {
+  display: flex;
+  justify-content: center;
+  font-weight: normal;
+  font-weight: normal;
+  font-size: 0.9em;
+  border-radius: 10px;
+  box-shadow: 0px 0px 2px 1px rgb(41, 41, 41);
+}
+.Seating .upper-wrapper .orderinfo .amount {
+  display: flex;
+  align-items: center;
+  background: rgb(36, 30, 11);
+  color: white;
+  border-radius: 10px 0 0 10px;
+  padding: 0 5px;
+  border: 1px solid black;
+  gap: 4px;
+}
+.Seating .upper-wrapper .orderinfo .time {
+  border-radius: 0 10px 10px 0;
+  padding: 0 5px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+}
+.Seating .upper-wrapper .waiter {
   color: white;
   padding: 1px 5px;
   text-shadow: 0 0 black;
-  margin-top: -26px;
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black) !important;
-  border: 2px solid black;
-  box-shadow: 0px 0px 2px 1px black;
+  border: 1px solid black;
+  box-shadow: 0px 0px 2px 1px rgb(41, 41, 41);
   font-size: 14px;
+  border-radius: 10px;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 5px;
 }
-.Seating .waiter img {
+.Seating .upper-wrapper .waiter img {
   width: 20px;
   height: 20px;
 }
-.Seating ul {
-  list-style: none;
-  text-align: center;
-  margin: 1px;
-  padding: 0;
+.Seating .lower-wrapper .customers {
   display: grid;
   justify-items: center;
+  gap: 1px;
+  text-align: center;
+  padding: 0;
 }
-.Seating ul li {
+.Seating .lower-wrapper .customers .customer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   box-shadow: 0px 1px 6px 1px black;
   color: white;
   padding: 1px 5px;
-  border-radius: 25px;
+  border-radius: 10px;
   outline: 2px solid black;
   margin: 2px;
   font-size: 14px;
+}
+.Seating .lower-wrapper .customers .customer img {
+  height: 13px;
+  width: 13px;
 }
 .Seating .editing {
   background: rgba(0, 0, 0, 0.7);
@@ -704,30 +746,34 @@ button:active, select:active, option:active {
     opacity: 0.2;
   }
 }
-.Seating .numberDisplay {
+.Seating .number-display {
   font-size: 1.5em;
   border-radius: 100%;
   border: 6px double black;
   box-shadow: 0 0 4px 1px rgb(41, 41, 41);
-  width: 80px;
-  height: 80px;
   transition: all 100ms ease-in-out;
 }
-.Seating .numberDisplay:hover {
+.Seating .number-display.multi {
+  width: 80px;
+  height: 80px;
+  border: 6px double black;
+}
+.Seating .number-display.single {
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+}
+.Seating .number-display:hover {
   transform: scale(1.05);
 }
-.Seating .numberDisplay .number {
+.Seating .number-display .number {
   font-size: 2em;
 }
-.Seating .numberDisplay .notificationContainer {
-  transform: rotate(340deg) translate(50px, 5px) rotate(-340deg);
-  position: absolute;
-}
-.Seating .numberDisplay .unPaidTabContainer {
+.Seating .number-display .unpaid-tab-container {
   transform: rotate(340deg) translate(-18px, -18px) rotate(-340deg);
   position: absolute;
 }
-.Seating .numberDisplay .isPhotographyContainer {
+.Seating .number-display .is-photography-container {
   transform: rotate(240deg) translate(-30px, -30px) rotate(-240deg);
   position: absolute;
 }
@@ -767,7 +813,7 @@ button:active, select:active, option:active {
   margin-bottom: 5px;
   text-shadow: 0px 2px 4px black;
 }
-.Payouts .column section .underTitle {
+.Payouts .column section .under-title {
   color: rgb(196, 177, 166);
   font-size: 14px;
   text-align: center;
@@ -815,7 +861,7 @@ button:active, select:active, option:active {
   text-shadow: 0px 2px 4px black;
 }
 
-.modalContainer {
+.modal-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -825,13 +871,13 @@ button:active, select:active, option:active {
   display: grid;
   place-items: center;
 }
-.modalContainer .Modal {
+.modal-container .Modal {
   background: rgb(20, 20, 20);
   box-shadow: 0px 2px 4px 1px black;
   min-width: 500px;
   border: 1px solid black;
 }
-.modalContainer .Modal .titleBar {
+.modal-container .Modal .title-bar {
   display: flex;
   justify-self: center;
   justify-content: space-between;
@@ -840,59 +886,59 @@ button:active, select:active, option:active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   box-shadow: 0px 2px 4px 1px black;
 }
-.modalContainer .Modal .titleBar .title {
+.modal-container .Modal .title-bar .title {
   text-shadow: 0px 2px 4px black;
   font-size: 28px;
   padding-left: 10px;
   font-family: "Dancing Script", cursive;
 }
-.modalContainer .Modal .titleBar .closeButton {
+.modal-container .Modal .title-bar .close-button {
   margin: 5px;
 }
-.modalContainer .Modal .content {
+.modal-container .Modal .content {
   padding: 0 10px;
   color: white;
 }
 
-.ReceiptModal .paidAmount {
+.ReceiptModal .paid-amount {
   display: flex;
   gap: 5px;
 }
-.ReceiptModal .paidAmount label {
+.ReceiptModal .paid-amount label {
   white-space: nowrap;
 }
-.ReceiptModal .paidAmount input {
+.ReceiptModal .paid-amount input {
   width: 100%;
   background: rgb(36, 30, 11);
   color: white;
 }
-.ReceiptModal .itemTable tfoot {
+.ReceiptModal .item-table tfoot {
   color: rgb(196, 177, 166);
 }
-.ReceiptModal .receiptRP a {
+.ReceiptModal .receipt-RP a {
   color: rgb(138, 0, 0);
 }
-.ReceiptModal .receiptRP a:visited {
+.ReceiptModal .receipt-RP a:visited {
   color: rgb(138, 0, 0);
 }
 
-.AttendingStaff .deleteStaffButton {
+.AttendingStaff .delete-staff-button {
   background: radial-gradient(ellipse farthest-corner at right bottom, rgb(216, 215, 215) 0%, rgb(173, 173, 173) 8%, rgb(165, 165, 165) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(214, 214, 214) 8%, rgb(170, 170, 170) 25%);
 }
-.AttendingStaff .deleteStaffButton:hover {
+.AttendingStaff .delete-staff-button:hover {
   background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63));
   text-decoration: line-through;
 }
-.AttendingStaff .perPerson, .AttendingStaff .calculations, .AttendingStaff .listTitle {
+.AttendingStaff .perPerson, .AttendingStaff .calculations {
   color: rgb(196, 177, 166);
   margin-top: 5px;
   padding-top: 3px;
   text-shadow: 0px 2px 4px black;
 }
-.AttendingStaff .perPerson, .AttendingStaff .calculations {
+.AttendingStaff .per-person, .AttendingStaff .calculations {
   border-top: 1px solid rgb(196, 177, 166);
 }
-.AttendingStaff .perPerson {
+.AttendingStaff .per-person {
   color: lightgrey;
 }
 
@@ -920,7 +966,7 @@ button:active, select:active, option:active {
 .TipModal input::placeholder {
   color: rgb(196, 177, 166);
 }
-.TipModal .submitContainer {
+.TipModal .submit-container {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
@@ -961,12 +1007,12 @@ button:active, select:active, option:active {
   justify-items: center;
   width: 100%;
 }
-.SeatingManagerContainer .SeatingManager .header .assignWaiter {
+.SeatingManagerContainer .SeatingManager .header .assign-waiter {
   display: grid;
   justify-self: start;
   align-content: center;
 }
-.SeatingManagerContainer .SeatingManager .header .assignWaiter select {
+.SeatingManagerContainer .SeatingManager .header .assign-waiter select {
   background: linear-gradient(to bottom right, lightgrey, grey);
   border-radius: 15px;
   padding: 2px;
@@ -985,7 +1031,7 @@ button:active, select:active, option:active {
   margin-top: -8px;
   color: black;
 }
-.SeatingManagerContainer .SeatingManager .header .closeButton {
+.SeatingManagerContainer .SeatingManager .header .close-button {
   justify-self: end;
   align-self: center;
   box-shadow: 0px 4px 10px 1px black;
@@ -1009,7 +1055,7 @@ button:active, select:active, option:active {
   justify-content: space-between;
   grid-gap: 5px;
 }
-.SeatingManagerContainer .SeatingManager .resetButton {
+.SeatingManagerContainer .SeatingManager .reset-button {
   display: flex;
   align-items: start;
   justify-content: center;
@@ -1017,14 +1063,14 @@ button:active, select:active, option:active {
   margin-top: 10px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.SeatingManagerContainer .SeatingManager .resetButton img {
+.SeatingManagerContainer .SeatingManager .reset-button img {
   height: 18px;
   width: 18px;
 }
-.SeatingManagerContainer .viewTabContainer {
+.SeatingManagerContainer .view-tab-container {
   display: grid;
 }
-.SeatingManagerContainer .viewTabContainer .viewTabButton {
+.SeatingManagerContainer .view-tab-container .view-tab-button {
   display: grid;
   grid-auto-flow: column;
   align-items: end;
@@ -1033,13 +1079,13 @@ button:active, select:active, option:active {
   padding: 5px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.SeatingManagerContainer .viewTabContainer .viewTabButton .column {
+.SeatingManagerContainer .view-tab-container .view-tab-button .column {
   display: grid;
   justify-items: start;
   align-items: end;
   grid-gap: 0;
 }
-.SeatingManagerContainer .viewTabContainer .viewTabButton img {
+.SeatingManagerContainer .view-tab-container .view-tab-button img {
   height: 32px;
   width: 32px;
 }
@@ -1068,12 +1114,12 @@ button:active, select:active, option:active {
   justify-content: space-between;
   width: 100%;
 }
-.CustomerManager .header .customerName {
+.CustomerManager .header .customer-name {
   display: grid;
   justify-self: start;
   align-content: center;
 }
-.CustomerManager .header .customerName select {
+.CustomerManager .header .customer-name select {
   background: linear-gradient(to bottom right, lightgrey, grey);
   border-radius: 15px;
   padding: 2px;
@@ -1092,7 +1138,7 @@ button:active, select:active, option:active {
   margin-top: -8px;
   color: black;
 }
-.CustomerManager .header .closeButton {
+.CustomerManager .header .close-button {
   justify-self: end;
   align-self: center;
   box-shadow: 0px 4px 10px 1px black;
@@ -1116,11 +1162,11 @@ button:active, select:active, option:active {
   justify-content: space-between;
   grid-gap: 5px;
 }
-.CustomerManager .bottomNav {
+.CustomerManager .bottom-nav {
   display: flex;
   justify-content: flex-end;
 }
-.CustomerManager .bottomNav .deleteButton {
+.CustomerManager .bottom-nav .delete-button {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -1128,14 +1174,14 @@ button:active, select:active, option:active {
   margin-top: 10px;
   box-shadow: 0px 4px 10px 1px black;
 }
-.CustomerManager .bottomNav .deleteButton img {
+.CustomerManager .bottom-nav .delete-button img {
   height: 18px;
   width: 18px;
 }
-.CustomerManager .viewTabContainer {
+.CustomerManager .view-tab-container {
   display: grid;
 }
-.CustomerManager .viewTabContainer .viewTabButton {
+.CustomerManager .view-tab-container .view-tab-button {
   display: grid;
   grid-auto-flow: column;
   align-items: end;
@@ -1145,13 +1191,13 @@ button:active, select:active, option:active {
   box-shadow: 0px 4px 10px 1px black;
   transition: none !important;
 }
-.CustomerManager .viewTabContainer .viewTabButton .column {
+.CustomerManager .view-tab-container .view-tab-button .column {
   display: grid;
   justify-items: start;
   align-items: end;
   grid-gap: 0;
 }
-.CustomerManager .viewTabContainer .viewTabButton img {
+.CustomerManager .view-tab-container .view-tab-button img {
   height: 32px;
   width: 32px;
 }
@@ -1184,18 +1230,18 @@ button:active, select:active, option:active {
 .OrderManager button.text {
   border-radius: 999px;
 }
-.OrderManager .customerContainer {
+.OrderManager .customer-container {
   display: grid;
   grid-auto-flow: row;
 }
-.OrderManager .customerContainer .customer {
+.OrderManager .customer-container .customer {
   margin: 8px 0;
 }
-.OrderManager .customerContainer .customer .nameNav {
+.OrderManager .customer-container .customer .name-nav {
   display: flex;
   justify-content: center;
 }
-.OrderManager .customerContainer .customer .nameNav input {
+.OrderManager .customer-container .customer .name-nav input {
   outline: none;
   border: none;
   border-bottom: 2px solid black;
@@ -1206,31 +1252,31 @@ button:active, select:active, option:active {
   color: rgb(138, 0, 0);
   font-weight: medium;
 }
-.OrderManager .customerContainer .customer .nameNav input::-moz-placeholder {
+.OrderManager .customer-container .customer .name-nav input::-moz-placeholder {
   color: #79513E;
 }
-.OrderManager .customerContainer .customer .nameNav input::placeholder {
+.OrderManager .customer-container .customer .name-nav input::placeholder {
   color: #79513E;
 }
-.OrderManager .customerContainer .customer .customerNav {
+.OrderManager .customer-container .customer .customer-nav {
   display: flex;
   justify-content: space-between;
 }
-.OrderManager .customerContainer .customer .itemTable .end {
+.OrderManager .customer-container .customer .item-table .end {
   display: flex;
   justify-content: flex-end;
 }
-.OrderManager .customerContainer .customer .itemTable .itemInfoButton {
+.OrderManager .customer-container .customer .item-table .item-info-button {
   background: none;
   border: none;
   padding: 0;
 }
-.OrderManager .ordersNav {
+.OrderManager .orders-nav {
   display: flex;
   justify-content: center;
   padding-top: 3px;
 }
-.OrderManager .ordersNav button.icon img {
+.OrderManager .orders-nav button.icon img {
   width: 32px;
   height: 32px;
 }
@@ -1240,7 +1286,7 @@ button:active, select:active, option:active {
   grid-template-rows: 1fr auto;
   height: 100%;
 }
-.BarManager .customerList {
+.BarManager .customer-list {
   padding: 15px;
   display: flex;
   align-content: flex-start;
@@ -1250,25 +1296,25 @@ button:active, select:active, option:active {
   overflow-y: auto;
   z-index: 2;
 }
-.BarManager .customerList .customerContainer {
+.BarManager .customer-list .customer-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
 }
-.BarManager .customerList .customerContainer .notificationContainer {
+.BarManager .customer-list .customer-container .notification-container {
   transform: rotate(340deg) translate(30px, 0px) rotate(-340deg);
   position: absolute;
   z-index: 5;
   pointer-events: none;
 }
-.BarManager .customerList .customerContainer .button {
+.BarManager .customer-list .customer-container .button {
   background: radial-gradient(ellipse farthest-corner at right bottom, rgb(216, 215, 215) 0%, rgb(173, 173, 173) 8%, rgb(165, 165, 165) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(214, 214, 214) 8%, rgb(170, 170, 170) 25%);
   padding: 15px;
   border-radius: 50%;
   box-shadow: 0px 1px 6px 1px black;
 }
-.BarManager .customerList .customerContainer .name {
+.BarManager .customer-list .customer-container .name {
   text-align: center;
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   box-shadow: 0px 1px 6px 1px black;
@@ -1279,14 +1325,14 @@ button:active, select:active, option:active {
   margin: 2px;
   font-size: 14px;
 }
-.BarManager .addCustomerButtonContainer {
+.BarManager .add-customer-button-container {
   display: grid;
   place-items: center;
   padding: 15px;
   border-top: 4px solid black;
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
 }
-.BarManager .addCustomerButtonContainer .addCustomerButton {
+.BarManager .add-customer-button-container .add-customer-button {
   background: none;
   border: none;
   outline: none;
@@ -1301,7 +1347,7 @@ button:active, select:active, option:active {
   border: 4px solid black;
   box-shadow: 0px 4px 10px 1px black;
 }
-.SeatingManagerContainer .MenuManager .menuTitle {
+.SeatingManagerContainer .MenuManager .menu-title {
   display: flex;
   justify-self: center;
   justify-content: space-between;
@@ -1312,26 +1358,26 @@ button:active, select:active, option:active {
   width: 100%;
   box-shadow: 0px 2px 4px 1px black;
 }
-.SeatingManagerContainer .MenuManager .menuTitle .customerTitle {
+.SeatingManagerContainer .MenuManager .menu-title .customer-title {
   color: white;
   padding: 0 10px;
   text-shadow: 0.1em 0.1em 0.2em black;
 }
-.SeatingManagerContainer .MenuManager .menuTitle .closeButton {
+.SeatingManagerContainer .MenuManager .menu-title .close-button {
   margin: 5px;
 }
-.SeatingManagerContainer .MenuManager .menuContainer {
+.SeatingManagerContainer .MenuManager .menu-container {
   -moz-column-count: 2;
        column-count: 2;
   padding: 5px 10px;
   box-shadow: inset 0px 1px 10px 1px black;
 }
-.SeatingManagerContainer .MenuManager .menuContainer .type {
+.SeatingManagerContainer .MenuManager .menu-container .type {
   -moz-column-break-inside: avoid;
        break-inside: avoid;
   padding: 5px;
 }
-.SeatingManagerContainer .MenuManager .menuContainer .type .typeTitle {
+.SeatingManagerContainer .MenuManager .menu-container .type .type-title {
   border-bottom: 1px solid white;
   font-weight: bold;
   color: black;
@@ -1339,30 +1385,30 @@ button:active, select:active, option:active {
   text-align: center;
   margin: 2px 0;
 }
-.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .item {
+.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item {
   display: flex;
   white-space: nowrap;
   justify-content: space-between;
   gap: 5px;
   margin: 1px 0;
 }
-.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle {
+.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-title {
   display: flex;
   gap: 5px;
   align-content: center;
   color: black;
   font-weight: bold;
 }
-.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemTitle .itemInfoButton {
+.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-title .item-info-button {
   background: none;
   border: none;
   padding: 0;
 }
-.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .item .itemNav button {
+.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-nav button {
   box-shadow: 0px 2px 4px 1px black;
   transition: none;
 }
-.SeatingManagerContainer .MenuManager .menuContainer .type .itemContainer .itemInfo {
+.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item-info {
   display: none;
 }
 
@@ -1381,7 +1427,7 @@ button:active, select:active, option:active {
   border: 4px solid black;
   width: 80%;
 }
-.InfoboxContainer .Infobox .infoTitle {
+.InfoboxContainer .Infobox .info-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1392,14 +1438,14 @@ button:active, select:active, option:active {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   border-bottom: 2px solid black;
 }
-.InfoboxContainer .Infobox .infoTitle .closeButton {
+.InfoboxContainer .Infobox .info-title .close-button {
   margin: 5px;
 }
 .InfoboxContainer .Infobox .section {
   color: black;
   padding: 5px 0;
 }
-.InfoboxContainer .Infobox .section .sectionHeader {
+.InfoboxContainer .Infobox .section .section-header {
   color: rgb(138, 0, 0) !important;
 }
 .InfoboxContainer .Infobox .section .cursive {
@@ -1411,15 +1457,15 @@ button:active, select:active, option:active {
   margin: 0;
   font-weight: bold;
 }
-.InfoboxContainer .Infobox .infoContainer {
+.InfoboxContainer .Infobox .info-container {
   padding: 0 10px;
   box-shadow: inset 0px 1px 10px 1px black;
 }
-.InfoboxContainer .Infobox .infoContainer .noresult {
+.InfoboxContainer .Infobox .info-container .noresult {
   color: rgb(75, 75, 75) !important;
 }
 
-.ConfirmBoxContainer {
+.confirm-box-container {
   display: grid;
   place-items: center;
   position: absolute;
@@ -1427,7 +1473,7 @@ button:active, select:active, option:active {
   height: 100%;
   z-index: 98;
 }
-.ConfirmBoxContainer .confirmBox {
+.confirm-box-container .confirm-box {
   background: bisque;
   background-image: url("./../assets/icons/dark-fabric.png");
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
@@ -1438,28 +1484,28 @@ button:active, select:active, option:active {
   z-index: 99;
   box-shadow: 0px 4px 10px 1px black;
 }
-.ConfirmBoxContainer .confirmBox .title {
+.confirm-box-container .confirm-box .title {
   font-weight: bold;
 }
-.ConfirmBoxContainer .confirmBox .message {
+.confirm-box-container .confirm-box .message {
   margin: 10px 0;
 }
-.ConfirmBoxContainer .confirmBox .options {
+.confirm-box-container .confirm-box .options {
   display: flex;
   gap: 10px;
   justify-content: center;
 }
-.ConfirmBoxContainer .confirmBox .options button {
+.confirm-box-container .confirm-box .options button {
   box-shadow: 0px 4px 10px 1px black;
 }
-.ConfirmBoxContainer .confirmBox .options button:active {
+.confirm-box-container .confirm-box .options button:active {
   box-shadow: inset 0px 1px 4px 1px black;
 }
-.ConfirmBoxContainer .confirmBox .options .yes {
+.confirm-box-container .confirm-box .options .yes {
   background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63));
   padding: 2px 6px;
 }
-.ConfirmBoxContainer .confirmBox .options .no {
+.confirm-box-container .confirm-box .options .no {
   background: radial-gradient(ellipse farthest-corner at right bottom, rgb(216, 215, 215) 0%, rgb(173, 173, 173) 8%, rgb(165, 165, 165) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(214, 214, 214) 8%, rgb(170, 170, 170) 25%);
   padding: 2px 6px;
 }
@@ -1494,19 +1540,19 @@ button:active, select:active, option:active {
   font-size: 20px;
   color: rgb(138, 0, 0);
 }
-.TabManagerContainer .TabManager .tabNav {
+.TabManagerContainer .TabManager .tab-nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.TabManagerContainer .TabManager .tabNav .receipt {
+.TabManagerContainer .TabManager .tab-nav .receipt {
   color: grey;
 }
-.TabManagerContainer .TabManager .tabList {
+.TabManagerContainer .TabManager .tab-list {
   max-height: 300px;
   overflow-y: auto;
 }
-.TabManagerContainer .TabManager .viewNav {
+.TabManagerContainer .TabManager .view-nav {
   display: flex;
   border-top: 2px dotted grey;
   border-bottom: 2px dotted grey;
@@ -1526,7 +1572,7 @@ button:active, select:active, option:active {
   font-weight: bold;
   text-shadow: none !important;
 }
-.TabManagerContainer header .closeButton {
+.TabManagerContainer header .close-button {
   position: absolute;
   justify-self: end;
   width: 35px;
@@ -1535,10 +1581,10 @@ button:active, select:active, option:active {
   border: none;
 }
 
-.receiptRP {
+.receipt-RP {
   display: block;
 }
-.receiptRP textarea {
+.receipt-RP textarea {
   margin-top: 5px;
   word-break: break-word;
   width: calc(100% - 8px);

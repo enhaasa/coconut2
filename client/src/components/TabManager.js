@@ -75,12 +75,12 @@ export default function TabManager(props) {
 
                 <header>
                     <span className="title cursive">Tab</span>
-                    <button className="closeButton" onClick={close}>
+                    <button className="close-button" onClick={close}>
                         <img src={closeIcon} alt="" />
                     </button>
                 </header>
 
-                <nav className="viewNav">
+                <nav className="view-nav">
                     <span className="section">
                         <label>View:</label>
                     </span>
@@ -99,7 +99,7 @@ export default function TabManager(props) {
                     </span>
                 </nav>
 
-                <div className="tabList">
+                <div className="tab-list">
                     {tabView === 'split' &&
                         <SplitTab 
                             deliveredOrdersInSeating={deliveredOrdersInSeating}
@@ -115,7 +115,7 @@ export default function TabManager(props) {
                     }
                 </div>
 
-                <nav className="tabNav">
+                <nav className="tab-nav">
                     <span className="receipt">
                         {session !== null ?
                         <a href={`https://cocosoasis.info/r.html?id=${session}`}
@@ -124,13 +124,13 @@ export default function TabManager(props) {
                     </span>
 
                     <button 
-                    className={`payButton ${deliveredOrdersInSeating.map(order => order).length === 0 ? "inactive" : "constructive"}`}
+                    className={`pay-button ${deliveredOrdersInSeating.map(order => order).length === 0 ? "inactive" : "constructive"}`}
                     disabled={deliveredOrdersInSeating.map(order => order).length === 0}
                     onClick={() => {confirmPayOrders(deliveredOrdersInSeating)}}>Pay & Archive</button>
                 </nav>
 
                 {session !== null &&
-                    <div className="receiptRP">
+                    <div className="receipt-RP">
                         <textarea 
                             value={`/em hands over the tab: cocosoasis.info/r.html?id=${session}`} 
                             readOnly

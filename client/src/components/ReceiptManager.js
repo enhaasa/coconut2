@@ -43,7 +43,7 @@ export default function ReceiptManager(props) {
         <div className="ReceiptManager">
             <div className="row">
                 {
-                <nav className="receiptFilter">
+                <nav className="receipt-filter">
                     {filters.map((filter, index) => 
                         <button 
                             key={uuid()}
@@ -52,7 +52,7 @@ export default function ReceiptManager(props) {
                         >{filter.title}</button>)}
                 </nav>
                     }
-                <div className="receiptList">
+                <div className="receipt-list">
                     {sessionsByFilter.map(session => (
                         <Receipt 
                             key={uuid()}
@@ -65,7 +65,7 @@ export default function ReceiptManager(props) {
             </div>
 
             <div className="row">
-                <div className="totalEarnings">
+                <div className="total-earnings">
                     Total: {totalByFilteredSessions.toLocaleString("en-US")} gil
                 </div>
             </div>

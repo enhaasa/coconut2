@@ -1,6 +1,6 @@
 @import '_colorset';
 
-.ConfirmBoxContainer {
+.confirm-box-container {
     display: grid;
     place-items: center;
     position: absolute;
@@ -8,7 +8,7 @@
     height: 100%;
     z-index: 98;
 
-    & .confirmBox {
+    & .confirm-box {
         background: bisque;
         background-image: url("./../assets/icons/dark-fabric.png");
         background: $gradient-steel;

@@ -70,7 +70,7 @@ export default function OrderManager(props) {
                     Customers
                 </div>
 
-                <div className="customerContainer">
+                <div className="customer-container">
                     {seating.customers.map(customer => (
                             <Customer 
                                 key={uuid()}
@@ -87,7 +87,7 @@ export default function OrderManager(props) {
                 </div>
                 
 
-                <nav className="ordersNav">
+                <nav className="orders-nav">
                     <button className="icon" onClick={() => {handleAdd(seating)}}>
                         <img src={addcustomerIcon} alt="" />
                     </button>

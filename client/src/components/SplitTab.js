@@ -37,7 +37,7 @@ export default function SplitTab(props) {
         customersInSeating.map(customer => (
             <div key={uuid()}>
                 <span className="name">{customer.name}</span>
-                <table className="itemTable" >
+                <table className="item-table" >
                     <thead>
                         <tr>
                             <th>Name</th>

@@ -1,7 +1,7 @@
 @import 'colorset';
 
 .ReceiptModal {
-    & .paidAmount {
+    & .paid-amount {
         display: flex;
         gap: 5px;
 
@@ -16,14 +16,14 @@
         }
     }
 
-    & .itemTable {
+    & .item-table {
 
         & tfoot {
             color: $cream;
         }
     }
 
-    & .receiptRP {
+    & .receipt-RP {
         
         & a {
             color: $wine;

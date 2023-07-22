@@ -29,7 +29,7 @@ export default function CombinedTab(props) {
 
     return( 
         <>
-            <table className="itemTable">
+            <table className="item-table">
                 <thead>
                     <tr>
                         <th>Name</th>

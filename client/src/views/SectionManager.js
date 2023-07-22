@@ -34,8 +34,7 @@ function SectionManager(props) {
     function getParsedSection() {
       return dataTree[selectedSection]
     }
-
-
+    
     return(
         <div className="SectionManager">
 
@@ -70,11 +69,11 @@ function SectionManager(props) {
         </section>
         
         <section className="SectionContainer">
-          <nav className="sectionNav">
-            <span className="sectionColumn">
+          <nav className="section-nav">
+            <span className="section-column">
               {sections.get.map((section, index) => {
                   return (
-                      <div className="sectionSelector" key={uuid()}>
+                      <div className="section-selector" key={uuid()}>
                         {
                           customers.get.length > 0 &&
                           seatings.get.length > 0 &&
@@ -90,7 +89,7 @@ function SectionManager(props) {
                         }
 
                         <button 
-                          className={`sectionButton ${selectedSeating === index ? "active" : "inactive"}`} 
+                          className={`section-button ${selectedSection === index ? "active" : "inactive"}`} 
                           key={index} 
                           onClick={() => {setSelectedSection(index)}}>
                           <span className="title cursive">{section.name}</span>
@@ -113,15 +112,6 @@ function SectionManager(props) {
           />}
           
         </section>
-
-        {/*
-          <section className="ReceiptManagerContainer">
-            <ReceiptManager 
-              archivedOrders={archivedOrders}
-            />
-          </section>
-          */
-        }
       
       </div>
     )

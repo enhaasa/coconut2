@@ -34,7 +34,7 @@ export default function Order(props) {
             <td>{order.total.toLocaleString("en-US")} gil</td>
 
             {!order.units[0].is_delivered &&
-                <td className="seatingNav">
+                <td className="seating-nav">
                 <button className="icon tooltip">
                     <img src={infoIcon} alt="" className="tooltip" />
 
@@ -44,7 +44,7 @@ export default function Order(props) {
                 </button>
             </td>}
 
-            <td className="seatingNav end">
+            <td className="seating-nav end">
                 <button className="icon" onClick={() => {handleRemoveOrder(order)}}>
                     <img src={minusIcon} alt="" />
                 </button>

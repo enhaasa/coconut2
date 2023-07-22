@@ -66,8 +66,8 @@ export default function CustomerManager(props) {
             
 
             <div className="header">
-                <span className="viewTabContainer">
-                        <button className="viewTabButton progressive" onClick={() => handleViewTab(true)}>
+                <span className="view-tab-container">
+                        <button className="view-tab-button progressive" onClick={() => handleViewTab(true)}>
                             <span className="column">
                                 <img src={basketIcon} alt="" />
                             </span>
@@ -79,7 +79,7 @@ export default function CustomerManager(props) {
                         </button>
                 </span>
 
-                <button className="closeButton" onClick={() => setSelectedCustomerManager(null)}>
+                <button className="close-button" onClick={() => setSelectedCustomerManager(null)}>
                     <img src={closeIcon} alt="" />
                 </button>
             </div>
@@ -95,7 +95,7 @@ export default function CustomerManager(props) {
 
             <br />
             <section className="OrderManager">
-                <div className="customerContainer">
+                <div className="customer-container">
                     <Customer
                         customer={customer}
                         setSelectedCustomer={setSelectedCustomer}
@@ -103,8 +103,8 @@ export default function CustomerManager(props) {
                 </div>
             </section>
 
-            <nav className="bottomNav">
-                <button onClick={() => handleDelete()} className="deleteButton destructive">
+            <nav className="bottom-nav">
+                <button onClick={() => handleDelete()} className="delete-button destructive">
                     Delete
                 </button>
             </nav>

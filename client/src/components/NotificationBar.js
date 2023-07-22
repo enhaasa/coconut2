@@ -20,12 +20,12 @@ function NotificationBar(props) {
     ]
 
     return (
-        <div className="notificationBar">
+        <div className="notification-bar">
             
             {
             notifications.map((notification, index) => (
                 notification.number > 0 &&
-                <span className="notificationContainer" key={`notification${index}`}>
+                <span className="notification-container" key={`notification${index}`}>
                     <span className={`notification ${notification.class}`}>
                         <img className="icon" src={notification.icon}>
                             

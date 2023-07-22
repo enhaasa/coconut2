@@ -24,11 +24,11 @@ function Modal({title, closeButtonEvent, children}) {
 
 
     return(
-        <div className="modalContainer">
+        <div className="modal-container">
             <div className="Modal" ref={ref}>
-                <div className="titleBar">
+                <div className="title-bar">
                     <span className="title">{title}</span>
-                    <button className="closeButton" onClick={() => closeButtonEvent()}>
+                    <button className="close-button" onClick={() => closeButtonEvent()}>
                         <img src={closeIcon} alt="" />
                     </button>
                 </div>

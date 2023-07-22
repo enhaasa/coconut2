@@ -34,11 +34,11 @@ function AttendingStaff(props) {
             <div className="list">
                 {attendingStaff.map((s, i) =>
                 <button 
-                    className="deleteStaffButton"
+                    className="delete-staff-button"
                     key={uuid()}
                     onClick={() => {staff.setAttribute(s, 'is_attending', false)}}
                 >{s.name}</button>)}
-                <button onClick={() => {handleAttendingModal(true)}} className="addStaffButton progressive">
+                <button onClick={() => {handleAttendingModal(true)}} className="add-staff-button progressive">
                     Add
                 </button>
             </div>
@@ -48,7 +48,7 @@ function AttendingStaff(props) {
                 <div>{`General Tips: ${tipsTotal.toLocaleString("en-US")} gil`}</div>
                 <div>{`Total: ${tipsAndOrders.toLocaleString("en-US")} gil divided among ${attendingStaff.length} people`}</div>
             </div>
-            <div className="perPerson">{`${Math.round(perPerson).toLocaleString("en-US")} gil / person`}</div>
+            <div className="per-person">{`${Math.round(perPerson).toLocaleString("en-US")} gil / person`}</div>
         
         </div>
     )

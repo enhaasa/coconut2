@@ -34,7 +34,7 @@
             color: $wine;
         }
 
-        & .tabNav {
+        & .tab-nav {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -45,12 +45,12 @@
             }
         }
 
-        & .tabList {
+        & .tab-list {
             max-height: 300px;
             overflow-y: auto;
         }
 
-        & .viewNav {
+        & .view-nav {
             display: flex;
             border-top: 2px dotted grey;
             border-bottom: 2px dotted grey;
@@ -73,7 +73,7 @@
             text-shadow: none !important;
         }
 
-        & .closeButton {
+        & .close-button {
             position: absolute;
             justify-self: end;
             width: 35px;
@@ -84,7 +84,7 @@
     }
 }
 
-.receiptRP {
+.receipt-RP {
     display: block;
 
     & textarea {

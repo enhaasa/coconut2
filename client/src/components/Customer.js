@@ -92,7 +92,7 @@ export default function Customer(props) {
 
     return (
         <div className="customer" key={customer.uuid} ref={customerRef}>
-            <nav className="nameNav">
+            <nav className="name-nav">
                 <input 
                     spellCheck={false}
                     type="text" 
@@ -110,7 +110,7 @@ export default function Customer(props) {
                 }
             </nav>
 
-            <table key={uuid()} className="itemTable">
+            <table key={uuid()} className="item-table">
                 {customer.undeliveredOrders.length > 0 &&
                     <thead>
                         <tr>
@@ -133,7 +133,7 @@ export default function Customer(props) {
                         ))}
                     </tbody>
             </table>
-            <nav className="customerNav">
+            <nav className="customer-nav">
                 <button className="text progressive" onClick={() => {openMenu(customer)}}>Add Order</button>
 
                 {customer.undeliveredOrders.length > 0 &&

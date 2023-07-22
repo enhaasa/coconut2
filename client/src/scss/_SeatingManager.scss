@@ -40,7 +40,7 @@
       justify-items: center;
       width: 100%;
 
-      & .assignWaiter {
+      & .assign-waiter {
         display: grid;
         justify-self: start;
         align-content: center;
@@ -70,7 +70,7 @@
         color: black;
       }
 
-      & .closeButton {
+      & .close-button {
         justify-self: end;
         align-self: center;
         box-shadow: 0px 4px 10px 1px black;
@@ -100,7 +100,7 @@
       }
     }
 
-    & .resetButton {
+    & .reset-button {
       display: flex;
       align-items: start;
       justify-content: center;
@@ -115,10 +115,10 @@
     }
   }
 
-  & .viewTabContainer {
+  & .view-tab-container {
     display: grid;
 
-    & .viewTabButton {
+    & .view-tab-button {
       display: grid;
       grid-auto-flow: column;
       align-items: end;

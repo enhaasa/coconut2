@@ -23,17 +23,17 @@ export default function Infobox(props) {
     return (
         <div className="InfoboxContainer" ref={InfoBoxRef}>
             <div className="Infobox">
-                <div className="infoTitle">
+                <div className="info-title">
                     {!!item.name && item.name}
-                    <button className="closeButton" onClick={() => handleItemInfo(null)}>
+                    <button className="close-button" onClick={() => handleItemInfo(null)}>
                         <img src={closeIcon} />
                     </button>
                 </div>
 
-                <div className="infoContainer">
+                <div className="info-container">
 
                     <div className="section item">
-                        <span className="sectionHeader cursive">Item</span>
+                        <span className="section-header cursive">Item</span>
                         <p>
                             {!!item.item ? 
                                 item.item :
@@ -44,7 +44,7 @@ export default function Infobox(props) {
                     <div className="divider"></div>
 
                     <div className="section description">
-                        <span className="sectionHeader cursive">Description</span>
+                        <span className="section-header cursive">Description</span>
                         <p>
                             {!!item.description ? 
                                 item.description :
@@ -55,7 +55,7 @@ export default function Infobox(props) {
                     <div className="divider"></div>
 
                     <div className="section ingredients">
-                        <span className="sectionHeader cursive">Ingredients</span>
+                        <span className="section-header cursive">Ingredients</span>
                         <p>
                             {!!item.ingredients ? 
                                 item.ingredients.join(", ") :
@@ -66,7 +66,7 @@ export default function Infobox(props) {
                     <div className="divider"></div>
 
                     <div className="section pairing">
-                        <span className="sectionHeader cursive">Pairings</span>
+                        <span className="section-header cursive">Pairings</span>
                         <p>
                             {!!item.pairings ? 
                                 item.pairings :
@@ -75,7 +75,7 @@ export default function Infobox(props) {
                     </div>
 
                     <div className="section RPcreation">
-                        <span className="sectionHeader cursive">RP Creation</span>
+                        <span className="section-header cursive">RP Creation</span>
                         <p>
                             {!!item.RPcreation ? 
                                 breaklineOnEm(item.RPcreation).map(line => <div>{`/em ${line}`}<br /><br /></div>) :

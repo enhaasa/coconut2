@@ -64,36 +64,36 @@ export default function MenuManager(props) {
 
                 {!!itemInfo && <Infobox item={itemInfo} handleItemInfo={handleItemInfo}/>}
 
-                    <span className="menuTitle">
-                        <span className="customerTitle">{selectedCustomer.name}</span>
-                        <button className="closeButton" onClick={(close)}>
+                    <span className="menu-title">
+                        <span className="customer-title">{selectedCustomer.name}</span>
+                        <button className="close-button" onClick={(close)}>
                             <img src={closeIcon} alt="" />
                         </button>
                     </span>
                     
-                    <div className="menuContainer">
+                    <div className="menu-container">
 
                         {menu.get.length === 0 ? "Loading..." :
                         menuTypes.map(menuType => (
                             <div className="type" key={uuid()}>
-                                <div className="typeTitle cursive">{tools.capitalizeFirstLetter(menuType) + "s"}</div>
+                                <div className="type-title cursive">{tools.capitalizeFirstLetter(menuType) + "s"}</div>
 
                                 {menu.get.map(item => (
                                     menuType === item.type && 
                                         item.available !== 0 &&
-                                            <div className="itemContainer" key={item.id}>
+                                            <div className="item-container" key={item.id}>
                                                 <div className="item">
-                                                    <span className="itemTitle">
-                                                        <button className="itemInfoButton" onClick={() => {handleItemInfo(item)}}>
+                                                    <span className="item-title">
+                                                        <button className="item-info-button" onClick={() => {handleItemInfo(item)}}>
                                                             <img src={infoIcon} alt="" />
                                                         </button>
 
-                                                        <span className="itemName">
+                                                        <span className="item-name">
                                                             {item.name}     
                                                         </span>
                                                     </span>
 
-                                                    <nav className="itemNav">
+                                                    <nav className="item-nav">
                                                         <button className="progressive" onClick={() => {orders.add({
                                                             ...filterItem(item)
                                                         })}}>{item.price.toLocaleString("en-US")} gil</button>
@@ -106,7 +106,7 @@ export default function MenuManager(props) {
                                                     </nav>
                                                 </div>
 
-                                                <div className="itemInfo">
+                                                <div className="item-info">
                                                     {item.id}
                                                 </div>
                                             </div>

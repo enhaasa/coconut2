@@ -81,7 +81,7 @@ button, select, option {
     box-shadow: inset 0px 1px 4px 1px black !important;
   }
 }
-.closeButton {
+.close-button {
   border-radius: 100%;
   width: 50px;
   height: 50px;
@@ -178,7 +178,7 @@ button, select, option {
 
 
 //Universal item tables
-.itemTable {
+.item-table {
   width: 100%;
   border-bottom: 2px solid black;
   margin: 4px 0;
@@ -204,7 +204,7 @@ button, select, option {
     padding: 3px 0;
   }
 
-  & .seatingNav {
+  & .seating-nav {
 
 
     & button {
@@ -235,7 +235,7 @@ button, select, option {
   }
 }
 
-.notificationContainer {
+.notification-container {
   display: flex;
   align-items: center;
 
@@ -268,7 +268,7 @@ button, select, option {
   }
 }
 
-.appInfo {
+.app-info {
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -304,14 +304,14 @@ button, select, option {
   } 
 }
 
-.viewManager {
+.view-manager {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
 }
 
-.addStaffModal {
+.add-staff-modal {
   max-width: 600px;
   padding: 10px;
 }

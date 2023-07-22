@@ -15,18 +15,60 @@
     z-index: 3;
     white-space: nowrap;
 
-    & .waiter {
-        position: absolute;
+
+    & .upper-wrapper {
+      display: flex;
+      flex-direction: column-reverse;
+      height: 50px;
+      margin-top: -42px;
+      align-items: center;
+      gap: 2px;
+      position: absolute;
+      z-index: 1;
+      
+      & .orderinfo {
+        display: flex;
+        justify-content: center;
+        font-weight: normal;
+        font-weight: normal;
+        font-size: 0.9em;
+        border-radius: 10px;
+        box-shadow: 0px 0px 2px 1px $darkgrey;
+  
+        & .amount {
+          display: flex;
+          align-items: center;
+          background: $background-dark;
+          color: white;
+          border-radius: 10px 0 0 10px;
+          padding: 0 5px;
+          border: 1px solid black;
+          gap: 4px;
+        }
+  
+        & .time {
+          border-radius: 0 10px 10px 0;
+          padding: 0 5px;
+          border: 1px solid black;
+          display: flex;
+          align-items: center;
+        }
+      }
+      
+      & .waiter {
+        //position: absolute;
         color: white;
         padding: 1px 5px;
         text-shadow: 0 0 black;
-        margin-top: -26px;
+        //margin-top: -14px;
         background: $gradient-steel !important;
-        border: 2px solid black;
-        box-shadow: 0px 0px 2px 1px black;
+        border: 1px solid black;
+        box-shadow: 0px 0px 2px 1px $darkgrey;
         font-size: 14px;
+        border-radius: 10px;
         
         display: flex;
+        justify-content: center;
         align-items: center;
         gap: 5px;
 
@@ -34,26 +76,36 @@
             width: 20px;
             height: 20px;
         }
+      }
     }
 
-    & ul {
-        list-style: none;
-        text-align: center;
-        margin: 1px;
-        padding: 0;
+    & .lower-wrapper {
+      & .customers {
         display: grid;
         justify-items: center;
+        gap: 1px;
+        text-align: center;
+        padding: 0;
 
-        & li {
-            background: $gradient-steel;
-            box-shadow: 0px 1px 6px 1px black;
-            color: white;
-            padding: 1px 5px;
-            border-radius: 25px;
-            outline: 2px solid black;
-            margin: 2px;
-            font-size: 14px;
+        & .customer {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          background: $gradient-steel;
+          box-shadow: 0px 1px 6px 1px black;
+          color: white;
+          padding: 1px 5px;
+          border-radius: 10px;
+          outline: 2px solid black;
+          margin: 2px;
+          font-size: 14px;
+
+          img {
+            height: 13px;
+            width: 13px;
+          }
         }
+      }
     }
 
     .editing {
@@ -111,15 +163,25 @@
           
       }
 
-    & .numberDisplay {
+    & .number-display {
 
         font-size: 1.5em;
         border-radius: 100%;
         border: 6px double black;
         box-shadow: 0 0 4px 1px $darkgrey;
-        width: 80px;
-        height: 80px;
         transition: all 100ms ease-in-out;
+
+        &.multi {
+          width: 80px;
+          height: 80px;
+          border: 6px double black;
+        }
+
+        &.single {
+          width: 50px;
+          height: 50px;
+          border: 2px solid black;
+        }
 
         &:hover {
             transform: scale(1.05);
@@ -129,17 +191,12 @@
             font-size: 2em;
         }
 
-        .notificationContainer {
-            transform:rotate(340deg) translate(50px, 5px) rotate(-340deg);
-            position:absolute;
-        }
-
-        .unPaidTabContainer {
+        .unpaid-tab-container {
           transform:rotate(340deg) translate(-18px, -18px) rotate(-340deg);
           position:absolute;
         }
 
-        .isPhotographyContainer {
+        .is-photography-container {
           transform:rotate(240deg) translate(-30px, -30px) rotate(-240deg);
           position:absolute; 
         }

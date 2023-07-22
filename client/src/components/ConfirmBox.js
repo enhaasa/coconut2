@@ -27,8 +27,8 @@ export default function ConfirmBox(props) {
     }
 
     return (
-        <div className="ConfirmBoxContainer" ref={ConfirmBoxRef}>
-            <div className="confirmBox">
+        <div className="confirm-box-container" ref={ConfirmBoxRef}>
+            <div className="confirm-box">
                 <div className="title">
                     {title}
                 </div>

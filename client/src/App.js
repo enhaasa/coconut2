@@ -75,7 +75,7 @@ function App() {
 
   return (
     <>
-      <div className="appInfo">
+      <div className="app-info">
         <span className="logo">
           <img src={logo} alt="" />
         </span>

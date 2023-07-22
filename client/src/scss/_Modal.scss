@@ -1,6 +1,6 @@
 @import '_colorset';
 
-.modalContainer {    
+.modal-container {    
     position: fixed;
     top: 0;
     left: 0;
@@ -17,7 +17,7 @@
         min-width: 500px;
         border: 1px solid black;
 
-        & .titleBar {
+        & .title-bar {
             display: flex;
             justify-self: center;
             justify-content: space-between;
@@ -33,7 +33,7 @@
                 padding-left: 10px;
                 font-family: 'Dancing Script', cursive;
             }
-            & .closeButton {
+            & .close-button {
                 margin: 5px;
             }
         }

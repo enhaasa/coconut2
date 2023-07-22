@@ -97,8 +97,6 @@ export default function SeatingManager(props) {
             }
         }
     }
-
-
       
     function resetSeating() {
         openConfirmBox({
@@ -122,14 +120,14 @@ export default function SeatingManager(props) {
             {isBlurred && <div className="blur" />}
 
             <div className="header">
-                <div className="assignWaiter">
+                <div className="assign-waiter">
                     <span className="title cursive">Waiter:</span>
                     {staff.get.length === 0 ? "Loading..." :
                         <select 
                             name="waiters" 
                             id="waiters" 
                             value={seating.waiter} 
-                            onChange={(e) => {seating.setAttribute(seating, 'waiter', e.target.value)}
+                            onChange={(e) => {seatings.setAttribute(seating, 'waiter', e.target.value)}
                         }>
                             <option key={uuid()}></option>
                             {staff.get.map(member => {
@@ -149,13 +147,14 @@ export default function SeatingManager(props) {
                     {seating.number}
                 </span>
 
-                <button className="closeButton" onClick={handleClose}>
+                <button className="close-button" onClick={handleClose}>
                     <img src={closeIcon} alt="" />
                 </button>
             </div>
 
     
             <section className="navbar">
+                
                 <div className="column">
                     <span className="navsection">
                         <span className="title cursive">Vacant:</span>
@@ -195,8 +194,8 @@ export default function SeatingManager(props) {
                 </div>
 
                 <div className="column">
-                    <span className="viewTabContainer">
-                        <button className="viewTabButton progressive" onClick={() => handleViewTab(true)}>
+                    <span className="view-tab-container">
+                        <button className="view-tab-button progressive" onClick={() => handleViewTab(true)}>
                             <span className="column">
                                 <img src={basketIcon} alt="" />
                             </span>
@@ -227,7 +226,7 @@ export default function SeatingManager(props) {
                 closeConfirmBox={closeConfirmBox}
             />
 
-            <button onClick={() => resetSeating()} className="resetButton destructive">
+            <button onClick={() => resetSeating()} className="reset-button destructive">
                 <img src={resetIcon} /> Reset Table
             </button>
 

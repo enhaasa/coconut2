@@ -40,13 +40,13 @@ export default function BarManager(props) {
     return (
         <div className="BarManager">
 
-            <div className="customerList">
+            <div className="customer-list">
 
             {customers.get.filter(c => c.section === section.name).map(customer => {
                     const amount = getOrdersByCustomer(customer).undelivered.length;
 
-                    return <span className="customerContainer" key={customer.id}>
-                        <div className="notificationContainer">
+                    return <span className="customer-container" key={customer.id}>
+                        <div className="notification-container">
                             {amount > 0 && 
                             <div className={`notification progressive`}>
                                 {amount}
@@ -73,8 +73,8 @@ export default function BarManager(props) {
                 }
             </div>
 
-            <div className="addCustomerButtonContainer">
-                <button className="addCustomerButton" onClick={() => handleAdd()}>
+            <div className="add-customer-button-container">
+                <button className="add-customer-button" onClick={() => handleAdd()}>
                     <img src={addcustomerIcon} />
                 </button>
             </div>

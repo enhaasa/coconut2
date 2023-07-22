@@ -18,7 +18,7 @@
         border: 4px solid black;
         width: 80%;
 
-        & .infoTitle {
+        & .info-title {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -30,7 +30,7 @@
             border-bottom: 2px solid black;
 
 
-            & .closeButton {
+            & .close-button {
                 margin: 5px;
         
             }
@@ -40,7 +40,7 @@
             color: black;
             padding: 5px 0; 
 
-            & .sectionHeader {
+            & .section-header {
                 color: $wine !important;
                
             }
@@ -57,7 +57,7 @@
             }
         }
 
-        & .infoContainer {
+        & .info-container {
             padding: 0 10px;
             box-shadow: inset 0px 1px 10px 1px black;
 
