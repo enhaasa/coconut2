@@ -1,6 +1,5 @@
 import Section from '../components/Section'
 import SeatingManager from '../components/SeatingManager';
-import CustomerManager from '../components/CustomerManager';
 import MenuManager from '../components/MenuManager';
 import ReceiptManager from '../components/ReceiptManager';
 import NotificationBar from '../components/NotificationBar';
@@ -46,18 +45,6 @@ function SectionManager(props) {
                   setSelectedCustomer={setSelectedCustomer}
                 />
               }
-
-              {selectedCustomerManager !== null &&
-                <CustomerManager 
-                  orders={orders}
-                  customers={customers}
-                  customer={selectedCustomerManager}
-                  setSelectedCustomer={setSelectedCustomer}
-                  selectedCustomer={selectedCustomer}
-                  setSelectedCustomerManager={setSelectedCustomerManager}
-                />
-              }
-
 
               {selectedCustomer !== null &&
                 <MenuManager 

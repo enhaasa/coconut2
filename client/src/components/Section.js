@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useRef, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 import Seating from './Seating';
-import BarManager from './BarManager';
 import gsap from 'gsap';
 import animations from '../animations';
 
@@ -13,14 +12,10 @@ export default function Section(props) {
         maxDeliveryTime, 
         colorset,
         setSelectedSeating,
-        setSelectedCustomer,
-        setSelectedCustomerManager,
         parsedSection
     } = props;
 
     const {
-        customers,
-        orders,
         seatings,
     } = useContext(DynamicDataContext);
 
@@ -34,17 +29,6 @@ export default function Section(props) {
                 ...seating, index: index
             })
     });
-
-    /*  
-        <BarManager 
-            orders={orders}
-            section={section}
-            customers={customers} 
-            setSelectedCustomer={setSelectedCustomer} 
-            setSelectedCustomerManager={setSelectedCustomerManager}
-        />
-
-    */
 
     return (
 
