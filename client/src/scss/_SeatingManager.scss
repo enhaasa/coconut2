@@ -12,8 +12,6 @@
   transform: translate(-50%, -50%);
 
   & .SeatingManager {
-    //background: $leather-dark;
-    //background-image: url("./../assets/icons/dark-leather.png");
     background: $gradient-steel;
     border-radius: 50px 50px 20px 20px;
     display: grid;
@@ -99,20 +97,6 @@
         }
       }
     }
-
-    & .reset-button {
-      display: flex;
-      align-items: start;
-      justify-content: center;
-      color: black;
-      margin-top: 10px;
-      box-shadow: 0px 4px 10px 1px black;
-
-      & img {
-        height: 18px;
-        width: 18px;
-      }
-    }
   }
 
   & .view-tab-container {
@@ -137,6 +121,26 @@
       & img {
         height: 32px;
         width: 32px;
+      }
+    }
+  }
+
+  & .navbar-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    & .reset-button {
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      color: black;
+      box-shadow: 0px 4px 10px 1px black;
+
+      & img {
+        height: 18px;
+        width: 18px;
       }
     }
   }

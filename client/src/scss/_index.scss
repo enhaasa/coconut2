@@ -53,7 +53,7 @@ body {
 }
 
 .transparent {
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 .disabled {
@@ -62,6 +62,10 @@ body {
   &:hover {
     filter:none !important;
   }
+}
+
+.ghost {
+  pointer-events: none;
 }
 
 

@@ -84,18 +84,6 @@
   justify-content: space-between;
   grid-gap: 5px;
 }
-.SeatingManagerContainer .SeatingManager .reset-button {
-  display: flex;
-  align-items: start;
-  justify-content: center;
-  color: black;
-  margin-top: 10px;
-  box-shadow: 0px 4px 10px 1px black;
-}
-.SeatingManagerContainer .SeatingManager .reset-button img {
-  height: 18px;
-  width: 18px;
-}
 .SeatingManagerContainer .view-tab-container {
   display: grid;
 }
@@ -117,6 +105,23 @@
 .SeatingManagerContainer .view-tab-container .view-tab-button img {
   height: 32px;
   width: 32px;
+}
+.SeatingManagerContainer .navbar-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.SeatingManagerContainer .navbar-bottom .reset-button {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  color: black;
+  box-shadow: 0px 4px 10px 1px black;
+}
+.SeatingManagerContainer .navbar-bottom .reset-button img {
+  height: 18px;
+  width: 18px;
 }
 
 .SectionContainer {
@@ -253,7 +258,7 @@ body {
 }
 
 .transparent {
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 .disabled {
@@ -261,6 +266,10 @@ body {
 }
 .disabled:hover {
   filter: none !important;
+}
+
+.ghost {
+  pointer-events: none;
 }
 
 button, select, option {
@@ -1075,18 +1084,6 @@ button:active, select:active, option:active {
   justify-content: space-between;
   grid-gap: 5px;
 }
-.SeatingManagerContainer .SeatingManager .reset-button {
-  display: flex;
-  align-items: start;
-  justify-content: center;
-  color: black;
-  margin-top: 10px;
-  box-shadow: 0px 4px 10px 1px black;
-}
-.SeatingManagerContainer .SeatingManager .reset-button img {
-  height: 18px;
-  width: 18px;
-}
 .SeatingManagerContainer .view-tab-container {
   display: grid;
 }
@@ -1108,6 +1105,23 @@ button:active, select:active, option:active {
 .SeatingManagerContainer .view-tab-container .view-tab-button img {
   height: 32px;
   width: 32px;
+}
+.SeatingManagerContainer .navbar-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.SeatingManagerContainer .navbar-bottom .reset-button {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  color: black;
+  box-shadow: 0px 4px 10px 1px black;
+}
+.SeatingManagerContainer .navbar-bottom .reset-button img {
+  height: 18px;
+  width: 18px;
 }
 
 .OrderManager {

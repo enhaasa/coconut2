@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
 import usePixelClick from '../api/usePixelClick';
@@ -20,7 +20,6 @@ export default function Section(props) {
     const {
         maxDeliveryTime, 
         itemInMovement,
-        selectedSection,
         setItemInMovement,
         setSelectedSeating,
     } = useContext(ControlStatesContext);
@@ -42,6 +41,20 @@ export default function Section(props) {
         }
     }
 
+    const handleEscapeKeyPress = (event) => {
+        if (event.key === 'Escape') {
+
+          setItemInMovement(null);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleEscapeKeyPress);
+    
+        return () => {
+          document.removeEventListener('keydown', handleEscapeKeyPress);
+        };
+    }, []);
 
     const SectionRef = useRef();
     let seatingsInSection = [];

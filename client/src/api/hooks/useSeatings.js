@@ -20,7 +20,7 @@ function useSeats(init, props) {
                 return [...prev];
             });
         },
-        resetSeating: (seatingToReset) => {
+            resetSeating: (seatingToReset) => {
             const index = seatings.findIndex(s => s.id === seatingToReset.id);
 
             setSeatings(prev => {
@@ -33,15 +33,13 @@ function useSeats(init, props) {
         },
         setSeatingLocation: (data) => {
             const { seating, newLocation } = data;
-            console.log(newLocation)
-
             const index = seatings.findIndex(s => s.id === seating.id);
-
+            
             setSeatings(prev => {
                 prev[index].pos_x = newLocation.pos_x;
                 prev[index].pos_y = newLocation.pos_y;
                 prev[index].section_id = newLocation.section_id;
-
+                
                 return [...prev];
             })
         }

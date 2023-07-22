@@ -21,6 +21,7 @@ export default function SeatingManager(props) {
     } = useContext(DynamicDataContext);
     
     const {
+        setItemInMovement,
         selectedSeating, 
         setSelectedCustomer,
         setSelectedSeating,
@@ -83,6 +84,11 @@ export default function SeatingManager(props) {
             setSelectedCustomer(null);
             setSelectedSeating(null);
         }, 200)
+    }
+
+    function handleMoveSeating() {
+        setItemInMovement(selectedSeating);
+        setSelectedSeating(null);
     }
 
     const customersInSeating = seating.customers;
@@ -226,10 +232,15 @@ export default function SeatingManager(props) {
                 closeConfirmBox={closeConfirmBox}
             />
 
-            <button onClick={() => resetSeating()} className="reset-button destructive">
-                <img src={resetIcon} alt="Reset Icon"/> Reset Table
-            </button>
-
+            
+            <section className="navbar-bottom">
+                <button onClick={() => {handleMoveSeating()}} className="inactive">
+                    Move Table
+                </button>
+                <button onClick={() => resetSeating()} className="reset-button destructive">
+                    <img src={resetIcon} alt="Reset Icon"/> Reset Table
+                </button>
+            </section>
         </div>
     );
 }

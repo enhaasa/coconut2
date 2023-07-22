@@ -21,6 +21,7 @@ export default function Seating(props) {
         customers,
     } = useContext(DynamicDataContext);
     const {
+        itemInMovement,
         setSelectedSeating, 
         setItemInMovement, 
         maxDeliveryTime,
@@ -29,6 +30,8 @@ export default function Seating(props) {
     const { getFirstName, getLastNames, getTimeSinceOldestOrder, getOldestOrder, formatTime } = tools;
 
     const NAME_PREVIEW__MAX_AMOUNT = 1;
+
+    const isMoving = itemInMovement && itemInMovement.id === seating.id;
 
     let undeliveredOrders = [];
     let deliveredOrders = [];
@@ -101,15 +104,13 @@ export default function Seating(props) {
     return (
         <div>          
             <div 
-                className={`Seating`}
+                className={`Seating ${isMoving && "transparent ghost"}`}
                 ref={SeatingRef}
                 key={`table${seating.number}`}
                 style={{
                     left:seating.pos_x, 
                     top:seating.pos_y
             }}>
-
-                <button onClick={() => {setItemInMovement(seating)}}>Move</button>
 
                 <div className="upper-wrapper">
                     {seating.waiter !== "" &&
@@ -160,7 +161,7 @@ export default function Seating(props) {
                             {deliveredOrders.length > 0 ? 
                             
                                 <div className="">
-                                    <img src={unPaidTabIcon} /> 
+                                    <img src={unPaidTabIcon} alt="Unpaid Tab Icon" /> 
                                 </div>
                                 : ""}
                         </span>
