@@ -1,26 +1,30 @@
-import React, { useLayoutEffect, useRef, useContext } from 'react';
+import React, { useRef, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
+import { ControlStatesContext } from '../api/ControlStates';
 import Seating from './Seating';
-import gsap from 'gsap';
-import animations from '../animations';
 
 import overlay from './../assets/icons/dark-fabric.png';
 
 export default function Section(props) {
     const {
         section,
-        maxDeliveryTime, 
         colorset,
-        setSelectedSeating,
-        parsedSection
+        parsedSection,
+        handlePixelClick,
     } = props;
 
     const {
         seatings,
     } = useContext(DynamicDataContext);
+    
+    const {
+        maxDeliveryTime, 
+        itemInMovement,
+        setItemInMovement,
+        setSelectedSeating,
+    } = useContext(ControlStatesContext);
 
     const SectionRef = useRef();
-
     let seatingsInSection = [];
 
     seatings.get.forEach((seating, index) => {
@@ -31,10 +35,16 @@ export default function Section(props) {
     });
 
     return (
+            <div className={`Section ${itemInMovement && 'moving-item-mode'}`} ref={SectionRef} >
+                
+                {
+                    itemInMovement &&
+                    <div className="moving-item-mode-info">
+                        Moving item. Press ESC to cancel.
+                    </div>
+                }
+            
 
-       
-            <div className="Section" ref={SectionRef}>
-           
                 <img className="overlay" src={overlay} alt="" />
                 {parsedSection.image_url && <img className="section-image" src={parsedSection.image_url} alt="" />}
 
@@ -50,6 +60,5 @@ export default function Section(props) {
                 }
             
             </div>
-        
     );
 }

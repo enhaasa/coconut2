@@ -74,11 +74,24 @@
     background: $gradient-steel;
     position: relative;
 
+    &.moving-item-mode {
+      outline: 2px solid red;
+    } 
+
+    & .moving-item-mode-info {
+      color: red;
+      background: $background-dark;
+      position: absolute;
+      width: 100%;
+      z-index: 3;
+    }
+
     & .overlay{
       z-index: 2;
       position: absolute;
       width: 1000px;
-      height: 700px;box-shadow: inset 0px 1px 10px 1px black;
+      height: 700px;
+      box-shadow: inset 0px 1px 10px 1px black;
       //background: rgba(197, 148, 92, 0.3);
     }
 

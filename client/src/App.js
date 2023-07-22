@@ -1,26 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 
-//Hooks
-import useMenu from './api/hooks/useMenu';
-import useStaff from './api/hooks/useStaff';
-
 //Views
 import Payouts from './views/Payouts';
 import SectionManager from './views/SectionManager';
 
-//Components
-import ReceiptManager from './components/ReceiptManager';
-
 //Tools
 import uuid from 'react-uuid';
 
+//Hooks
+import usePixelClick from './api/usePixelClick';
+
 //BACKEND_PLACEHOLDER
-import ground from './assets/schematics/ground.webp';
-import basement from './assets/schematics/basement.webp';
-import bar from './assets/schematics/bar-1.webp';
 import logo from './assets/icons/logo.png';
 import { DynamicDataProvider } from './api/DynamicData';
+import { ControlStatesProvider } from './api/ControlStates';
 
 function App() {
 
@@ -47,6 +41,7 @@ function App() {
   const [ selectedCustomer, setSelectedCustomer ] = useState(null);
   const [ selectedSeating, setSelectedSeating ] = useState(null);
   const [ selectedCustomerManager, setSelectedCustomerManager ] = useState(null);
+  const [ itemInMovement, setItemInMovement ] = useState(null);
 
   /**
    * Temporary solution to useEffect not having access to updated values in component state
@@ -59,19 +54,6 @@ function App() {
     setIsBlurred(false);
     setSelectedCustomer(null);
   }, [selectedSeating]);
-
-  /*
-  const selectedCustomerManagerTracker = useRef(null);
-  useEffect(() => {
-    selectedCustomerManagerTracker.current = selectedCustomerManager;
-    selectedCustomerManager !== null ?
-    setIsBlurred(true) :
-    setIsBlurred(false);
-    setSelectedCustomer(null);
-  }, [selectedCustomerManager]);
-  */
-
-
 
   return (
     <>
@@ -86,38 +68,29 @@ function App() {
         </span>
       </div>
 
-      
       <main>
 
       {isBlurred === true &&
           <div className="blur" />
           }
       {socket && 
-            <DynamicDataProvider 
-              socket={socket} 
-              selectedSeatingTracker={selectedSeatingTracker} 
-              setSelectedCustomer={setSelectedCustomer}>
-              <SectionManager 
-                key={uuid()}
-                setSelectedSeating={setSelectedSeating}
-                setSelectedCustomerManager={setSelectedCustomerManager}
-                selectedCustomerManager={selectedCustomerManager}
-                setSelectedCustomer={setSelectedCustomer}
-                setSelectedSection={setSelectedSection}
-                selectedCustomer={selectedCustomer}
-                isBlurred={isBlurred}
-                loggedInAs={loggedInAs}
-                selectedSeating={selectedSeating}
-                selectedSection={selectedSection}
-                maxDeliveryTime={maxDeliveryTime}
-              />
+            <ControlStatesProvider>
+              <DynamicDataProvider 
+                socket={socket} 
+                selectedSeatingTracker={selectedSeatingTracker} 
+                setSelectedCustomer={setSelectedCustomer}>
+                  
+                <SectionManager 
+                  key={uuid()}
+                  isBlurred={isBlurred}
+                  loggedInAs={loggedInAs}
+                />
 
-              <Payouts 
-                setIsBlurred={setIsBlurred}
-              />
-            </DynamicDataProvider>
-      
-      
+                <Payouts 
+                  setIsBlurred={setIsBlurred}
+                />
+              </DynamicDataProvider>
+            </ControlStatesProvider>
       }
       </main>
     </>

@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useState, useRef, useContext, useEffect }from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
+import { ControlStatesContext } from '../api/ControlStates';
 import OrderManager from './OrderManager';
 import TabManager from './TabManager';
 import ConfirmBox from './ConfirmBox';
@@ -12,18 +13,18 @@ import basketIcon from './../assets/icons/shopping-cart.png';
 import resetIcon from './../assets/icons/reset-black.png';
 
 export default function SeatingManager(props) {
-    const { 
-        selectedSeating, 
-        setSelectedCustomer,
-        setSelectedSeating,
-    } = props;
-
     const {
         seatings,
         orders,
         staff,
         dataTree
     } = useContext(DynamicDataContext);
+    
+    const {
+        selectedSeating, 
+        setSelectedCustomer,
+        setSelectedSeating,
+    } = useContext(ControlStatesContext);
 
     const [ seating, setSeating ] = useState(selectedSeating);
     
@@ -221,13 +222,12 @@ export default function SeatingManager(props) {
             <OrderManager 
                 seating={seating} 
                 customersInSeating={customersInSeating}
-                setSelectedCustomer={setSelectedCustomer}
                 openConfirmBox={openConfirmBox}
                 closeConfirmBox={closeConfirmBox}
             />
 
             <button onClick={() => resetSeating()} className="reset-button destructive">
-                <img src={resetIcon} /> Reset Table
+                <img src={resetIcon} alt="Reset Icon"/> Reset Table
             </button>
 
         </div>

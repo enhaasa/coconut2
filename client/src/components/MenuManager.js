@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
+import { ControlStatesContext } from '../api/ControlStates';
 import Infobox from './Infobox';
 import tools from '../tools';
 import uuid from 'react-uuid';
@@ -13,7 +14,7 @@ export default function MenuManager(props) {
     const { 
         setSelectedCustomer,
         selectedCustomer,
-    } = props;
+    } = useContext(ControlStatesContext);
 
     const {
         menu,

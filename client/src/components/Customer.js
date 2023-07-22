@@ -1,16 +1,16 @@
-import React, { useRef, useLayoutEffect, useContext, useEffect } from 'react';
+import React, { useRef, useLayoutEffect, useContext } from 'react';
 import uuid from 'react-uuid';
 import removecustomerIcon from './../assets/icons/remove-user.png';
 import gsap from 'gsap';
 import animations from '../animations';
 import { DynamicDataContext } from '../api/DynamicData';
+import { ControlStatesContext } from '../api/ControlStates';
 import { useState } from 'react';
 import Order from './Order';
 
 export default function Customer(props) {
     const {
         confirmDeleteCustomer,
-        setSelectedCustomer,
         customer,
     } = props;
 
@@ -18,6 +18,10 @@ export default function Customer(props) {
         customers,
         orders,
     } = useContext(DynamicDataContext);
+
+    const {
+        setSelectedCustomer
+    } = useContext(ControlStatesContext);
 
     const [ nameBuffer, setNameBuffer ] = useState(customer.name);
 

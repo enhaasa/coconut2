@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, useLayoutEffect, useContext, useMemo } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
+import { ControlStatesContext } from '../api/ControlStates';
 import tools from '../tools';
 import gsap from 'gsap';
 import animations from '../animations';
@@ -12,11 +13,18 @@ import waiterIcon from './../assets/icons/waiter.png';
 import userIcon from './../assets/icons/user-white.png';
 
 export default function Seating(props) {
-    const { seating, maxDeliveryTime, setSelectedSeating } = props;
+    const { 
+        seating, 
+    } = props;
     const {
         orders,
         customers,
     } = useContext(DynamicDataContext);
+    const {
+        setSelectedSeating, 
+        handleItemInMovement, 
+        maxDeliveryTime,
+    } = useContext(ControlStatesContext);
 
     const { getFirstName, getLastNames, getTimeSinceOldestOrder, getOldestOrder, formatTime } = tools;
 
@@ -74,7 +82,6 @@ export default function Seating(props) {
         setSelectedSeating(selectedSeating);
     }
     
-    
     const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrders)));
 
     useEffect(() => {
@@ -91,7 +98,6 @@ export default function Seating(props) {
         }
     }, [undeliveredOrders]);
 
-
     return (
         <div>          
             <div 
@@ -103,6 +109,7 @@ export default function Seating(props) {
                     top:seating.pos_y
             }}>
 
+                <button onClick={() => {handleItemInMovement(seating)}}>Move</button>
 
                 <div className="upper-wrapper">
                     {seating.waiter !== "" &&
@@ -128,7 +135,6 @@ export default function Seating(props) {
                     }
                 </div>
                 
-
                 {false &&
                     <div className="editing">
                         <p className="dots"><span>&bull;</span><span>&bull;</span><span>&bull;</span></p>
@@ -138,8 +144,7 @@ export default function Seating(props) {
                     className={`number-display ${seating.type} ${seatingnumberColor()}`}
                     onClick={() => {handleSetSelectedSeating(seating)}}>
 
-                    {
-                        <div className="is-photography-container">
+                    <div className="is-photography-container">
                         <span className="is-photography">
                             {seating.is_photography ? 
                             
@@ -149,33 +154,27 @@ export default function Seating(props) {
                                 : ""}
                         </span>
                     </div>
-                    }
-
-
-                    {
-                        <div className="unpaid-tab-container ">
-                            <span className="unpaid-tab">
-                                {deliveredOrders.length > 0 ? 
-                                
-                                    <div className="">
-                                        <img src={unPaidTabIcon} /> 
-                                    </div>
-                                    : ""}
-                            </span>
-                        </div>
-                    }
-
+                    
+                    <div className="unpaid-tab-container ">
+                        <span className="unpaid-tab">
+                            {deliveredOrders.length > 0 ? 
+                            
+                                <div className="">
+                                    <img src={unPaidTabIcon} /> 
+                                </div>
+                                : ""}
+                        </span>
+                    </div>
+                    
                     <span className="number">
                         {seating.number}
                     </span>
-                
                 </button>
 
                 <div className="lower-wrapper">
                     <div className="customers">
                         {noBlankNames.map((customer, index) => ( 
                             index < NAME_PREVIEW__MAX_AMOUNT &&
-                                
                                 <div className="customer" key={customer.id}>
                                     <img src={userIcon} alt="Customer Icon"/>
                                     {`${getFirstName(customer.name)} ${getLastNames(customer.name).join("").charAt(0)}`}

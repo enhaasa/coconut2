@@ -184,6 +184,16 @@
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   position: relative;
 }
+.SectionContainer .Section.moving-item-mode {
+  outline: 2px solid red;
+}
+.SectionContainer .Section .moving-item-mode-info {
+  color: red;
+  background: rgb(36, 30, 11);
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+}
 .SectionContainer .Section .overlay {
   z-index: 2;
   position: absolute;
@@ -548,6 +558,16 @@ button:active, select:active, option:active {
   border: 4px solid black;
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   position: relative;
+}
+.SectionContainer .Section.moving-item-mode {
+  outline: 2px solid red;
+}
+.SectionContainer .Section .moving-item-mode-info {
+  color: red;
+  background: rgb(36, 30, 11);
+  position: absolute;
+  width: 100%;
+  z-index: 3;
 }
 .SectionContainer .Section .overlay {
   z-index: 2;

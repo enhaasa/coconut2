@@ -11,7 +11,6 @@ export default function OrderManager(props) {
     const { 
         openConfirmBox, 
         closeConfirmBox, 
-        setSelectedCustomer,
         customersInSeating,
         unDeliveredOrdersInSeating, 
         updateUpdates, 
@@ -22,7 +21,7 @@ export default function OrderManager(props) {
         customers,
         seatings,
         orders
-    } = useContext(DynamicDataContext)
+    } = useContext(DynamicDataContext);
 
     function confirmDeleteCustomer(customer) {
 
@@ -80,7 +79,6 @@ export default function OrderManager(props) {
                                 confirmDeleteCustomer={confirmDeleteCustomer}
                                 unDeliveredOrdersInSeating={unDeliveredOrdersInSeating}
                                 unDeliveredOrderCustomersInSeating={unDeliveredOrderCustomersInSeating}
-                                setSelectedCustomer={setSelectedCustomer}
                                 customers={customers}
                             />
                        ))} 
