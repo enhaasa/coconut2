@@ -1,4 +1,4 @@
-import Section from '../components/Section'
+import Section from '../components/Section';
 import SeatingManager from '../components/SeatingManager';
 import MenuManager from '../components/MenuManager';
 import NotificationBar from '../components/NotificationBar';

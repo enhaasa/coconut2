@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { DynamicDataContext } from "../api/DynamicData";
-import uuid from "react-uuid";
+import Table from "./common/List/List";
+import TableItem from "./common/List/ListItem";  
+import uuid from "react-uuid";      
+
 
 function AttendingStaff(props) {
     const { handleModal, ordersTotal, tipsTotal } = props;
@@ -11,26 +14,11 @@ function AttendingStaff(props) {
     const absentStaff = staff.get.filter(s => !s.is_attending);
     const tipsAndOrders = parseInt(ordersTotal) + parseInt(tipsTotal);
     const perPerson = tipsAndOrders / attendingStaff.length;
-
-    function handleAttendingModal(isVisible) {
-
-        
-        if (isVisible) {
-            handleModal({
-                title: "Add attending staff",
-                content:
-                <div className="addStaffModal">
-                    {absentStaff.map(s => <button key={uuid()} onClick={() => staff.setAttribute(s, 'is_attending', true)}>{s.name}</button>)}
-                </div>
-            });
-        } else {
-            handleModal(null);
-        }
-    }
     
-
     return (
         <div className="AttendingStaff">
+            
+
             <div className="list">
                 {attendingStaff.map((s, i) =>
                 <button 
@@ -38,9 +26,6 @@ function AttendingStaff(props) {
                     key={uuid()}
                     onClick={() => {staff.setAttribute(s, 'is_attending', false)}}
                 >{s.name}</button>)}
-                <button onClick={() => {handleAttendingModal(true)}} className="add-staff-button progressive">
-                    Add
-                </button>
             </div>
 
             <div className="calculations">

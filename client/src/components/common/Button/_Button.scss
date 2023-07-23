@@ -1,0 +1,16 @@
+.Button {
+    border: 1px solid getBorderColor('standard');
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: getFontSize('standard');
+    color: getTextColor('primary');
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    & img {
+        margin: 0;
+        padding: 0;
+    }
+}

@@ -1,0 +1,20 @@
+.TableItem {
+    border-collapse: collapse;
+    font-size: getFontSize('standard');
+
+    &:nth-child(even) {
+        background: getBackgroundColor('secondary');
+    }
+
+    & td {
+        &.number {
+            text-align: right;
+        }
+
+        &.nav {
+            display: flex;
+            justify-content: end !important;
+        }
+    }
+}
+

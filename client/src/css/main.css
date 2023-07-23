@@ -22,6 +22,45 @@
   background: #151515;
 }
 
+.Button {
+  border: 1px solid #181818;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 14px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.Button img {
+  margin: 0;
+  padding: 0;
+}
+
+.ListItem {
+  background: red;
+}
+
+.Table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.TableItem {
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.TableItem:nth-child(even) {
+  background: #2c2c2c;
+}
+.TableItem td.number {
+  text-align: right;
+}
+.TableItem td.nav {
+  display: flex;
+  justify-content: end !important;
+}
+
 * {
   font-family: "Cabin", sans-serif;
 }
@@ -40,11 +79,6 @@
 ::-webkit-scrollbar-thumb {
   background: black;
   border-radius: 10px;
-}
-
-.cursive {
-  font-family: "Dancing Script", cursive;
-  font-size: 20px;
 }
 
 img {
@@ -81,9 +115,6 @@ body {
 }
 
 button, select, option {
-  border-radius: 15px;
-  outline: none;
-  border: 2px solid black;
   transition: 200ms all ease;
 }
 button:hover, select:hover, option:hover {
@@ -108,15 +139,15 @@ button:active, select:active, option:active {
 }
 
 .destructive {
-  background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63)) !important;
+  background: rgb(177, 53, 53) !important;
 }
 
 .constructive {
-  background: radial-gradient(ellipse farthest-corner at right bottom, rgb(132, 253, 132) 0%, rgb(132, 253, 207) 8%, rgb(164, 250, 238) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(220, 255, 220) 8%, rgb(132, 253, 132) 25%) !important;
+  background: #3c705a !important;
 }
 
 .progressive {
-  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #c59c44 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%) !important;
+  background: rgb(173, 164, 88) !important;
 }
 
 .informative {
@@ -126,6 +157,10 @@ button:active, select:active, option:active {
 .steel {
   background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
   color: white;
+}
+
+.neutral {
+  background: #373737 !important;
 }
 
 .switch {
@@ -606,17 +641,17 @@ button:active, select:active, option:active {
 }
 
 .Payouts {
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
-  box-shadow: 0px 4px 10px 1px black;
+  background: #2c2c2c;
   color: white;
   margin: 10px 50px;
   padding: 10px;
-  border: 4px solid black;
+  border: 1px solid black;
+  border-radius: 10px;
   width: 1000px;
   min-height: 600px;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
 }
 .Payouts .column {
@@ -632,23 +667,27 @@ button:active, select:active, option:active {
   flex-direction: column;
   min-height: 100px;
 }
-.Payouts .column section .title {
-  font-size: 28px;
-  color: rgb(196, 177, 166);
-  font-family: "Dancing Script", cursive;
-  text-align: center;
+.Payouts .column section .nav {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 5px;
-  text-shadow: 0px 2px 4px black;
+  align-items: center;
 }
-.Payouts .column section .under-title {
+.Payouts .column section .nav .title {
+  font-size: 14px;
+  color: #fff;
+  font-family: "Cabin";
+  margin-bottom: 5px;
+}
+.Payouts .column section .nav .under-title {
   color: rgb(196, 177, 166);
   font-size: 14px;
   text-align: center;
 }
 .Payouts .column section .content {
-  box-shadow: inset 0px 4px 10px 1px black;
-  background: rgb(20, 20, 20);
-  border-radius: 20px;
+  box-shadow: inset 0px 0px 1px 0px black;
+  background: #222;
+  border: 1px solid #181818;
   padding: 10px;
   z-index: 2;
   height: 100%;
@@ -1311,7 +1350,7 @@ button:active, select:active, option:active {
   margin-bottom: -6px;
 }
 .TopNav .logo .info-container .author {
-  color: #66908C;
+  color: #9bb4b2;
   font-size: 14px;
 }
 

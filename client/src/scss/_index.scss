@@ -24,11 +24,6 @@
   border-radius: 10px;
 }
 
-.cursive {
-  font-family: 'Dancing Script', cursive;
-  font-size: 20px;
-}
-
 img {
   pointer-events: none;
 }
@@ -69,9 +64,6 @@ body {
 
 
 button, select, option {
-  border-radius: 15px;
-  outline: none;
-  border: 2px solid black;
   transition: 200ms all ease;
 
   &:hover {
@@ -83,6 +75,7 @@ button, select, option {
     box-shadow: inset 0px 1px 4px 1px black !important;
   }
 }
+
 .close-button {
   border-radius: 100%;
   width: 50px;
@@ -96,12 +89,14 @@ button, select, option {
     height: 28px;
   }
 }
-.destructive {background: $background-destructive !important;}
-.constructive {background: $background-constructive !important;}
-.progressive {background: $background-progressive !important;}
+
+.destructive {background: getPrimaryColor('destructive') !important;}
+.constructive {background: getPrimaryColor('constructive') !important;}
+.progressive {background: getPrimaryColor('progressive') !important;}
 //.inactive {background: $background-inactive !important;}
 .informative {background: $gradient-blue !important;}
 .steel {background: $gradient-steel; color: white;}
+.neutral {background: getPrimaryColor('neutral') !important;}
 
 //Checkboxes
 .switch {

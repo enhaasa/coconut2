@@ -16,17 +16,25 @@ $multitoggle-colors: (
 
 $text-colors: (
     'primary': #fff,
-    'secondary': #66908C,
+    'secondary': #9bb4b2,
 );
 @function getTextColor($key) {
     @return map-get($text-colors, $key);
 }
 
-$button-colors: ( 
-    'constructive': #5b989c,
-    'proggressive': rgb(173, 164, 88),
-    'destructive': rgb(177, 53, 53)
+$primary-colors: ( 
+    'constructive': #3c705a,
+    'progressive': rgb(173, 164, 88),
+    'destructive': rgb(177, 53, 53),
+    'neutral': #373737,
 );
-@function getButtonColor($key) {
-    @return map-get($button-colors, $key);
+@function getPrimaryColor($key) {
+    @return map-get($primary-colors, $key);
+}
+
+$border-colors: (
+    'standard': #181818,
+);
+@function getBorderColor($key) {
+    @return map-get($border-colors, $key);
 }

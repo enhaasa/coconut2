@@ -1,7 +1,0 @@
-.MultiToggleOption {
-  background: getMultiToggleColor("inactive");
-  color: getTextColor("primary");
-}
-.MultiToggleOption.active {
-  background: getMultiToggleColor("active");
-}/*# sourceMappingURL=MultiToggleOption.css.map */
