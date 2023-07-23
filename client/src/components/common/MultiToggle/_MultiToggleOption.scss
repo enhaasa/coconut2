@@ -1,0 +1,12 @@
+.MultiToggleOption {
+    background: getMultiToggleColor('inactive');
+    color: getTextColor('primary');
+    font-size: getFontSize('standard');
+    padding: 5px 10px;
+    border: 1px solid black;
+
+    &.active {
+        background: getMultiToggleColor('active');
+    }
+
+}

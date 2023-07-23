@@ -1,5 +1,13 @@
 @import 'colorset';
+@import './themes/default__colors';
+@import './themes/default__fonts';
 
+
+//Common
+@import './../components/common/MultiToggle/MultiToggle';
+@import './../components/common/MultiToggle/MultiToggleOption';
+
+//Components
 @import 'index';
 @import 'Section';
 @import 'ReceiptManager';
@@ -10,17 +18,14 @@
 @import 'ReceiptModal';
 @import 'AttendingStaff';
 @import 'TipModal';
-
 @import 'SeatingManager';
 @import 'OrderManager';
-
 @import 'MenuManager';
 @import 'InfoBox';
-
 @import 'ConfirmBox';
-
 @import 'TabManager';
 @import 'Receipt';
+@import 'TopNav';
 
 
 
@@ -30,7 +35,6 @@ main {
     background-image: url("./../assets/background/background.webp");
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 10px;
 
     & .blur {
         position: fixed;

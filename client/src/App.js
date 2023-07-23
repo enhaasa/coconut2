@@ -4,12 +4,12 @@ import io from 'socket.io-client';
 //Views
 import Payouts from './views/Payouts';
 import SectionManager from './views/SectionManager';
+import TopNav from './components/TopNav';
 
 //Tools
 import uuid from 'react-uuid';
 
 //BACKEND_PLACEHOLDER
-import logo from './assets/icons/logo.png';
 import { DynamicDataProvider } from './api/DynamicData';
 import { ControlStatesProvider } from './api/ControlStates';
 import { StaticDataContextProvider } from './api/StaticData';
@@ -50,42 +50,50 @@ function App() {
 
   return (
     <>
-      <div className="app-info">
-        <span className="logo">
-          <img src={logo} alt="" />
-        </span>
-    
-        <span className="text">
-          <span className="title cursive">Coconut</span>
-          <span className="version">by Enhasa</span>
-        </span>
-      </div>
+      {/*
+        <div className="app-info">
+          <span className="logo">
+            <img src={logo} alt="" />
+          </span>
+      
+          <span className="text">
+            <span className="title cursive">Coconut</span>
+            <span className="version">by Enhasa</span>
+          </span>
+        </div>
+
+        
+
+        {isBlurred === true &&
+            <div className="blur" />
+            }
+      */}
+
+      
 
       <main>
+        {socket && 
+              <ControlStatesProvider>
+                <StaticDataContextProvider>
+                  <DynamicDataProvider 
+                    socket={socket} 
+                    selectedSeatingTracker={selectedSeatingTracker} 
+                    setSelectedCustomer={setSelectedCustomer}>
+                      
+                    <TopNav></TopNav>
 
-      {isBlurred === true &&
-          <div className="blur" />
-          }
-      {socket && 
-            <ControlStatesProvider>
-              <StaticDataContextProvider>
-                <DynamicDataProvider 
-                  socket={socket} 
-                  selectedSeatingTracker={selectedSeatingTracker} 
-                  setSelectedCustomer={setSelectedCustomer}>
-                    
-                  <SectionManager 
-                    key={uuid()}
-                    isBlurred={isBlurred}
-                  />
+                    <SectionManager 
+                      key={uuid()}
+                      isBlurred={isBlurred}
+                    />
 
-                  <Payouts 
-                    setIsBlurred={setIsBlurred}
-                  />
-                </DynamicDataProvider>
-              </StaticDataContextProvider>
-            </ControlStatesProvider>
-      }
+                    <Payouts 
+                      setIsBlurred={setIsBlurred}
+                    />
+                  </DynamicDataProvider>
+                </StaticDataContextProvider>
+              </ControlStatesProvider>
+        }
       </main>
     </>
 

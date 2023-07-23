@@ -69,7 +69,6 @@ body {
 
 
 button, select, option {
-  font-weight: bold;
   border-radius: 15px;
   outline: none;
   border: 2px solid black;
@@ -100,7 +99,7 @@ button, select, option {
 .destructive {background: $background-destructive !important;}
 .constructive {background: $background-constructive !important;}
 .progressive {background: $background-progressive !important;}
-.inactive {background: $background-inactive !important;}
+//.inactive {background: $background-inactive !important;}
 .informative {background: $gradient-blue !important;}
 .steel {background: $gradient-steel; color: white;}
 

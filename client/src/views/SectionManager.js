@@ -50,7 +50,8 @@ function SectionManager(props) {
       <section className="SectionContainer">
         <nav className="section-nav">
           <span className="section-column">
-            {sections.get.map((section, index) => {
+            {/*
+            sections.get.map((section, index) => {
                 return (
                     <div className="section-selector" key={uuid()}>
                       {
@@ -71,12 +72,12 @@ function SectionManager(props) {
                         className={`section-button ${selectedSection === index ? "active" : "inactive"}`} 
                         key={index} 
                         onClick={() => {setSelectedSection(index)}}>
-                        <span className="title cursive">{section.name}</span>
+                        <span className="title">{section.name}</span>
                       </button>
                     </div>
                 )
               })
-            }
+            */}
           </span>
         </nav>
         

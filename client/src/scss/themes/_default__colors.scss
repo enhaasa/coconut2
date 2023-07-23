@@ -1,0 +1,32 @@
+$background-colors: (
+    'primary': #222,
+    'secondary': #2c2c2c,
+);
+@function getBackgroundColor($key) {
+    @return map-get($background-colors, $key);
+}
+
+$multitoggle-colors: (
+    'active': #151515,
+    'inactive': #373737,
+);
+@function getMultiToggleColor($key) {
+    @return map-get($multitoggle-colors, $key);
+}
+
+$text-colors: (
+    'primary': #fff,
+    'secondary': #66908C,
+);
+@function getTextColor($key) {
+    @return map-get($text-colors, $key);
+}
+
+$button-colors: ( 
+    'constructive': #5b989c,
+    'proggressive': rgb(173, 164, 88),
+    'destructive': rgb(177, 53, 53)
+);
+@function getButtonColor($key) {
+    @return map-get($button-colors, $key);
+}

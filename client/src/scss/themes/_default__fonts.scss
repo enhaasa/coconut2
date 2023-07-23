@@ -1,0 +1,16 @@
+$fonts: (
+    'standard': 'Cabin',
+    'cursive': 'Dancing Script',
+);
+@function getFont($key) {
+    @return map-get($fonts, $key);
+}
+
+$font-sizes: (
+    'small': 12px,
+    'standard': 14px,
+    'large': 28px,
+);
+@function getFontSize($key) {
+    @return map-get($font-sizes, $key);
+}
