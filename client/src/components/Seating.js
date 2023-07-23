@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useLayoutEffect, useContext, useMemo } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
+import { StaticDataContext } from '../api/StaticData';
 import tools from '../tools';
 import gsap from 'gsap';
 import animations from '../animations';
@@ -17,19 +18,19 @@ export default function Seating(props) {
         seating, 
     } = props;
     const {
-        orders,
         customers,
     } = useContext(DynamicDataContext);
     const {
         itemInMovement,
         setSelectedSeating, 
-        setItemInMovement, 
-        maxDeliveryTime,
     } = useContext(ControlStatesContext);
+    const {
+        MAX_DELIVERY_TIME,
+        MAX_NAME_PREVIEW
+    } = useContext(StaticDataContext);
+
 
     const { getFirstName, getLastNames, getTimeSinceOldestOrder, getOldestOrder, formatTime } = tools;
-
-    const NAME_PREVIEW__MAX_AMOUNT = 1;
 
     const isMoving = itemInMovement && itemInMovement.id === seating.id;
 
@@ -54,16 +55,10 @@ export default function Seating(props) {
         }
     }, []);
 
-    const seatingnumberColor = () => {
+    function seatingnumberColor() {
         if (seating.is_available && !seating.is_reserved) return "constructive";
         if (!seating.is_available) return "destructive";
         if (seating.is_reserved) return "progressive";
-    }
-
-    const notificationColor = () => {
-        if (!timeSinceLastOrder) return "progressive";
-        if (timeSinceLastOrder <= maxDeliveryTime) return "progressive";
-        if (timeSinceLastOrder > maxDeliveryTime) return "destructive";
     }
 
     const [noBlankNames, blankNames] = useMemo(() => {
@@ -76,7 +71,7 @@ export default function Seating(props) {
 
 
     let exceedingMaxPreview = noBlankNames.filter((customer, index) => (
-        index >= NAME_PREVIEW__MAX_AMOUNT
+        index >= MAX_NAME_PREVIEW
     ))
 
     const totalAdditions = exceedingMaxPreview.length + blankNames.length;
@@ -84,22 +79,28 @@ export default function Seating(props) {
     function handleSetSelectedSeating(selectedSeating) {
         setSelectedSeating(selectedSeating);
     }
-    
-    const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrders)));
 
+    const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(0);
+    
     useEffect(() => {
         //Not the most elegant solution but will make sure timers start at 0 from first second
         setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrders))); 
-
+    
         const timer = setInterval(() => {
             undeliveredOrders.length > 0 &&
                 setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrders)));
         }, 1000);
-
+    
         return () => {
             clearInterval(timer);
-        }
+        };
     }, [undeliveredOrders]);
+
+    function getNotificationColor() {
+        if (!timeSinceLastOrder) return "progressive";
+        if (timeSinceLastOrder <= MAX_DELIVERY_TIME) return "progressive";
+        if (timeSinceLastOrder > MAX_DELIVERY_TIME) return "destructive";
+    };
 
     return (
         <div>          
@@ -121,19 +122,21 @@ export default function Seating(props) {
                         </div>
                     }
 
-                    {undeliveredOrders.length > 0 && 
-                        <div className="orderinfo">
+                    <div className="orderinfo">
+                        {undeliveredOrders.length > 0 && (
+                            <>
                             <div className={`amount`}>
-                                <img src={orderIcon} alt="Order Icon"/>
+                                <img src={orderIcon} alt="Order Icon" />
                                 {undeliveredOrders.length}
                             </div>
 
-                            <div className={`time ${notificationColor()}`}>
-                                <img src={stopwatchIcon} alt="Stopwatch Icon"/>
+                            <div className={`time ${getNotificationColor()}`}>
+                                <img src={stopwatchIcon} alt="Stopwatch Icon" />
                                 {formatTime(timeSinceLastOrder)}
                             </div>
-                        </div>
-                    }
+                            </>
+                        )}
+                    </div>
                 </div>
                 
                 {false &&
@@ -175,7 +178,7 @@ export default function Seating(props) {
                 <div className="lower-wrapper">
                     <div className="customers">
                         {noBlankNames.map((customer, index) => ( 
-                            index < NAME_PREVIEW__MAX_AMOUNT &&
+                            index < MAX_NAME_PREVIEW &&
                                 <div className="customer" key={customer.id}>
                                     <img src={userIcon} alt="Customer Icon"/>
                                     {`${getFirstName(customer.name)} ${getLastNames(customer.name).join("").charAt(0)}`}

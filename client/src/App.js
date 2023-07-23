@@ -8,13 +8,11 @@ import SectionManager from './views/SectionManager';
 //Tools
 import uuid from 'react-uuid';
 
-//Hooks
-import usePixelClick from './api/usePixelClick';
-
 //BACKEND_PLACEHOLDER
 import logo from './assets/icons/logo.png';
 import { DynamicDataProvider } from './api/DynamicData';
 import { ControlStatesProvider } from './api/ControlStates';
+import { StaticDataContextProvider } from './api/StaticData';
 
 function App() {
 
@@ -30,18 +28,13 @@ function App() {
 
   }, []);
 
-  const loggedInAs = "Coco Shev'rin"; //BACKEND_PLACEHOLDER
-  const maxDeliveryTime = 600000; //Epoch time format; 1000 = one second
-
   /**
    * Controlstates to know which windows to load.
    */
   const [ isBlurred, setIsBlurred ] = useState(false);
-  const [ selectedSection, setSelectedSection ] = useState(1);
   const [ selectedCustomer, setSelectedCustomer ] = useState(null);
   const [ selectedSeating, setSelectedSeating ] = useState(null);
-  const [ selectedCustomerManager, setSelectedCustomerManager ] = useState(null);
-  const [ itemInMovement, setItemInMovement ] = useState(null);
+
 
   /**
    * Temporary solution to useEffect not having access to updated values in component state
@@ -75,21 +68,22 @@ function App() {
           }
       {socket && 
             <ControlStatesProvider>
-              <DynamicDataProvider 
-                socket={socket} 
-                selectedSeatingTracker={selectedSeatingTracker} 
-                setSelectedCustomer={setSelectedCustomer}>
-                  
-                <SectionManager 
-                  key={uuid()}
-                  isBlurred={isBlurred}
-                  loggedInAs={loggedInAs}
-                />
+              <StaticDataContextProvider>
+                <DynamicDataProvider 
+                  socket={socket} 
+                  selectedSeatingTracker={selectedSeatingTracker} 
+                  setSelectedCustomer={setSelectedCustomer}>
+                    
+                  <SectionManager 
+                    key={uuid()}
+                    isBlurred={isBlurred}
+                  />
 
-                <Payouts 
-                  setIsBlurred={setIsBlurred}
-                />
-              </DynamicDataProvider>
+                  <Payouts 
+                    setIsBlurred={setIsBlurred}
+                  />
+                </DynamicDataProvider>
+              </StaticDataContextProvider>
             </ControlStatesProvider>
       }
       </main>
