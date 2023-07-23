@@ -2,6 +2,9 @@ import React from 'react';
 import Receipt from './Receipt';
 import { useState, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
+import Table from './common/Table/Table';
+import TableItem from './common/Table/TableItem';
+import Button from './common/Button/Button';
 import uuid from 'react-uuid';
 
 export default function ReceiptManager(props) {
@@ -13,8 +16,6 @@ export default function ReceiptManager(props) {
     const {
         archivedSessions, sections
     } = useContext(DynamicDataContext);
-
-
 
     const [ selectedFilter, setSelectedFilter ] = useState(0);
     const filters = [
@@ -43,7 +44,7 @@ export default function ReceiptManager(props) {
         <div className="ReceiptManager">
             <div className="row">
                 {
-                <nav className="receipt-filter">
+                <nav className="filter">
                     {filters.map((filter, index) => 
                         <button 
                             key={uuid()}
@@ -52,15 +53,17 @@ export default function ReceiptManager(props) {
                         >{filter.title}</button>)}
                 </nav>
                     }
-                <div className="receipt-list">
-                    {sessionsByFilter.map(session => (
-                        <Receipt 
-                            key={uuid()}
-                            setIsBlurred={setIsBlurred}
-                            handleModal={handleModal}
-                            session={session}
-                        />
-                    ))}
+                <div className="list">
+                    <Table>
+                        {sessionsByFilter.map(session => (
+                            <Receipt 
+                                key={uuid()}
+                                setIsBlurred={setIsBlurred}
+                                handleModal={handleModal}
+                                session={session}
+                            />
+                        ))}
+                    </Table>
                 </div>
             </div>
 

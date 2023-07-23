@@ -22,20 +22,15 @@
         }
     }
 
-    & .receipt-filter {
+    & .filter {
         display: flex;
         justify-content: center;
     }
 
-    & .receipt-list {
-        display: flex;
-        flex-direction: column;
-        padding-top: 5px;
-        font-weight: bold;
-        gap: 5px;
+    & .list {
         overflow: auto;
-        max-height: 600px;
         overflow-y: auto;
+        padding: 5px;
     }
 
     & .bottom-list {

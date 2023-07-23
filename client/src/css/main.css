@@ -44,6 +44,7 @@
 .Table {
   width: 100%;
   border-collapse: collapse;
+  color: #fff;
 }
 
 .TableItem {
@@ -447,19 +448,14 @@ button:active, select:active, option:active {
   color: rgb(196, 177, 166);
   font-size: 14px;
 }
-.ReceiptManager .receipt-filter {
+.ReceiptManager .filter {
   display: flex;
   justify-content: center;
 }
-.ReceiptManager .receipt-list {
-  display: flex;
-  flex-direction: column;
-  padding-top: 5px;
-  font-weight: bold;
-  gap: 5px;
+.ReceiptManager .list {
   overflow: auto;
-  max-height: 600px;
   overflow-y: auto;
+  padding: 5px;
 }
 .ReceiptManager .bottom-list {
   border-top: 1px solid #181818;
@@ -646,7 +642,7 @@ button:active, select:active, option:active {
   background: #2c2c2c;
   color: white;
   margin: 10px 50px;
-  padding: 10px;
+  padding: 20px;
   border: 1px solid black;
   border-radius: 10px;
   width: 1000px;
@@ -654,11 +650,11 @@ button:active, select:active, option:active {
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
+  grid-gap: 20px;
 }
 .Payouts .column {
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 20px;
 }
 .Payouts .column.left {
   display: grid;
@@ -680,6 +676,7 @@ button:active, select:active, option:active {
   color: #fff;
   font-family: "Cabin";
   margin-bottom: 5px;
+  font-weight: bold;
 }
 .Payouts .column section .nav .under-title {
   color: rgb(196, 177, 166);
