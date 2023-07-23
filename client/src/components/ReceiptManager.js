@@ -64,8 +64,8 @@ export default function ReceiptManager(props) {
                 </div>
             </div>
 
-            <div className="row">
-                <div className="total-earnings">
+            <div className="bottom-list">
+                <div className="total">
                     Total: {totalByFilteredSessions.toLocaleString("en-US")} gil
                 </div>
             </div>

@@ -20,7 +20,7 @@
 
         &.left {
             display: grid;
-            grid-template-rows: 1fr auto;
+            grid-template-rows: auto 1fr;
         }
 
         & section {
@@ -51,7 +51,6 @@
                 box-shadow: inset 0px 0px 1px 0px black;
                 background: getBackgroundColor('primary');
                 border: 1px solid getBorderColor('standard');
-                padding: 10px;
                 z-index: 2;
                 height: 100%;
                 

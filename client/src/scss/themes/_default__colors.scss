@@ -1,6 +1,7 @@
 $background-colors: (
     'primary': #222,
     'secondary': #2c2c2c,
+    'tertiary': rgb(52, 58, 52)
 );
 @function getBackgroundColor($key) {
     @return map-get($background-colors, $key);

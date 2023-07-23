@@ -1,28 +1,40 @@
 @import '_colorset'; 
 
 .AttendingStaff {
-    & .delete-staff-button {
-        background: $background-inactive;
-        
-        &:hover {
-            background: $background-destructive;
-            text-decoration: line-through;
+    display: grid;
+    align-content: space-between;
+    height: 100%;
+
+    & .list {
+        margin: 5px;
+
+        & .delete-staff-button {
+            background: $background-inactive;
+            
+            &:hover {
+                background: $background-destructive;
+                text-decoration: line-through;
+            }
         }
     }
-
-    & .perPerson, & .calculations {
-        color: $cream;
+    
+    & .bottom-list {
         margin-top: 5px;
         padding-top: 3px;
-        text-shadow: 0px 2px 4px black;
-    }
+        border-top: 1px solid getBorderColor('standard');
 
-    & .per-person, & .calculations {
-        border-top: 1px solid $cream;
-    }
+        & .perPerson, & .calculations {
+            color: getTextColor('primary');
+            font-size: getFontSize('standard');
+            padding: 5px;
+        }
 
-    & .per-person {
-        color: lightgrey;
+        & .total {
+            border-top: 1px solid getBorderColor('standard');
+            background: getBackgroundColor('tertiary');
+            color: getTextColor('primary');
+            font-size: getFontSize('standard');
+            padding: 5px;
+        }
     }
-
 }

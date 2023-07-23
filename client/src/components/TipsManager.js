@@ -26,37 +26,39 @@ function TipsManager(props) {
                 <Table>
                     {tips.get.map(tip => (
                         <TableItem 
-                        key={uuid()} 
-                        cols={
-                            [
-                                {
-                                    type: 'text',
-                                    content: tip.name, 
-                                },
-                                {
-                                    type: 'number',
-                                    content: tools.formatStringAsPrice(tip.amount.toString()) + " gil",
-                                },
-                                {   
-                                    type: 'nav',
-                                    content: 
-                                    <>
-                                        <Button 
-                                            type='neutral'
-                                            clickEvent={() => handleEdit(tip)}>
-                                            Edit
-                                        </Button>
-                                    </>
-                                }
-                            ]
-                        } />
+                            key={uuid()} 
+                            cols={
+                                [
+                                    {
+                                        type: 'text',
+                                        content: tip.name, 
+                                    },
+                                    {
+                                        type: 'number',
+                                        content: tools.formatStringAsPrice(tip.amount.toString()) + " gil",
+                                    },
+                                    {   
+                                        type: 'nav',
+                                        content: 
+                                        <>
+                                            <Button 
+                                                type='neutral'
+                                                clickEvent={() => handleEdit(tip)}>
+                                                Edit
+                                            </Button>
+                                        </>
+                                    }
+                                ]
+                            } />
                     ))}
                 </Table>
 
             </div>
 
-            <div className="total">
-                {`Total: ${tipsTotal.toLocaleString("en-US")} gil`}
+            <div className="bottom-list">
+                <div className="total">
+                    {`Total: ${tipsTotal.toLocaleString("en-US")} gil`}
+                </div>
             </div>
         </div>
     )
