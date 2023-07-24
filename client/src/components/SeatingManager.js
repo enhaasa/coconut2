@@ -148,7 +148,6 @@ export default function SeatingManager(props) {
                         </select>}
                 </div>
 
-                        
                 <span className={`seatingnumber ${seatingnumberColor()}`}>
 
                     {seating.number}
@@ -159,7 +158,6 @@ export default function SeatingManager(props) {
                 </button>
             </div>
 
-    
             <section className="navbar">
                 
                 <div className="column">

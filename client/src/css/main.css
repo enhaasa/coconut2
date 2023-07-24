@@ -62,6 +62,24 @@
   justify-content: end !important;
 }
 
+.Dropdown {
+  border: 1px solid #181818;
+  border-radius: 6px;
+  padding: 3px 18px 3px 8px;
+  font-size: 14px;
+  color: #fff;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: url("../assets/icons/dropdown-white.png") 96% center no-repeat;
+  background-color: #222;
+}
+
+.DropdownItem {
+  background-color: #373737;
+  border-radius: 10px;
+}
+
 * {
   font-family: "Cabin", sans-serif;
 }
@@ -705,7 +723,6 @@ button:active, select:active, option:active {
 }
 .TipsManager .bottom-list {
   margin-top: 5px;
-  padding-top: 3px;
   border-top: 1px solid #181818;
   background: rgb(52, 58, 52);
 }

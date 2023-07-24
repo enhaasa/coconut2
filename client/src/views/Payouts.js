@@ -5,14 +5,16 @@ import TipModal from "./../components/TipModal";
 import uuid from "react-uuid";
 import Modal from '../components/Modal';
 import Button from '../components/common/Button/Button';
+import Dropdown from '../components/common/Dropdown/Dropdown';
+import DropdownItem from '../components/common/Dropdown/DropdownItem';
 import tools from '../tools';
 import dropdownIcon from '../assets/icons/dropdown-white.png';
 import { useState, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 
 function Payouts(props) {
-    const { setIsBlurred, sections } = props;
-    const { tips, archivedSessions, staff } = useContext(DynamicDataContext);
+    const { setIsBlurred } = props;
+    const { tips, archivedSessions, staff, sections } = useContext(DynamicDataContext);
 
     const { getCurrentDate, sortArchivedArray } = tools;
     const [ modal, setModal ] = useState(null);
@@ -23,6 +25,22 @@ function Payouts(props) {
     const absentStaff = staff.get.filter(s => !s.is_attending);
     const tipsAndOrders = parseInt(ordersTotal) + parseInt(tipsTotal);
     const perPerson = tipsAndOrders / attendingStaff.length;
+
+    const [ selectedFilter, setSelectedFilter ] = useState(0);
+    const receiptFilters = [
+        {
+            title: "My Receipts",
+            parse: arr => arr
+        },
+        {
+            title: "All",
+            parse: arr => arr
+        },
+        ...sections.get.map(section => ({
+            title: section.name,
+            parse: arr => arr.filter(i => i.channel.section_name === section.name)
+        }))
+    ];
 
     function handleModal(state) {
         setModal(state);
@@ -49,7 +67,6 @@ function Payouts(props) {
             handleModal(null);
         }
     }
-
 
     return(
         <>
@@ -97,13 +114,20 @@ function Payouts(props) {
                     <section>
                         <div className="nav">
                             <span className="title">Receipts</span>
-                            <Button type="neutral">
-                                My Receipts
-                                <img src={dropdownIcon} alt="Dropdown Chevron"/>
-                            </Button>
+
+                            <Dropdown onChangeEvent={({ target }) => {setSelectedFilter(target.selectedIndex)}}>
+                                 {
+                                    receiptFilters.map(filter => (
+                                        <DropdownItem>{filter.title}</DropdownItem>
+                                    ))
+                                 }
+                            </Dropdown>
                         </div>
+
                         <div className="content">
                             <ReceiptManager 
+                                selectedFilter={selectedFilter}
+                                receiptFilters={receiptFilters}
                                 setIsBlurred={setIsBlurred}
                                 handleModal={handleModal}
                                 archivedSessions={archivedSessions}
