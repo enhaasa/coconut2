@@ -4,10 +4,11 @@
     padding: 2px 7px;
     font-size: getFontSize('standard');
     color: getTextColor('primary');
-
+    text-shadow: 0.1em 0.1em 0.2em getPrimaryColor('dark');
     display: flex;
     align-items: center;
     gap: 4px;
+
 
     & img {
         margin: 0;
@@ -16,5 +17,7 @@
 
     &.progressive {
         color: black;
+        text-shadow: none;
     }
+
 }

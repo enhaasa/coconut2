@@ -28,6 +28,7 @@
   padding: 2px 7px;
   font-size: 14px;
   color: #fff;
+  text-shadow: 0.1em 0.1em 0.2em #222;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -38,6 +39,7 @@
 }
 .Button.progressive {
   color: black;
+  text-shadow: none;
 }
 
 .ListItem {
@@ -624,6 +626,7 @@ button:active, select:active, option:active {
   border: 1px solid black;
   border-radius: 10px;
   width: 1000px;
+  text-shadow: 0.1em 0.1em 0.2em black;
   min-height: 600px;
   display: grid;
   grid-auto-flow: column;
@@ -831,6 +834,7 @@ button:active, select:active, option:active {
   background: #2c2c2c;
   border-radius: 20px 20px 10px 10px;
   display: grid;
+  gap: 8px;
   min-width: 450px;
   color: white;
   padding: 15px;
@@ -897,6 +901,7 @@ button:active, select:active, option:active {
   display: grid;
   justify-items: end;
   gap: 5px;
+  text-shadow: 0.1em 0.1em 0.2em black;
 }
 .SeatingManagerContainer .view-tab-container .row {
   display: flex;
@@ -906,7 +911,7 @@ button:active, select:active, option:active {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 .SeatingManagerContainer .navbar-bottom .reset-button {
   display: flex;
@@ -921,20 +926,29 @@ button:active, select:active, option:active {
 }
 
 .OrderManager {
-  background: bisque;
-  background-image: url("./../assets/icons/dark-fabric.png");
+  background: #222;
   color: black;
-  border: 2px solid rgb(41, 41, 41);
+  border: 1px solid #181818;
   display: grid;
   max-height: 400px;
   overflow-y: auto;
-  padding: 8px;
-  border: 2px solid black;
-  box-shadow: inset 0px 1px 10px 1px black;
+  border: 1px solid #181818;
+  box-shadow: inset 0px 0px 1px 0px black;
 }
 .OrderManager .header {
-  font-size: 24px;
-  border-bottom: 4px double black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  background: rgb(77, 77, 77);
+  font-weight: bold;
+  color: white;
+  border-bottom: 1px solid #181818;
+  max-width: 100%;
+  text-shadow: 0.1em 0.1em 0.2em black;
+}
+.OrderManager .header .label, .OrderManager .header button {
+  margin: 5px;
 }
 .OrderManager button.icon {
   border-radius: 100%;
@@ -951,9 +965,12 @@ button:active, select:active, option:active {
 .OrderManager .customer-container {
   display: grid;
   grid-auto-flow: row;
+  padding: 5px;
 }
-.OrderManager .customer-container .customer {
-  margin: 8px 0;
+.OrderManager .customer-container .emptylist {
+  display: flex;
+  justify-content: center;
+  color: grey;
 }
 .OrderManager .customer-container .customer .name-nav {
   display: flex;
@@ -988,15 +1005,6 @@ button:active, select:active, option:active {
   background: none;
   border: none;
   padding: 0;
-}
-.OrderManager .orders-nav {
-  display: flex;
-  justify-content: center;
-  padding-top: 3px;
-}
-.OrderManager .orders-nav button.icon img {
-  width: 32px;
-  height: 32px;
 }
 
 .SeatingManagerContainer .MenuManager {

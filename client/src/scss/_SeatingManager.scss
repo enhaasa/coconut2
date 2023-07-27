@@ -13,6 +13,7 @@
     background: getBackgroundColor('secondary');
     border-radius: 20px 20px 10px 10px;
     display: grid;
+    gap: 8px;
     min-width: 450px;
     color: white;
     padding: 15px;
@@ -21,7 +22,6 @@
     box-shadow: getBoxShadow('outer');
     font-size: getFontSize('standard');
     
-
     & .title {
       text-shadow: 0.1em 0.1em 0.2em black;
     }
@@ -94,6 +94,7 @@
     display: grid;
     justify-items: end;
     gap: 5px;
+    text-shadow: 0.1em 0.1em 0.2em black;
 
     & .row {
       display: flex;
@@ -101,11 +102,16 @@
     }
   }
 
+  & .OrderManagerContainer {
+    
+
+  }
+
   & .navbar-bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 8px;
 
     & .reset-button {
       display: flex;

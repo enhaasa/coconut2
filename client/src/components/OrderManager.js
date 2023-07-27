@@ -1,11 +1,17 @@
 import React, { useContext} from 'react';
-import { DynamicDataContext } from '../api/DynamicData';
-import Customer from './Customer';
-import uuid from 'react-uuid';
 
-//import trashcanIcon from './../assets/icons/trash-can-black.png';
+//Contexts
+import { DynamicDataContext } from '../api/DynamicData';
+
+//Components
+import Customer from './Customer';
+import Button from './common/Button/Button';
+
+//Icons
 import addcustomerIcon from './../assets/icons/add-user-black.png';
 
+//Tools
+import uuid from 'react-uuid';
 
 export default function OrderManager(props) {
     const { 
@@ -24,7 +30,6 @@ export default function OrderManager(props) {
     } = useContext(DynamicDataContext);
 
     function confirmDeleteCustomer(customer) {
-
         const checkedCustomerName = customer.name !== "" ? customer.name : "the customer";
         openConfirmBox({
             callback: function(){
@@ -48,7 +53,6 @@ export default function OrderManager(props) {
     let unDeliveredOrderCustomersInSeating = unDeliveredOrdersInSeating ? 
     unDeliveredOrdersInSeating.map(order => order.customer_id) : [];
 
-
     function handleAdd(seating) {
         const newCustomer = {
             name: "",
@@ -65,31 +69,28 @@ export default function OrderManager(props) {
     return (
         <>
             <section className="OrderManager">
-                <div className="header cursive">
-                    Customers
+                <div className="header">
+                    <span className="label">Customers</span>
+                    <Button type="constructive" clickEvent={() => handleAdd(seating)}>Add Customer</Button>
                 </div>
 
                 <div className="customer-container">
-                    {seating.customers.map(customer => (
-                            <Customer 
-                                key={uuid()}
-                                customer={customer}
-                                orders={orders}
-                                updateUpdates={updateUpdates}
-                                confirmDeleteCustomer={confirmDeleteCustomer}
-                                unDeliveredOrdersInSeating={unDeliveredOrdersInSeating}
-                                unDeliveredOrderCustomersInSeating={unDeliveredOrderCustomersInSeating}
-                                customers={customers}
-                            />
-                       ))} 
+                    {
+                        seating.customers.length === 0 ?
+                        <span className="emptylist">The customers you're looking for is in another castle...</span> :
+                        seating.customers.map(customer => (
+                                <Customer 
+                                    key={uuid()}
+                                    customer={customer}
+                                    orders={orders}
+                                    updateUpdates={updateUpdates}
+                                    confirmDeleteCustomer={confirmDeleteCustomer}
+                                    unDeliveredOrdersInSeating={unDeliveredOrdersInSeating}
+                                    unDeliveredOrderCustomersInSeating={unDeliveredOrderCustomersInSeating}
+                                    customers={customers}
+                                />
+                        ))} 
                 </div>
-                
-
-                <nav className="orders-nav">
-                    <button className="icon" onClick={() => {handleAdd(seating)}}>
-                        <img src={addcustomerIcon} alt="" />
-                    </button>
-                </nav>
             </section>
         </>
     );

@@ -230,14 +230,15 @@ export default function SeatingManager(props) {
                 setConfirmBox={setConfirmBox}
             />}
 
-            <OrderManager 
-                seating={seating} 
-                customersInSeating={customersInSeating}
-                openConfirmBox={openConfirmBox}
-                closeConfirmBox={closeConfirmBox}
-            />
+            <section className="OrderManagerContainer">
+                <OrderManager 
+                    seating={seating} 
+                    customersInSeating={customersInSeating}
+                    openConfirmBox={openConfirmBox}
+                    closeConfirmBox={closeConfirmBox}
+                />
+            </section>
 
-            
             <section className="navbar-bottom">
                 <Button type="dark" clickEvent={handleMoveSeating}>
                     Move Table
