@@ -7,9 +7,6 @@ import { DynamicDataContext } from '../api/DynamicData';
 import Customer from './Customer';
 import Button from './common/Button/Button';
 
-//Icons
-import addcustomerIcon from './../assets/icons/add-user-black.png';
-
 //Tools
 import uuid from 'react-uuid';
 

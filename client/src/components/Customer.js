@@ -1,12 +1,19 @@
-import React, { useRef, useLayoutEffect, useContext } from 'react';
+import React, { useRef, useLayoutEffect, useContext, useState } from 'react';
+
+//Components
+import Order from './Order';
+import Button from './common/Button/Button';
+
+//Tools
 import uuid from 'react-uuid';
-import removecustomerIcon from './../assets/icons/remove-user.png';
-import gsap from 'gsap';
-import animations from '../animations';
+
+//Contexts
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
-import { useState } from 'react';
-import Order from './Order';
+
+//Animations
+import gsap from 'gsap';
+import animations from '../animations';
 
 export default function Customer(props) {
     const {
@@ -51,6 +58,8 @@ export default function Customer(props) {
     let timer = useRef();
 
     const customerRef = useRef();
+
+    /*
     useLayoutEffect(() => {
         gsap.from(customerRef.current, animations.appearY);
 
@@ -58,6 +67,7 @@ export default function Customer(props) {
             gsap.to(customerRef.current, animations.appearY);
         }
     }, []);
+    */
 
     function handleDeliverAllOrdersByCustomer(customer) {
         orders.deliverAllByCustomer(customer);
@@ -95,7 +105,7 @@ export default function Customer(props) {
     }
 
     return (
-        <div className="customer" key={customer.uuid} ref={customerRef}>
+        <div className="Customer" key={customer.uuid} ref={customerRef}>
             <nav className="name-nav">
                 <input 
                     spellCheck={false}
@@ -108,9 +118,8 @@ export default function Customer(props) {
                 </input>
 
                 {isInSeating &&
-                <button className="icon" onClick={() => {confirmDeleteCustomer(customer)}}>
-                    <img src={removecustomerIcon} alt="" />
-                </button>
+                <Button type="destructive" clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
+
                 }
             </nav>
 
@@ -138,7 +147,7 @@ export default function Customer(props) {
                     </tbody>
             </table>
             <nav className="customer-nav">
-                <button className="text progressive" onClick={() => {openMenu(customer)}}>Add Order</button>
+                <Button type="constructive" clickEvent={() => {openMenu(customer)}}>Add Order</Button>
 
                 {customer.undeliveredOrders.length > 0 &&
                     <button className="text constructive" onClick={() => {handleDeliverAllOrdersByCustomer(customer)}}>Deliver All</button>}

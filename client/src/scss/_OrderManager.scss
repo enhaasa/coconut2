@@ -50,48 +50,5 @@
             justify-content: center;
             color: grey;
         }
-
-        & .customer {
-            
-            & .name-nav {
-                display: flex;
-                justify-content: center;
-
-                & input {
-                    outline: none;
-                    border: none;
-                    border-bottom: 2px solid black;
-                    background: none;
-                    font-size: 20px;
-                    text-align: left;
-                    width: 100%;
-                    color: $wine;
-                    font-weight: medium;
-
-                    &::placeholder {
-                        color: $leather-dark;
-                    }
-                }
-            }
-
-            & .customer-nav {
-                display: flex;
-                justify-content: space-between;
-            }
-
-            & .item-table {
-
-                & .end {
-                    display: flex;
-                    justify-content: flex-end;
-                }
-
-                & .item-info-button {
-                    background: none;
-                    border: none;
-                    padding: 0;
-                } 
-            }
-        }
     }
 }

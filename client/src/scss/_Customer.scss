@@ -1,0 +1,46 @@
+.Customer {
+    margin-top: 5px;
+            
+    & .name-nav {
+        display: flex;
+        justify-content: center;
+
+        & input {
+            outline: none;
+            border: none;
+            border-bottom: 1px solid getBorderColor('standard');
+            background: none;
+            font-size: getFontSize('standard');
+            text-align: left;
+            width: 100%;
+            color: white;
+
+            &:focus {
+                background: getBackgroundColor('secondary');
+            }
+
+            &::placeholder {
+                color: grey;
+            }
+        }
+    }
+
+    & .customer-nav {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    & .item-table {
+
+        & .end {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        & .item-info-button {
+            background: none;
+            border: none;
+            padding: 0;
+        } 
+    }
+}

@@ -23,7 +23,7 @@
     font-size: getFontSize('standard');
     
     & .title {
-      text-shadow: 0.1em 0.1em 0.2em black;
+      //text-shadow: 0.1em 0.1em 0.2em black;
     }
 
     & .blur {
@@ -94,17 +94,12 @@
     display: grid;
     justify-items: end;
     gap: 5px;
-    text-shadow: 0.1em 0.1em 0.2em black;
+    //text-shadow: 0.1em 0.1em 0.2em black;
 
     & .row {
       display: flex;
       justify-content: end;
     }
-  }
-
-  & .OrderManagerContainer {
-    
-
   }
 
   & .navbar-bottom {
