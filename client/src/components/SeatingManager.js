@@ -1,16 +1,25 @@
 import React, { useLayoutEffect, useState, useRef, useContext, useEffect }from 'react';
+
+//Contexts
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
+
+//Components
 import OrderManager from './OrderManager';
 import TabManager from './TabManager';
 import ConfirmBox from './ConfirmBox';
-import uuid from 'react-uuid';
+import Dropdown from './common/Dropdown/Dropdown';
+import DropdownItem from './common/Dropdown/DropdownItem';
+import Button from './common/Button/Button';
+import CloseButton from './common/CloseButton/CloseButton';
+
+//Animations
 import { gsap } from 'gsap';
 import animations from '../animations.js'
 
-import closeIcon from './../assets/icons/close.png';
-import basketIcon from './../assets/icons/shopping-cart.png';
-import resetIcon from './../assets/icons/reset-black.png';
+//Icons
+import resetIcon from './../assets/icons/reset-small-white.png';
+import receiptIcon from './../assets/icons/receipt2-small-black.png';
 
 export default function SeatingManager(props) {
     const {
@@ -129,40 +138,35 @@ export default function SeatingManager(props) {
             <div className="header">
                 <div className="assign-waiter">
                     <span className="title cursive">Waiter:</span>
-                    {staff.get.length === 0 ? "Loading..." :
-                        <select 
-                            name="waiters" 
-                            id="waiters" 
-                            value={seating.waiter} 
-                            onChange={(e) => {seatings.setAttribute(seating, 'waiter', e.target.value)}
-                        }>
-                            <option key={uuid()}></option>
-                            {staff.get.map(member => {
-                                return (
-                                    member.positions.includes("waiter") && 
-                                    <option key={uuid()} >
-                                        {member.name}
-                                    </option>
-                                )
-                            })}
-                        </select>}
+
+                    {
+                        <Dropdown 
+                            defaultValue={seating.waiter}
+                            onChangeEvent={({target}) => {seatings.setAttribute(seating, 'waiter', target.value)}}>
+                            {staff.get.map(member => (
+                                member.positions.includes("waiter") &&
+                                <DropdownItem>{member.name}</DropdownItem>
+                            ))}
+                            
+                        </Dropdown>
+                    }
                 </div>
 
                 <span className={`seatingnumber ${seatingnumberColor()}`}>
 
                     {seating.number}
                 </span>
-
-                <button className="close-button" onClick={handleClose}>
-                    <img src={closeIcon} alt="" />
-                </button>
+                
+                <span className="close-button">
+                    <CloseButton clickEvent={handleClose}/>
+                </span>
             </div>
 
             <section className="navbar">
                 
                 <div className="column">
                     <span className="navsection">
-                        <span className="title cursive">Vacant:</span>
+                        <span className="title cursive">Available:</span>
                         <label className="switch">
                             <input 
                                 type="checkbox" 
@@ -200,16 +204,19 @@ export default function SeatingManager(props) {
 
                 <div className="column">
                     <span className="view-tab-container">
-                        <button className="view-tab-button progressive" onClick={() => handleViewTab(true)}>
-                            <span className="column">
-                                <img src={basketIcon} alt="" />
-                            </span>
+                        <div className="tab-summary">
+                            <div className="row">
+                                {deliveredOrdersInSeating.length} items 
+                            </div>
+                            <div className="row">
+                                {tabTotal.toLocaleString("en-US")} gil
+                            </div>
+                        </div>
 
-                            <span className="column">
-                                <span className="items">{deliveredOrdersInSeating.length} items</span>
-                                <span className="total">{tabTotal.toLocaleString("en-US")} gil</span>
-                            </span>
-                        </button>
+                        <Button type="progressive" clickEvent={() => handleViewTab(true)}>
+                            <img src={receiptIcon} alt="Receipt Icon" />
+                            View Tab
+                        </Button>
                     </span>
                 </div>
             </section>
@@ -232,12 +239,13 @@ export default function SeatingManager(props) {
 
             
             <section className="navbar-bottom">
-                <button onClick={() => {handleMoveSeating()}} className="inactive">
+                <Button type="dark" clickEvent={handleMoveSeating}>
                     Move Table
-                </button>
-                <button onClick={() => resetSeating()} className="reset-button destructive">
+                </Button>
+
+                <Button type="destructive" clickEvent={resetSeating}>
                     <img src={resetIcon} alt="Reset Icon"/> Reset Table
-                </button>
+                </Button>
             </section>
         </div>
     );

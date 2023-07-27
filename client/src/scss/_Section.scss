@@ -2,67 +2,12 @@
   margin: 0 auto;
   width: 100%;
 
-  & .section-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0 0 0;
-    width: 100%;
-    
-    & .section-column {
-      display: flex;
-
-      & .section-selector {
-        display: grid;
-        align-content: end; 
-        
-        & .notification-bar {
-          display: inline-flex;
-          justify-content: flex-start;
-          flex-direction: row-reverse;
-          margin-bottom: -10px;
-          margin-right: -5px;
-          z-index: 3;
-          pointer-events: none;
-          
-          & .notification {
-            font-size: 16px;
-            display: flex;
-            justify-content: center;
-            padding: 0 5px;
-            border-radius: 50px;
-            width: auto;
-            grid-gap: 3px;
-            box-shadow: 0px 1px 4px 1px $background-dark;
-          }
-        }
-
-        & .section-button {
-          border-radius: 15px 15px 0 0;
-          padding: 6px 14px;
-          box-shadow: 0px 4px 6px 1px $background-dark;
-          border-bottom: none;
-          background: getSelectorColor('inactive');
-          color: getTextColor('primary');
-        }
-
-        & .active {
-          background: getSelectorColor('active');
-          color: getTextColor('primary');
-          z-index: 2;
-          padding-bottom: 10px;
-          text-shadow: 0px 2px 4px black;
-
-        }
-      }
-    }
-  }
-
   & .Section {
     transform: scale(1);
     width: 1000px;
     height: 700px;
-    box-shadow: 0px 4px 10px 1px black;
-    border: 4px solid black;
+    //box-shadow: 0px 4px 10px 1px black;
+    border: 1px solid getBorderColor('primary');
     background: $gradient-steel;
     position: relative;
 

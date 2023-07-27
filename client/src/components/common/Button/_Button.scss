@@ -1,7 +1,7 @@
 .Button {
     border: 1px solid getBorderColor('standard');
     border-radius: 6px;
-    padding: 3px 8px;
+    padding: 2px 7px;
     font-size: getFontSize('standard');
     color: getTextColor('primary');
 
@@ -12,5 +12,9 @@
     & img {
         margin: 0;
         padding: 0;
+    }
+
+    &.progressive {
+        color: black;
     }
 }

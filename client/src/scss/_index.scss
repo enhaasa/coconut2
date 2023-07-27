@@ -62,10 +62,7 @@ body {
   pointer-events: none;
 }
 
-
 button, select, option {
-  transition: 200ms all ease;
-
   &:hover {
     cursor: pointer;
     filter:brightness(1.1);
@@ -76,20 +73,6 @@ button, select, option {
   }
 }
 
-.close-button {
-  border-radius: 100%;
-  width: 50px;
-  height: 50px;
-  display: grid;
-  place-items: center;
-  background: $background-destructive;
-
-  & img {
-    width: 28px;
-    height: 28px;
-  }
-}
-
 .destructive {background: getPrimaryColor('destructive') !important;}
 .constructive {background: getPrimaryColor('constructive') !important;}
 .progressive {background: getPrimaryColor('progressive') !important;}
@@ -97,15 +80,16 @@ button, select, option {
 .informative {background: $gradient-blue !important;}
 .steel {background: $gradient-steel; color: white;}
 .neutral {background: getPrimaryColor('neutral') !important;}
+.dark {background: getPrimaryColor('dark') !important;}
 
 //Checkboxes
 .switch {
   position: relative;
   display: inline-block;
-  width: 42px;
-  height: 22px;
+  width: 32px;
+  height: 18px;
 
-  border-radius: 20px;
+  border-radius: 10px;
 
   & input{
     opacity: 0;
@@ -120,19 +104,19 @@ button, select, option {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: silver;
-    outline: 2px solid black;
-    border-radius: 20px;
-    box-shadow: inset 0px 1px 4px 1px $darkgrey !important;
+    background-color: getBackgroundColor('primary');
+    outline: 1px solid getBorderColor('standard');
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 3px 0px $darkgrey !important;
   
     &:before {
       position: absolute;
       content: "";
-      height: 16px;
-      width: 16px;
+      height: 12px;
+      width: 12px;
       left: 4px;
       bottom: 3px;
-      background-color: black;
+      background-color: rgb(236, 236, 236);
       border-radius: 50%;
       box-shadow: 0px 1px 4px 1px $darkgrey;
 
@@ -142,7 +126,7 @@ button, select, option {
   
   & input {
     &:checked + .slider{
-      background: $background-constructive;
+      background: getPrimaryColor('constructive');
     }
   
     &:focus + .slider {
@@ -150,7 +134,7 @@ button, select, option {
     }
   
     &:checked + .slider:before {
-      transform: translateX(18px);
+      transform: translateX(12px);
     }
   }
 }

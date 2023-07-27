@@ -1,10 +1,10 @@
 
 
 
-export default function Dropdown({ children, onChangeEvent }) {
+export default function Dropdown({ children, onChangeEvent, defaultValue }) {
 
     return(
-        <select className="Dropdown" onChange={onChangeEvent}>
+        <select className="Dropdown" value={defaultValue} onChange={onChangeEvent}>
             {children}
         </select>
     )
