@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
@@ -50,17 +50,33 @@
 }
 
 .Table {
-  width: 100%;
   border-collapse: collapse;
   color: #fff;
+  width: 100%;
 }
 
 .TableItem {
   border-collapse: collapse;
   font-size: 14px;
+  width: 100%;
 }
 .TableItem:nth-child(even) {
   background: #2c2c2c;
+}
+.TableItem td {
+  margin: 5px;
+  white-space: nowrap;
+}
+.TableItem td:first-child {
+  margin: 0;
+  margin-right: 5px;
+}
+.TableItem td:nth-child(2) {
+  width: 100%;
+}
+.TableItem td:last-child {
+  margin: 0;
+  margin-left: 5px;
 }
 .TableItem td.number {
   text-align: right;
@@ -91,7 +107,7 @@
 .CloseButton {
   display: grid;
   place-items: center;
-  background: rgb(77, 77, 77);
+  background: rgb(80, 80, 80);
   border: 1px solid #181818;
   margin: 0;
   padding: 0;
@@ -103,6 +119,18 @@
 .CloseButton img {
   height: 16px;
   width: 16px;
+}
+
+.IconButton {
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.IconButton:active {
+  box-shadow: none !important;
 }
 
 * {
@@ -167,11 +195,11 @@ button:active, select:active, option:active {
 }
 
 .destructive {
-  background: rgb(177, 53, 53) !important;
+  background: rgb(168, 63, 63) !important;
 }
 
 .constructive {
-  background: #3c705a !important;
+  background: rgb(86, 119, 86) !important;
 }
 
 .progressive {
@@ -232,7 +260,7 @@ button:active, select:active, option:active {
   transition: 200ms all ease;
 }
 .switch input:checked + .slider {
-  background: #3c705a;
+  background: rgb(86, 119, 86);
 }
 .switch input:focus + .slider {
   box-shadow: 0 0 1px rgb(143, 235, 143);
@@ -245,6 +273,7 @@ button:active, select:active, option:active {
   visibility: hidden;
   width: 120px;
   background-color: black;
+  margin-left: 16px;
   color: #fff;
   text-align: center;
   border-radius: 6px;
@@ -288,10 +317,6 @@ button:active, select:active, option:active {
   background: none;
   padding: 0 2px;
   border: none;
-}
-.item-table .seating-nav button.icon img {
-  width: 20px;
-  height: 20px;
 }
 .item-table tfoot {
   font-weight: bold;
@@ -442,7 +467,7 @@ button:active, select:active, option:active {
 }
 .ReceiptManager .bottom-list {
   border-top: 1px solid #181818;
-  background: rgb(52, 58, 52);
+  background: rgb(65, 65, 65);
 }
 .ReceiptManager .bottom-list .total {
   color: #fff;
@@ -690,7 +715,7 @@ button:active, select:active, option:active {
 .TipsManager .bottom-list {
   margin-top: 5px;
   border-top: 1px solid #181818;
-  background: rgb(52, 58, 52);
+  background: rgb(65, 65, 65);
 }
 .TipsManager .bottom-list .total {
   color: #fff;
@@ -785,7 +810,7 @@ button:active, select:active, option:active {
 }
 .AttendingStaff .bottom-list .total {
   border-top: 1px solid #181818;
-  background: rgb(52, 58, 52);
+  background: rgb(65, 65, 65);
   color: #fff;
   font-size: 14px;
   padding: 5px;
@@ -928,8 +953,6 @@ button:active, select:active, option:active {
   color: black;
   border: 1px solid #181818;
   display: grid;
-  max-height: 400px;
-  overflow-y: auto;
   border: 1px solid #181818;
   box-shadow: inset 0px 0px 1px 0px black;
 }
@@ -938,7 +961,7 @@ button:active, select:active, option:active {
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-  background: rgb(77, 77, 77);
+  background: rgb(80, 80, 80);
   font-weight: bold;
   color: white;
   border-bottom: 1px solid #181818;
@@ -963,7 +986,8 @@ button:active, select:active, option:active {
 .OrderManager .customer-container {
   display: grid;
   grid-auto-flow: row;
-  padding: 5px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 .OrderManager .customer-container .emptylist {
   display: flex;
@@ -1277,7 +1301,7 @@ button:active, select:active, option:active {
 .TopNav .logo .info-container .title {
   color: #fff;
   font-family: "Dancing Script";
-  font-size: 28px;
+  font-size: 20px;
   margin-bottom: -6px;
 }
 .TopNav .logo .info-container .author {
@@ -1286,21 +1310,28 @@ button:active, select:active, option:active {
 }
 
 .Customer {
-  margin-top: 5px;
+  position: relative;
+}
+.Customer.active {
+  background: #444C44;
 }
 .Customer .name-nav {
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 5px;
+  margin: 5px 0;
 }
 .Customer .name-nav input {
   outline: none;
   border: none;
-  border-bottom: 1px solid #181818;
+  border-bottom: 1px solid rgb(80, 80, 80);
   background: none;
-  font-size: 14px;
+  font-size: 20px;
   text-align: left;
   width: 100%;
-  color: white;
+  color: rgb(196, 177, 166);
+  font-family: "Montserrat", sans-serif;
 }
 .Customer .name-nav input:focus {
   background: #2c2c2c;
@@ -1311,18 +1342,15 @@ button:active, select:active, option:active {
 .Customer .name-nav input::placeholder {
   color: grey;
 }
+.Customer .orders {
+  margin: 10px;
+}
 .Customer .customer-nav {
   display: flex;
   justify-content: space-between;
-}
-.Customer .item-table .end {
-  display: flex;
-  justify-content: flex-end;
-}
-.Customer .item-table .item-info-button {
-  background: none;
-  border: none;
-  padding: 0;
+  border: 1px solid #181818;
+  background: rgb(65, 65, 65);
+  padding: 5px;
 }
 
 main {

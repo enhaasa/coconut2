@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 import TipModal from "./TipModal";
-import tools from "../tools";
+import { formatStringAsPrice } from "../tools";
 import uuid from 'react-uuid';
 import Table from "./common/Table/Table";
 import TableItem from "./common/Table/TableItem";  
@@ -32,12 +32,10 @@ function TipsManager(props) {
                                     {
                                         type: 'text',
                                         content: tip.name, 
-                                    },
-                                    {
+                                    }, {
                                         type: 'number',
-                                        content: tools.formatStringAsPrice(tip.amount.toString()) + " gil",
-                                    },
-                                    {   
+                                        content: formatStringAsPrice(tip.amount.toString()) + " gil",
+                                    }, {   
                                         type: 'nav',
                                         content: 
                                         <>

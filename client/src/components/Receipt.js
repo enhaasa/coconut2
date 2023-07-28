@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import tools from '.././tools';
+import { formatStringAsPrice } from '.././tools';
 import clockIcon from './../assets/icons/clock-black.png';
 import TableItem from './common/Table/TableItem';
 import Button from './common/Button/Button';
@@ -34,7 +34,7 @@ export default function Receipt(props) {
                     },
                     {
                         type: 'number',
-                        content: tools.formatStringAsPrice(session.amount_paid.toString()) + " gil"
+                        content: formatStringAsPrice(session.amount_paid.toString()) + " gil"
                     },
                     {
                         type: 'nav',

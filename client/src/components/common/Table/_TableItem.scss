@@ -1,12 +1,29 @@
 .TableItem {
     border-collapse: collapse;
     font-size: getFontSize('standard');
-
+    width: 100%;
+    
     &:nth-child(even) {
         background: getBackgroundColor('secondary');
     }
 
     & td {
+        margin: 5px;
+        white-space: nowrap;
+
+        // *unga bunga noises*
+        &:first-child {
+            margin: 0;
+            margin-right: 5px;
+        }
+        &:nth-child(2) {
+            width: 100%;
+        }
+        &:last-child {
+            margin: 0;
+            margin-left: 5px;
+        }
+
         &.number {
             text-align: right;
         }
@@ -14,7 +31,9 @@
         &.nav {
             display: flex;
             justify-content: end !important;
+
         }
+
     }
 }
 

@@ -1,4 +1,4 @@
-function debounce(func, timeout = 300){
+export function debounce(func, timeout = 300){
     let timer;
     return (...args) => {
       clearTimeout(timer);
@@ -8,7 +8,7 @@ function debounce(func, timeout = 300){
 
 
 
-const sortArrayByCustomer = (array, sortDelivered) => {
+export const sortArrayByCustomer = (array, sortDelivered) => {
     let sortedArray = [];
 
     array.forEach((arrayItem, index) => {
@@ -38,7 +38,7 @@ const sortArrayByCustomer = (array, sortDelivered) => {
 
     return sortedArray;
 }
-const sortArray = (array, sortDelivered) => {
+export const sortArray = (array, sortDelivered) => {
     let sortedArray = [];
 
     array.forEach((arrayItem, index) => {
@@ -68,7 +68,7 @@ const sortArray = (array, sortDelivered) => {
     return sortedArray;
 }
 
-const sortArchivedArray = (array) => {
+export const sortArchivedArray = (array) => {
     let sortedArray = [];
 
     array.forEach((arrayItem, index) => {
@@ -97,7 +97,7 @@ const sortArchivedArray = (array) => {
 }
 
 
-const toInitialsFirstNames = (name) => {
+export const toInitialsFirstNames = (name) => {
     const fullName = name.split(' ');
     let initials = "";
     
@@ -113,26 +113,26 @@ const toInitialsFirstNames = (name) => {
     return initials;
 }
 
-const getFirstName = (name) => {
+export const getFirstName = (name) => {
     if (name === null) return (''); 
 
     return name.split(' ')[0];
 }
 
-const getLastNames = (name) => {
+export const getLastNames = (name) => {
     return name.split(' ').slice(1);
 }
 
-const capitalizeFirstLetter = string => {
+export const capitalizeFirstLetter = string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const getCurrentTime = () => {
+export const getCurrentTime = () => {
     const today = new Date();
     return today.getTime();
 }
 
-function getCurrentDate(offset) {
+export function getCurrentDate(offset) {
 
     const date = new Date();
     offset && date.setDate(offset(date.getDate()));
@@ -148,33 +148,36 @@ function getCurrentDate(offset) {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-function epochToDate(epochTime) {
+export function epochToDate(epochTime) {
     const date = new Date(epochTime);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
     return `${day}.${month}.${year}`;
 }
-function epochToTime(epochTime) {
+
+export function epochToTime(epochTime) {
     const date = new Date(epochTime);
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const seconds = date.getSeconds().toString().padStart(2, '0');
     return `${hours}:${minutes}:${seconds}`;
 }
-function dateToEpoch(dateString) {
+
+export function dateToEpoch(dateString) {
     const [day, month, year] = dateString.split('.');
     const date = new Date(year, month - 1, day);
     return date.getTime();
 }
-function timeToEpoch(timeString) {
+
+export function timeToEpoch(timeString) {
     const [hours, minutes, seconds] = timeString.split(':').map(num => parseInt(num));
     const now = new Date();
     const date = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, seconds);
     return date.getTime();
 }
 
-function epochToSqlDateTime(epoch) {
+export function epochToSqlDateTime(epoch) {
     const dateObj = new Date(parseInt(epoch));
     const year = dateObj.getUTCFullYear();
     const month = ("0" + (dateObj.getUTCMonth() + 1)).slice(-2);
@@ -185,12 +188,12 @@ function epochToSqlDateTime(epoch) {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-function sqlDateTimeToEpoch(sqlDateTime) {
+export function sqlDateTimeToEpoch(sqlDateTime) {
     const dateObj = new Date(sqlDateTime);
     return dateObj.getTime();
 }
 
-function compareDates(date1, date2) {
+export function compareDates(date1, date2) {
     const d1 = new Date(date1.split(' ').join('T')); // Convert date string to a Date object
     const d2 = new Date(date2.split(' ').join('T')); // Convert date string to a Date object
     const diff = Math.abs(d1 - d2) / 1000; // Calculate the difference in seconds
@@ -204,7 +207,7 @@ function compareDates(date1, date2) {
     }
 }
 
-const formatTime = (epoch) => {
+export const formatTime = (epoch) => {
     if (!epoch) return "0s";
     if (epoch >= 3600000) {
       const hours = Math.floor(epoch / 3600000);
@@ -217,13 +220,13 @@ const formatTime = (epoch) => {
     return Math.floor(epoch / 1000) + "s";
   };
 
-const getOldestOrder = (orders) => (
+export const getOldestOrder = (orders) => (
     orders.reduce((oldest, current) => (
         current.time < oldest.time ? current : oldest
     ), orders[0])
 )
 
-const getTimeSinceOldestOrder = (order) => {
+export const getTimeSinceOldestOrder = (order) => {
 
     if (order === undefined) return;
 
@@ -235,7 +238,7 @@ const getTimeSinceOldestOrder = (order) => {
     return result;
 }
 
-function convertDatetimeFormat(datetimeString) {
+export function convertDatetimeFormat(datetimeString) {
     const date = new Date(datetimeString);
     const year = date.getFullYear();
     const month = ("0" + (date.getMonth() + 1)).slice(-2);
@@ -246,7 +249,7 @@ function convertDatetimeFormat(datetimeString) {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-function hasPropertyValue(arr, prop, val) {
+export function hasPropertyValue(arr, prop, val) {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i][prop] === val) {
         return true;
@@ -255,35 +258,9 @@ function hasPropertyValue(arr, prop, val) {
     return false;
 }
 
-function formatStringAsPrice(str) {
+export function formatStringAsPrice(str) {
     const reversedStr = str.split('').reverse().join(''); // reverse the input string
     const regex = /(\d{3})(?=\d)/g; // use regex to match every three digits
     const withCommas = reversedStr.replace(regex, '$1,'); // insert commas after every three digits
     return withCommas.split('').reverse().join(''); // reverse the string again and return
 }
-
-export default {
-    hasPropertyValue,    
-    sortArray,
-    sortArrayByCustomer, 
-    sortArchivedArray,
-    getFirstName,
-    getLastNames,
-    toInitialsFirstNames, 
-    capitalizeFirstLetter,
-    getCurrentTime,
-    getOldestOrder,
-    getTimeSinceOldestOrder,
-    convertDatetimeFormat,
-    formatTime,
-    epochToDate,
-    epochToTime,
-    dateToEpoch,
-    timeToEpoch,
-    epochToSqlDateTime,
-    sqlDateTimeToEpoch,
-    getCurrentDate,
-    compareDates,
-    debounce,
-    formatStringAsPrice
-};

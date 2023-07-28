@@ -3,8 +3,6 @@
     color: black;
     border: 1px solid getBorderColor('standard');
     display: grid;
-    max-height: 400px;
-    overflow-y: auto;
     border: 1px solid getBorderColor('standard');
     box-shadow: getBoxShadow('inner');
 
@@ -43,7 +41,8 @@
     & .customer-container {
         display: grid;
         grid-auto-flow: row;
-        padding: 5px;
+        max-height: 400px;
+        overflow-y: auto;
 
         & .emptylist {
             display: flex;

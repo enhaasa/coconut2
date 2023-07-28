@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
 import Infobox from './Infobox';
-import tools from '../tools';
+import { capitalizeFirstLetter } from '../tools';
 import uuid from 'react-uuid';
 import gsap from 'gsap';
 import animations from '../animations';
@@ -77,7 +77,7 @@ export default function MenuManager(props) {
                         {menu.get.length === 0 ? "Loading..." :
                         menuTypes.map(menuType => (
                             <div className="type" key={uuid()}>
-                                <div className="type-title cursive">{tools.capitalizeFirstLetter(menuType) + "s"}</div>
+                                <div className="type-title cursive">{capitalizeFirstLetter(menuType) + "s"}</div>
 
                                 {menu.get.map(item => (
                                     menuType === item.type && 

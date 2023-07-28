@@ -3,6 +3,7 @@ import React, { useRef, useLayoutEffect, useContext, useState } from 'react';
 //Components
 import Order from './Order';
 import Button from './common/Button/Button';
+import Table from './common/Table/Table';
 
 //Tools
 import uuid from 'react-uuid';
@@ -27,7 +28,8 @@ export default function Customer(props) {
     } = useContext(DynamicDataContext);
 
     const {
-        setSelectedCustomer
+        setSelectedCustomer,
+        selectedCustomer
     } = useContext(ControlStatesContext);
 
     const [ nameBuffer, setNameBuffer ] = useState(customer.name);
@@ -56,7 +58,6 @@ export default function Customer(props) {
     });
 
     let timer = useRef();
-
     const customerRef = useRef();
 
     /*
@@ -105,7 +106,9 @@ export default function Customer(props) {
     }
 
     return (
-        <div className="Customer" key={customer.uuid} ref={customerRef}>
+        <div className={`Customer${selectedCustomer && selectedCustomer.id === customer.id ? ' active' : ''}`} 
+            key={customer.uuid} 
+            ref={customerRef}>
             <nav className="name-nav">
                 <input 
                     spellCheck={false}
@@ -123,34 +126,26 @@ export default function Customer(props) {
                 }
             </nav>
 
-            <table key={uuid()} className="item-table">
-                {customer.undeliveredOrders.length > 0 &&
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Amount</th>
-                            <th>Total</th>
-                            <th>Item</th>
-                            <th></th>
-                        </tr>
-                    </thead>}
-
-                    <tbody>
-                    {customer.undeliveredOrders.length > 0 && 
-                        undeliveredOrders.map(order => (  
+            {customer.undeliveredOrders.length > 0 &&
+                <div className="orders">
+                    <Table>
+                        {undeliveredOrders.map(order => (
                             <Order 
                                 key={uuid()}
                                 order={order} 
                             />
                         ))}
-                    </tbody>
-            </table>
+                    </Table>
+                </div>
+            }
+
             <nav className="customer-nav">
                 <Button type="constructive" clickEvent={() => {openMenu(customer)}}>Add Order</Button>
 
-                {customer.undeliveredOrders.length > 0 &&
-                    <button className="text constructive" onClick={() => {handleDeliverAllOrdersByCustomer(customer)}}>Deliver All</button>}
+                {
+                    customer.undeliveredOrders.length > 0 &&
+                        <Button type="neutral" clickEvent={() => {handleDeliverAllOrdersByCustomer(customer)}}>Deliver All</Button>
+                }
             </nav>       
         </div>
     );

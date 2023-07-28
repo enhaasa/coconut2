@@ -2,7 +2,12 @@ import React, { useRef, useEffect, useState, useLayoutEffect, useContext, useMem
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
 import { StaticDataContext } from '../api/StaticData';
-import tools from '../tools';
+import { 
+    getFirstName, 
+    getLastNames,
+    getTimeSinceOldestOrder, 
+    getOldestOrder, 
+    formatTime } from '../tools';
 import gsap from 'gsap';
 import animations from '../animations';
 
@@ -29,8 +34,6 @@ export default function Seating(props) {
         MAX_NAME_PREVIEW
     } = useContext(StaticDataContext);
 
-
-    const { getFirstName, getLastNames, getTimeSinceOldestOrder, getOldestOrder, formatTime } = tools;
 
     const isMoving = itemInMovement && itemInMovement.id === seating.id;
 

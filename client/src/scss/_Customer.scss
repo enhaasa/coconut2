@@ -1,19 +1,27 @@
 .Customer {
-    margin-top: 5px;
+    position: relative;
+
+    &.active {
+        background: getPrimaryColor('constructive-mild');
+    }
             
     & .name-nav {
         display: flex;
         justify-content: center;
+        align-items: center;
+        padding: 5px;
+        margin: 5px 0;
 
         & input {
             outline: none;
             border: none;
-            border-bottom: 1px solid getBorderColor('standard');
+            border-bottom: 1px solid getBackgroundColor('quaternary');
             background: none;
-            font-size: getFontSize('standard');
+            font-size: getFontSize('large');
             text-align: left;
             width: 100%;
-            color: white;
+            color: $cream;
+            font-family: 'Montserrat', sans-serif;
 
             &:focus {
                 background: getBackgroundColor('secondary');
@@ -25,22 +33,18 @@
         }
     }
 
+    & .orders {
+        margin: 10px;
+    }
+    
+
     & .customer-nav {
         display: flex;
         justify-content: space-between;
+        border: 1px solid getBorderColor('standard');
+        background: getBackgroundColor('tertiary');
+        padding: 5px;
     }
 
-    & .item-table {
 
-        & .end {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        & .item-info-button {
-            background: none;
-            border: none;
-            padding: 0;
-        } 
-    }
 }

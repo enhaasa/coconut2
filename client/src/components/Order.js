@@ -1,8 +1,19 @@
-import infoIcon from './../assets/icons/info.png';
-import plusIcon from './../assets/icons/plus-black.png';
-import minusIcon from './../assets/icons/minus-black.png';
+//Components
+import TableItem from './common/Table/TableItem';
+import Button from './common/Button/Button';
+import IconButton from './common/IconButton/IconButton';
+
+//Contexts
 import { DynamicDataContext } from '../api/DynamicData';
 import { useContext } from 'react';
+
+//Icons
+import infoIcon from './../assets/icons/info-small-white.png';
+import plusIcon from './../assets/icons/plus-white.png';
+import minusIcon from './../assets/icons/minus-white.png';
+
+//Tools
+import { formatStringAsPrice } from '../tools';
 
 export default function Order(props) {
     const { 
@@ -27,34 +38,55 @@ export default function Order(props) {
     }
 
     return (
-        <tr>
-            <td>{order.name}</td>
-            <td>{order.price.toLocaleString("en-US")} gil</td>
-            <td>{order.units.length}</td>
-            <td>{order.total.toLocaleString("en-US")} gil</td>
+        
+        <TableItem 
+        cols={
+            [
+                {
+                    type: 'nav',
+                    content: 
+                    <>
+                        <IconButton type="tooltip">
+                            <img src={infoIcon} alt="" className="tooltip" />
 
-            {!order.units[0].is_delivered &&
-                <td className="seating-nav">
-                <button className="icon tooltip">
-                    <img src={infoIcon} alt="" className="tooltip" />
+                            <span className="tooltiptext">
+                                {order.item}
+                            </span>
+                        </IconButton>
+                    </>
+                }, {
+                    type: 'text',
+                    content: order.name
+                }, {
+                    type: 'text',
+                    content: `x${order.amount}`
+                }, {
+                    type: 'nav',
+                    content: 
+                    <>
+                        <IconButton clickEvent={() => handleRemoveOrder(order)}>
+                            <img src={minusIcon} alt="" />
+                        </IconButton>
 
-                    <span className="tooltiptext">
-                        {order.item}
-                    </span>
-                </button>
-            </td>}
-
-            <td className="seating-nav end">
-                <button className="icon" onClick={() => {handleRemoveOrder(order)}}>
-                    <img src={minusIcon} alt="" />
-                </button>
-                <button className="icon" onClick={() => {handleAddOrder(order)}}>
-                    <img src={plusIcon} alt="" />
-                </button>
-
-                {!order.units[0].is_delivered &&
-                    <button className="text constructive" onClick={() => {handleDeliverOrder(order)}}>Deliver </button>}
-            </td>
-        </tr>
+                        <IconButton clickEvent={() => handleAddOrder(order)}>
+                            <img src={plusIcon} alt="" />
+                        </IconButton>
+                    </>
+                }, {
+                    type: 'text',
+                    content: order.total.toLocaleString('en-US') + ' gil'
+                },{
+                    type: 'nav',
+                    content: 
+                    <>
+                        <Button 
+                            type='neutral' 
+                            clickEvent={() => handleDeliverOrder(order)}>
+                        Deliver
+                        </Button>
+                    </>
+                }
+            ]
+        } />
     )
 }

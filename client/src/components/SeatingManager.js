@@ -153,7 +153,6 @@ export default function SeatingManager(props) {
                 </div>
 
                 <span className={`seatingnumber ${seatingnumberColor()}`}>
-
                     {seating.number}
                 </span>
                 

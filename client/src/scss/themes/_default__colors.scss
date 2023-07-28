@@ -1,8 +1,8 @@
 $background-colors: (
     'primary': #222,
     'secondary': #2c2c2c,
-    'tertiary': rgb(52, 58, 52),
-    'quaternary': rgb(77, 77, 77),
+    'tertiary': rgb(65, 65, 65),
+    'quaternary': rgb(80, 80, 80),
 );
 @function getBackgroundColor($key) {
     @return map-get($background-colors, $key);
@@ -25,9 +25,10 @@ $text-colors: (
 }
 
 $primary-colors: ( 
-    'constructive': #3c705a,
+    'constructive': rgb(86, 119, 86),
+    'constructive-mild': #444C44,
     'progressive': rgb(173, 164, 88),
-    'destructive': rgb(177, 53, 53),
+    'destructive': rgb(168, 63, 63),
     'neutral': #373737,
     'dark': #222,
 );

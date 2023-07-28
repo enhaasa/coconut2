@@ -7,7 +7,7 @@ import Modal from '../components/Modal';
 import Button from '../components/common/Button/Button';
 import Dropdown from '../components/common/Dropdown/Dropdown';
 import DropdownItem from '../components/common/Dropdown/DropdownItem';
-import tools from '../tools';
+import { getCurrentDate, sortArchivedArray } from '../tools';
 import dropdownIcon from '../assets/icons/dropdown-white.png';
 import { useState, useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
@@ -15,8 +15,7 @@ import { DynamicDataContext } from '../api/DynamicData';
 function Payouts(props) {
     const { setIsBlurred } = props;
     const { tips, archivedSessions, staff, sections } = useContext(DynamicDataContext);
-
-    const { getCurrentDate, sortArchivedArray } = tools;
+    
     const [ modal, setModal ] = useState(null);
 
     const ordersTotal = archivedSessions.get.reduce((t, c) => t + c.amount_paid, 0);

@@ -9,7 +9,7 @@ $fonts: (
 $font-sizes: (
     'small': 12px,
     'standard': 14px,
-    'large': 28px,
+    'large': 20px,
 );
 @function getFontSize($key) {
     @return map-get($font-sizes, $key);

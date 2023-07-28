@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
 
@@ -147,6 +147,7 @@ button, select, option {
   visibility: hidden;
   width: 120px;
   background-color: black;
+  margin-left: 16px;
   color: #fff;
   text-align: center;
   border-radius: 6px;
@@ -203,12 +204,6 @@ button, select, option {
 
         padding: 0 2px;
         border: none;
-
-        & img {
-          width: 20px;
-          height: 20px;
-          
-        }
       }
     }
   }
