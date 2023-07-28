@@ -1,16 +1,26 @@
 import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
+
+//Contexts
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
-import Infobox from './Infobox';
 import { capitalizeFirstLetter } from '../tools';
+
+//Components
+import Infobox from './Infobox';
+import Button from './common/Button/Button';
+import CloseButton from './common/CloseButton/CloseButton';
+
+//Tools
 import uuid from 'react-uuid';
+
+//Icons
+import infoIcon from './../assets/icons/info-small-white.png';
+
+//Animations
 import gsap from 'gsap';
 import animations from '../animations';
 
-import closeIcon from './../assets/icons/close.png';
-import infoIcon from './../assets/icons/info-small-black.png';
-
-export default function MenuManager(props) {
+export default function MenuManager() {
     const { 
         setSelectedCustomer,
         selectedCustomer,
@@ -67,9 +77,8 @@ export default function MenuManager(props) {
 
                     <span className="menu-title">
                         <span className="customer-title">{selectedCustomer.name}</span>
-                        <button className="close-button" onClick={(close)}>
-                            <img src={closeIcon} alt="" />
-                        </button>
+    
+                        <CloseButton clickEvent={close} />
                     </span>
                     
                     <div className="menu-container">
@@ -95,15 +104,15 @@ export default function MenuManager(props) {
                                                     </span>
 
                                                     <nav className="item-nav">
-                                                        <button className="progressive" onClick={() => {orders.add({
+                                                        <Button type="constructive" clickEvent={() => {orders.add({
                                                             ...filterItem(item)
-                                                        })}}>{item.price.toLocaleString("en-US")} gil</button>
+                                                        })}}>{item.price.toLocaleString("en-US")} gil</Button>
 
 
-                                                        <button className="constructive" onClick={() => {orders.add({
+                                                        <Button type="neutral" clickEvent={() => {orders.add({
                                                             ...filterItem(item), 
                                                             price: 0
-                                                        })}}>Free</button>
+                                                        })}}>Free</Button>
                                                     </nav>
                                                 </div>
 

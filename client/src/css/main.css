@@ -26,7 +26,7 @@
 }
 
 .Button {
-  border: 1px solid #181818;
+  border: 1px solid #0e0e0e;
   border-radius: 6px;
   padding: 2px 7px;
   font-size: 14px;
@@ -78,6 +78,9 @@
   margin: 0;
   margin-left: 5px;
 }
+.TableItem td.text {
+  text-shadow: 0.1em 0.1em 0.2em black;
+}
 .TableItem td.number {
   text-align: right;
 }
@@ -87,7 +90,7 @@
 }
 
 .Dropdown {
-  border: 1px solid #181818;
+  border: 1px solid #0e0e0e;
   border-radius: 6px;
   padding: 2px 17px 2px 7px;
   font-size: 14px;
@@ -108,7 +111,7 @@
   display: grid;
   place-items: center;
   background: rgb(80, 80, 80);
-  border: 1px solid #181818;
+  border: 1px solid #0e0e0e;
   margin: 0;
   padding: 0;
   box-shadow: inset 0px 0px 3px 0px rgb(41, 41, 41) !important;
@@ -243,7 +246,7 @@ button:active, select:active, option:active {
   right: 0;
   bottom: 0;
   background-color: #222;
-  outline: 1px solid #181818;
+  outline: 1px solid #0e0e0e;
   border-radius: 10px;
   box-shadow: inset 0px 0px 3px 0px rgb(41, 41, 41) !important;
 }
@@ -466,7 +469,7 @@ button:active, select:active, option:active {
   padding: 5px;
 }
 .ReceiptManager .bottom-list {
-  border-top: 1px solid #181818;
+  border-top: 1px solid #0e0e0e;
   background: rgb(65, 65, 65);
 }
 .ReceiptManager .bottom-list .total {
@@ -695,7 +698,7 @@ button:active, select:active, option:active {
 .Payouts .column section .content {
   box-shadow: inset 0px 0px 1px 0px black;
   background: #222;
-  border: 1px solid #181818;
+  border: 1px solid #0e0e0e;
   z-index: 2;
   height: 100%;
 }
@@ -714,7 +717,7 @@ button:active, select:active, option:active {
 }
 .TipsManager .bottom-list {
   margin-top: 5px;
-  border-top: 1px solid #181818;
+  border-top: 1px solid #0e0e0e;
   background: rgb(65, 65, 65);
 }
 .TipsManager .bottom-list .total {
@@ -801,7 +804,7 @@ button:active, select:active, option:active {
 .AttendingStaff .bottom-list {
   margin-top: 5px;
   padding-top: 3px;
-  border-top: 1px solid #181818;
+  border-top: 1px solid #0e0e0e;
 }
 .AttendingStaff .bottom-list .perPerson, .AttendingStaff .bottom-list .calculations {
   color: #fff;
@@ -809,7 +812,7 @@ button:active, select:active, option:active {
   padding: 5px;
 }
 .AttendingStaff .bottom-list .total {
-  border-top: 1px solid #181818;
+  border-top: 1px solid #0e0e0e;
   background: rgb(65, 65, 65);
   color: #fff;
   font-size: 14px;
@@ -866,7 +869,7 @@ button:active, select:active, option:active {
   color: white;
   padding: 15px;
   position: relative;
-  border: 1px solid #181818;
+  border: 1px solid #0e0e0e;
   box-shadow: 0px 0px 1px 0px black;
   font-size: 14px;
 }
@@ -951,9 +954,9 @@ button:active, select:active, option:active {
 .OrderManager {
   background: #222;
   color: black;
-  border: 1px solid #181818;
+  border: 1px solid #0e0e0e;
   display: grid;
-  border: 1px solid #181818;
+  border: 1px solid #0e0e0e;
   box-shadow: inset 0px 0px 1px 0px black;
 }
 .OrderManager .header {
@@ -964,7 +967,7 @@ button:active, select:active, option:active {
   background: rgb(80, 80, 80);
   font-weight: bold;
   color: white;
-  border-bottom: 1px solid #181818;
+  border-bottom: 1px solid #0e0e0e;
   max-width: 100%;
   text-shadow: 0.1em 0.1em 0.2em black;
 }
@@ -998,22 +1001,22 @@ button:active, select:active, option:active {
 .SeatingManagerContainer .MenuManager {
   display: grid;
   position: relative;
-  background: bisque;
-  background-image: url("./../assets/icons/dark-fabric.png");
+  background: #222;
   color: white;
-  border: 4px solid black;
-  box-shadow: 0px 4px 10px 1px black;
+  border: 1px solid #0e0e0e;
 }
 .SeatingManagerContainer .MenuManager .menu-title {
   display: flex;
   justify-self: center;
   justify-content: space-between;
   align-items: center;
-  font-size: 22px;
-  color: rgb(138, 0, 0);
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  padding: 5px;
+  font-size: 18px;
+  color: white;
+  background: #444C44;
   width: 100%;
-  box-shadow: 0px 2px 4px 1px black;
+  box-shadow: 0px 0px 1px 0px black;
+  border: 1px solid #0e0e0e;
 }
 .SeatingManagerContainer .MenuManager .menu-title .customer-title {
   color: white;
@@ -1027,7 +1030,6 @@ button:active, select:active, option:active {
   -moz-column-count: 2;
        column-count: 2;
   padding: 5px 10px;
-  box-shadow: inset 0px 1px 10px 1px black;
 }
 .SeatingManagerContainer .MenuManager .menu-container .type {
   -moz-column-break-inside: avoid;
@@ -1035,11 +1037,10 @@ button:active, select:active, option:active {
   padding: 5px;
 }
 .SeatingManagerContainer .MenuManager .menu-container .type .type-title {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid grey;
   font-weight: bold;
-  color: black;
-  font-size: 26px;
-  text-align: center;
+  color: rgb(196, 177, 166);
+  font-size: 18px;
   margin: 2px 0;
 }
 .SeatingManagerContainer .MenuManager .menu-container .type .item-container .item {
@@ -1050,20 +1051,20 @@ button:active, select:active, option:active {
   margin: 1px 0;
 }
 .SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-title {
+  font-size: 14px;
   display: flex;
   gap: 5px;
   align-content: center;
-  color: black;
-  font-weight: bold;
+  color: white;
+  text-shadow: 0.1em 0.1em 0.2em black;
 }
 .SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-title .item-info-button {
   background: none;
   border: none;
   padding: 0;
 }
-.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-nav button {
-  box-shadow: 0px 2px 4px 1px black;
-  transition: none;
+.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-nav {
+  display: flex;
 }
 .SeatingManagerContainer .MenuManager .menu-container .type .item-container .item-info {
   display: none;
@@ -1078,48 +1079,44 @@ button:active, select:active, option:active {
   place-items: center;
 }
 .InfoboxContainer .Infobox {
-  background: bisque;
-  background-image: url("./../assets/icons/dark-fabric.png");
-  box-shadow: 0px 4px 10px 1px black;
-  border: 4px solid black;
+  background: #222;
+  border: 1px solid #0e0e0e;
   width: 80%;
 }
 .InfoboxContainer .Infobox .info-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 0 10px;
+  padding: 5px 10px;
   text-shadow: 0.1em 0.1em 0.2em black;
   color: white;
-  font-size: 22px;
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
-  border-bottom: 2px solid black;
-}
-.InfoboxContainer .Infobox .info-title .close-button {
-  margin: 5px;
+  font-size: 18px;
+  background: rgb(65, 65, 65);
+  border-bottom: 1px solid #0e0e0e;
+  box-shadow: 0px 0px 1px 0px black;
+  font-weight: bold;
 }
 .InfoboxContainer .Infobox .section {
-  color: black;
+  color: white;
   padding: 5px 0;
+  border-bottom: 1px solid #0e0e0e;
 }
 .InfoboxContainer .Infobox .section .section-header {
-  color: rgb(138, 0, 0) !important;
-}
-.InfoboxContainer .Infobox .section .cursive {
-  font-size: 26px;
-  color: rgb(138, 0, 0);
+  color: rgb(196, 177, 166);
   font-weight: bold;
 }
 .InfoboxContainer .Infobox .section p {
   margin: 0;
-  font-weight: bold;
+}
+.InfoboxContainer .Infobox .section:last-child {
+  border: none;
 }
 .InfoboxContainer .Infobox .info-container {
   padding: 0 10px;
-  box-shadow: inset 0px 1px 10px 1px black;
+  box-shadow: inset 0px 0px 1px 0px black;
 }
 .InfoboxContainer .Infobox .info-container .noresult {
-  color: rgb(75, 75, 75) !important;
+  color: grey !important;
 }
 
 .confirm-box-container {
@@ -1301,7 +1298,7 @@ button:active, select:active, option:active {
 .TopNav .logo .info-container .title {
   color: #fff;
   font-family: "Dancing Script";
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: -6px;
 }
 .TopNav .logo .info-container .author {
@@ -1327,11 +1324,12 @@ button:active, select:active, option:active {
   border: none;
   border-bottom: 1px solid rgb(80, 80, 80);
   background: none;
-  font-size: 20px;
+  font-size: 18px;
   text-align: left;
   width: 100%;
   color: rgb(196, 177, 166);
   font-family: "Montserrat", sans-serif;
+  text-shadow: 0.1em 0.1em 0.2em black;
 }
 .Customer .name-nav input:focus {
   background: #2c2c2c;
@@ -1348,7 +1346,7 @@ button:active, select:active, option:active {
 .Customer .customer-nav {
   display: flex;
   justify-content: space-between;
-  border: 1px solid #181818;
+  border: 1px solid #0e0e0e;
   background: rgb(65, 65, 65);
   padding: 5px;
 }

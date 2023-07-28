@@ -24,6 +24,10 @@
             margin-left: 5px;
         }
 
+        &.text {
+            text-shadow: 0.1em 0.1em 0.2em black;
+        }
+
         &.number {
             text-align: right;
         }

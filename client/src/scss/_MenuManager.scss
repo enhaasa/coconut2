@@ -3,25 +3,23 @@
     & .MenuManager {
         display: grid;
         position: relative;
-        background: bisque;
-        background-image: url("./../assets/icons/dark-fabric.png");
+        background: getBackgroundColor('primary');
         color: white;
+        border: 1px solid getBorderColor('standard');
         
-        border: 4px solid black;
-        box-shadow: 0px 4px 10px 1px black;
         
         & .menu-title {
             display: flex;
             justify-self: center;
             justify-content: space-between;
             align-items: center;
-            
-            font-size: 22px;
-            color: $wine;
-            background: $gradient-steel;
+            padding: 5px;
+            font-size: getFontSize('large');
+            color: white;
+            background: getPrimaryColor('constructive-mild');
             width: 100%;
-            box-shadow: 0px 2px 4px 1px black;
-            
+            box-shadow: getBoxShadow('outer');
+            border: 1px solid getBorderColor('standard');
 
             & .customer-title {
                 color: white;
@@ -37,19 +35,16 @@
         & .menu-container {
             column-count: 2;
             padding: 5px 10px;
-            box-shadow: inset 0px 1px 10px 1px black;
             
             & .type {
                 break-inside: avoid;
                 padding: 5px;
 
                 & .type-title {
-                    border-bottom: 1px solid white;
+                    border-bottom: 1px solid grey;
                     font-weight: bold;
-                    color: black;
-                    
-                    font-size: 26px;
-                    text-align: center;
+                    color: $cream;
+                    font-size: getFontSize('large');
                     margin: 2px 0;
                 }
 
@@ -63,11 +58,12 @@
                         margin: 1px 0;
 
                         & .item-title {
+                            font-size: getFontSize('standard');
                             display: flex;
                             gap: 5px;
                             align-content: center;
-                            color: black;
-                            font-weight: bold;
+                            color: white;
+                            text-shadow: 0.1em 0.1em 0.2em black;
 
                             & .item-info-button {
                                 background: none;
@@ -77,11 +73,7 @@
                         }
 
                         & .item-nav {
-                            & button {
-                                box-shadow: 0px 2px 4px 1px black;
-                                transition: none;
-
-                            }
+                            display: flex;
                         }
                     }
 

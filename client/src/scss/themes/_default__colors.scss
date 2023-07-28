@@ -37,7 +37,7 @@ $primary-colors: (
 }
 
 $border-colors: (
-    'standard': #181818,
+    'standard': #0e0e0e,
 );
 @function getBorderColor($key) {
     @return map-get($border-colors, $key);

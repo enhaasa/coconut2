@@ -1,11 +1,21 @@
 import React, { useLayoutEffect, useRef} from 'react';
-import closeIcon from './../assets/icons/close.png';
+
+//Components
+import CloseButton from './common/CloseButton/CloseButton';
+
+//Animations
 import gsap from 'gsap';
 import animations from '../animations';
+
+//Icons
+import closeIcon from './../assets/icons/close.png';
 
 export default function Infobox(props) {
     const { item, handleItemInfo } = props;
 
+    console.log(item)
+
+    
     const InfoBoxRef = useRef();
     useLayoutEffect(() => {
         gsap.from(InfoBoxRef.current, animations.softElastic);
@@ -25,9 +35,7 @@ export default function Infobox(props) {
             <div className="Infobox">
                 <div className="info-title">
                     {!!item.name && item.name}
-                    <button className="close-button" onClick={() => handleItemInfo(null)}>
-                        <img src={closeIcon} />
-                    </button>
+                    <CloseButton clickEvent={() => handleItemInfo(null)}  />
                 </div>
 
                 <div className="info-container">
@@ -58,7 +66,7 @@ export default function Infobox(props) {
                         <span className="section-header cursive">Ingredients</span>
                         <p>
                             {!!item.ingredients ? 
-                                item.ingredients.join(", ") :
+                                item.ingredients.replaceAll(',', ', ') :
                                 <span className="noresult">This item has no documented ingredients.</span>}  
                         </p>
                     </div>
