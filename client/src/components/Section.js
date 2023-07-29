@@ -71,14 +71,14 @@ export default function Section(props) {
                 
                 {
                     itemInMovement &&
-                    <div className="moving-item-mode-info">
+                    <div className='moving-item-mode-info'>
                         Moving item. Press ESC to cancel.
                     </div>
                 }
             
 
-                <img className="overlay" src={overlay} alt="" />
-                {parsedSection.image_url && <img className="section-image" src={parsedSection.image_url} alt="" />}
+                <img className='overlay' src={overlay} alt='' />
+                {parsedSection.image_url && <img className='section-image' src={parsedSection.image_url} alt='' />}
 
                 {parsedSection.seatings.map((seating) => (
                         <Seating 

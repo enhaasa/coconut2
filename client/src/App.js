@@ -51,21 +51,21 @@ function App() {
   return (
     <>
       {/*
-        <div className="app-info">
-          <span className="logo">
-            <img src={logo} alt="" />
+        <div className='app-info'>
+          <span className='logo'>
+            <img src={logo} alt='' />
           </span>
       
-          <span className="text">
-            <span className="title cursive">Coconut</span>
-            <span className="version">by Enhasa</span>
+          <span className='text'>
+            <span className='title cursive'>Coconut</span>
+            <span className='version'>by Enhasa</span>
           </span>
         </div>
 
         
 
         {isBlurred === true &&
-            <div className="blur" />
+            <div className='blur' />
             }
       */}
 

@@ -35,9 +35,9 @@ function SectionManager(props) {
   }
 
   return(
-    <div className="SectionManager">
+    <div className='SectionManager'>
 
-      <section className="SeatingManagerContainer">
+      <section className='SeatingManagerContainer'>
         {selectedSeating !== null &&
           <SeatingManager />
         }
@@ -47,13 +47,13 @@ function SectionManager(props) {
         }
       </section>
       
-      <section className="SectionContainer">
-        <nav className="section-nav">
-          <span className="section-column">
+      <section className='SectionContainer'>
+        <nav className='section-nav'>
+          <span className='section-column'>
             {/*
             sections.get.map((section, index) => {
                 return (
-                    <div className="section-selector" key={uuid()}>
+                    <div className='section-selector' key={uuid()}>
                       {
                         customers.get.length > 0 &&
                         seatings.get.length > 0 &&
@@ -69,10 +69,10 @@ function SectionManager(props) {
                       }
 
                       <button 
-                        className={`section-button ${selectedSection === index ? "active" : "inactive"}`} 
+                        className={`section-button ${selectedSection === index ? 'active' : 'inactive'}`} 
                         key={index} 
                         onClick={() => {setSelectedSection(index)}}>
-                        <span className="title">{section.name}</span>
+                        <span className='title'>{section.name}</span>
                       </button>
                     </div>
                 )

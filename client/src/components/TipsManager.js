@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { DynamicDataContext } from '../api/DynamicData';
-import TipModal from "./TipModal";
-import { formatStringAsPrice } from "../tools";
+import TipModal from './TipModal';
+import { formatStringAsPrice } from '../tools';
 import uuid from 'react-uuid';
-import Table from "./common/Table/Table";
-import TableItem from "./common/Table/TableItem";  
+import Table from './common/Table/Table';
+import TableItem from './common/Table/TableItem';  
 import Button from './common/Button/Button';
 
 function TipsManager(props) {
@@ -14,14 +14,14 @@ function TipsManager(props) {
 
     function handleEdit(tip) {
         handleModal({
-            title: "Edit Tip",
+            title: 'Edit Tip',
             content: <TipModal tip={tip} handleModal={handleModal} />
         });
     }
 
     return(
-        <div className="TipsManager">
-            <div className="list">
+        <div className='TipsManager'>
+            <div className='list'>
 
                 <Table>
                     {tips.get.map(tip => (
@@ -34,7 +34,7 @@ function TipsManager(props) {
                                         content: tip.name, 
                                     }, {
                                         type: 'number',
-                                        content: formatStringAsPrice(tip.amount.toString()) + " gil",
+                                        content: formatStringAsPrice(tip.amount.toString()) + ' gil',
                                     }, {   
                                         type: 'nav',
                                         content: 
@@ -53,9 +53,9 @@ function TipsManager(props) {
 
             </div>
 
-            <div className="bottom-list">
-                <div className="total">
-                    {`Total: ${tipsTotal.toLocaleString("en-US")} gil`}
+            <div className='bottom-list'>
+                <div className='total'>
+                    {`Total: ${tipsTotal.toLocaleString('en-US')} gil`}
                 </div>
             </div>
         </div>

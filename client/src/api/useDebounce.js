@@ -1,5 +1,5 @@
 import { useRef, useEffect, useMemo } from 'react';
-import debounce from "lodash/debounce";
+import debounce from 'lodash/debounce';
 
 const useDebounce = (callback) => {
   const ref = useRef();

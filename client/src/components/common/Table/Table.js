@@ -1,7 +1,7 @@
 export default function Table({ children }) {
 
     return (
-        <table className="Table">
+        <table className='Table'>
 
             <tbody>
                 {children}

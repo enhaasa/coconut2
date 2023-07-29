@@ -81,9 +81,9 @@ export default function SeatingManager(props) {
     }
 
     function seatingnumberColor() {
-        if (seating.is_available && !seating.is_reserved) return "constructive"
-        if (!seating.is_available) return "destructive";
-        if (seating.is_reserved) return "progressive";
+        if (seating.is_available && !seating.is_reserved) return 'constructive'
+        if (!seating.is_available) return 'destructive';
+        if (seating.is_reserved) return 'progressive';
     }
 
     function handleClose(){
@@ -121,7 +121,7 @@ export default function SeatingManager(props) {
                 closeConfirmBox();
             },
             closeConfirmBox: function(){closeConfirmBox()},
-            title: "Are you sure?",
+            title: 'Are you sure?',
             message: `This will delete all customers and orders in this table, and also set the table as available, not reserved, and no photography booked.`
         })
     }
@@ -131,20 +131,20 @@ export default function SeatingManager(props) {
     
     return (
         seating.id !== null &&
-        <div className="SeatingManager" ref={ref}>
+        <div className='SeatingManager' ref={ref}>
             {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
-            {isBlurred && <div className="blur" />}
+            {isBlurred && <div className='blur' />}
 
-            <div className="header">
-                <div className="assign-waiter">
-                    <span className="title cursive">Waiter:</span>
+            <div className='header'>
+                <div className='assign-waiter'>
+                    <span className='title cursive'>Waiter:</span>
 
                     {
                         <Dropdown 
                             defaultValue={seating.waiter}
                             onChangeEvent={({target}) => {seatings.setAttribute(seating, 'waiter', target.value)}}>
                             {staff.get.map(member => (
-                                member.positions.includes("waiter") &&
+                                member.positions.includes('waiter') &&
                                 <DropdownItem>{member.name}</DropdownItem>
                             ))}
                             
@@ -156,64 +156,64 @@ export default function SeatingManager(props) {
                     {seating.number}
                 </span>
                 
-                <span className="close-button">
+                <span className='close-button'>
                     <CloseButton clickEvent={handleClose}/>
                 </span>
             </div>
 
-            <section className="navbar">
+            <section className='navbar'>
                 
-                <div className="column">
-                    <span className="navsection">
-                        <span className="title cursive">Available:</span>
-                        <label className="switch">
+                <div className='column'>
+                    <span className='navsection'>
+                        <span className='title cursive'>Available:</span>
+                        <label className='switch'>
                             <input 
-                                type="checkbox" 
+                                type='checkbox' 
                                 readOnly 
                                 checked={seating.is_available}
                                 onClick={() => seatings.toggleAttribute(seating, 'is_available')} />
-                            <span className="slider" />
+                            <span className='slider' />
                         </label>
                     </span>
 
-                    <span className="navsection">
-                        <span className="title cursive">Reserved:</span>
-                        <label className="switch">
+                    <span className='navsection'>
+                        <span className='title cursive'>Reserved:</span>
+                        <label className='switch'>
                             <input 
-                            type="checkbox" 
+                            type='checkbox' 
                             readOnly 
                             checked={seating.is_reserved} 
                             onClick={() => seatings.toggleAttribute(seating, 'is_reserved')} />
-                            <span className="slider" />
+                            <span className='slider' />
                         </label>
                     </span>
 
-                    <span className="navsection">
-                        <span className="title cursive">Photography: </span>
-                        <label className="switch">
+                    <span className='navsection'>
+                        <span className='title cursive'>Photography: </span>
+                        <label className='switch'>
                             <input 
-                                type="checkbox" 
+                                type='checkbox' 
                                 readOnly 
                                 checked={seating.is_photography}
                                 onClick={() => seatings.toggleAttribute(seating, 'is_photography')} />
-                            <span className="slider" />
+                            <span className='slider' />
                         </label>
                     </span>
                 </div>
 
-                <div className="column">
-                    <span className="view-tab-container">
-                        <div className="tab-summary">
-                            <div className="row">
+                <div className='column'>
+                    <span className='view-tab-container'>
+                        <div className='tab-summary'>
+                            <div className='row'>
                                 {deliveredOrdersInSeating.length} items 
                             </div>
-                            <div className="row">
-                                {tabTotal.toLocaleString("en-US")} gil
+                            <div className='row'>
+                                {tabTotal.toLocaleString('en-US')} gil
                             </div>
                         </div>
 
-                        <Button type="progressive" clickEvent={() => handleViewTab(true)}>
-                            <img src={receiptIcon} alt="Receipt Icon" />
+                        <Button type='progressive' clickEvent={() => handleViewTab(true)}>
+                            <img src={receiptIcon} alt='Receipt Icon' />
                             View Tab
                         </Button>
                     </span>
@@ -229,7 +229,7 @@ export default function SeatingManager(props) {
                 setConfirmBox={setConfirmBox}
             />}
 
-            <section className="OrderManagerContainer">
+            <section className='OrderManagerContainer'>
                 <OrderManager 
                     seating={seating} 
                     customersInSeating={customersInSeating}
@@ -238,13 +238,13 @@ export default function SeatingManager(props) {
                 />
             </section>
 
-            <section className="navbar-bottom">
-                <Button type="dark" clickEvent={handleMoveSeating}>
+            <section className='navbar-bottom'>
+                <Button type='dark' clickEvent={handleMoveSeating}>
                     Move Table
                 </Button>
 
-                <Button type="destructive" clickEvent={resetSeating}>
-                    <img src={resetIcon} alt="Reset Icon"/> Reset Table
+                <Button type='destructive' clickEvent={resetSeating}>
+                    <img src={resetIcon} alt='Reset Icon'/> Reset Table
                 </Button>
             </section>
         </div>

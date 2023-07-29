@@ -7,18 +7,19 @@
     z-index: 98;
 
     & .confirm-box {
-        background: bisque;
-        background-image: url("./../assets/icons/dark-fabric.png");
-        background: $gradient-steel;
+        background: getBackgroundColor('primary');
         color: white;
         padding: 10px;
-        border-radius: 25px;
-        border: 4px double black;
+        border-radius: 20px;
+        border: 1px solid getBorderColor('standard');
         z-index: 99;
         box-shadow: 0px 4px 10px 1px black;
+        text-shadow: 0.1em 0.1em 0.2em black;
 
         & .title {
             font-weight: bold;
+            font-size: getFontSize('large');
+            color: $cream;
         } 
 
         & .message {
@@ -36,15 +37,6 @@
                 &:active {
                     box-shadow: inset 0px 1px 4px 1px black;
                 }
-            }
-
-            & .yes {
-                background: $background-destructive;
-                padding: 2px 6px;
-            }
-            & .no {
-                background: $background-inactive;
-                padding: 2px 6px;
             }
         }
     }

@@ -1,7 +1,7 @@
 export default function List({ children }) {
 
     return (
-        <div className="List">
+        <div className='List'>
             {children}
         </div>
     )

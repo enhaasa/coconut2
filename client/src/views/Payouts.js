@@ -1,8 +1,8 @@
 import ReceiptManager from './../components/ReceiptManager';
 import AttendingStaff from '../components/AttendingStaff';
 import TipsManager from '../components/TipsManager';
-import TipModal from "./../components/TipModal";
-import uuid from "react-uuid";
+import TipModal from './../components/TipModal';
+import uuid from 'react-uuid';
 import Modal from '../components/Modal';
 import Button from '../components/common/Button/Button';
 import Dropdown from '../components/common/Dropdown/Dropdown';
@@ -28,11 +28,11 @@ function Payouts(props) {
     const [ selectedFilter, setSelectedFilter ] = useState(0);
     const receiptFilters = [
         {
-            title: "My Receipts",
+            title: 'My Receipts',
             parse: arr => arr
         },
         {
-            title: "All",
+            title: 'All',
             parse: arr => arr
         },
         ...sections.get.map(section => ({
@@ -48,7 +48,7 @@ function Payouts(props) {
 
     function handleAddTip() {
         handleModal({
-            title: "Add Tip",
+            title: 'Add Tip',
             content: <TipModal handleModal={handleModal} />
         });
     }
@@ -56,9 +56,9 @@ function Payouts(props) {
     function handleAttendingModal(isVisible) {
         if (isVisible) {
             handleModal({
-                title: "Add attending staff",
+                title: 'Add attending staff',
                 content:
-                <div className="addStaffModal">
+                <div className='addStaffModal'>
                     {absentStaff.map(s => <button key={uuid()} onClick={() => staff.setAttribute(s, 'is_attending', true)}>{s.name}</button>)}
                 </div>
             });
@@ -75,14 +75,14 @@ function Payouts(props) {
                 </Modal>
             }
 
-            <div className="Payouts">
-                <div className="column left">
+            <div className='Payouts'>
+                <div className='column left'>
                     <section>
-                        <div className="nav">
-                            <span className="title">General Tips</span>
-                            <Button type="constructive" clickEvent={handleAddTip}>Add Tip</Button>
+                        <div className='nav'>
+                            <span className='title'>General Tips</span>
+                            <Button type='constructive' clickEvent={handleAddTip}>Add Tip</Button>
                         </div>
-                        <div className="content">
+                        <div className='content'>
                             <TipsManager 
                                 handleModal={handleModal} 
                                 tips={tips}
@@ -92,12 +92,12 @@ function Payouts(props) {
                     </section>
 
                     <section>
-                    <div className="nav">
-                            <span className="title">Payouts</span>
-                            <Button type="constructive" clickEvent={() => handleAttendingModal(true)}>Add Staff</Button>
+                    <div className='nav'>
+                            <span className='title'>Payouts</span>
+                            <Button type='constructive' clickEvent={() => handleAttendingModal(true)}>Add Staff</Button>
                         </div>
 
-                        <div className="content">
+                        <div className='content'>
                             <AttendingStaff 
                                 staff={staff} 
                                 handleModal={handleModal} 
@@ -109,10 +109,10 @@ function Payouts(props) {
                     </section>
                 </div>
 
-                <div className="column">
+                <div className='column'>
                     <section>
-                        <div className="nav">
-                            <span className="title">Receipts</span>
+                        <div className='nav'>
+                            <span className='title'>Receipts</span>
 
                             <Dropdown onChangeEvent={({ target }) => {setSelectedFilter(target.selectedIndex)}}>
                                  {
@@ -123,7 +123,7 @@ function Payouts(props) {
                             </Dropdown>
                         </div>
 
-                        <div className="content">
+                        <div className='content'>
                             <ReceiptManager 
                                 selectedFilter={selectedFilter}
                                 receiptFilters={receiptFilters}

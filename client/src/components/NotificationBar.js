@@ -6,31 +6,31 @@ function NotificationBar(props) {
     
     const notifications = [
         {
-            name: "orders",
-            class: "progressive",
+            name: 'orders',
+            class: 'progressive',
             icon: orderIcon,
             number: orders.length
         },
         {
-            name: "customers",
-            class: "informative",
+            name: 'customers',
+            class: 'informative',
             icon: userIcon,
             number: customers.length
         }
     ]
 
     return (
-        <div className="notification-bar">
+        <div className='notification-bar'>
             
             {
             notifications.map((notification, index) => (
                 notification.number > 0 &&
-                <span className="notification-container" key={`notification${index}`}>
+                <span className='notification-container' key={`notification${index}`}>
                     <span className={`notification ${notification.class}`}>
-                        <img className="icon" src={notification.icon}>
+                        <img className='icon' src={notification.icon}>
                             
                         </img>
-                        <span className="number">
+                        <span className='number'>
                             {notification.number}
                         </span>
                     </span>

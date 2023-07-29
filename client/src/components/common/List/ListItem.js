@@ -1,7 +1,7 @@
 export default function ListItem({ children }) {
     
     return (
-        <div className="ListItem">
+        <div className='ListItem'>
             {children}
         </div>
     )

@@ -1,18 +1,23 @@
 import React from 'react';
+
+//Components
 import Order from './Order';
+import Table from './common/Table/Table';
+
+//Tools
 import uuid from 'react-uuid';
 
 export default function SplitTab(props) {
     const { 
         customersInSeating,
-        deliveredOrdersInSeating,
     } = props;
 
     function parseOrderList(list) {
         let parsedDeliveredOrders = [];
         list.forEach(order => {
     
-            const currentOrder = parsedDeliveredOrders.find(parsedOrder => parsedOrder.name === order.name && parsedOrder.price === order.price);
+            const currentOrder = parsedDeliveredOrders.find(parsedOrder => 
+                parsedOrder.name === order.name && parsedOrder.price === order.price);
     
             if (!currentOrder) {
                 parsedDeliveredOrders.push({
@@ -36,39 +41,16 @@ export default function SplitTab(props) {
     return( 
         customersInSeating.map(customer => (
             <div key={uuid()}>
-                <span className="name">{customer.name}</span>
-                <table className="item-table" >
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Amount</th>
-                            <th>Total</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <span className='name'>{customer.name}</span>
 
-                    <tbody>
-                        {parseOrderList(customer.deliveredOrders).map(order => (   
-                                <Order 
-                                    key={uuid()}
-                                    order={order} 
-                                /> 
-                        ))}
-                    </tbody>
-
-                    <tfoot>
-                        <tr>
-                            <td>Total:</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>{
-                                customer.deliveredOrders.reduce(((total, order) => total + order.price), 0).toLocaleString("en-US") + " gil"
-                            }</td>
-                        </tr>
-                    </tfoot>
-                </table>
+                <Table>
+                    {parseOrderList(customer.deliveredOrders).map(order => (
+                        <Order 
+                            key={uuid()}
+                            order={order} 
+                        /> 
+                    ))}
+                </Table>
             </div>
         ))
     )

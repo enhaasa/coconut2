@@ -23,9 +23,9 @@ export default function ReceiptManager(props) {
     const totalByFilteredSessions = sessionsByFilter.reduce((total, current) => total + parseInt(current.amount_paid), 0);
     
     return (
-        <div className="ReceiptManager">
-            <div className="row">
-                <div className="list">
+        <div className='ReceiptManager'>
+            <div className='row'>
+                <div className='list'>
                     <Table>
                         {sessionsByFilter.map(session => (
                             <Receipt 
@@ -39,9 +39,9 @@ export default function ReceiptManager(props) {
                 </div>
             </div>
 
-            <div className="bottom-list">
-                <div className="total">
-                    Total: {totalByFilteredSessions.toLocaleString("en-US")} gil
+            <div className='bottom-list'>
+                <div className='total'>
+                    Total: {totalByFilteredSessions.toLocaleString('en-US')} gil
                 </div>
             </div>
 

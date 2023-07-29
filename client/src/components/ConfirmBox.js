@@ -1,4 +1,9 @@
 import React, { useLayoutEffect, useRef } from 'react';
+
+//Components
+import Button from './common/Button/Button';
+
+//Animations
 import gsap from 'gsap';
 import animations from '../animations';
 
@@ -27,19 +32,20 @@ export default function ConfirmBox(props) {
     }
 
     return (
-        <div className="confirm-box-container" ref={ConfirmBoxRef}>
-            <div className="confirm-box">
-                <div className="title">
+        <div className='confirm-box-container' ref={ConfirmBoxRef}>
+            <div className='confirm-box'>
+                <div className='title'>
                     {title}
                 </div>
 
-                <div className="message">
+                <div className='message'>
                     {message}
                 </div>
 
-                <nav className="options">
-                    <button className="yes" onClick={onYes}>Confirm</button>
-                    <button className="no" onClick={onNo}>Cancel</button>
+                <nav className='options'>
+                    <Button type='destructive' clickEvent={onYes}>Confirm</Button>
+                    <Button type='neutral' clickEvent={onNo}>Cancel</Button>
+                    
                 </nav>
             </div>
         </div>

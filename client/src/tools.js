@@ -99,7 +99,7 @@ export const sortArchivedArray = (array) => {
 
 export const toInitialsFirstNames = (name) => {
     const fullName = name.split(' ');
-    let initials = "";
+    let initials = '';
     
     if (fullName.length > 1) {
         for(let i = 0; i < fullName.length -1; i++) {
@@ -138,12 +138,12 @@ export function getCurrentDate(offset) {
     offset && date.setDate(offset(date.getDate()));
 
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
     
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
     
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
@@ -180,11 +180,11 @@ export function timeToEpoch(timeString) {
 export function epochToSqlDateTime(epoch) {
     const dateObj = new Date(parseInt(epoch));
     const year = dateObj.getUTCFullYear();
-    const month = ("0" + (dateObj.getUTCMonth() + 1)).slice(-2);
-    const day = ("0" + dateObj.getUTCDate()).slice(-2);
-    const hours = ("0" + dateObj.getUTCHours()).slice(-2);
-    const minutes = ("0" + dateObj.getUTCMinutes()).slice(-2);
-    const seconds = ("0" + dateObj.getUTCSeconds()).slice(-2);
+    const month = ('0' + (dateObj.getUTCMonth() + 1)).slice(-2);
+    const day = ('0' + dateObj.getUTCDate()).slice(-2);
+    const hours = ('0' + dateObj.getUTCHours()).slice(-2);
+    const minutes = ('0' + dateObj.getUTCMinutes()).slice(-2);
+    const seconds = ('0' + dateObj.getUTCSeconds()).slice(-2);
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
@@ -208,16 +208,16 @@ export function compareDates(date1, date2) {
 }
 
 export const formatTime = (epoch) => {
-    if (!epoch) return "0s";
+    if (!epoch) return '0s';
     if (epoch >= 3600000) {
       const hours = Math.floor(epoch / 3600000);
-      return hours + "h";
+      return hours + 'h';
     }
     if (epoch >= 60000) {
       const minutes = Math.floor(epoch / 60000);
-      return minutes + "m";
+      return minutes + 'm';
     }
-    return Math.floor(epoch / 1000) + "s";
+    return Math.floor(epoch / 1000) + 's';
   };
 
 export const getOldestOrder = (orders) => (
@@ -241,11 +241,11 @@ export const getTimeSinceOldestOrder = (order) => {
 export function convertDatetimeFormat(datetimeString) {
     const date = new Date(datetimeString);
     const year = date.getFullYear();
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const day = ("0" + date.getDate()).slice(-2);
-    const hours = ("0" + date.getHours()).slice(-2);
-    const minutes = ("0" + date.getMinutes()).slice(-2);
-    const seconds = ("0" + date.getSeconds()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const hours = ('0' + date.getHours()).slice(-2);
+    const minutes = ('0' + date.getMinutes()).slice(-2);
+    const seconds = ('0' + date.getSeconds()).slice(-2);
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 

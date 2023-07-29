@@ -1,9 +1,13 @@
-import closeIcon from './../assets/icons/close.png';
-import { gsap } from 'gsap';
-import animations from '../animations.js'
-import React, { useLayoutEffect, useState, useRef }from 'react';
+import React, { useLayoutEffect, useRef }from 'react';
 
-function Modal({title, closeButtonEvent, children}) {
+//Components
+import CloseButton from './common/CloseButton/CloseButton';
+
+//Animations
+import animations from '../animations.js';
+import { gsap } from 'gsap';
+
+export default function Modal({title, closeButtonEvent, children}) {
 
     const ref = useRef();
     useLayoutEffect(() => {
@@ -21,23 +25,17 @@ function Modal({title, closeButtonEvent, children}) {
 
     }, []);
 
-
-
     return(
-        <div className="modal-container">
-            <div className="Modal" ref={ref}>
-                <div className="title-bar">
-                    <span className="title">{title}</span>
-                    <button className="close-button" onClick={() => closeButtonEvent()}>
-                        <img src={closeIcon} alt="" />
-                    </button>
+        <div className='modal-container'>
+            <div className='Modal' ref={ref}>
+                <div className='title-bar'>
+                    <span className='title'>{title}</span>
+                    <CloseButton clickEvent={() => closeButtonEvent()} />
                 </div>
-                <div className="content">
+                <div className='content'>
                     {children}
                 </div>
             </div>
         </div>
     )
 }
-
-export default Modal;

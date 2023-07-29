@@ -8,6 +8,7 @@
   // font-family: 'Cabin', sans-serif;
   // font-family: 'Montserrat', sans-serif;
   font-family: 'Nunito', sans-serif;
+  font-size: getFontSize('standard');
 }
 
 
@@ -145,13 +146,12 @@ button, select, option {
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
   background-color: black;
-  margin-left: 16px;
+  margin-left: 20px;
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 5px 10px;
 
   /* Position the tooltip */
   position: absolute;

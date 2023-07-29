@@ -70,53 +70,53 @@ export default function MenuManager() {
 
     return (
         !!selectedCustomer &&
-            <div className="MenuManager" ref={MenuManagerRef}>
-                {isBlurred && <div className="blur" />} 
+            <div className='MenuManager' ref={MenuManagerRef}>
+                {isBlurred && <div className='blur' />} 
 
                 {!!itemInfo && <Infobox item={itemInfo} handleItemInfo={handleItemInfo}/>}
 
-                    <span className="menu-title">
-                        <span className="customer-title">{selectedCustomer.name}</span>
+                    <span className='menu-title'>
+                        <span className='customer-title'>{selectedCustomer.name}</span>
     
                         <CloseButton clickEvent={close} />
                     </span>
                     
-                    <div className="menu-container">
+                    <div className='menu-container'>
 
-                        {menu.get.length === 0 ? "Loading..." :
+                        {menu.get.length === 0 ? 'Loading...' :
                         menuTypes.map(menuType => (
-                            <div className="type" key={uuid()}>
-                                <div className="type-title cursive">{capitalizeFirstLetter(menuType) + "s"}</div>
+                            <div className='type' key={uuid()}>
+                                <div className='type-title cursive'>{capitalizeFirstLetter(menuType) + 's'}</div>
 
                                 {menu.get.map(item => (
                                     menuType === item.type && 
                                         item.available !== 0 &&
-                                            <div className="item-container" key={item.id}>
-                                                <div className="item">
-                                                    <span className="item-title">
-                                                        <button className="item-info-button" onClick={() => {handleItemInfo(item)}}>
-                                                            <img src={infoIcon} alt="" />
+                                            <div className='item-container' key={item.id}>
+                                                <div className='item'>
+                                                    <span className='item-title'>
+                                                        <button className='item-info-button' onClick={() => {handleItemInfo(item)}}>
+                                                            <img src={infoIcon} alt='' />
                                                         </button>
 
-                                                        <span className="item-name">
+                                                        <span className='item-name'>
                                                             {item.name}     
                                                         </span>
                                                     </span>
 
-                                                    <nav className="item-nav">
-                                                        <Button type="constructive" clickEvent={() => {orders.add({
+                                                    <nav className='item-nav'>
+                                                        <Button type='constructive' clickEvent={() => {orders.add({
                                                             ...filterItem(item)
-                                                        })}}>{item.price.toLocaleString("en-US")} gil</Button>
+                                                        })}}>{item.price.toLocaleString('en-US')} gil</Button>
 
 
-                                                        <Button type="neutral" clickEvent={() => {orders.add({
+                                                        <Button type='neutral' clickEvent={() => {orders.add({
                                                             ...filterItem(item), 
                                                             price: 0
                                                         })}}>Free</Button>
                                                     </nav>
                                                 </div>
 
-                                                <div className="item-info">
+                                                <div className='item-info'>
                                                     {item.id}
                                                 </div>
                                             </div>

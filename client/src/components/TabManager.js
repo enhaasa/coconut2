@@ -1,11 +1,19 @@
 import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
+
+//Contexts
 import { DynamicDataContext } from '../api/DynamicData';
+
+//Components
 import SplitTab from './SplitTab';
 import CombinedTab from './CombinedTab';
-import closeIcon from './../assets/icons/close.png';
+import Button from './common/Button/Button';
+import CloseButton from './common/CloseButton/CloseButton';
+import MultiToggle from './common/MultiToggle/MultiToggle';
+import MultiToggleOption from './common/MultiToggle/MultiToggleOption';
+
+//Animations
 import gsap from 'gsap';
 import animations from '../animations';
-import { nanoid } from 'nanoid';
 
 export default function TabManager(props) {
     const { 
@@ -18,8 +26,6 @@ export default function TabManager(props) {
     } = props;
 
     const {
-        customers,
-        seatings,
         orders,
     } = useContext(DynamicDataContext);
 
@@ -37,7 +43,7 @@ export default function TabManager(props) {
         }
     }, []);
 
-    function close() {
+    function handleClose() {
         handleViewTab(false);
     }
 
@@ -61,45 +67,34 @@ export default function TabManager(props) {
             closeConfirmBox: function(){
                 closeConfirmBox();
             },
-            title: "Are you sure?",
+            title: 'Are you sure?',
             message: `Paying the orders will also delete them from this list.`
         });
     }
 
-
-
-    return(
-        <div className="TabManagerContainer" ref={TabManagerRef}>
-            <section className="TabManager">
-                {isBlurred && <div className="blur"></div>}
+    return (
+        <div className='TabManagerContainer' ref={TabManagerRef}>
+            <section className='TabManager'>
+                {isBlurred && <div className='blur'></div>}
 
                 <header>
-                    <span className="title cursive">Tab</span>
-                    <button className="close-button" onClick={close}>
-                        <img src={closeIcon} alt="" />
-                    </button>
+                    <MultiToggle>
+                                <MultiToggleOption 
+                                    clickEvent={() => setTabView('combined')}
+                                    isActive={tabView === 'combined' ? true : false}>
+                                    Combined
+                                </MultiToggleOption>
+
+                                <MultiToggleOption 
+                                    clickEvent={() => setTabView('split')}
+                                    isActive={tabView === 'split' ? true : false}>
+                                Split
+                            </MultiToggleOption>
+                    </MultiToggle>
+                    <CloseButton clickEvent={handleClose}/>
                 </header>
 
-                <nav className="view-nav">
-                    <span className="section">
-                        <label>View:</label>
-                    </span>
-
-                    <span className="section">
-                        <button 
-                            className={tabView === "combined" ? "constructive" : ""}
-                            onClick={() => {setTabView('combined')}}>Combined
-                        </button>
-                        
-                        <button 
-                            className={tabView === "split" ? "constructive" : ""}
-                            onClick={() => {setTabView('split')}}>Split
-                        </button>
-
-                    </span>
-                </nav>
-
-                <div className="tab-list">
+                <div className='tab-list'>
                     {tabView === 'split' &&
                         <SplitTab 
                             deliveredOrdersInSeating={deliveredOrdersInSeating}
@@ -115,29 +110,36 @@ export default function TabManager(props) {
                     }
                 </div>
 
-                <nav className="tab-nav">
-                    <span className="receipt">
+                <div className='tab-summary'>
+                    <span>Total:</span>
+                    <span>{deliveredOrdersInSeating.reduce((total, order) => (total + order.price), 0).toLocaleString('en-US') + ' gil'}</span>
+                </div>
+
+                <nav className='tab-nav'>
+                    <span className='receipt-link'>
                         {session !== null ?
                         <a href={`https://cocosoasis.info/r.html?id=${session}`}
-                        target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a> :
-                        <span className="noresult">No Receipt Available</span>}
+                        target='_blank' rel='noopener noreferrer'>{`Receipt Link`}</a> :
+                        <span className='noresult'>No Receipt Available</span>}
                     </span>
 
-                    <button 
-                    className={`pay-button ${deliveredOrdersInSeating.map(order => order).length === 0 ? "inactive" : "constructive"}`}
-                    disabled={deliveredOrdersInSeating.map(order => order).length === 0}
-                    onClick={() => {confirmPayOrders(deliveredOrdersInSeating)}}>Pay & Archive</button>
+                    <Button 
+                        type={`${deliveredOrdersInSeating.map(order => order).length === 0 ? 'inactive' : 'constructive'}`}
+                        disabled={deliveredOrdersInSeating.map(order => order).length === 0}
+                        clickEvent={() => {confirmPayOrders(deliveredOrdersInSeating)}}
+                    >
+                        Pay & Archive
+                    </Button>
                 </nav>
 
                 {session !== null &&
-                    <div className="receipt-RP">
+                    <div className='receipt-RP'>
                         <textarea 
                             value={`/em hands over the tab: cocosoasis.info/r.html?id=${session}`} 
                             readOnly
                         />
                     </div>
                 }
-
             </section>
         </div>
     )

@@ -1,13 +1,17 @@
 import { useState, useContext } from 'react';
-import { DynamicDataContext } from '../api/DynamicData';
-import tools from '../tools';
 
-function TipModal(props) {
+//Components
+import Button from './common/Button/Button';
+
+//Contexts
+import { DynamicDataContext } from '../api/DynamicData';
+
+export default function TipModal(props) {
     const { handleModal, tip } = props;
 
     const { tips } = useContext(DynamicDataContext);
 
-    const [ name, setName ] = useState(tip ? tip.name : "");
+    const [ name, setName ] = useState(tip ? tip.name : '');
     const [ amount, setAmount ] = useState(tip ? tip.amount : 0);
 
     function handleNameChange(newValue) {
@@ -21,13 +25,13 @@ function TipModal(props) {
         if(tip) {
             tips.edit({
                 tip: tip, 
-                newName: !name ? "Anonymous" : name,
+                newName: !name ? 'Anonymous' : name,
                 newAmount: !amount ? 0 : parseInt(amount)
             });
             handleModal(null);
         } else {
             tips.add({
-                name: !name ? "Anonymous" : name, 
+                name: !name ? 'Anonymous' : name, 
                 amount: !amount ? 0 : amount, 
             });
             handleModal(null);
@@ -40,42 +44,36 @@ function TipModal(props) {
     }
 
     return(
-        <div className="TipModal">
-            <div className="row">
+        <div className='TipModal'>
+            <div className='row'>
                 <label>Name: </label>
                 <input 
-                type="text"
+                type='text'
                 value={name}
                 onChange={e => handleNameChange(e.target.value)}
-                placeholder={"Enter name..."}
+                placeholder={'Enter name...'}
                 />
             </div>
 
-            <div className="row">
+            <div className='row'>
                 <label>Amount: </label>
                 <input 
-                    type="number"
+                    type='number'
                     value={amount}
                     onChange={e => handleAmountChange(e.target.value)}
-                    placeholder={"Enter amount..."}
+                    placeholder={'Enter amount...'}
                 />
             </div>
 
-            <div className="submitContainer">
-                <button 
-                    className="submit constructive"
-                    onClick={() => handleSubmit()}
-                >{tip ? "Update" : "Add Tip"}</button>     
+            <div className='submit-container'>
+                <Button type='constructive' clickEvent={handleSubmit}>
+                    {tip ? 'Update' : 'Add Tip'}
+                </Button>
 
                 {tip && 
-                    <button
-                        className="destructive"
-                        onClick={() => handleDelete()}
-                    >Delete</button>
+                    <Button type='destructive' clickEvent={() => handleDelete()}>Delete</Button>
                 }
             </div>
         </div>
     )
 }
-
-export default TipModal;

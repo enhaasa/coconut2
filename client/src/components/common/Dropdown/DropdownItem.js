@@ -4,7 +4,7 @@
 export default function DropdownItem({ children }) {
 
     return(
-        <option className="DropdownItem">
+        <option className='DropdownItem'>
             {children}
         </option>
     )

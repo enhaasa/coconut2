@@ -1,7 +1,7 @@
 export default function MultiToggle({ children }) {
 
     return (
-        <div className="MultiToggle">
+        <div className='MultiToggle'>
             {children}
         </div>
     )

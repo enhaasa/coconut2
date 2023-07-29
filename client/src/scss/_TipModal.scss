@@ -13,12 +13,12 @@
         background: none;
         outline: none;
         border: none;
-        border-bottom: 2px solid $cream;
+        border-bottom: 1px solid $cream;
         color: white;
         font-size: 16px;
 
         &::placeholder {
-            color: $cream;
+            color: grey;
         }
     }
 

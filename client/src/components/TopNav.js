@@ -1,12 +1,12 @@
-import { DynamicDataContext } from "../api/DynamicData";
-import { ControlStatesContext } from "../api/ControlStates";
-import { useContext } from "react";
+import { DynamicDataContext } from '../api/DynamicData';
+import { ControlStatesContext } from '../api/ControlStates';
+import { useContext } from 'react';
 
-import MultiToggle from "./common/MultiToggle/MultiToggle";
-import MultiToggleOption from "./common/MultiToggle/MultiToggleOption";
+import MultiToggle from './common/MultiToggle/MultiToggle';
+import MultiToggleOption from './common/MultiToggle/MultiToggleOption';
 import logo from './../assets/icons/logo.png';
 
-import uuid from "react-uuid";
+import uuid from 'react-uuid';
 
 function TopNav() {
 
@@ -20,12 +20,12 @@ function TopNav() {
     } = useContext(ControlStatesContext);
 
     return (
-        <section className="TopNav">
-            <span className="logo">
-                <img className="image" src={logo} alt="" />
-                <span className="info-container">
-                    <div className="title">Coconut</div>
-                    <div className="author">by Enhasa</div>
+        <section className='TopNav'>
+            <span className='logo'>
+                <img className='image' src={logo} alt='' />
+                <span className='info-container'>
+                    <div className='title'>Coconut</div>
+                    <div className='author'>by Enhasa</div>
                 </span>
             </span>
 

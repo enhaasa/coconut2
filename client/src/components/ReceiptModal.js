@@ -1,6 +1,13 @@
-import { sortArray } from "../tools";
-import { useState } from 'react';
-import uuid from "react-uuid";
+import React, { useState } from 'react';
+
+//Components
+import Table from './common/Table/Table';
+import TableItem from './common/Table/TableItem';
+import Button from './common/Button/Button';
+
+//Tools
+import uuid from 'react-uuid';
+import { sortArray } from '../tools';
 
 function ReceiptModal(props) {
     const { session, archivedSessions, handleModal } = props;
@@ -19,68 +26,67 @@ function ReceiptModal(props) {
     }
 
     return(
-        <div className="ReceiptModal">
-            <table className="item-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Amount</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-            
-                <tbody>
-                    {sortArray(session.orders).map(order => (  
-                        <tr key={uuid()}>
-                            <td>{order.name}</td>
-                            <td>{order.price.toLocaleString("en-US")} gil</td>
-                            <td>{order.amount}</td>
-                            <td>{order.total.toLocaleString("en-US")} gil</td>
-                        </tr>
-                                
-                    ))}
-                </tbody>
-                <tfoot>
-                    {
-                    <tr>
-                        <td>Tips:</td>
-                        <td></td>
-                        <td></td>
-                        <td>{tips.toLocaleString("en-US") + " gil"}</td>
-                    </tr>
-                    }
-                    <tr>
-                        <td>Total:</td>
-                        <td></td>
-                        <td></td>
-                        <td>{session.amount_paid.toLocaleString("en-us") + " gil"}</td>
-                    </tr>
-                </tfoot>
-            </table>
+        <div className='ReceiptModal'>
+            <Table>
+                {sortArray(session.orders).map(order => (
+                    <TableItem 
+                        key={uuid()}
+                        cols={
+                            [
+                                {
+                                    type: 'text',
+                                    content: order.name
+                                }, {
+                                    type: 'number',
+                                    content: order.price.toLocaleString('en-US') + ' gil'
+                                },{
+                                    type: 'text',
+                                    content: `x${order.amount}`
+                                }, {
+                                    type: 'number',
+                                    content: order.total.toLocaleString('en-US') + ' gil'
+                                }
+                            ]
+                        }
+                    />
+                ))}
+            </Table>
+
+            <div className='receipt-summary'>
+                <div className='row'>
+                    <span>Tips:</span>
+                    <span>{tips.toLocaleString('en-US') + ' gil'}</span>
+                </div>
+
+                <div className='row'>
+                    <span>Total:</span>
+                    <span>{session.amount_paid.toLocaleString('en-us') + ' gil'}</span>        
+                </div>
+            </div>
 
             
-            <div className="paid-amount">
+            <div className='paid-amount'>
                 <label>Amount paid:</label> 
-                <input type="number" 
+                <input type='number' 
                     value={amountPaid} 
                     onChange={(e) => handleAmountPaid(e.target.value)}>
                 </input>
-                <button 
-                    onClick={() => handleSave()} 
-                    disabled={amountPaid === total ? true : false}
-                >Save</button>
+                <Button 
+                    type='constructive' 
+                    clickEvent={handleSave} 
+                    disabled={amountPaid === total ? true : false}>
+                    Save
+                </Button>
             </div>
             <br />
             
 
-            <div className="receipt-RP">
-                
+            <div className='receipt-RP'>
                 <a href={`https://cocosoasis.info/r.html?id=${session.id}`}
-                target="_blank" rel="noopener noreferrer">{`Receipt Link`}</a>
+                target='_blank' rel='noopener noreferrer'>{`Receipt Link`}</a>
 
                 <textarea 
-                    value={`/em hands over the tab: cocosoasis.info/r.html?id=${session.id} ((${total.toLocaleString("en-US")} gil))`} 
+                    value={`/em hands over the tab: cocosoasis.info/r.html?id=${session.id} ((${total.toLocaleString('en-US')} gil))`} 
                     readOnly
                     contentEditable={false}
                     spellCheck={false}

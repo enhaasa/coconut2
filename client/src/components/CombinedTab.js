@@ -1,5 +1,11 @@
-import React from "react";
-import uuid from "react-uuid";
+import React from 'react';
+
+//Components
+import Table from './common/Table/Table';
+import TableItem from './common/Table/TableItem';
+
+//Tools
+import uuid from 'react-uuid';
 
 export default function CombinedTab(props) {
 
@@ -26,42 +32,34 @@ export default function CombinedTab(props) {
         }
     });
 
-
     return( 
         <>
-            <table className="item-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Amount</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-            
-                <tbody>
-                    {parsedDeliveredOrders.map(order => ( 
-                                
-                        <tr key={uuid()}>
-                            <td>{order.name}</td>
-                            <td>{order.price.toLocaleString("en-US")} gil</td>
-                            <td>{order.amount}</td>
-                            <td>{order.total.toLocaleString("en-US")} gil</td>
-                        </tr>
-                                
-                    ))}
-                </tbody>
+            <Table>
+                {parsedDeliveredOrders.map(order => (       
+                    <TableItem 
+                        key={uuid()}
+                        cols={
+                            [
+                                {
+                                    type: 'text',
+                                    content: order.name
+                                }, {
+                                    type: 'number',
+                                    content: `${order.price.toLocaleString('en-US')} gil`
+                                }, {
+                                    type: 'number',
+                                    content: `x${order.amount}`
+                                }, {
+                                    type: 'number',
+                                    content: `${order.total.toLocaleString('en-US')} gil`
+                                }
 
-                <tfoot>
-                    <tr>
-                        <td>Total:</td>
-                        <td></td>
-                        <td></td>
-                        <td>{deliveredOrdersInSeating.reduce((total, order) => (total + order.price), 0).toLocaleString("en-US") + " gil"}</td>
-                    </tr>
-                </tfoot>
-            </table>
+                            ]
+                        }
+                    >
+                    </TableItem>  
+                ))}
+            </Table>
         </>
-        
     );
 }

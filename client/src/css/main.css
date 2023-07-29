@@ -4,9 +4,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
-.MultiToggle {
-  background: #222;
-}
 .MultiToggle .MultiToggleOption:first-child {
   border-radius: 10px 0 0 10px;
 }
@@ -64,22 +61,24 @@
   background: #2c2c2c;
 }
 .TableItem td {
-  margin: 5px;
+  margin: 5px 8px;
   white-space: nowrap;
+  text-shadow: 0.1em 0.1em 0.2em black;
 }
 .TableItem td:first-child {
   margin: 0;
-  margin-right: 5px;
-}
-.TableItem td:nth-child(2) {
-  width: 100%;
+  margin-right: 8px !important;
 }
 .TableItem td:last-child {
   margin: 0;
-  margin-left: 5px;
+  margin-left: 8px !important;
+}
+.TableItem td.main {
+  width: 100%;
 }
 .TableItem td.text {
   text-shadow: 0.1em 0.1em 0.2em black;
+  text-align: left;
 }
 .TableItem td.number {
   text-align: right;
@@ -138,6 +137,7 @@
 
 * {
   font-family: "Nunito", sans-serif;
+  font-size: 14px;
 }
 
 /* width */
@@ -274,13 +274,12 @@ button:active, select:active, option:active {
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
   background-color: black;
-  margin-left: 16px;
+  margin-left: 20px;
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 5px 10px;
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
@@ -737,24 +736,24 @@ button:active, select:active, option:active {
   place-items: center;
 }
 .modal-container .Modal {
-  background: rgb(20, 20, 20);
-  box-shadow: 0px 2px 4px 1px black;
+  box-shadow: 0px 0px 1px 0px black;
   min-width: 500px;
-  border: 1px solid black;
+  border: 1px solid #0e0e0e;
 }
 .modal-container .Modal .title-bar {
   display: flex;
   justify-self: center;
   justify-content: space-between;
   align-items: center;
-  color: rgb(196, 177, 166);
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  padding: 2px 5px;
+  color: white;
+  background: rgb(65, 65, 65);
   box-shadow: 0px 2px 4px 1px black;
+  border-bottom: 1px solid #0e0e0e;
 }
 .modal-container .Modal .title-bar .title {
   text-shadow: 0px 2px 4px black;
-  font-size: 28px;
-  padding-left: 10px;
+  font-size: 18px;
 }
 .modal-container .Modal .title-bar .close-button {
   margin: 5px;
@@ -762,8 +761,12 @@ button:active, select:active, option:active {
 .modal-container .Modal .content {
   padding: 0 10px;
   color: white;
+  background: #222;
 }
 
+.ReceiptModal {
+  text-shadow: 0.1em 0.1em 0.2em black;
+}
 .ReceiptModal .paid-amount {
   display: flex;
   gap: 5px;
@@ -773,17 +776,27 @@ button:active, select:active, option:active {
 }
 .ReceiptModal .paid-amount input {
   width: 100%;
-  background: rgb(36, 30, 11);
+  background: #2c2c2c;
   color: white;
+  border: 1px solid #0e0e0e;
 }
-.ReceiptModal .item-table tfoot {
-  color: rgb(196, 177, 166);
+.ReceiptModal .receipt-summary {
+  border-top: 1px solid #0e0e0e;
+  border-bottom: 1px solid #0e0e0e;
+  padding: 5px 0;
+  margin: 5px 0;
+}
+.ReceiptModal .receipt-summary .row {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  text-shadow: 0.1em 0.1em 0.2em black;
 }
 .ReceiptModal .receipt-RP a {
-  color: rgb(138, 0, 0);
+  color: white;
 }
 .ReceiptModal .receipt-RP a:visited {
-  color: rgb(138, 0, 0);
+  color: white;
 }
 
 .AttendingStaff {
@@ -833,15 +846,15 @@ button:active, select:active, option:active {
   background: none;
   outline: none;
   border: none;
-  border-bottom: 2px solid rgb(196, 177, 166);
+  border-bottom: 1px solid rgb(196, 177, 166);
   color: white;
   font-size: 16px;
 }
 .TipModal input::-moz-placeholder {
-  color: rgb(196, 177, 166);
+  color: grey;
 }
 .TipModal input::placeholder {
-  color: rgb(196, 177, 166);
+  color: grey;
 }
 .TipModal .submit-container {
   display: flex;
@@ -1128,18 +1141,19 @@ button:active, select:active, option:active {
   z-index: 98;
 }
 .confirm-box-container .confirm-box {
-  background: bisque;
-  background-image: url("./../assets/icons/dark-fabric.png");
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  background: #222;
   color: white;
   padding: 10px;
-  border-radius: 25px;
-  border: 4px double black;
+  border-radius: 20px;
+  border: 1px solid #0e0e0e;
   z-index: 99;
   box-shadow: 0px 4px 10px 1px black;
+  text-shadow: 0.1em 0.1em 0.2em black;
 }
 .confirm-box-container .confirm-box .title {
   font-weight: bold;
+  font-size: 18px;
+  color: rgb(196, 177, 166);
 }
 .confirm-box-container .confirm-box .message {
   margin: 10px 0;
@@ -1155,14 +1169,6 @@ button:active, select:active, option:active {
 .confirm-box-container .confirm-box .options button:active {
   box-shadow: inset 0px 1px 4px 1px black;
 }
-.confirm-box-container .confirm-box .options .yes {
-  background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63));
-  padding: 2px 6px;
-}
-.confirm-box-container .confirm-box .options .no {
-  background: radial-gradient(ellipse farthest-corner at right bottom, rgb(216, 215, 215) 0%, rgb(173, 173, 173) 8%, rgb(165, 165, 165) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(214, 214, 214) 8%, rgb(170, 170, 170) 25%);
-  padding: 2px 6px;
-}
 
 .TabManagerContainer {
   position: absolute;
@@ -1172,13 +1178,14 @@ button:active, select:active, option:active {
   width: 100%;
   height: 100%;
   z-index: 5;
+  font-size: 14px;
   filter: drop-shadow(0 0 5px rgb(41, 41, 41));
 }
 .TabManagerContainer button {
   transition: none !important;
 }
 .TabManagerContainer .TabManager {
-  background-image: url("./../assets/icons/paper.webp");
+  background: rgb(80, 80, 80);
   color: black;
   list-style: none;
   padding: 10px 10px 30px 10px;
@@ -1186,53 +1193,68 @@ button:active, select:active, option:active {
   -webkit-mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
           mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
 }
-.TabManagerContainer .TabManager .blur {
-  margin-top: -10px;
-  margin-left: -10px;
-}
-.TabManagerContainer .TabManager .name {
-  font-size: 20px;
-  color: rgb(138, 0, 0);
-}
-.TabManagerContainer .TabManager .tab-nav {
+.TabManagerContainer .TabManager header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-}
-.TabManagerContainer .TabManager .tab-nav .receipt {
-  color: grey;
-}
-.TabManagerContainer .TabManager .tab-list {
-  max-height: 300px;
-  overflow-y: auto;
-}
-.TabManagerContainer .TabManager .view-nav {
-  display: flex;
-  border-top: 2px dotted grey;
-  border-bottom: 2px dotted grey;
-  padding: 4px 0;
-  justify-content: space-between;
-}
-.TabManagerContainer header {
-  display: grid;
-  grid-auto-flow: column;
-  align-content: center;
+  align-items: center;
   width: 100%;
-  justify-content: start;
   padding-bottom: 10px;
 }
-.TabManagerContainer header .title {
-  font-size: 1.8em;
+.TabManagerContainer .TabManager header .title {
+  font-size: 18px;
   font-weight: bold;
   text-shadow: none !important;
 }
-.TabManagerContainer header .close-button {
+.TabManagerContainer .TabManager header .close-button {
   position: absolute;
   justify-self: end;
   width: 35px;
   height: 35px;
   background: none;
   border: none;
+}
+.TabManagerContainer .TabManager .blur {
+  margin-top: -10px;
+  margin-left: -10px;
+}
+.TabManagerContainer .TabManager .tab-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+.TabManagerContainer .TabManager .tab-nav .receipt-link a {
+  color: white !important;
+  text-shadow: 0.1em 0.1em 0.2em black;
+}
+.TabManagerContainer .TabManager .tab-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.TabManagerContainer .TabManager .tab-list .name {
+  font-size: 14px;
+  color: rgb(196, 177, 166);
+  font-weight: bold;
+  text-shadow: 0.1em 0.1em 0.2em black;
+}
+.TabManagerContainer .TabManager .view-nav {
+  display: flex;
+  padding: 4px 0;
+  justify-content: center;
+  align-items: center;
+}
+.TabManagerContainer .tab-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0.1em 0.1em 0.2em black;
+  margin: 7px 0;
+  padding: 5px 0;
+  border-top: 1px solid #0e0e0e;
+  border-bottom: 1px solid #0e0e0e;
 }
 
 .receipt-RP {
@@ -1243,9 +1265,10 @@ button:active, select:active, option:active {
   word-break: break-word;
   width: calc(100% - 8px);
   resize: none;
-  border: 2px solid black;
+  border: 1px solid #0e0e0e;
+  padding: 5px;
   font-size: 14px;
-  background: rgb(36, 30, 11);
+  background: #2c2c2c;
   color: white;
 }
 

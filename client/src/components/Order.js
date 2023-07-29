@@ -37,56 +37,58 @@ export default function Order(props) {
         orders.deliver(order.units[(order.units.length-1)]);
     }
 
+    const tablecols = [
+        {
+            type: 'nav',
+            content: 
+            <>
+                <IconButton type='tooltip'>
+                    <img src={infoIcon} alt='' className='tooltip' />
+
+                    <span className='tooltiptext'>
+                        {order.item}
+                    </span>
+                </IconButton>
+            </>
+        }, {
+            type: 'main',
+            content: order.name
+        }, {
+            type: 'text',
+            content: `x${order.amount}`
+        }, {
+            type: 'nav',
+            content: 
+            <>
+                <IconButton clickEvent={() => handleRemoveOrder(order)}>
+                    <img src={minusIcon} alt='' />
+                </IconButton>
+
+                <IconButton clickEvent={() => handleAddOrder(order)}>
+                    <img src={plusIcon} alt='' />
+                </IconButton>
+            </>
+        }, {
+            type: 'text',
+            content: order.total.toLocaleString('en-US') + ' gil'
+        }
+    ];
+
+    if (!order.units[0].is_delivered) {
+        tablecols.push({
+            type: 'nav',
+            content: 
+            <>
+                <Button 
+                    type='neutral' 
+                    clickEvent={() => handleDeliverOrder(order)}>
+                Deliver
+                </Button>
+            </>
+        });
+    }
+
     return (
-        
-        <TableItem 
-        cols={
-            [
-                {
-                    type: 'nav',
-                    content: 
-                    <>
-                        <IconButton type="tooltip">
-                            <img src={infoIcon} alt="" className="tooltip" />
-
-                            <span className="tooltiptext">
-                                {order.item}
-                            </span>
-                        </IconButton>
-                    </>
-                }, {
-                    type: 'text',
-                    content: order.name
-                }, {
-                    type: 'text',
-                    content: `x${order.amount}`
-                }, {
-                    type: 'nav',
-                    content: 
-                    <>
-                        <IconButton clickEvent={() => handleRemoveOrder(order)}>
-                            <img src={minusIcon} alt="" />
-                        </IconButton>
-
-                        <IconButton clickEvent={() => handleAddOrder(order)}>
-                            <img src={plusIcon} alt="" />
-                        </IconButton>
-                    </>
-                }, {
-                    type: 'text',
-                    content: order.total.toLocaleString('en-US') + ' gil'
-                },{
-                    type: 'nav',
-                    content: 
-                    <>
-                        <Button 
-                            type='neutral' 
-                            clickEvent={() => handleDeliverOrder(order)}>
-                        Deliver
-                        </Button>
-                    </>
-                }
-            ]
-        } />
+        <TableItem cols={tablecols}/>
     )
 }

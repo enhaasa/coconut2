@@ -76,7 +76,7 @@ export default function Customer(props) {
 
     const handleNamePaste = (event) => {
         
-        const pastedValue = event.clipboardData.getData("text");
+        const pastedValue = event.clipboardData.getData('text');
         if (pastedValue.length + customer.name.length > 50) {
           setNameBuffer(pastedValue);
           event.preventDefault();
@@ -109,25 +109,25 @@ export default function Customer(props) {
         <div className={`Customer${selectedCustomer && selectedCustomer.id === customer.id ? ' active' : ''}`} 
             key={customer.uuid} 
             ref={customerRef}>
-            <nav className="name-nav">
+            <nav className='name-nav'>
                 <input 
                     spellCheck={false}
-                    type="text" 
+                    type='text' 
                     value={nameBuffer} 
-                    placeholder="Enter name..." 
+                    placeholder='Enter name...' 
                     maxLength={50}
                     onPaste={handleNamePaste}
                     onChange={handleNameChange}>
                 </input>
 
                 {isInSeating &&
-                <Button type="destructive" clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
+                <Button type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
 
                 }
             </nav>
 
             {customer.undeliveredOrders.length > 0 &&
-                <div className="orders">
+                <div className='orders'>
                     <Table>
                         {undeliveredOrders.map(order => (
                             <Order 
@@ -139,12 +139,12 @@ export default function Customer(props) {
                 </div>
             }
 
-            <nav className="customer-nav">
-                <Button type="constructive" clickEvent={() => {openMenu(customer)}}>Add Order</Button>
+            <nav className='customer-nav'>
+                <Button type='constructive' clickEvent={() => {openMenu(customer)}}>Add Order</Button>
 
                 {
                     customer.undeliveredOrders.length > 0 &&
-                        <Button type="neutral" clickEvent={() => {handleDeliverAllOrdersByCustomer(customer)}}>Deliver All</Button>
+                        <Button type='neutral' clickEvent={() => {handleDeliverAllOrdersByCustomer(customer)}}>Deliver All</Button>
                 }
             </nav>       
         </div>
