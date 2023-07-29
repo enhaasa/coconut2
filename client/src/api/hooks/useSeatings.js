@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useSocketListener from '../useSocketListener';
 
-function useSeats(init, props) {
+export default function useSeats(init, props) {
     const { 
         socket
     } = props;
@@ -61,11 +61,11 @@ function useSeats(init, props) {
     }
 
     function reset(seating) {
-        socket.emit("resetSeating", { ...seating })
+        socket.emit('resetSeating', { ...seating })
     }
 
     function refresh() {
-        socket.emit("getSeatings");
+        socket.emit('getSeatings');
     }
 
     return [
@@ -80,5 +80,3 @@ function useSeats(init, props) {
         }
     ]
 }
-
-export default useSeats;

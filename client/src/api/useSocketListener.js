@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useSocketListener = (socket, eventHandlers) => {
+export default function useSocketListener(socket, eventHandlers) {
   useEffect(() => {
     if (socket) {
       const addEventListeners = () => {
@@ -23,5 +23,3 @@ const useSocketListener = (socket, eventHandlers) => {
     }
   }, [socket, eventHandlers]);
 };
-
-export default useSocketListener;

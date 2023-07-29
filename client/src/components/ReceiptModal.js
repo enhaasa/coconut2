@@ -9,7 +9,7 @@ import Button from './common/Button/Button';
 import uuid from 'react-uuid';
 import { sortArray } from '../tools';
 
-function ReceiptModal(props) {
+export default function ReceiptModal(props) {
     const { session, archivedSessions, handleModal } = props;
 
     const total = session.price;
@@ -96,5 +96,3 @@ function ReceiptModal(props) {
         </div>
     );
 }
-
-export default ReceiptModal;

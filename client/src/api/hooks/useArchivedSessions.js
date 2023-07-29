@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useSocketListener from '../useSocketListener';
 
-function useArchivedSessions(init, props) {
+export default function useArchivedSessions(init, props) {
     const {
         socket
     } = props;
@@ -57,5 +57,3 @@ function useArchivedSessions(init, props) {
         }
     ]
 }
-
-export default useArchivedSessions;

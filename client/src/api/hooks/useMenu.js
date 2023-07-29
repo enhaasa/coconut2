@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useSocketListener from './../useSocketListener';
 
-function useMenu(init, props) {
+export default function useMenu(init, props) {
     const {
         socket
     } = props;
@@ -16,11 +16,11 @@ function useMenu(init, props) {
     useSocketListener(socket, eventHandlers);
 
     async function refresh() {
-        socket.emit("getMenu");
+        socket.emit('getMenu');
     }
 
     async function sortWeeklySpecials(menu_items) {
-        const weeklySpecials = ["meal", "cocktail"];
+        const weeklySpecials = ['meal', 'cocktail'];
     
         // Group all promises and await all at once
         const promises = weeklySpecials.map(special =>
@@ -46,5 +46,3 @@ function useMenu(init, props) {
         }
     ]
 }
-
-export default useMenu;

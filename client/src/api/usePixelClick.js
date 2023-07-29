@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-const usePixelClick = () => {
+export default function usePixelClick() {
   const handleClick = useCallback((event) => {
     const element = event.currentTarget;
     const rect = element.getBoundingClientRect();
@@ -12,5 +12,3 @@ const usePixelClick = () => {
 
   return handleClick;
 };
-
-export default usePixelClick;

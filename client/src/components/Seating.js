@@ -1,16 +1,23 @@
 import React, { useRef, useEffect, useState, useLayoutEffect, useContext, useMemo } from 'react';
+
+//Contexts
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
 import { StaticDataContext } from '../api/StaticData';
+
+//Animations
+import gsap from 'gsap';
+import animations from '../animations';
+
+//Tools
 import { 
     getFirstName, 
     getLastNames,
     getTimeSinceOldestOrder, 
     getOldestOrder, 
     formatTime } from '../tools';
-import gsap from 'gsap';
-import animations from '../animations';
 
+//Icons
 import stopwatchIcon from './../assets/icons/stopwatch-black.png';
 import unPaidTabIcon from './../assets/icons/unPaidTab.png';
 import orderIcon from './../assets/icons/order-small-white.png';

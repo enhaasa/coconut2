@@ -1,20 +1,27 @@
 import React, { useRef, useContext, useEffect } from 'react';
-import { DynamicDataContext } from '../api/DynamicData';
-import { ControlStatesContext } from '../api/ControlStates';
+
+//Hooks
 import usePixelClick from '../api/usePixelClick';
+
+//Components
 import Seating from './Seating';
 
+//Contexts
+import { DynamicDataContext } from '../api/DynamicData';
+import { ControlStatesContext } from '../api/ControlStates';
+
+//Images
 import overlay from './../assets/icons/dark-fabric.png';
 
 export default function Section(props) {
     const {
-        section,
         colorset,
-        parsedSection,
     } = props;
 
     const {
         seatings,
+        dataTree,
+        sections,
     } = useContext(DynamicDataContext);
     
     const {
@@ -22,7 +29,11 @@ export default function Section(props) {
         itemInMovement,
         setItemInMovement,
         setSelectedSeating,
+        selectedSection,
     } = useContext(ControlStatesContext);
+
+    const parsedSection = dataTree[selectedSection];
+    const section= sections.get[selectedSection];
 
     const getVectorPoint = usePixelClick();
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useSocketListener from '../useSocketListener';
 
-function useStaff(init, props) {
+export default function useStaff(init, props) {
     const [staff, setStaff] = useState(init);
     const { socket } = props;
 
@@ -40,5 +40,3 @@ function useStaff(init, props) {
         }
     ]
 }
-
-export default useStaff;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useSocketListener from './../useSocketListener';
 
-function useCustomers(init, props) {
+export default function useCustomers(init, props) {
     const { 
         orders,
         setSelectedCustomer,
@@ -51,16 +51,16 @@ function useCustomers(init, props) {
 
 
     function add(customer) {
-        socket.emit("addCustomer", { ...customer });
+        socket.emit('addCustomer', { ...customer });
     }
 
     function remove(customerToRemove){        
-        socket.emit("removeCustomer", { ...customerToRemove });
+        socket.emit('removeCustomer', { ...customerToRemove });
     }
 
     function editName(uuid, name, isDebounced = true) {
         if (isDebounced) {
-            socket.emit("editCustomerName", { uuid: uuid, name: name });
+            socket.emit('editCustomerName', { uuid: uuid, name: name });
         }
 
         const index = customers.findIndex(customer => customer.uuid === uuid);
@@ -71,7 +71,7 @@ function useCustomers(init, props) {
     }
 
     function removeAllFromSeating(seating) {
-        socket.emit("removeAllCustomersFromSeating", { ...seating });
+        socket.emit('removeAllCustomersFromSeating', { ...seating });
     }
 
     function setSession(id, newSession, updateDatabase = true) {
@@ -83,13 +83,13 @@ function useCustomers(init, props) {
         });
 
         if (updateDatabase) {
-            socket.emit("setCustomerSession", { session: newSession, id: id })
+            socket.emit('setCustomerSession', { session: newSession, id: id })
         }
-        //db.customers.put("session", newSession, "id", id);
+        //db.customers.put('session', newSession, 'id', id);
     }
 
     function refresh() {
-        socket.emit("getCustomers");
+        socket.emit('getCustomers');
     }
 
     return [ 
@@ -104,5 +104,3 @@ function useCustomers(init, props) {
             }
         ]
 }
-
-export default useCustomers;

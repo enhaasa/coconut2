@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useSocketListener from '../useSocketListener';
 
-function useTips(init, props) {
+export default function useTips(init, props) {
     const [ tips, setTips ] = useState(init);
     const { socket } = props;
 
@@ -60,5 +60,3 @@ function useTips(init, props) {
         }
     ]
 }
-
-export default useTips;

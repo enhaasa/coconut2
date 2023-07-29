@@ -1,13 +1,19 @@
 import React, { useContext } from 'react';
+
+//Contexts
 import { DynamicDataContext } from '../api/DynamicData';
-import TipModal from './TipModal';
-import { formatStringAsPrice } from '../tools';
-import uuid from 'react-uuid';
+
+//Components
 import Table from './common/Table/Table';
 import TableItem from './common/Table/TableItem';  
 import Button from './common/Button/Button';
+import TipModal from './TipModal';
 
-function TipsManager(props) {
+//Tools
+import { formatStringAsPrice } from '../tools';
+import uuid from 'react-uuid';
+
+export default function TipsManager(props) {
     const { tipsTotal, handleModal } = props;
 
     const { tips } = useContext(DynamicDataContext);
@@ -61,5 +67,3 @@ function TipsManager(props) {
         </div>
     )
 }
-
-export default TipsManager;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useSocketListener from './../useSocketListener';
 
-function useOrders(init, props) {
+export default function useOrders(init, props) {
     const {
         socket
     } = props;
@@ -70,12 +70,12 @@ function useOrders(init, props) {
      */
     function add(order) {
 
-        socket.emit("addOrder", { ...order });
+        socket.emit('addOrder', { ...order });
     }
     
 
     function remove(order) {
-        socket.emit("removeOrder", { ...order });
+        socket.emit('removeOrder', { ...order });
     }
 
     function pay(orders, seating) {
@@ -93,7 +93,7 @@ function useOrders(init, props) {
     }
 
     function refresh() {
-        socket.emit("getOrders");
+        socket.emit('getOrders');
     }
 
     return [
@@ -108,6 +108,3 @@ function useOrders(init, props) {
         }
     ];
 }
-
-
-export default useOrders;

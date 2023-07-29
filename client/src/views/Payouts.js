@@ -1,18 +1,23 @@
+import React, { useState, useContext } from 'react';
+
+//Components
 import ReceiptManager from './../components/ReceiptManager';
 import AttendingStaff from '../components/AttendingStaff';
 import TipsManager from '../components/TipsManager';
 import TipModal from './../components/TipModal';
-import uuid from 'react-uuid';
 import Modal from '../components/Modal';
 import Button from '../components/common/Button/Button';
 import Dropdown from '../components/common/Dropdown/Dropdown';
 import DropdownItem from '../components/common/Dropdown/DropdownItem';
-import { getCurrentDate, sortArchivedArray } from '../tools';
-import dropdownIcon from '../assets/icons/dropdown-white.png';
-import { useState, useContext } from 'react';
+
+//Contexts
 import { DynamicDataContext } from '../api/DynamicData';
 
-function Payouts(props) {
+//Tools
+import uuid from 'react-uuid';
+
+
+export default function Payouts(props) {
     const { setIsBlurred } = props;
     const { tips, archivedSessions, staff, sections } = useContext(DynamicDataContext);
     
@@ -23,7 +28,6 @@ function Payouts(props) {
     const attendingStaff = staff.get.filter(s => s.is_attending);
     const absentStaff = staff.get.filter(s => !s.is_attending);
     const tipsAndOrders = parseInt(ordersTotal) + parseInt(tipsTotal);
-    const perPerson = tipsAndOrders / attendingStaff.length;
 
     const [ selectedFilter, setSelectedFilter ] = useState(0);
     const receiptFilters = [
@@ -140,5 +144,3 @@ function Payouts(props) {
         </>
     );
 }
-
-export default Payouts;

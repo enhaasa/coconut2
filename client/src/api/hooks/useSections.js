@@ -15,7 +15,7 @@ export default function useSections(init, props) {
     useSocketListener(socket, eventHandlers);
 
     function refresh() {
-        socket.emit("getSections");
+        socket.emit('getSections');
     }
 
     return [

@@ -1,7 +1,8 @@
+//Icons
 import orderIcon from './../assets/icons/order-small-black.png';
 import userIcon from './../assets/icons/user-black.png';
 
-function NotificationBar(props) {
+export default function NotificationBar(props) {
     const { orders, customers} = props;
     
     const notifications = [
@@ -40,5 +41,3 @@ function NotificationBar(props) {
         </div>
     )
 }
-
-export default NotificationBar;

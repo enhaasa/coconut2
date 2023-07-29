@@ -11,7 +11,7 @@ import Button from './common/Button/Button';
 //Tools
 import uuid from 'react-uuid';    
 
-function AttendingStaff(props) {
+export default function AttendingStaff(props) {
     const { handleModal, ordersTotal, tipsTotal } = props;
 
     const { staff } = useContext(DynamicDataContext);
@@ -63,5 +63,3 @@ function AttendingStaff(props) {
         </div>
     )
 }
-
-export default AttendingStaff;

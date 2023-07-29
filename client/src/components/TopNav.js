@@ -1,14 +1,21 @@
+import React, { useContext } from 'react';
+
+//Contexts
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
-import { useContext } from 'react';
 
+//Components
 import MultiToggle from './common/MultiToggle/MultiToggle';
 import MultiToggleOption from './common/MultiToggle/MultiToggleOption';
-import logo from './../assets/icons/logo.png';
 
+//Tools
 import uuid from 'react-uuid';
 
-function TopNav() {
+//Icons
+import logo from './../assets/icons/logo.png';
+
+
+export default function TopNav() {
 
     const {
         sections
@@ -48,5 +55,3 @@ function TopNav() {
         </section>
     )
 }
-
-export default TopNav;
