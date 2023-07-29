@@ -41,7 +41,7 @@
     & .customer-container {
         display: grid;
         grid-auto-flow: row;
-        max-height: 400px;
+        max-height: 350px;
         overflow-y: auto;
 
         & .emptylist {

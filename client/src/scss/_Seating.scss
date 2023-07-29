@@ -31,12 +31,12 @@
         font-weight: normal;
         font-size: 0.9em;
         border-radius: 10px;
-        box-shadow: 0px 0px 2px 1px $darkgrey;
+        box-shadow: getBoxShadow('inner');
   
         & .amount {
           display: flex;
           align-items: center;
-          background: $background-dark;
+          background: getBackgroundColor('primary');
           color: white;
           border-radius: 10px 0 0 10px;
           padding: 0 5px;
@@ -52,27 +52,20 @@
           align-items: center;
         }
       }
-      
+
       & .waiter {
-        //position: absolute;
-        color: white;
-        padding: 1px 5px;
-        text-shadow: 0 0 black;
-        //margin-top: -14px;
-        background: $gradient-steel !important;
-        border: 1px solid black;
-        box-shadow: 0px 0px 2px 1px $darkgrey;
-        font-size: 14px;
-        border-radius: 10px;
-        
         display: flex;
-        justify-content: center;
         align-items: center;
-        gap: 5px;
+        gap: 3px;
+        background: getBackgroundColor('primary');
+        color: white;
+        padding: 2px 7px;
+        border-radius: 20px;
+        border: 1px solid getBorderColor('standard');
 
         & img {
-            width: 20px;
-            height: 20px;
+          width: 16px;
+          height: 16px;
         }
       }
     }
@@ -89,8 +82,8 @@
           display: flex;
           align-items: center;
           gap: 4px;
-          background: $gradient-steel;
-          box-shadow: 0px 1px 6px 1px black;
+          box-shadow: getBoxShadow('outer');
+          background: getBackgroundColor('primary');
           color: white;
           padding: 1px 5px;
           border-radius: 10px;
@@ -166,7 +159,7 @@
         font-size: 1.5em;
         border-radius: 100%;
         border: 6px double black;
-        box-shadow: 0 0 4px 1px $darkgrey;
+        box-shadow: getBoxShadow('inner');
         transition: all 100ms ease-in-out;
 
         &.multi {

@@ -43,7 +43,7 @@
                 & .type-title {
                     border-bottom: 1px solid grey;
                     font-weight: bold;
-                    color: $cream;
+                    color: getPrimaryColor('popping');
                     font-size: getFontSize('large');
                     margin: 2px 0;
                 }

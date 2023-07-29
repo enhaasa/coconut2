@@ -1,4 +1,3 @@
-@import 'colorset';
 @import './themes/default__colors';
 @import './themes/default__fonts';
 @import './themes/default__decorations';
@@ -20,6 +19,7 @@
 @import 'index';
 @import 'Section';
 @import 'ReceiptManager';
+@import 'SectionManager';
 @import 'Seating';
 @import 'Payouts';
 @import 'TipsManager';
@@ -36,8 +36,6 @@
 @import 'Receipt';
 @import 'TopNav';
 @import 'Customer';
-
-
 
 main {
     display: grid;

@@ -1,7 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
 .MultiToggle .MultiToggleOption:first-child {
@@ -113,7 +110,7 @@
   border: 1px solid #0e0e0e;
   margin: 0;
   padding: 0;
-  box-shadow: inset 0px 0px 3px 0px rgb(41, 41, 41) !important;
+  box-shadow: inset 0px 0px 1px 0px black;
   border-radius: 100%;
   height: 30px;
   width: 30px;
@@ -142,7 +139,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */
@@ -152,7 +149,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: black;
+  background: rgb(80, 80, 80);
   border-radius: 10px;
 }
 
@@ -164,14 +161,6 @@ body {
   margin: 0;
   height: 100vh;
   margin: auto;
-}
-
-.SectionManager {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
 }
 
 .transparent {
@@ -191,7 +180,7 @@ body {
 
 button:hover, select:hover, option:hover {
   cursor: pointer;
-  filter: brightness(1.1);
+  filter: brightness(1.2);
 }
 button:active, select:active, option:active {
   box-shadow: inset 0px 1px 4px 1px black !important;
@@ -210,12 +199,7 @@ button:active, select:active, option:active {
 }
 
 .informative {
-  background: linear-gradient(to bottom right, rgb(141, 163, 223), rgb(81, 73, 202)) !important;
-}
-
-.steel {
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
-  color: white;
+  background: blue !important;
 }
 
 .neutral {
@@ -248,7 +232,7 @@ button:active, select:active, option:active {
   background-color: #222;
   outline: 1px solid #0e0e0e;
   border-radius: 10px;
-  box-shadow: inset 0px 0px 3px 0px rgb(41, 41, 41) !important;
+  box-shadow: inset 0px 0px 1px 0px black;
 }
 .switch .slider:before {
   position: absolute;
@@ -259,14 +243,14 @@ button:active, select:active, option:active {
   bottom: 3px;
   background-color: rgb(236, 236, 236);
   border-radius: 50%;
-  box-shadow: 0px 1px 4px 1px rgb(41, 41, 41);
+  box-shadow: inset 0px 0px 1px 0px black;
   transition: 200ms all ease;
 }
 .switch input:checked + .slider {
   background: rgb(86, 119, 86);
 }
 .switch input:focus + .slider {
-  box-shadow: 0 0 1px rgb(143, 235, 143);
+  box-shadow: 0 0 1px grey;
 }
 .switch input:checked + .slider:before {
   transform: translateX(12px);
@@ -289,43 +273,6 @@ button:active, select:active, option:active {
   visibility: visible;
 }
 
-.item-table {
-  width: 100%;
-  border-bottom: 2px solid black;
-  margin: 4px 0;
-  border-collapse: collapse;
-  align-items: center;
-}
-.item-table tbody tr:nth-child(even) {
-  background-color: rgba(128, 128, 128, 0.6);
-}
-.item-table tr {
-  font-size: 14px;
-}
-.item-table th {
-  text-align: left;
-  background: rgb(36, 30, 11);
-  color: white;
-}
-.item-table td {
-  padding: 3px 0;
-}
-.item-table .seating-nav button {
-  border-radius: 100px;
-}
-.item-table .seating-nav button.icon {
-  display: inline-flex;
-  border-radius: 100%;
-  background: none;
-  padding: 0 2px;
-  border: none;
-}
-.item-table tfoot {
-  font-weight: bold;
-  color: rgb(138, 0, 0);
-  border-top: 2px solid black;
-}
-
 .notification-container {
   display: flex;
   align-items: center;
@@ -342,7 +289,7 @@ button:active, select:active, option:active {
   z-index: 1;
 }
 .notification-container .addendum {
-  background: rgb(36, 30, 11);
+  background: #222;
   color: white;
   border-radius: 0 15px 15px 0;
   border: 1px solid black;
@@ -357,49 +304,6 @@ button:active, select:active, option:active {
   white-space: nowrap;
 }
 
-.app-info {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  gap: 5px;
-  padding: 5px;
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
-  box-shadow: 0px 4px 10px 1px black;
-}
-.app-info .logo img {
-  width: 50px;
-}
-.app-info .text {
-  border-bottom: 4px double #979797;
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
-}
-.app-info .text .title {
-  font-size: 42px !important;
-  font-weight: bold;
-  background: linear-gradient(to bottom right, rgb(132, 253, 132), rgb(164, 250, 238));
-  -webkit-background-clip: text;
-          background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: -5px;
-}
-.app-info .text .version {
-  color: white;
-}
-
-.view-manager {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.add-staff-modal {
-  max-width: 600px;
-  padding: 10px;
-}
-
 .SectionContainer {
   margin: 0 auto;
   width: 100%;
@@ -409,7 +313,7 @@ button:active, select:active, option:active {
   width: 1000px;
   height: 700px;
   border: 1px solid;
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
+  background: #2c2c2c;
   position: relative;
 }
 .SectionContainer .Section.moving-item-mode {
@@ -417,7 +321,7 @@ button:active, select:active, option:active {
 }
 .SectionContainer .Section .moving-item-mode-info {
   color: red;
-  background: rgb(36, 30, 11);
+  background: #2c2c2c;
   position: absolute;
   width: 100%;
   z-index: 3;
@@ -444,20 +348,6 @@ button:active, select:active, option:active {
   display: grid;
   align-content: space-between;
 }
-.ReceiptManager .header {
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
-  padding: 5px 10px;
-  border-radius: 0 30px 0 0;
-  border: 4px solid black;
-}
-.ReceiptManager .header .title {
-  font-size: 28px;
-  color: white;
-}
-.ReceiptManager .header .under-title {
-  color: rgb(196, 177, 166);
-  font-size: 14px;
-}
 .ReceiptManager .filter {
   display: flex;
   justify-content: center;
@@ -475,6 +365,14 @@ button:active, select:active, option:active {
   color: #fff;
   font-size: 14px;
   padding: 5px;
+}
+
+.SectionManager {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .Seating {
@@ -509,12 +407,12 @@ button:active, select:active, option:active {
   font-weight: normal;
   font-size: 0.9em;
   border-radius: 10px;
-  box-shadow: 0px 0px 2px 1px rgb(41, 41, 41);
+  box-shadow: inset 0px 0px 1px 0px black;
 }
 .Seating .upper-wrapper .orderinfo .amount {
   display: flex;
   align-items: center;
-  background: rgb(36, 30, 11);
+  background: #222;
   color: white;
   border-radius: 10px 0 0 10px;
   padding: 0 5px;
@@ -529,22 +427,18 @@ button:active, select:active, option:active {
   align-items: center;
 }
 .Seating .upper-wrapper .waiter {
-  color: white;
-  padding: 1px 5px;
-  text-shadow: 0 0 black;
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black) !important;
-  border: 1px solid black;
-  box-shadow: 0px 0px 2px 1px rgb(41, 41, 41);
-  font-size: 14px;
-  border-radius: 10px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
+  background: #222;
+  color: white;
+  padding: 2px 7px;
+  border-radius: 20px;
+  border: 1px solid #0e0e0e;
 }
 .Seating .upper-wrapper .waiter img {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 .Seating .lower-wrapper .customers {
   display: grid;
@@ -557,8 +451,8 @@ button:active, select:active, option:active {
   display: flex;
   align-items: center;
   gap: 4px;
-  background: linear-gradient(to bottom right, rgb(49, 49, 49), black);
-  box-shadow: 0px 1px 6px 1px black;
+  box-shadow: 0px 0px 1px 0px black;
+  background: #222;
   color: white;
   padding: 1px 5px;
   border-radius: 10px;
@@ -620,7 +514,7 @@ button:active, select:active, option:active {
   font-size: 1.5em;
   border-radius: 100%;
   border: 6px double black;
-  box-shadow: 0 0 4px 1px rgb(41, 41, 41);
+  box-shadow: inset 0px 0px 1px 0px black;
   transition: all 100ms ease-in-out;
 }
 .Seating .number-display.multi {
@@ -685,7 +579,7 @@ button:active, select:active, option:active {
 .Payouts .column section .nav .title {
   font-size: 14px;
   color: #fff;
-  font-family: "Cabin";
+  font-family: "Nunito";
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -803,16 +697,6 @@ button:active, select:active, option:active {
   display: grid;
   align-content: space-between;
   height: 100%;
-}
-.AttendingStaff .list {
-  margin: 5px;
-}
-.AttendingStaff .list .delete-staff-button {
-  background: radial-gradient(ellipse farthest-corner at right bottom, rgb(216, 215, 215) 0%, rgb(173, 173, 173) 8%, rgb(165, 165, 165) 30%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, rgb(214, 214, 214) 8%, rgb(170, 170, 170) 25%);
-}
-.AttendingStaff .list .delete-staff-button:hover {
-  background: linear-gradient(45deg, rgb(163, 0, 0), rgb(226, 63, 63));
-  text-decoration: line-through;
 }
 .AttendingStaff .bottom-list {
   margin-top: 5px;
@@ -1002,7 +886,7 @@ button:active, select:active, option:active {
 .OrderManager .customer-container {
   display: grid;
   grid-auto-flow: row;
-  max-height: 400px;
+  max-height: 350px;
   overflow-y: auto;
 }
 .OrderManager .customer-container .emptylist {
@@ -1153,7 +1037,6 @@ button:active, select:active, option:active {
 .confirm-box-container .confirm-box .title {
   font-weight: bold;
   font-size: 18px;
-  color: rgb(196, 177, 166);
 }
 .confirm-box-container .confirm-box .message {
   margin: 10px 0;
@@ -1179,7 +1062,7 @@ button:active, select:active, option:active {
   height: 100%;
   z-index: 5;
   font-size: 14px;
-  filter: drop-shadow(0 0 5px rgb(41, 41, 41));
+  filter: drop-shadow(0 0 5px grey);
 }
 .TabManagerContainer button {
   transition: none !important;
@@ -1293,7 +1176,6 @@ button:active, select:active, option:active {
   height: 13px;
 }
 .Receipt .total {
-  color: rgb(138, 0, 0);
   display: flex;
   justify-content: space-between;
 }

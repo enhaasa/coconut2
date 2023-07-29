@@ -7,7 +7,7 @@
     height: 100%;
     z-index: 5;
     font-size: getFontSize('standard');
-    filter: drop-shadow(0 0 5px $darkgrey);
+    filter: drop-shadow(0 0 5px grey);
 
     & button {
         transition: none !important;
@@ -70,7 +70,7 @@
 
             & .name {
                 font-size: getFontSize('standard');
-                color: $cream;
+                color: getPrimaryColor('popping');
                 font-weight: bold;
                 text-shadow: 0.1em 0.1em 0.2em black;
             }

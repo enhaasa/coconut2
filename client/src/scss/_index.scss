@@ -1,21 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
 
 * {
-  // font-family: 'Cabin', sans-serif;
-  // font-family: 'Montserrat', sans-serif;
   font-family: 'Nunito', sans-serif;
   font-size: getFontSize('standard');
 }
 
-
 //Scrollbar
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */ 
@@ -25,7 +19,7 @@
   
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: black; 
+  background: getBackgroundColor('quaternary'); 
   border-radius: 10px;
 }
 
@@ -35,20 +29,8 @@ img {
 
 body {
   margin: 0;
-  //user-select: none;
-  //background: $background-dark;
-  //background: rgb(119, 104, 85);
-  
   height: 100vh;
   margin: auto;
-}
-
-.SectionManager {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
-  height: 100%; 
-  width:100%;
 }
 
 .transparent {
@@ -70,7 +52,7 @@ body {
 button, select, option {
   &:hover {
     cursor: pointer;
-    filter:brightness(1.1);
+    filter:brightness(1.2);
   }
 
   &:active {
@@ -81,9 +63,7 @@ button, select, option {
 .destructive {background: getPrimaryColor('destructive') !important;}
 .constructive {background: getPrimaryColor('constructive') !important;}
 .progressive {background: getPrimaryColor('progressive') !important;}
-//.inactive {background: $background-inactive !important;}
-.informative {background: $gradient-blue !important;}
-.steel {background: $gradient-steel; color: white;}
+.informative {background: blue !important;}
 .neutral {background: getPrimaryColor('neutral') !important;}
 .dark {background: getPrimaryColor('dark') !important;}
 
@@ -112,7 +92,7 @@ button, select, option {
     background-color: getBackgroundColor('primary');
     outline: 1px solid getBorderColor('standard');
     border-radius: 10px;
-    box-shadow: inset 0px 0px 3px 0px $darkgrey !important;
+    box-shadow: getBoxShadow('inner');
   
     &:before {
       position: absolute;
@@ -123,7 +103,7 @@ button, select, option {
       bottom: 3px;
       background-color: rgb(236, 236, 236);
       border-radius: 50%;
-      box-shadow: 0px 1px 4px 1px $darkgrey;
+      box-shadow: getBoxShadow('inner');
 
       transition: 200ms all ease;
     }
@@ -135,7 +115,7 @@ button, select, option {
     }
   
     &:focus + .slider {
-      box-shadow: 0 0 1px $lightgreen;
+      box-shadow: 0 0 1px grey;
     }
   
     &:checked + .slider:before {
@@ -162,59 +142,6 @@ button, select, option {
   visibility: visible;
 }
 
-
-//Universal item tables
-.item-table {
-  width: 100%;
-  border-bottom: 2px solid black;
-  margin: 4px 0;
-  border-collapse: collapse;
-  align-items: center;
-
-
-  & tbody tr:nth-child(even) {
-    background-color: rgba(128, 128, 128, 0.6);
-  }
-
-  & tr {
-    font-size: 14px;
-  }
-  
-  & th {
-    text-align: left;
-    background: $background-dark;
-    color: white;
-  }
-
-  & td {
-    padding: 3px 0;
-  }
-
-  & .seating-nav {
-
-
-    & button {
-      border-radius: 100px;
-
-      &.icon {
-        display: inline-flex;        
-
-        border-radius: 100%;
-        background: none;
-
-        padding: 0 2px;
-        border: none;
-      }
-    }
-  }
-
-  & tfoot {
-    font-weight: bold;
-    color: $wine;
-    border-top: 2px solid black;
-  }
-}
-
 .notification-container {
   display: flex;
   align-items: center;
@@ -232,7 +159,7 @@ button, select, option {
   }
 
   & .addendum {
-    background: $background-dark;
+    background: getBackgroundColor('primary');
     color: white;
     border-radius: 0 15px 15px 0;
     border: 1px solid black;
@@ -246,52 +173,4 @@ button, select, option {
     gap: 3px;
     white-space: nowrap;
   }
-}
-
-.app-info {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  gap: 5px;
-  padding: 5px;
-  background: $gradient-steel;
-  box-shadow: 0px 4px 10px 1px black;
-  
-  & .logo {
-    & img {
-      width: 50px;
-    }
-  }
-
-  & .text {
-    border-bottom: 4px double $grey;
-    display: flex;
-    align-items: flex-end;
-    gap: 5px;
-    
-    & .title {
-      font-size: 42px !important;
-      font-weight: bold;
-      background: $gradient-green;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: -5px;
-    }
-
-    & .version {
-      color: white;
-    }
-  } 
-}
-
-.view-manager {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.add-staff-modal {
-  max-width: 600px;
-  padding: 10px;
 }

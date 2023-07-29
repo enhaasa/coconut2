@@ -31,6 +31,7 @@ $primary-colors: (
     'destructive': rgb(168, 63, 63),
     'neutral': #373737,
     'dark': #222,
+    'popping': rgb(196, 177, 166),
 );
 @function getPrimaryColor($key) {
     @return map-get($primary-colors, $key);

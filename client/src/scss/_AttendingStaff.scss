@@ -1,22 +1,7 @@
-@import '_colorset'; 
-
 .AttendingStaff {
     display: grid;
     align-content: space-between;
     height: 100%;
-
-    & .list {
-        margin: 5px;
-
-        & .delete-staff-button {
-            background: $background-inactive;
-            
-            &:hover {
-                background: $background-destructive;
-                text-decoration: line-through;
-            }
-        }
-    }
     
     & .bottom-list {
         margin-top: 5px;

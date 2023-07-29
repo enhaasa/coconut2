@@ -6,7 +6,7 @@
     margin: 0;
     padding: 0;
     //border: 1px solid white;
-    box-shadow: inset 0px 0px 3px 0px $darkgrey !important;
+    box-shadow: getBoxShadow('inner');
     border-radius: 100%;
     height: 30px;
     width: 30px;
