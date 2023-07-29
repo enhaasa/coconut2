@@ -33,4 +33,17 @@
             }
         }
     }
+
+    & .section-nav {
+        display: grid;
+        gap: 5px;
+
+        & .row {
+
+            & .title {
+                text-align: center;
+                color: grey;
+            }
+        }
+    }
 }

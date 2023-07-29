@@ -155,7 +155,7 @@ export default function Seating(props) {
                     </div>}
 
                 <button 
-                    className={`number-display ${seating.type} ${seatingnumberColor()}`}
+                    className={`number-display ${seatingnumberColor()}`}
                     onClick={() => {handleSetSelectedSeating(seating)}}>
 
                     <div className='is-photography-container'>

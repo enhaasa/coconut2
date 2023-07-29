@@ -14,7 +14,6 @@ import uuid from 'react-uuid';
 //Icons
 import logo from './../assets/icons/logo.png';
 
-
 export default function TopNav() {
 
     const {
@@ -36,18 +35,41 @@ export default function TopNav() {
                 </span>
             </span>
 
-            <MultiToggle>
-                {
-                    sections.get.map((section, index) => (
-                        <MultiToggleOption 
-                            clickEvent={() => setSelectedSection(index)}
-                            isActive={selectedSection === index ? true : false}
-                            key={uuid()}>
-                            {section.name}
-                        </MultiToggleOption>
-                    ))
-                }
-            </MultiToggle>
+            <div className='section-nav'>
+                <div className='row'>
+                    <MultiToggle>
+                        {
+                            sections.get.map((section, index) => (
+                                section.type === 'main' &&
+                                <MultiToggleOption 
+                                    type={'large'}
+                                    clickEvent={() => setSelectedSection(index)}
+                                    isActive={selectedSection === index ? true : false}
+                                    key={uuid()}>
+                                    {section.name}
+                                </MultiToggleOption>
+                            ))
+                        }
+                    </MultiToggle>
+                </div>
+
+                <div className='row'>  
+                    <MultiToggle>
+                        {
+                            sections.get.map((section, index) => (
+                                section.type === 'sub' &&
+                                <MultiToggleOption 
+                                    clickEvent={() => setSelectedSection(index)}
+                                    isActive={selectedSection === index ? true : false}
+                                    key={uuid()}>
+                                    {section.name}
+                                </MultiToggleOption>
+                            ))
+                        }
+                    </MultiToggle>
+                </div>
+            </div>
+
 
             <span>
                 Character Name

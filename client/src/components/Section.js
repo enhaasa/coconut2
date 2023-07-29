@@ -33,7 +33,7 @@ export default function Section(props) {
     } = useContext(ControlStatesContext);
 
     const parsedSection = dataTree[selectedSection];
-    const section= sections.get[selectedSection];
+    const section = sections.get[selectedSection];
 
     const getVectorPoint = usePixelClick();
 

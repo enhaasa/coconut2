@@ -34,7 +34,9 @@ export default function OrderManager(props) {
 
                 if (customersInSeating.length -1 === 0) {
                     seatings.set(prev => {
-                        prev[seating.id].session = null;
+                        const index = seatings.get.findIndex(s => s.id === seating.id);
+
+                        prev[index].session = null;
                         return [...prev];
                     });
                 }
