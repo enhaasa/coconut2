@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 //Components
 import ReceiptManager from './../components/ReceiptManager';
@@ -18,8 +18,12 @@ import uuid from 'react-uuid';
 
 
 export default function Payouts(props) {
-    const { setIsBlurred } = props;
-    const { tips, archivedSessions, staff, sections } = useContext(DynamicDataContext);
+    const { 
+        tips, 
+        archivedSessions, 
+        staff, 
+        sections
+    } = useContext(DynamicDataContext);
     
     const [ modal, setModal ] = useState(null);
 
@@ -28,6 +32,8 @@ export default function Payouts(props) {
     const attendingStaff = staff.get.filter(s => s.is_attending);
     const absentStaff = staff.get.filter(s => !s.is_attending);
     const tipsAndOrders = parseInt(ordersTotal) + parseInt(tipsTotal);
+
+    const [ isBlurred, setIsBlurred ] = useState(false);
 
     const [ selectedFilter, setSelectedFilter ] = useState(0);
     const receiptFilters = [
@@ -73,13 +79,19 @@ export default function Payouts(props) {
 
     return(
         <>
-            {modal && 
-                <Modal title={modal.title} closeButtonEvent={() => handleModal(null)}> 
-                    {modal.content}
-                </Modal>
-            }
 
             <div className='Payouts'>
+                {modal && 
+                    <Modal title={modal.title} closeButtonEvent={() => handleModal(null)}> 
+                        {modal.content}
+                    </Modal>
+                }
+ 
+                {
+                    isBlurred &&
+                    <div className='blur'></div>
+                }
+
                 <div className='column left'>
                     <section>
                         <div className='nav'>

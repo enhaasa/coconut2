@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 
 //Tools
 import uuid from 'react-uuid';
@@ -35,7 +35,18 @@ export default function Section(props) {
         setItemInMovement,
         setSelectedSeating,
         selectedSection,
+        selectedSeating,
     } = useContext(ControlStatesContext);
+
+    const [ isBlurred, setIsBlurred ] = useState(false);
+    useEffect(() => {
+        if (selectedSeating) {
+            setIsBlurred(true);
+        } else {
+            setIsBlurred(false);
+        }
+    }, [selectedSeating]);
+
 
     const parsedSection = dataTree[selectedSection];
     const section = sections.get[selectedSection];
@@ -95,6 +106,11 @@ export default function Section(props) {
                     </div>
                 }
 
+                {
+                    isBlurred &&
+                    <div className='blur'></div>
+                }
+                
                 <img className='overlay' src={overlay} alt='' />
                 {parsedSection.image_url && <img className='section-image' src={parsedSection.image_url} alt='' />}
 
