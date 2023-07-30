@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { formatStringAsPrice } from '.././tools';
+import { formatStringAsPrice } from '../tools';
 import TableItem from './common/Table/TableItem';
 import Button from './common/Button/Button';
 import { DynamicDataContext } from '../api/DynamicData';
