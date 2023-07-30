@@ -1,6 +1,3 @@
-
-
-
 export default function Dropdown({ children, onChangeEvent, defaultValue }) {
 
     return(

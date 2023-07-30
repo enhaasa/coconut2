@@ -1,0 +1,19 @@
+.ContextMenu {
+    z-index: 99;
+    position: fixed;
+
+    background: getBackgroundColor('secondary');
+    border: 1px solid getBorderColor('standard');
+    padding: 5px;
+    border-radius: 5px;
+
+    & .title {
+        color: grey;
+        text-align: center;
+        margin: 3px 0;
+    }
+
+    & .list {
+        display: grid;
+    }
+}

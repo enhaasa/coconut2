@@ -1,0 +1,19 @@
+.SectionPointer {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    background: getPrimaryColor('dark');
+    outline: none;
+    border: none;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    border: 8px double white;
+    color: white;
+    transition: all 200ms ease !important;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

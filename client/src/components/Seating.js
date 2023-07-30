@@ -29,18 +29,23 @@ export default function Seating(props) {
     const { 
         seating, 
     } = props;
+    
     const {
         customers,
+        seatings,
     } = useContext(DynamicDataContext);
+
     const {
         itemInMovement,
         setSelectedSeating, 
+        handleContextMenu,
+        setItemInMovement,
     } = useContext(ControlStatesContext);
+
     const {
         MAX_DELIVERY_TIME,
         MAX_NAME_PREVIEW
     } = useContext(StaticDataContext);
-
 
     const isMoving = itemInMovement && itemInMovement.id === seating.id;
 
@@ -112,93 +117,106 @@ export default function Seating(props) {
         if (timeSinceLastOrder > MAX_DELIVERY_TIME) return 'destructive';
     };
 
-    return (
-        <div>          
-            <div 
-                className={`Seating ${isMoving && 'transparent ghost'}`}
-                ref={SeatingRef}
-                key={`table${seating.number}`}
-                style={{
-                    left:seating.pos_x, 
-                    top:seating.pos_y
-            }}>
+    function handleMoveSeating() {
+        setItemInMovement({...seating, moveFunction: seatings.setLocation});
+    }
 
-                <div className='upper-wrapper'>
-                    {seating.waiter !== '' &&
-                        <div className={`waiter`}>
-                            <img src={waiterIcon} alt='Waiter Icon'/> 
-                            {getFirstName(seating.waiter)}
-                        
-                        </div>
-                    }
+    const contextMenuTitle = `Seating ${seating.number}`;
+    const contextMenuOptions = [
+        {
+            name: 'Move',
+            clickEvent: handleMoveSeating
+        },
+    ];
+    
 
-                    <div className='orderinfo'>
-                        {undeliveredOrders.length > 0 && (
-                            <>
-                            <div className={`amount`}>
-                                <img src={orderIcon} alt='Order Icon' />
-                                {undeliveredOrders.length}
-                            </div>
+    return (   
+        <div 
+            className={`Seating ${isMoving && 'transparent ghost'}`}
+            ref={SeatingRef}
+            key={`table${seating.number}`}
+            style={{
+                left:seating.pos_x, 
+                top:seating.pos_y
+        }}>
 
-                            <div className={`time ${getNotificationColor()}`}>
-                                <img src={stopwatchIcon} alt='Stopwatch Icon' />
-                                {formatTime(timeSinceLastOrder)}
-                            </div>
-                            </>
-                        )}
+            <div className='upper-wrapper'>
+                {seating.waiter !== '' &&
+                    <div className={`waiter`}>
+                        <img src={waiterIcon} alt='Waiter Icon'/> 
+                        {getFirstName(seating.waiter)}
+                    
                     </div>
+                }
+
+                <div className='orderinfo'>
+                    {undeliveredOrders.length > 0 && (
+                        <>
+                        <div className={`amount`}>
+                            <img src={orderIcon} alt='Order Icon' />
+                            {undeliveredOrders.length}
+                        </div>
+
+                        <div className={`time ${getNotificationColor()}`}>
+                            <img src={stopwatchIcon} alt='Stopwatch Icon' />
+                            {formatTime(timeSinceLastOrder)}
+                        </div>
+                        </>
+                    )}
+                </div>
+            </div>
+            
+            {false &&
+                <div className='editing'>
+                    <p className='dots'><span>&bull;</span><span>&bull;</span><span>&bull;</span></p>
+                </div>}
+
+            <button 
+                className={`number-display ${seatingnumberColor()}`}
+                onClick={() => {handleSetSelectedSeating(seating)}}
+                onContextMenu={(event) => handleContextMenu(event, contextMenuOptions, contextMenuTitle)}
+                >
+
+                <div className='is-photography-container'>
+                    <span className='is-photography'>
+                        {seating.is_photography ? 
+                        
+                            <div className=''>
+                                <img src={cameraIcon} alt='Camera Icon' /> 
+                            </div>
+                            : ''}
+                    </span>
                 </div>
                 
-                {false &&
-                    <div className='editing'>
-                        <p className='dots'><span>&bull;</span><span>&bull;</span><span>&bull;</span></p>
-                    </div>}
-
-                <button 
-                    className={`number-display ${seatingnumberColor()}`}
-                    onClick={() => {handleSetSelectedSeating(seating)}}>
-
-                    <div className='is-photography-container'>
-                        <span className='is-photography'>
-                            {seating.is_photography ? 
-                            
-                                <div className=''>
-                                    <img src={cameraIcon} alt='Camera Icon' /> 
-                                </div>
-                                : ''}
-                        </span>
-                    </div>
-                    
-                    <div className='unpaid-tab-container '>
-                        <span className='unpaid-tab'>
-                            {deliveredOrders.length > 0 ? 
-                            
-                                <div className=''>
-                                    <img src={unPaidTabIcon} alt='Unpaid Tab Icon' /> 
-                                </div>
-                                : ''}
-                        </span>
-                    </div>
-                    
-                    <span className='number'>
-                        {seating.number}
+                <div className='unpaid-tab-container '>
+                    <span className='unpaid-tab'>
+                        {deliveredOrders.length > 0 ? 
+                        
+                            <div className=''>
+                                <img src={unPaidTabIcon} alt='Unpaid Tab Icon' /> 
+                            </div>
+                            : ''}
                     </span>
-                </button>
+                </div>
+                
+                <span className='number'>
+                    {seating.number}
+                </span>
+            </button>
 
-                <div className='lower-wrapper'>
-                    <div className='customers'>
-                        {noBlankNames.map((customer, index) => ( 
-                            index < MAX_NAME_PREVIEW &&
-                                <div className='customer' key={customer.id}>
-                                    <img src={userIcon} alt='Customer Icon'/>
-                                    {`${getFirstName(customer.name)} ${getLastNames(customer.name).join('').charAt(0)}`}
-                                </div>
-                        ))}
-                        {totalAdditions > 0 && 
-                            <div className='customer'>+ {totalAdditions} 
-                            <img src={userIcon} alt='Customer Icon'/>
-                        </div>}
-                    </div>
+            <div className='lower-wrapper'>
+                <div className='customers'>
+                    {noBlankNames.map((customer, index) => ( 
+                        index < MAX_NAME_PREVIEW &&
+                            <div className='customer' key={customer.id}>
+                                <img src={userIcon} alt='Customer Icon'/>
+                                {`${getFirstName(customer.name)} ${getLastNames(customer.name).join('').charAt(0)}`}
+                            </div>
+                    ))}
+                    {totalAdditions > 0 && 
+                        <div className='customer'>+ {totalAdditions} 
+                        <img src={userIcon} alt='Customer Icon'/>
+                    </div>}
                 </div>
             </div>
         </div>

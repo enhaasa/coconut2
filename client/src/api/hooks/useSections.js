@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import useSocketListener from './../useSocketListener';
 
-
 export default function useSections(init, props) {
     const { socket } = props;
 

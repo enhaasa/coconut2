@@ -1,10 +1,14 @@
 import React, { useRef, useContext, useEffect } from 'react';
 
+//Tools
+import uuid from 'react-uuid';
+
 //Hooks
 import usePixelClick from '../api/usePixelClick';
 
 //Components
 import Seating from './Seating';
+import SectionPointer from './SectionPointer';
 
 //Contexts
 import { DynamicDataContext } from '../api/DynamicData';
@@ -22,6 +26,7 @@ export default function Section(props) {
         seatings,
         dataTree,
         sections,
+        sectionPointers,
     } = useContext(DynamicDataContext);
     
     const {
@@ -39,6 +44,9 @@ export default function Section(props) {
 
     function handleMoveItem(event) {
         if (itemInMovement) {
+
+            const { moveFunction } = itemInMovement;
+            
             const [ x, y ] = getVectorPoint(event);
 
             const newLocation = {
@@ -47,8 +55,9 @@ export default function Section(props) {
                 section_id: section.id
             }
 
-            seatings.setLocation(itemInMovement, newLocation);
+            moveFunction(itemInMovement, newLocation);
             setItemInMovement(null);
+            
         }
     }
 
@@ -78,15 +87,13 @@ export default function Section(props) {
     });
 
     return (
-            <div className={`Section ${itemInMovement && 'moving-item-mode'}`} onClick={handleMoveItem} ref={SectionRef} >
-                
+            <div className={`Section ${itemInMovement && 'moving-item-mode'}`} onClick={handleMoveItem} ref={SectionRef} >  
                 {
                     itemInMovement &&
                     <div className='moving-item-mode-info'>
                         Moving item. Press ESC to cancel.
                     </div>
                 }
-            
 
                 <img className='overlay' src={overlay} alt='' />
                 {parsedSection.image_url && <img className='section-image' src={parsedSection.image_url} alt='' />}
@@ -100,6 +107,13 @@ export default function Section(props) {
                             key={seating.id}
                         />
                     )) 
+                }
+
+                {
+                    sectionPointers.get.map(sectionPointer => (
+                        sectionPointer.section_id === section.id &&
+                        <SectionPointer key={uuid()} sectionPointer={sectionPointer}/>
+                    ))
                 }
             
             </div>

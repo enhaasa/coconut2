@@ -12,6 +12,7 @@
     filter: blur(0);
     z-index: 3;
     white-space: nowrap;
+    transition: all 100ms ease-in-out;
 
     & .upper-wrapper {
       display: flex;
@@ -73,7 +74,6 @@
       & .customers {
         display: grid;
         justify-items: center;
-        gap: 1px;
         text-align: center;
         padding: 0;
 
@@ -84,10 +84,10 @@
           box-shadow: getBoxShadow('outer');
           background: getBackgroundColor('primary');
           color: white;
-          padding: 1px 5px;
+          padding: 0 5px;
           border-radius: 10px;
-          outline: 2px solid black;
-          margin: 2px;
+          outline: 2px solid getBorderColor('standard');
+          margin: 1px;
           font-size: 14px;
 
           img {
@@ -158,7 +158,7 @@
         border-radius: 100%;
         border: 6px double black;
         box-shadow: getBoxShadow('inner');
-        transition: all 100ms ease-in-out;
+        transition: all 200ms ease-in-out;
 
         width: 70px;
         height: 70px;

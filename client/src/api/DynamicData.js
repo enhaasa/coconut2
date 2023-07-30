@@ -1,5 +1,6 @@
 import React, { useMemo, createContext, useEffect } from 'react';
 import useSections from './hooks/useSections';
+import useSectionPointers from './hooks/useSectionPointers';
 import useSeatings from './hooks/useSeatings';
 import useArchivedSessions from './hooks/useArchivedSessions';
 import useOrders from './hooks/useOrders';
@@ -7,6 +8,7 @@ import useCustomers from './hooks/useCustomers';
 import useTips from './hooks/useTips';
 import useMenu from './hooks/useMenu';
 import useStaff from './hooks/useStaff';
+
 
 const DynamicDataContext = createContext();
 
@@ -20,6 +22,10 @@ function DynamicDataProvider({ children, socket, selectedSeatingTracker, setSele
   const [ sections ] = useSections([], {
       socket: socket
   });
+
+  const [ sectionPointers ] = useSectionPointers([], {
+    socket: socket
+  })
 
   const [ seatings ] = useSeatings([], {
       selectedSeatingTracker: selectedSeatingTracker, 
@@ -105,10 +111,10 @@ function DynamicDataProvider({ children, socket, selectedSeatingTracker, setSele
       return [...getDataTree()];
   }, [sections.get, seatings.get, customers.get, orders.get]);
 
-
   useEffect(() => {
       if (socket) {
           sections.refresh();
+          sectionPointers.refresh();
           seatings.refresh();
           orders.refresh();
           customers.refresh();
@@ -125,6 +131,7 @@ function DynamicDataProvider({ children, socket, selectedSeatingTracker, setSele
               orders,
               customers,
               sections, 
+              sectionPointers,
               tips,
               seatings,
               menu,

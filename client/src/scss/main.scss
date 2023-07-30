@@ -14,6 +14,8 @@
 @import './../components/common/Dropdown/DropdownItem';
 @import './../components/common/CloseButton/CloseButton';
 @import './../components/common/IconButton/IconButton';
+@import './../components/common/ContextMenu/ContextMenu';
+@import './../components/common/ContextMenu/ContextMenuItem';
 
 //Components
 @import 'index';
@@ -36,6 +38,8 @@
 @import 'Receipt';
 @import 'TopNav';
 @import 'Customer';
+@import 'SectionPointer';
+
 
 main {
     display: grid;

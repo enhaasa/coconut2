@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import useContextMenu from './hooks/useContextMenu';
 
 const ControlStatesContext = createContext();
 
@@ -9,6 +10,7 @@ function ControlStatesProvider({ children }) {
     const [ selectedSeating, setSelectedSeating ] = useState(null);
     const [ selectedCustomerManager, setSelectedCustomerManager ] = useState(null);
     const [ itemInMovement, setItemInMovement ] = useState(null);
+    const [ contextMenu, handleContextMenu, hideContextMenu ] = useContextMenu();
 
     return (
         <ControlStatesContext.Provider value={{
@@ -17,12 +19,15 @@ function ControlStatesProvider({ children }) {
             selectedSeating,
             selectedCustomerManager,
             itemInMovement,
+            contextMenu,
 
             setSelectedSection,
             setSelectedCustomer,
             setSelectedSeating,
             setSelectedCustomerManager,
-            setItemInMovement
+            setItemInMovement,
+            handleContextMenu,
+            hideContextMenu,
         }}>
             {children}
         </ControlStatesContext.Provider>    

@@ -4,6 +4,9 @@ import React, { useLayoutEffect, useState, useRef, useContext, useEffect }from '
 import { DynamicDataContext } from '../api/DynamicData';
 import { ControlStatesContext } from '../api/ControlStates';
 
+//Tools
+import uuid from 'react-uuid';
+
 //Components
 import OrderManager from './OrderManager';
 import TabManager from './TabManager';
@@ -96,7 +99,7 @@ export default function SeatingManager(props) {
     }
 
     function handleMoveSeating() {
-        setItemInMovement(selectedSeating);
+        setItemInMovement({...seating, moveFunction: seatings.setLocation});
         setSelectedSeating(null);
     }
 
@@ -114,7 +117,7 @@ export default function SeatingManager(props) {
         }
     }
       
-    function resetSeating() {
+    function handleResetSeating() {
         openConfirmBox({
             callback: function(){
                 seatings.reset(seating);
@@ -145,7 +148,7 @@ export default function SeatingManager(props) {
                             onChangeEvent={({target}) => {seatings.setAttribute(seating, 'waiter', target.value)}}>
                             {staff.get.map(member => (
                                 member.positions.includes('waiter') &&
-                                <DropdownItem>{member.name}</DropdownItem>
+                                <DropdownItem key={uuid()}>{member.name}</DropdownItem>
                             ))}
                             
                         </Dropdown>
@@ -243,7 +246,7 @@ export default function SeatingManager(props) {
                     Move Table
                 </Button>
 
-                <Button type='destructive' clickEvent={resetSeating}>
+                <Button type='destructive' clickEvent={handleResetSeating}>
                     <img src={resetIcon} alt='Reset Icon'/> Reset Table
                 </Button>
             </section>

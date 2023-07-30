@@ -42,7 +42,7 @@ export default function useMenu(init, props) {
     return [
         {
             get: menu,
-            refresh: refresh
+            refresh
         }
     ]
 }

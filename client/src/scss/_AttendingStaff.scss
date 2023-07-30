@@ -2,6 +2,10 @@
     display: grid;
     align-content: space-between;
     height: 100%;
+
+    & .list {
+        margin: 5px;
+    }
     
     & .bottom-list {
         margin-top: 5px;

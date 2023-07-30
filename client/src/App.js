@@ -5,16 +5,17 @@ import io from 'socket.io-client';
 import Payouts from './views/Payouts';
 import SectionManager from './views/SectionManager';
 import TopNav from './components/TopNav';
+import Main from './components/Main';
 
 //Tools
 import uuid from 'react-uuid';
 
-//BACKEND_PLACEHOLDER
+//Contexts
 import { DynamicDataProvider } from './api/DynamicData';
 import { ControlStatesProvider } from './api/ControlStates';
 import { StaticDataContextProvider } from './api/StaticData';
 
-function App() {
+export default function App() {
 
   const [ socket, setSocket ] = useState(null);
   
@@ -50,28 +51,7 @@ function App() {
 
   return (
     <>
-      {/*
-        <div className='app-info'>
-          <span className='logo'>
-            <img src={logo} alt='' />
-          </span>
-      
-          <span className='text'>
-            <span className='title cursive'>Coconut</span>
-            <span className='version'>by Enhasa</span>
-          </span>
-        </div>
 
-        
-
-        {isBlurred === true &&
-            <div className='blur' />
-            }
-      */}
-
-      
-
-      <main>
         {socket && 
               <ControlStatesProvider>
                 <StaticDataContextProvider>
@@ -79,25 +59,27 @@ function App() {
                     socket={socket} 
                     selectedSeatingTracker={selectedSeatingTracker} 
                     setSelectedCustomer={setSelectedCustomer}>
-                      
-                    <TopNav></TopNav>
 
-                    <SectionManager 
-                      key={uuid()}
-                      isBlurred={isBlurred}
-                    />
+                    <Main>
+                      <TopNav />
 
-                    <Payouts 
-                      setIsBlurred={setIsBlurred}
-                    />
+                      <SectionManager 
+                        key={uuid()}
+                        isBlurred={isBlurred}
+                      />
+
+                      <Payouts 
+                        setIsBlurred={setIsBlurred}
+                      />
+
+                    </Main>
+                    
                   </DynamicDataProvider>
                 </StaticDataContextProvider>
               </ControlStatesProvider>
         }
-      </main>
+
     </>
 
   );
 }
-
-export default App;

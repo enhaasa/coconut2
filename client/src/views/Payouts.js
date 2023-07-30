@@ -121,7 +121,7 @@ export default function Payouts(props) {
                             <Dropdown onChangeEvent={({ target }) => {setSelectedFilter(target.selectedIndex)}}>
                                  {
                                     receiptFilters.map(filter => (
-                                        <DropdownItem>{filter.title}</DropdownItem>
+                                        <DropdownItem key={uuid()}>{filter.title}</DropdownItem>
                                     ))
                                  }
                             </Dropdown>
