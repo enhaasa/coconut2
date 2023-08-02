@@ -8,6 +8,7 @@ export default function useContextMenu() {
 
     const handleContextMenu = useCallback((event, newContent, newTitle) => {
         event.preventDefault();
+        event.stopPropagation();
 
         const { clientX, clientY } = event; // Mouse coordinates
         setPosX(clientX);

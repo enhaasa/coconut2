@@ -13,9 +13,6 @@ import closeIcon from './../../assets/icons/close.png';
 export default function MenuInfoModal(props) {
     const { item, handleItemInfo } = props;
 
-    console.log(item)
-
-    
     const InfoBoxRef = useRef();
     useLayoutEffect(() => {
         gsap.from(InfoBoxRef.current, animations.softElastic);

@@ -10,7 +10,7 @@ import usePixelClick from '../../api/usePixelClick';
 import Seating from '../Seating/Seating';
 import SectionPointer from '../SectionPointer/SectionPointer';
 import Modal from '../common/Modal/Modal';
-import EditSectionPointerModal from '../SectionPointer/EditSectionPointerModal';
+import AddSeatingModal from '../Seating/AddSeatingModal';
 
 //Contexts
 import { DynamicDataContext } from '../../api/DynamicData';
@@ -37,9 +37,10 @@ export default function Section(props) {
         setSelectedSeating,
         selectedSection,
         selectedSeating,
+        handleContextMenu,
     } = useContext(ControlStatesContext);
 
-    const [ modal, setModal ] = useState(<EditSectionPointerModal />);
+    const [ modal, setModal ] = useState(null);
     const [ isBlurred, setIsBlurred ] = useState(false);
     useEffect(() => {
         if (selectedSeating || modal) {
@@ -51,6 +52,21 @@ export default function Section(props) {
 
     const parsedSection = dataTree[selectedSection];
     const section = sections.get[selectedSection];
+
+    const contextMenuTitle = 'Create New';
+    const contextMenuOptions = [
+        {
+            name: 'Table',
+            clickEvent: () => setModal(
+                <Modal closeButtonEvent={() => setModal(null)} title='Create New Table'>
+                    <AddSeatingModal setModal={setModal} />
+                </Modal>
+            )
+        }, {
+            name: 'Section Pointer',
+            clickEvent: () => console.log('section pointer')
+        }
+    ];
 
     const getVectorPoint = usePixelClick();
 
@@ -95,11 +111,16 @@ export default function Section(props) {
     });
 
     return (
-            <div className={`Section ${itemInMovement && 'moving-item-mode'}`} onClick={handleMoveItem} ref={SectionRef} >
-
+        <>
+            <div 
+                className={`Section ${itemInMovement && 'moving-item-mode'}`} 
+                onClick={handleMoveItem} 
+                ref={SectionRef}
+                onContextMenu={(event) => handleContextMenu(event, contextMenuOptions, contextMenuTitle)}
+                >
+                
                 {
-                    modal && 
-                    <Modal closeButtonEvent={() => setModal(null)}>{modal}</Modal>
+                    modal && modal
                 }
 
                 {
@@ -139,5 +160,6 @@ export default function Section(props) {
                 }
             
             </div>
+        </>
     );
 }

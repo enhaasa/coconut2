@@ -32,7 +32,7 @@ class ArchivedSessions {
             Database.update(this.table, 'amount_paid', amount, 'id', session.id);
             io.emit('setArchivedSessionAmountPaid', data);
         } catch (error) {
-            console.log("Garbage data provided. Aborting request.");
+            console.log('Garbage data provided. Aborting request.');
             console.log(error);
         }
     }

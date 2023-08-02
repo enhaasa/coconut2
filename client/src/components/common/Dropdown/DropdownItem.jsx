@@ -1,7 +1,7 @@
-export default function DropdownItem({ children }) {
+export default function DropdownItem({ children, value }) {
 
     return(
-        <option className='DropdownItem'>
+        <option value={value} className='DropdownItem'>
             {children}
         </option>
     )

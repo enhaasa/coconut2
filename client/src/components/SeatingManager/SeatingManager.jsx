@@ -103,6 +103,20 @@ export default function SeatingManager(props) {
         setSelectedSeating(null);
     }
 
+    function handleRemove() {
+
+        openConfirmBox({
+            callback: function(){
+                setSelectedSeating(null);
+                seatings.remove(selectedSeating);
+                closeConfirmBox();
+            },
+            closeConfirmBox: function(){closeConfirmBox()},
+            title: 'Danger danger danger!',
+            message: `This will kill all customers, cancel all orders, and permanently destroy the table (no undo).`
+        })
+    }
+
     const customersInSeating = seating.customers;
 
     let deliveredOrdersInSeating = [];
@@ -242,13 +256,21 @@ export default function SeatingManager(props) {
             </section>
 
             <section className='navbar-bottom'>
-                <Button type='dark' clickEvent={handleMoveSeating}>
-                    Move Table
-                </Button>
+                <span className='column'>
+                    <Button type='destructive' clickEvent={handleRemove}>
+                        Delete
+                    </Button>
 
-                <Button type='destructive' clickEvent={handleResetSeating}>
-                    <img src={resetIcon} alt='Reset Icon'/> Reset Table
-                </Button>
+                    <Button type='dark' clickEvent={handleMoveSeating}>
+                        Move
+                    </Button>
+                </span>
+
+                <span className='column'>
+                    <Button type='destructive' clickEvent={handleResetSeating}>
+                        <img src={resetIcon} alt='Reset Icon'/> Reset Table
+                    </Button>
+                </span>
             </section>
         </div>
     );

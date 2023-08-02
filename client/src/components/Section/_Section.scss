@@ -1,6 +1,8 @@
 .SectionContainer {
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 0;
 
   & .Section {
     transform: scale(1);
@@ -39,5 +41,14 @@
       position: absolute;
       z-index: -1;
     }
+  }
+
+  & .context-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
   }
 }

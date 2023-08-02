@@ -11,6 +11,11 @@ export default function useSeats(init, props) {
         getSeatings: (seatings) => {
             setSeatings(seatings);
         },
+        addSeating: (seating) => {
+            setSeatings(prev => (
+                [...prev, seating]
+            ))
+        },
         setSeatingAttribute: (data) => {
             const { seating, attribute, value } = data;
             const index = seatings.findIndex(t => t.id === seating.id);
@@ -42,10 +47,19 @@ export default function useSeats(init, props) {
                 
                 return [...prev];
             })
+        },
+        removeSeating: (seating) => {
+            setSeatings(prev => (
+                prev.filter(s => s.id !== seating.id)
+            ));
         }
     }
 
     useSocketListener(socket, eventHandlers);
+
+    function add(section, number) {
+        socket.emit('addSeating', {section, number});
+    }
 
     function toggleAttribute(seating, attribute) {
         const current = seatings.find(t => t.id === seating.id)[attribute];
@@ -64,6 +78,10 @@ export default function useSeats(init, props) {
         socket.emit('resetSeating', { ...seating })
     }
 
+    function remove(seating) {
+        socket.emit('removeSeating', seating);
+    }
+
     function refresh() {
         socket.emit('getSeatings');
     }
@@ -72,6 +90,8 @@ export default function useSeats(init, props) {
         {
             get: seatings,
             set: setSeatings,
+            add,
+            remove,
             reset,
             toggleAttribute,
             setAttribute,

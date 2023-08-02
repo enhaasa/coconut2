@@ -42,7 +42,7 @@ export class Orders {
             uuid: uuid(),
         }
         
-        const new_order_id = await Database.add(this.table, parsed_order, "id");
+        const new_order_id = await Database.add(this.table, parsed_order, 'id');
 
         io.emit('addOrder', {...parsed_order, id: new_order_id});
     }

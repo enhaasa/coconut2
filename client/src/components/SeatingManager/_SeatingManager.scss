@@ -108,6 +108,11 @@
     justify-content: space-between;
     margin-top: 8px;
 
+    & .column {
+      display: flex;
+      gap: 5px;
+    }
+
     & .reset-button {
       display: flex;
       align-items: start;

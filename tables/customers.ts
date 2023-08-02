@@ -1,6 +1,5 @@
 import Database from './../database';
 import { Socket, Server } from 'socket.io';
-import { Time } from '../dbTools_server';
 import { Customer } from '../shared/types';
 
 module.exports = function registerHandlers(io) {
@@ -14,7 +13,6 @@ module.exports = function registerHandlers(io) {
     }));
 }
 
-
 export default class Customers {
     private static table = 'customers';
 
@@ -25,11 +23,7 @@ export default class Customers {
     }
 
     public static async add(io: Server, customer: Customer) {
-
         const new_customer_id = await Database.add(this.table, customer, 'id');
-
-        console.log(new_customer_id[0].id)
-
     
         io.emit('addCustomer', {...customer, id: new_customer_id[0].id});
     }
@@ -44,7 +38,6 @@ export default class Customers {
             );
         `;
 
-        
         const deleteOrdersQuery = 'DELETE FROM "orders" WHERE "customer_id" = $1';
         const deleteCustomerQuery = 'DELETE FROM "customers" WHERE "id" = $1';
         

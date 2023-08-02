@@ -458,6 +458,8 @@ button:active, select:active, option:active {
 .SectionContainer {
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 0;
 }
 .SectionContainer .Section {
   transform: scale(1);
@@ -490,6 +492,14 @@ button:active, select:active, option:active {
   transform: scale(1);
   position: absolute;
   z-index: -1;
+}
+.SectionContainer .context-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .ReceiptManager {
@@ -881,6 +891,10 @@ button:active, select:active, option:active {
   align-items: center;
   justify-content: space-between;
   margin-top: 8px;
+}
+.SeatingManagerContainer .navbar-bottom .column {
+  display: flex;
+  gap: 5px;
 }
 .SeatingManagerContainer .navbar-bottom .reset-button {
   display: flex;
@@ -1303,6 +1317,31 @@ button:active, select:active, option:active {
   gap: 50px;
 }
 .EditSectionPointerModal .bottom-nav {
+  display: flex;
+  padding-top: 5px;
+  border-top: 1px solid #0e0e0e;
+}
+
+.AddSeatingModal {
+  background: #2c2c2c;
+  padding: 10px;
+  display: grid;
+  gap: 5px;
+}
+.AddSeatingModal .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+.AddSeatingModal .row .selector input {
+  background: none;
+  border: none;
+  border-bottom: 1px solid white;
+  outline: none;
+  color: white;
+}
+.AddSeatingModal .bottom-nav {
   display: flex;
   padding-top: 5px;
   border-top: 1px solid #0e0e0e;

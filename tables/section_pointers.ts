@@ -5,6 +5,8 @@ module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getSectionPointers', () => SectionPointers.get(socket));
         socket.on('setSectionPointerLocation', (data) => SectionPointers.setLocation(io, data));
+        socket.on('setSectionPointerAttribute', (data) => SectionPointers.setAttribute(io, data)); 
+        socket.on('removeSectionPointer', (sectionPointer) => SectionPointers.remove(io, sectionPointer));
     }));
 }
 
@@ -20,7 +22,7 @@ class SectionPointers {
         `;
         const result = await Database.query(query);
 
-        socket.emit('getSectionPointers', result)
+        socket.emit('getSectionPointers', result);
     }
 
     public static async setLocation(io: Server, data) {
@@ -43,5 +45,22 @@ class SectionPointers {
         } catch(err) {
             console.log(err);
         }
+    }
+
+    public static async setAttribute(io: Server, data) {
+        try {
+            const { sectionPointer, attribute, value } = data;
+
+            Database.update(this.table, attribute, value, 'id', sectionPointer.id);
+            io.emit('setSectionPointerAttribute', data);
+        } catch(err) {
+            console.log(err);
+        }
+
+    }
+
+    public static async remove(io: Server, sectionPointer) {
+        Database.remove(this.table, 'id', sectionPointer.id);
+        io.emit('removeSectionPointer', sectionPointer);
     }
 }

@@ -19,7 +19,23 @@ export default function useSectionPointers(init, props) {
                 prev[index].section_id = newLocation.section_id;
                 
                 return [...prev];
-            })
+            });
+        },
+        setSectionPointerAttribute: (data) => {
+            const { sectionPointer, attribute, value } = data;
+            const index = sectionPointers.findIndex(sp => sp.id === sectionPointer.id);
+
+            setSectionPointers(prev => {
+                prev[index][attribute] = value;
+                return [...prev];
+            });
+        },
+        removeSectionPointer: (sectionPointer) => {
+            setSectionPointers(prev => (
+                prev.filter(s => (
+                    s.id !== sectionPointer.id
+                ))
+            ));
         }
     }
     
@@ -33,10 +49,20 @@ export default function useSectionPointers(init, props) {
         socket.emit('setSectionPointerLocation', { sectionPointer, newLocation });
     }
 
+    async function setAttribute(sectionPointer, attribute, value) {
+        socket.emit('setSectionPointerAttribute', { sectionPointer, attribute, value });
+    }
+
+    async function remove(sectionPointer) {
+        socket.emit('removeSectionPointer', sectionPointer);
+    }
+
     return [
         {
             get: sectionPointers,
             setLocation,
+            setAttribute,
+            remove,
             refresh
         }
     ]

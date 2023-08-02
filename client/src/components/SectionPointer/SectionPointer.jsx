@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { ControlStatesContext } from "../../api/ControlStates";
 import { DynamicDataContext } from '../../api/DynamicData';
 import EditSectionPointerModal from './EditSectionPointerModal';
+import Modal from '../common/Modal/Modal';
 
 //Icons
 import barIcon from './../../assets/icons/drinks-white.png';
@@ -30,6 +31,10 @@ export default function SectionPointer(props) {
         {
             name: 'bar',
             icon: barIcon
+        },
+        {
+            name: 'seating',
+            icon: barIcon
         }
     ]
 
@@ -43,11 +48,15 @@ export default function SectionPointer(props) {
     const contextMenuTitle = `Section pointer for: ${sectionPointer.name}`;
     const contextMenuOptions = [
         {
+            name: 'Edit',
+            clickEvent: () => setModal(
+                <Modal closeButtonEvent={() => setModal(null)} title={'Section Pointer'}>
+                    <EditSectionPointerModal setModal={setModal} sectionPointer={sectionPointer} />
+                </Modal>
+                )
+        }, {
             name: 'Move',
             clickEvent: handleMoveSectionPointer
-        }, {
-            name: 'Edit',
-            clickEvent: () => setModal(<EditSectionPointerModal />)
         },
     ];
 

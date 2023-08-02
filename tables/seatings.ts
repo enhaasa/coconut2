@@ -7,6 +7,8 @@ module.exports = function registerHandlers(io) {
         socket.on('setSeatingAttribute', (data) => Seatings.setAttribute(io, data));
         socket.on('resetTSeating', (seating) => Seatings.reset(io, seating));
         socket.on('setSeatingLocation', (data) => Seatings.setLocation(io, data));
+        socket.on('addSeating', (data) => Seatings.add(io, data));
+        socket.on('removeSeating', (seating) => Seatings.remove(io, seating));
     }));
 }
 
@@ -84,8 +86,39 @@ export class Seatings {
             
         } catch(err) {
             console.log(err);
-        }
+        }    
+    }
 
+    public static async add(io: Server, data) {
+        try {
+            const { section, number } = data;
+            const parsedSeating = {
+                pos_x: 0,
+                pos_y: 0,
+                is_reserved: false,
+                is_available: true,
+                is_photography: false,
+                realm_id: 1,
+                section_id: section.id,
+                number: number,
+                waiter: ''
+            };
     
+            const res = await Database.add(this.table, parsedSeating, 'id');
+            const id = res[0].id;
+            io.emit('addSeating', {...parsedSeating, id});
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    public static async remove(io: Server, seating) {
+        try {
+            this.reset(io, seating);
+            Database.remove(this.table, 'id', seating.id);
+            io.emit('removeSeating', seating);
+        } catch(err) {
+            console.log(err);
+        }
     }
 }
