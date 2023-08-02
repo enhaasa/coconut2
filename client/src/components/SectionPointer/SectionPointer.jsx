@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { ControlStatesContext } from "../../api/ControlStates";
 import { DynamicDataContext } from '../../api/DynamicData';
 import EditSectionPointerModal from './EditSectionPointerModal';
+import AddSectionPointerModal from './AddSectionPointerModal';
 import Modal from '../common/Modal/Modal';
 
 //Icons
@@ -17,7 +18,7 @@ export default function SectionPointer(props) {
 
     const {
         sections,
-        sectionPointers
+        sectionPointers,
     } = useContext(DynamicDataContext);
 
     const {
@@ -35,8 +36,8 @@ export default function SectionPointer(props) {
         {
             name: 'seating',
             icon: barIcon
-        }
-    ]
+        },
+    ];
 
     const isMoving = itemInMovement && itemInMovement.id === sectionPointer.id;
     const icon = types.find(t => t.name === sectionPointer.type).icon;
@@ -50,9 +51,9 @@ export default function SectionPointer(props) {
         {
             name: 'Edit',
             clickEvent: () => setModal(
-                <Modal closeButtonEvent={() => setModal(null)} title={'Section Pointer'}>
-                    <EditSectionPointerModal setModal={setModal} sectionPointer={sectionPointer} />
-                </Modal>
+                    <Modal closeButtonEvent={() => setModal(null)} title={'Section Pointer'}>
+                        <EditSectionPointerModal setModal={setModal} sectionPointer={sectionPointer} />
+                    </Modal>
                 )
         }, {
             name: 'Move',
@@ -66,17 +67,15 @@ export default function SectionPointer(props) {
     }
 
     return (
-        <>
-            <button 
-                className={`SectionPointer ${isMoving && 'transparent ghost'}`}
-                onClick={handleClick}
-                onContextMenu={(event) => {handleContextMenu(event, contextMenuOptions, contextMenuTitle)}}
-                style={{
-                    left: sectionPointer.pos_x, 
-                    top: sectionPointer.pos_y 
-                }}>
-                <img src={icon} alt='Section Pointer Icon' />
-            </button>
-        </>
+        <button 
+            className={`SectionPointer ${isMoving && 'transparent ghost'}`}
+            onClick={handleClick}
+            onContextMenu={(event) => {handleContextMenu(event, contextMenuOptions, contextMenuTitle)}}
+            style={{
+                left: sectionPointer.pos_x, 
+                top: sectionPointer.pos_y 
+            }}>
+            <img src={icon} alt='Section Pointer Icon' />
+        </button>
     )
 }

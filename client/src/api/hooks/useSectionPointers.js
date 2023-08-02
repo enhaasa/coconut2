@@ -36,6 +36,11 @@ export default function useSectionPointers(init, props) {
                     s.id !== sectionPointer.id
                 ))
             ));
+        },
+        addSectionPointer: (sectionPointer) => {
+            setSectionPointers(prev => (
+                [...prev, sectionPointer]
+            ));
         }
     }
     
@@ -53,6 +58,10 @@ export default function useSectionPointers(init, props) {
         socket.emit('setSectionPointerAttribute', { sectionPointer, attribute, value });
     }
 
+    async function add(sectionPointer) {
+        socket.emit('addSectionPointer', sectionPointer);
+    }
+
     async function remove(sectionPointer) {
         socket.emit('removeSectionPointer', sectionPointer);
     }
@@ -62,8 +71,9 @@ export default function useSectionPointers(init, props) {
             get: sectionPointers,
             setLocation,
             setAttribute,
+            add,
             remove,
-            refresh
+            refresh,
         }
     ]
 

@@ -18,6 +18,7 @@ import { ControlStatesContext } from '../../api/ControlStates';
 
 //Images
 import overlay from './../../assets/icons/dark-fabric.png';
+import AddSectionPointerModal from '../SectionPointer/AddSectionPointerModal';
 
 export default function Section(props) {
     const {
@@ -64,7 +65,11 @@ export default function Section(props) {
             )
         }, {
             name: 'Section Pointer',
-            clickEvent: () => console.log('section pointer')
+            clickEvent: () => setModal(
+                <Modal closeButtonEvent={() => setModal(null)} title='Create New Section Pointer'>
+                    <AddSectionPointerModal setModal={setModal} section={section}/>
+                </Modal>
+            )
         }
     ];
 

@@ -11,7 +11,7 @@ import { DynamicDataContext } from '../../api/DynamicData';
 //Tools
 import uuid from 'react-uuid';
 
-export default function EditSectionPointerModal({setModal, sectionPointer}) {
+export default function AddSectionPointerModal({ setModal, section }) {
 
     const {
         sections,
@@ -22,8 +22,8 @@ export default function EditSectionPointerModal({setModal, sectionPointer}) {
         return sections.get.find(section => section.id === ID);
     }
 
-    const [ selectedType, setSelectedType ] = useState(sectionPointer.type);
-    const [ selectedTargetSection, setSelectedTargetSection ] = useState(getSectionByID(sectionPointer.target_section_id));
+    const [ selectedType, setSelectedType ] = useState('bar');
+    const [ selectedTargetSection, setSelectedTargetSection ] = useState(section);
 
     function handleTargetSection(target) {
         setSelectedTargetSection(getSectionByID(parseInt(target.value)));
@@ -33,20 +33,18 @@ export default function EditSectionPointerModal({setModal, sectionPointer}) {
         setSelectedType(type);
     }
 
-    function handleRemove() {
-        sectionPointers.remove(sectionPointer);
-        setModal(null);
-    }
-
     function handleSubmit() {
-        if (selectedType !== sectionPointer.type) {
-            sectionPointers.setAttribute(sectionPointer, 'type', selectedType);
-        }
 
-        if (selectedTargetSection !== sectionPointer.target_section_id) {
-            sectionPointers.setAttribute(sectionPointer, 'target_section_id', selectedTargetSection.id);
-        }
+        //if (!selectedType) return;
+        //if (!selectedTargetSection) return;
 
+        const sectionPointer = {
+            section_id: section.id,
+            target_section_id: selectedTargetSection.id,
+            type: selectedType,
+        };
+
+        sectionPointers.add(sectionPointer)
         setModal(null);
     }
 
@@ -80,8 +78,8 @@ export default function EditSectionPointerModal({setModal, sectionPointer}) {
                 </span>
             </div>
             <div className='row bottom-nav'>
-                <Button type='destructive' clickEvent={handleRemove}>Delete</Button>
-                <Button type='constructive' clickEvent={handleSubmit}>Save</Button>
+                <Button type='neutral' clickEvent={() => setModal(null)}>Cancel</Button>
+                <Button type='constructive' clickEvent={handleSubmit}>Create</Button>
             </div>
         </div>
     )
