@@ -1,0 +1,30 @@
+.TipModal {
+    padding: 10px;
+    display: grid;
+    grid-gap: 5px;
+
+    & .row {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    & input {
+        background: none;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid getPrimaryColor('popping');
+        color: white;
+        font-size: 16px;
+
+        &::placeholder {
+            color: grey;
+        }
+    }
+
+    & .submit-container {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+}

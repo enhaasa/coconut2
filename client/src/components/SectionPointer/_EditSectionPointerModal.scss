@@ -1,0 +1,20 @@
+.EditSectionPointerModal {
+    background: getBackgroundColor('secondary');
+    padding: 10px;
+    display: grid;
+    gap: 5px;
+
+    & .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 50px;
+        
+    }
+
+    & .bottom-nav {
+        display: flex;
+        padding-top: 5px;
+        border-top: 1px solid getBorderColor('standard');
+    }
+}

@@ -1,3 +1,4 @@
+//Themes
 @import './themes/default__colors';
 @import './themes/default__fonts';
 @import './themes/default__decorations';
@@ -16,30 +17,32 @@
 @import './../components/common/IconButton/IconButton';
 @import './../components/common/ContextMenu/ContextMenu';
 @import './../components/common/ContextMenu/ContextMenuItem';
+@import './../components/common/ConfirmBox/ConfirmBox';
+@import './../components/common/Modal/Modal';
+
+//Views
+@import './../views/SectionManager/SectionManager';
+@import './../views/Payouts/Payouts';
 
 //Components
 @import 'index';
-@import 'Section';
-@import 'ReceiptManager';
-@import 'SectionManager';
-@import 'Seating';
-@import 'Payouts';
-@import 'TipsManager';
-@import 'Modal';
-@import 'ReceiptModal';
-@import 'AttendingStaff';
-@import 'TipModal';
-@import 'SeatingManager';
-@import 'OrderManager';
-@import 'MenuManager';
-@import 'InfoBox';
-@import 'ConfirmBox';
-@import 'TabManager';
-@import 'Receipt';
-@import 'TopNav';
-@import 'Customer';
-@import 'SectionPointer';
-
+@import './../components/Section/Section';
+@import './../components/ReceiptManager/ReceiptManager';
+@import './../components/Seating/Seating';
+@import './../components/TipsManager/TipsManager';
+@import './../components/Receipt/ReceiptModal';
+@import './../components/AttendingStaff/AttendingStaff';
+@import './../components/TipsManager/TipModal';
+@import './../components/SeatingManager/SeatingManager';
+@import './../components/OrderManager/OrderManager';
+@import './../components/MenuManager/MenuManager';
+@import './../components/MenuManager/MenuInfoModal';
+@import './../components/TabManager/TabManager';
+@import './../components/Receipt/Receipt';
+@import './../components/TopNav/TopNav';
+@import './../components/Customer/Customer';
+@import './../components/SectionPointer/SectionPointer';
+@import './../components/SectionPointer/EditSectionPointerModal';
 
 main {
     display: grid;

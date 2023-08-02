@@ -174,6 +174,146 @@
   background: rgb(65, 65, 65);
 }
 
+.confirm-box-container {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 98;
+}
+.confirm-box-container .confirm-box {
+  background: #222;
+  color: white;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #0e0e0e;
+  z-index: 99;
+  box-shadow: 0px 0px 1px 0px black;
+  text-shadow: 0.1em 0.1em 0.2em black;
+}
+.confirm-box-container .confirm-box .title {
+  font-weight: bold;
+  font-size: 14px;
+  color: rgb(196, 177, 166);
+  text-align: center;
+}
+.confirm-box-container .confirm-box .message {
+  margin: 10px 0;
+}
+.confirm-box-container .confirm-box .options {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.confirm-box-container .confirm-box .options button {
+  box-shadow: 0px 0px 1px 0px black;
+}
+.confirm-box-container .confirm-box .options button:active {
+  box-shadow: inset 0px 0px 1px 0px black;
+}
+
+.modal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+}
+.modal-container .Modal {
+  box-shadow: 0px 0px 1px 0px black;
+  border: 1px solid #0e0e0e;
+}
+.modal-container .Modal .title-bar {
+  display: flex;
+  justify-self: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 5px;
+  color: white;
+  background: rgb(65, 65, 65);
+  box-shadow: 0px 2px 4px 1px black;
+  border-bottom: 1px solid #0e0e0e;
+}
+.modal-container .Modal .title-bar .title {
+  text-shadow: 0px 2px 4px black;
+  font-size: 18px;
+}
+.modal-container .Modal .title-bar .close-button {
+  margin: 5px;
+}
+.modal-container .Modal .content {
+  color: white;
+  background: #222;
+}
+
+.SectionManager {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  transform: scale(1);
+}
+
+.Payouts {
+  background: #2c2c2c;
+  color: white;
+  margin: 0px 50px;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 1000px;
+  text-shadow: 0.1em 0.1em 0.2em black;
+  min-height: 600px;
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+.Payouts .column {
+  display: grid;
+  grid-gap: 20px;
+}
+.Payouts .column.left {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+.Payouts .column section {
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+}
+.Payouts .column section .nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  align-items: center;
+}
+.Payouts .column section .nav .title {
+  font-size: 14px;
+  color: #fff;
+  font-family: "Nunito";
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.Payouts .column section .nav .under-title {
+  color: rgb(196, 177, 166);
+  font-size: 14px;
+  text-align: center;
+}
+.Payouts .column section .content {
+  box-shadow: inset 0px 0px 1px 0px black;
+  background: #222;
+  border: 1px solid #0e0e0e;
+  z-index: 2;
+  height: 100%;
+}
+
 * {
   font-family: "Nunito", sans-serif;
   font-size: 14px;
@@ -315,37 +455,6 @@ button:active, select:active, option:active {
   visibility: visible;
 }
 
-.notification-container {
-  display: flex;
-  align-items: center;
-}
-.notification-container .notification {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  border: 2px solid black;
-  font-weight: bold;
-  font-size: 22px;
-  z-index: 1;
-}
-.notification-container .addendum {
-  background: #222;
-  color: white;
-  border-radius: 0 15px 15px 0;
-  border: 1px solid black;
-  font-weight: normal;
-  font-size: 0.6em;
-  padding: 2px 8px;
-  padding-left: 5px;
-  margin-left: -5px;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  white-space: nowrap;
-}
-
 .SectionContainer {
   margin: 0 auto;
   width: 100%;
@@ -409,15 +518,6 @@ button:active, select:active, option:active {
   padding: 5px;
 }
 
-.SectionManager {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  transform: scale(1);
-}
-
 .Seating {
   position: absolute;
   top: 0px;
@@ -432,7 +532,6 @@ button:active, select:active, option:active {
   filter: blur(0);
   z-index: 3;
   white-space: nowrap;
-  transition: all 100ms ease-in-out;
 }
 .Seating .upper-wrapper {
   display: flex;
@@ -578,61 +677,6 @@ button:active, select:active, option:active {
   position: absolute;
 }
 
-.Payouts {
-  background: #2c2c2c;
-  color: white;
-  margin: 0px 50px;
-  padding: 20px;
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 1000px;
-  text-shadow: 0.1em 0.1em 0.2em black;
-  min-height: 600px;
-  position: relative;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-}
-.Payouts .column {
-  display: grid;
-  grid-gap: 20px;
-}
-.Payouts .column.left {
-  display: grid;
-  grid-template-rows: auto 1fr;
-}
-.Payouts .column section {
-  display: flex;
-  flex-direction: column;
-  min-height: 100px;
-}
-.Payouts .column section .nav {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-  align-items: center;
-}
-.Payouts .column section .nav .title {
-  font-size: 14px;
-  color: #fff;
-  font-family: "Nunito";
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-.Payouts .column section .nav .under-title {
-  color: rgb(196, 177, 166);
-  font-size: 14px;
-  text-align: center;
-}
-.Payouts .column section .content {
-  box-shadow: inset 0px 0px 1px 0px black;
-  background: #222;
-  border: 1px solid #0e0e0e;
-  z-index: 2;
-  height: 100%;
-}
-
 .TipsManager {
   display: grid;
   align-content: space-between;
@@ -656,47 +700,9 @@ button:active, select:active, option:active {
   padding: 5px;
 }
 
-.modal-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-}
-.modal-container .Modal {
-  box-shadow: 0px 0px 1px 0px black;
-  min-width: 500px;
-  border: 1px solid #0e0e0e;
-}
-.modal-container .Modal .title-bar {
-  display: flex;
-  justify-self: center;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2px 5px;
-  color: white;
-  background: rgb(65, 65, 65);
-  box-shadow: 0px 2px 4px 1px black;
-  border-bottom: 1px solid #0e0e0e;
-}
-.modal-container .Modal .title-bar .title {
-  text-shadow: 0px 2px 4px black;
-  font-size: 18px;
-}
-.modal-container .Modal .title-bar .close-button {
-  margin: 5px;
-}
-.modal-container .Modal .content {
-  padding: 0 10px;
-  color: white;
-  background: #222;
-}
-
 .ReceiptModal {
   text-shadow: 0.1em 0.1em 0.2em black;
+  padding: 10px;
 }
 .ReceiptModal .paid-amount {
   display: flex;
@@ -757,7 +763,7 @@ button:active, select:active, option:active {
 }
 
 .TipModal {
-  padding: 5px 0;
+  padding: 10px;
   display: grid;
   grid-gap: 5px;
 }
@@ -1056,43 +1062,6 @@ button:active, select:active, option:active {
   color: grey !important;
 }
 
-.confirm-box-container {
-  display: grid;
-  place-items: center;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 98;
-}
-.confirm-box-container .confirm-box {
-  background: #222;
-  color: white;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #0e0e0e;
-  z-index: 99;
-  box-shadow: 0px 4px 10px 1px black;
-  text-shadow: 0.1em 0.1em 0.2em black;
-}
-.confirm-box-container .confirm-box .title {
-  font-weight: bold;
-  font-size: 18px;
-}
-.confirm-box-container .confirm-box .message {
-  margin: 10px 0;
-}
-.confirm-box-container .confirm-box .options {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-.confirm-box-container .confirm-box .options button {
-  box-shadow: 0px 4px 10px 1px black;
-}
-.confirm-box-container .confirm-box .options button:active {
-  box-shadow: inset 0px 1px 4px 1px black;
-}
-
 .TabManagerContainer {
   position: absolute;
   display: grid;
@@ -1102,7 +1071,6 @@ button:active, select:active, option:active {
   height: 100%;
   z-index: 5;
   font-size: 14px;
-  filter: drop-shadow(0 0 5px grey);
 }
 .TabManagerContainer button {
   transition: none !important;
@@ -1111,10 +1079,10 @@ button:active, select:active, option:active {
   background: rgb(80, 80, 80);
   color: black;
   list-style: none;
-  padding: 10px 10px 30px 10px;
+  padding: 10px;
   min-width: 300px;
-  -webkit-mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
-          mask: conic-gradient(from -45deg at bottom, rgba(0, 0, 0, 0), #000 1deg 89deg, rgba(0, 0, 0, 0) 90deg) 50%/14px 100%;
+  border-radius: 10px;
+  border: 1px solid #0e0e0e;
 }
 .TabManagerContainer .TabManager header {
   display: flex;
@@ -1320,6 +1288,24 @@ button:active, select:active, option:active {
 }
 .SectionPointer:hover {
   transform: scale(1.05);
+}
+
+.EditSectionPointerModal {
+  background: #2c2c2c;
+  padding: 10px;
+  display: grid;
+  gap: 5px;
+}
+.EditSectionPointerModal .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+.EditSectionPointerModal .bottom-nav {
+  display: flex;
+  padding-top: 5px;
+  border-top: 1px solid #0e0e0e;
 }
 
 main {

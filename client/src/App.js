@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 
 //Views
-import Payouts from './views/Payouts';
-import SectionManager from './views/SectionManager';
-import TopNav from './components/TopNav';
+import Payouts from './views/Payouts/Payouts';
+import SectionManager from './views/SectionManager/SectionManager';
+import TopNav from './components/TopNav/TopNav';
 import Main from './components/Main';
 
 //Tools

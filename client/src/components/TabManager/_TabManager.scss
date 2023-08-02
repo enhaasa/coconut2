@@ -1,0 +1,118 @@
+.TabManagerContainer {
+    position: absolute;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    font-size: getFontSize('standard');
+    //filter: drop-shadow(0 0 5px grey);
+
+    & button {
+        transition: none !important;
+    }
+
+    & .TabManager {
+        background: getBackgroundColor('quaternary');
+        color: black;
+        list-style: none;
+        padding: 10px;
+        min-width: 300px;
+        border-radius: 10px;
+        border: 1px solid getBorderColor('standard');
+        //mask: conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
+
+        & header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding-bottom: 10px;
+    
+            & .title {
+                font-size: getFontSize('large');
+                font-weight: bold;
+                text-shadow: none !important;
+            }
+    
+            & .close-button {
+                position: absolute;
+                justify-self: end;
+                width: 35px;
+                height: 35px;
+                background: none;
+                border: none;
+            }
+        }
+
+        & .blur {
+            margin-top: -10px;
+            margin-left: -10px;
+        }
+
+        & .tab-nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+
+            & .receipt-link {
+                & a {
+                    color: white !important;
+                    text-shadow: 0.1em 0.1em 0.2em black;
+                }
+            }
+        }
+
+        & .tab-list {
+            max-height: 300px;
+            overflow-y: auto;
+
+            & .name {
+                font-size: getFontSize('standard');
+                color: getPrimaryColor('popping');
+                font-weight: bold;
+                text-shadow: 0.1em 0.1em 0.2em black;
+            }
+        }
+
+        & .view-nav {
+            display: flex;
+            padding: 4px 0;
+            justify-content: center;;
+            align-items: center;
+        }
+    }
+
+    & .tab-summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        text-shadow: 0.1em 0.1em 0.2em black;
+        margin: 7px 0;
+        padding: 5px 0;
+        border-top: 1px solid getBorderColor('standard');
+        border-bottom: 1px solid getBorderColor('standard');
+    }
+
+}
+
+.receipt-RP {
+    display: block;
+
+    & textarea {
+        margin-top: 5px;
+        word-break: break-word;
+        width: calc(100% - 8px);
+        resize: none;
+        border: 1px solid getBorderColor('standard');
+        padding: 5px;
+        font-size: 14px;
+        background: getBackgroundColor('secondary');
+        color: white;
+    }
+}
