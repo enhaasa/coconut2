@@ -1,8 +1,9 @@
 $background-colors: (
-    'primary': #222,
-    'secondary': #2c2c2c,
-    'tertiary': rgb(65, 65, 65),
-    'quaternary': rgb(80, 80, 80),
+    'primary': #222222d2,
+    'secondary': #2c2c2cda,
+    'tertiary': rgba(65, 65, 65, 0.678),
+    'quaternary': rgba(80, 80, 80, 0.87),
+    'section': #22222283,
 );
 @function getBackgroundColor($key) {
     @return map-get($background-colors, $key);

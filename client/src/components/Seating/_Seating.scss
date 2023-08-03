@@ -35,7 +35,7 @@
         & .amount {
           display: flex;
           align-items: center;
-          background: getBackgroundColor('primary');
+          background: getPrimaryColor('dark');
           color: white;
           border-radius: 10px 0 0 10px;
           padding: 0 5px;
@@ -56,7 +56,7 @@
         display: flex;
         align-items: center;
         gap: 3px;
-        background: getBackgroundColor('primary');
+        background: getPrimaryColor('dark');
         color: white;
         padding: 2px 7px;
         border-radius: 20px;
@@ -81,7 +81,7 @@
           align-items: center;
           gap: 4px;
           box-shadow: getBoxShadow('outer');
-          background: getBackgroundColor('primary');
+          background: getPrimaryColor('dark');
           color: white;
           padding: 0 5px;
           border-radius: 10px;
@@ -169,6 +169,8 @@
 
         & .number {
             font-size: 2em;
+            font-family: getFont('numbers');
+            color: black;
         }
 
         .unpaid-tab-container {

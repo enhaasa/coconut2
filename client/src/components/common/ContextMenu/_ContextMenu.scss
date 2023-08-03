@@ -2,7 +2,7 @@
     z-index: 99;
     position: fixed;
 
-    background: getBackgroundColor('secondary');
+    background: getPrimaryColor('dark');
     border: 1px solid getBorderColor('standard');
     padding: 5px;
     border-radius: 10px;
@@ -15,5 +15,11 @@
 
     & .list {
         display: grid;
+
+        & .noaccess {
+            max-width: 160px;
+            text-align: center;
+            color: getPrimaryColor('destructive');
+        }
     }
 }

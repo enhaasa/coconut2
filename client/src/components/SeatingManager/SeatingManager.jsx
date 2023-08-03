@@ -15,6 +15,7 @@ import Dropdown from '../common/Dropdown/Dropdown';
 import DropdownItem from '../common/Dropdown/DropdownItem';
 import Button from '../common/Button/Button';
 import CloseButton from '../common/CloseButton/CloseButton';
+import Toggle from '../common/Toggle/Toggle';
 
 //Animations
 import { gsap } from 'gsap';
@@ -37,6 +38,7 @@ export default function SeatingManager(props) {
         selectedSeating, 
         setSelectedCustomer,
         setSelectedSeating,
+        isDangerousSettings,
     } = useContext(ControlStatesContext);
 
     const [ seating, setSeating ] = useState(selectedSeating);
@@ -113,7 +115,7 @@ export default function SeatingManager(props) {
             },
             closeConfirmBox: function(){closeConfirmBox()},
             title: 'Danger danger danger!',
-            message: `This will kill all customers, cancel all orders, and permanently destroy the table (no undo).`
+            message: `This will remove all customers, cancel all orders, and PERMANENTLY DESTROY the table (no undo).`
         })
     }
 
@@ -183,39 +185,33 @@ export default function SeatingManager(props) {
                 <div className='column'>
                     <span className='navsection'>
                         <span className='title cursive'>Available:</span>
-                        <label className='switch'>
-                            <input 
-                                type='checkbox' 
-                                readOnly 
-                                checked={seating.is_available}
-                                onClick={() => seatings.toggleAttribute(seating, 'is_available')} />
-                            <span className='slider' />
-                        </label>
+                        <Toggle 
+                            value={seating.is_available}
+                            clickEvent={() => seatings.toggleAttribute(seating, 'is_available')}
+                        />
                     </span>
 
                     <span className='navsection'>
                         <span className='title cursive'>Reserved:</span>
-                        <label className='switch'>
-                            <input 
-                            type='checkbox' 
-                            readOnly 
-                            checked={seating.is_reserved} 
-                            onClick={() => seatings.toggleAttribute(seating, 'is_reserved')} />
-                            <span className='slider' />
-                        </label>
+                        <Toggle 
+                            value={seating.is_reserved}
+                            clickEvent={() => seatings.toggleAttribute(seating, 'is_reserved')}
+                        />
                     </span>
-
-                    <span className='navsection'>
-                        <span className='title cursive'>Photography: </span>
-                        <label className='switch'>
-                            <input 
-                                type='checkbox' 
-                                readOnly 
-                                checked={seating.is_photography}
-                                onClick={() => seatings.toggleAttribute(seating, 'is_photography')} />
-                            <span className='slider' />
-                        </label>
-                    </span>
+                    
+                    {/*
+                        <span className='navsection'>
+                            <span className='title cursive'>Photography: </span>
+                            <label className='switch'>
+                                <input 
+                                    type='checkbox' 
+                                    readOnly 
+                                    checked={seating.is_photography}
+                                    onClick={() => seatings.toggleAttribute(seating, 'is_photography')} />
+                                <span className='slider' />
+                            </label>
+                        </span>
+                    */}
                 </div>
 
                 <div className='column'>
@@ -256,21 +252,23 @@ export default function SeatingManager(props) {
             </section>
 
             <section className='navbar-bottom'>
-                <span className='column'>
-                    <Button type='destructive' clickEvent={handleRemove}>
-                        Delete
-                    </Button>
-
-                    <Button type='dark' clickEvent={handleMoveSeating}>
-                        Move
-                    </Button>
-                </span>
-
-                <span className='column'>
+                <span className='column last'>
                     <Button type='destructive' clickEvent={handleResetSeating}>
                         <img src={resetIcon} alt='Reset Icon'/> Reset Table
                     </Button>
                 </span>
+
+                {isDangerousSettings &&
+                    <span className='column'>
+                        <Button type='destructive' clickEvent={handleRemove}>
+                            Delete
+                        </Button>
+
+                        <Button type='dark' clickEvent={handleMoveSeating}>
+                            Move
+                        </Button>
+                    </span>
+                }
             </section>
         </div>
     );

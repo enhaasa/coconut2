@@ -39,6 +39,7 @@ export default function Section(props) {
         selectedSection,
         selectedSeating,
         handleContextMenu,
+        isDangerousSettings,
     } = useContext(ControlStatesContext);
 
     const [ modal, setModal ] = useState(null);

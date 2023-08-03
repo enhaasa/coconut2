@@ -49,12 +49,12 @@
         justify-self: center;
         place-items: center;
         border-radius: 100%;
-        border: 4px double black;
+        border: 6px double black;
         width: 80px;
         height: 80px;
         position: absolute;
-        box-shadow: 0px 4px 10px 1px black;
-        
+        box-shadow: 0px 0px 6px 0px black;
+        font-family: getFont('numbers');
         font-size: 4.5em;
         margin-top: -8px;
         //margin-bottom: 30px;
@@ -72,13 +72,13 @@
       padding: 0;
       display: flex;
       justify-content: space-between;
+      margin-top: -15px;
     
       & .column {
         display: grid;
         align-content: end;
         grid-gap: 5px;
         
-
         & .navsection {
           display: grid;
           grid-auto-flow: column;
@@ -104,13 +104,17 @@
 
   & .navbar-bottom {
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
     margin-top: 8px;
+  
+
 
     & .column {
       display: flex;
       gap: 5px;
+
     }
 
     & .reset-button {

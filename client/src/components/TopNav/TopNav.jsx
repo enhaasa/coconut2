@@ -7,12 +7,14 @@ import { ControlStatesContext } from '../../api/ControlStates';
 //Components
 import MultiToggle from '../common/MultiToggle/MultiToggle';
 import MultiToggleOption from '../common/MultiToggle/MultiToggleOption';
+import Button from '../common/Button/Button';
 
 //Tools
 import uuid from 'react-uuid';
 
 //Icons
 import logo from './../../assets/icons/logo.png';
+import Toggle from '../common/Toggle/Toggle';
 
 export default function TopNav() {
 
@@ -23,56 +25,89 @@ export default function TopNav() {
     const { 
         selectedSection,
         setSelectedSection,
+        isDangerousSettings,
+        setIsDangerousSettings,
     } = useContext(ControlStatesContext);
 
     return (
         <section className='TopNav'>
-            <span className='logo'>
-                <img className='image' src={logo} alt='' />
-                <span className='info-container'>
-                    <div className='title'>Coconut</div>
-                    <div className='author'>by Enhasa</div>
+            <span className='column'>
+                <span className='logo'>
+                    <img className='image' src={logo} alt='' />
+                    <span className='info-container'>
+                        <div className='title'>Coconut</div>
+                        <div className='author'>by Enhasa</div>
+                    </span>
                 </span>
             </span>
 
-            <div className='section-nav'>
-                <div className='row'>
-                    <MultiToggle>
-                        {
-                            sections.get.map((section, index) => (
-                                section.type === 'main' &&
-                                <MultiToggleOption 
-                                    type={'large'}
-                                    clickEvent={() => setSelectedSection(index)}
-                                    isActive={selectedSection === index ? true : false}
-                                    key={uuid()}>
-                                    {section.name}
-                                </MultiToggleOption>
-                            ))
-                        }
-                    </MultiToggle>
+            <span className='column'>
+                <div className='section-nav'>
+                    <span className='sections'>
+                        <div className='row'>
+                            <div className='title'>
+                                Main Sections
+                            </div>
+                            <div className='nav'>
+                                <MultiToggle>
+                                    {
+                                        sections.get.map((section, index) => (
+                                            section.type === 'main' &&
+                                            <MultiToggleOption 
+                                                type={'large'}
+                                                clickEvent={() => setSelectedSection(index)}
+                                                isActive={selectedSection === index ? true : false}
+                                                key={uuid()}>
+                                                {section.name}
+                                            </MultiToggleOption>
+                                        ))
+                                    }
+                                </MultiToggle>
+                                {false && <Button type='constructive'>Add</Button>}
+                            </div>
+                        </div>
+
+                        <div className='row'> 
+                            <div className='title'>
+                                Subsections
+                            </div>
+                            <div className='nav'>
+                                <MultiToggle>
+                                    {
+                                        sections.get.map((section, index) => (
+                                            section.type === 'sub' &&
+                                            <MultiToggleOption 
+                                                clickEvent={() => setSelectedSection(index)}
+                                                isActive={selectedSection === index ? true : false}
+                                                key={uuid()}>
+                                                {section.name}
+                                            </MultiToggleOption>
+                                        ))
+                                    }
+                                </MultiToggle>
+                                {false && <Button type='constructive'>Add</Button>}
+                            </div>
+                        </div>
+                    </span>
+
+                    <span className='buttons'>
+
+                    </span>
                 </div>
+            </span>
 
-                <div className='row'>  
-                    <MultiToggle>
-                        {
-                            sections.get.map((section, index) => (
-                                section.type === 'sub' &&
-                                <MultiToggleOption 
-                                    clickEvent={() => setSelectedSection(index)}
-                                    isActive={selectedSection === index ? true : false}
-                                    key={uuid()}>
-                                    {section.name}
-                                </MultiToggleOption>
-                            ))
-                        }
-                    </MultiToggle>
+
+            <span className='column'>
+                <div className='user'>
+                    <div className='character'>Character Name</div>
+                    <div className='dangerous-settings'>
+                        Allow Dangerous Settings
+                        <Toggle 
+                            value={isDangerousSettings}
+                            clickEvent={() => {setIsDangerousSettings(!isDangerousSettings)}}
+                        />
+                    </div>
                 </div>
-            </div>
-
-
-            <span>
-                Character Name
             </span>
         </section>
     )

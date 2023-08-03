@@ -1,14 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 .InfoboxContainer {
-
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 4;
     display: grid;
     place-items: center;
-
 
     & .Infobox {
         background: getBackgroundColor('primary');
@@ -23,7 +21,7 @@
             text-shadow: 0.1em 0.1em 0.2em black;
             color: white;
             font-size: getFontSize('large');
-            background: getBackgroundColor('tertiary');
+            background: getPrimaryColor('constructive-mild');
             border-bottom: 1px solid getBorderColor('standard');
             box-shadow: getBoxShadow('outer');
             font-weight: bold;

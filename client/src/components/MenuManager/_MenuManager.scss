@@ -7,7 +7,6 @@
         color: white;
         border: 1px solid getBorderColor('standard');
         
-        
         & .menu-title {
             display: flex;
             justify-self: center;
@@ -25,6 +24,8 @@
                 color: white;
                 padding: 0 10px;
                 text-shadow: 0.1em 0.1em 0.2em black;
+                font-size: getFontSize('large');
+                font-weight: bold;
             }
 
             & .close-button {

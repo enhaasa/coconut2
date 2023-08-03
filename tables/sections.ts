@@ -15,5 +15,4 @@ class Sections {
         
         socket.emit('getSections', result);
     }
- 
 }

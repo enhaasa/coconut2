@@ -10,18 +10,17 @@
 
     & .Modal {
         box-shadow: getBoxShadow('outer');
-
         border: 1px solid getBorderColor('standard');
 
         & .title-bar {
             display: flex;
             justify-self: center;
             justify-content: space-between;
+            gap: 20px;
             align-items: center;
             padding: 2px 5px;
             color: white;
-            background: getBackgroundColor('tertiary');
-            box-shadow: 0px 2px 4px 1px black;
+            background: getPrimaryColor('constructive-mild');
             border-bottom: 1px solid getBorderColor('standard');
 
             & .title {

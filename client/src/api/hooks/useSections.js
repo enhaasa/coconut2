@@ -8,6 +8,9 @@ export default function useSections(init, props) {
     const eventHandlers = {
         getSections: (sections) => {
             setSections(sections);
+        },
+        addSection: (section) => {
+            setSections(prev => [...prev, section]);
         }
     }
 
@@ -17,9 +20,14 @@ export default function useSections(init, props) {
         socket.emit('getSections');
     }
 
+    function add() {
+        socket.emit('addSection');
+    }
+
     return [
         {
             get: sections,
+            add,
             refresh
         }
     ]
