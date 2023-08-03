@@ -56,6 +56,7 @@
                 & .row {
                     display: grid;
                     justify-content: center;
+                    gap: 2px;
         
                     & .title {
                         text-align: center;
@@ -77,8 +78,6 @@
                 align-items: end;
             }
         }
-
-
 
         & .user {
             display: grid;

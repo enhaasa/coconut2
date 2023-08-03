@@ -65,63 +65,6 @@ button, select, option {
 .neutral {background: getPrimaryColor('neutral') !important;}
 .dark {background: getPrimaryColor('dark') !important;}
 
-//Checkboxes
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 32px;
-  height: 18px;
-
-  border-radius: 10px;
-
-  & input{
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  & .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: getBackgroundColor('primary');
-    outline: 1px solid getBorderColor('standard');
-    border-radius: 10px;
-    box-shadow: getBoxShadow('inner');
-  
-    &:before {
-      position: absolute;
-      content: '';
-      height: 12px;
-      width: 12px;
-      left: 4px;
-      bottom: 3px;
-      background-color: rgb(236, 236, 236);
-      border-radius: 50%;
-      box-shadow: getBoxShadow('inner');
-
-      transition: 200ms all ease;
-    }
-  }
-  
-  & input {
-    &:checked + .slider{
-      background: getPrimaryColor('constructive');
-    }
-  
-    &:focus + .slider {
-      box-shadow: 0 0 1px grey;
-    }
-  
-    &:checked + .slider:before {
-      transform: translateX(12px);
-    }
-  }
-}
-
 .tooltip .tooltiptext {
   visibility: hidden;
   background-color: black;

@@ -5,6 +5,7 @@
     padding: 3px 8px;
     border: 1px solid black;
     font-size: getFontSize('standard');
+    position: relative;
 
     &.active {
         background: getMultiToggleColor('active');
@@ -25,6 +26,10 @@
 
     &:last-child {
         border-radius: 0 10px 10px 0; 
+    }
+
+    &:hover {
+        filter: none;
     }
 
 }

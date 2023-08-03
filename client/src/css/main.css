@@ -14,6 +14,7 @@
   padding: 3px 8px;
   border: 1px solid black;
   font-size: 14px;
+  position: relative;
 }
 .MultiToggleOption.active {
   background: #151515;
@@ -30,6 +31,9 @@
 }
 .MultiToggleOption:last-child {
   border-radius: 0 10px 10px 0;
+}
+.MultiToggleOption:hover {
+  filter: none;
 }
 
 .Button {
@@ -302,6 +306,34 @@
   transform: translateX(12px);
 }
 
+.NotificationBar {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  z-index: 1;
+}
+.NotificationBar .item {
+  background: rgb(168, 63, 63);
+  color: white;
+  display: grid;
+  place-items: center;
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  border: 1px solid #0e0e0e;
+  pointer-events: none;
+  font-size: 14px;
+  font-family: "Roboto Condensed";
+}
+.NotificationBar .item.small {
+  height: 18px;
+  width: 18px;
+  font-size: 12px;
+}
+
 .SectionManager {
   display: grid;
   grid-auto-flow: column;
@@ -442,52 +474,6 @@ button:active, select:active, option:active {
 
 .dark {
   background: #222 !important;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 32px;
-  height: 18px;
-  border-radius: 10px;
-}
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.switch .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(34, 34, 34, 0.8235294118);
-  outline: 1px solid #0e0e0e;
-  border-radius: 10px;
-  box-shadow: inset 0px 0px 1px 0px black;
-}
-.switch .slider:before {
-  position: absolute;
-  content: "";
-  height: 12px;
-  width: 12px;
-  left: 4px;
-  bottom: 3px;
-  background-color: rgb(236, 236, 236);
-  border-radius: 50%;
-  box-shadow: inset 0px 0px 1px 0px black;
-  transition: 200ms all ease;
-}
-.switch input:checked + .slider {
-  background: rgb(86, 119, 86);
-}
-.switch input:focus + .slider {
-  box-shadow: 0 0 1px grey;
-}
-.switch input:checked + .slider:before {
-  transform: translateX(12px);
 }
 
 .tooltip .tooltiptext {
@@ -1312,6 +1298,7 @@ button:active, select:active, option:active {
 .TopNav .column .section-nav .sections .row {
   display: grid;
   justify-content: center;
+  gap: 2px;
 }
 .TopNav .column .section-nav .sections .row .title {
   text-align: center;

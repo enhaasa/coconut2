@@ -8,6 +8,7 @@ import { ControlStatesContext } from '../../api/ControlStates';
 import MultiToggle from '../common/MultiToggle/MultiToggle';
 import MultiToggleOption from '../common/MultiToggle/MultiToggleOption';
 import Button from '../common/Button/Button';
+import SectionNotificationBar from '../common/NotificationBar/SectionNotificationBar';
 
 //Tools
 import uuid from 'react-uuid';
@@ -53,13 +54,16 @@ export default function TopNav() {
                                     {
                                         sections.get.map((section, index) => (
                                             section.type === 'main' &&
-                                            <MultiToggleOption 
-                                                type={'large'}
-                                                clickEvent={() => setSelectedSection(index)}
-                                                isActive={selectedSection === index ? true : false}
-                                                key={uuid()}>
-                                                {section.name}
-                                            </MultiToggleOption>
+                                            <>
+                                                <MultiToggleOption 
+                                                    type={'large'}
+                                                    clickEvent={() => setSelectedSection(index)}
+                                                    isActive={selectedSection === index ? true : false}
+                                                    key={uuid()}>
+                                                        <SectionNotificationBar section={section}/>
+                                                        {section.name}
+                                                </MultiToggleOption>
+                                            </>
                                         ))
                                     }
                                 </MultiToggle>
@@ -80,6 +84,7 @@ export default function TopNav() {
                                                 clickEvent={() => setSelectedSection(index)}
                                                 isActive={selectedSection === index ? true : false}
                                                 key={uuid()}>
+                                                <SectionNotificationBar type='small' section={section}/>
                                                 {section.name}
                                             </MultiToggleOption>
                                         ))
