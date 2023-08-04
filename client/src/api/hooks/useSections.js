@@ -24,11 +24,10 @@ export default function useSections(init, props) {
         socket.emit('addSection');
     }
 
-    return [
-        {
-            get: sections,
-            add,
-            refresh
-        }
-    ]
+    return {
+        get: sections,
+        add,
+        refresh
+    }
+    
 }

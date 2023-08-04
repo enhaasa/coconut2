@@ -1,0 +1,38 @@
+.MessageManager {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+
+    & .message {
+        padding: 5px 10px;
+        border-radius: 10px;
+        border: 1px solid getBorderColor('standard');
+        box-shadow: getBoxShadow('outer');
+
+        & .title-bar {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+
+            & .title {
+                font-weight: bold;
+            }
+            & .close-button {
+                background: none;
+                border: none;
+                color: white;
+            }
+        }
+
+        &.error {
+            background: getPrimaryColor('destructive');
+            color: white;
+        }
+    }
+}

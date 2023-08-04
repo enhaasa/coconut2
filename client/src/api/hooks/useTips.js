@@ -42,7 +42,6 @@ export default function useTips(init, props) {
     function edit(data) {
         const { tip, newName, newAmount } = data;
         
-        console.log(newName, newAmount)
         socket.emit('editTip', {tip, newName, newAmount});
     }
 
@@ -50,13 +49,12 @@ export default function useTips(init, props) {
         socket.emit('removeTip', tip);
     }
 
-    return [
-        {
-            get: tips,
-            add: add,
-            edit: edit,
-            remove: remove,
-            refresh: refresh
-        }
-    ]
+    return {
+        get: tips,
+        add: add,
+        edit: edit,
+        remove: remove,
+        refresh: refresh
+    }
+    
 }

@@ -1,4 +1,4 @@
-import Database from './../database';
+import Database from '../database';
 import { Socket, Server } from 'socket.io';
 
 module.exports = function registerHandlers(io) {

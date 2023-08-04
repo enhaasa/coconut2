@@ -39,10 +39,9 @@ export default function useMenu(init, props) {
     }
 
 
-    return [
-        {
-            get: menu,
-            refresh
-        }
-    ]
+    return {
+        get: menu,
+        refresh
+    }
+    
 }

@@ -86,17 +86,16 @@ export default function useSeats(init, props) {
         socket.emit('getSeatings');
     }
 
-    return [
-        {
-            get: seatings,
-            set: setSeatings,
-            add,
-            remove,
-            reset,
-            toggleAttribute,
-            setAttribute,
-            refresh: refresh,
-            setLocation,
-        }
-    ]
+    return  {
+        get: seatings,
+        set: setSeatings,
+        add,
+        remove,
+        reset,
+        toggleAttribute,
+        setAttribute,
+        refresh: refresh,
+        setLocation,
+    }
+    
 }

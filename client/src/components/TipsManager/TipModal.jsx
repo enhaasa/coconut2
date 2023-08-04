@@ -26,13 +26,13 @@ export default function TipModal(props) {
             tips.edit({
                 tip: tip, 
                 newName: !name ? 'Anonymous' : name,
-                newAmount: !amount ? 0 : parseInt(amount)
+                newAmount: !amount ? parseInt(0) : parseInt(amount)
             });
             handleModal(null);
         } else {
             tips.add({
                 name: !name ? 'Anonymous' : name, 
-                amount: !amount ? 0 : amount, 
+                amount: !amount ? parseInt(0) : parseInt(amount), 
             });
             handleModal(null);
         }

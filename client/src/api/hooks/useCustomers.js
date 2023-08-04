@@ -92,15 +92,14 @@ export default function useCustomers(init, props) {
         socket.emit('getCustomers');
     }
 
-    return [ 
-            {   
-                get: customers,
-                add: add,
-                remove: remove,
-                removeAllFromSeating: removeAllFromSeating,
-                setSession: setSession,
-                editName: editName,
-                refresh: refresh
-            }
-        ]
+    return {   
+        get: customers,
+        add: add,
+        remove: remove,
+        removeAllFromSeating: removeAllFromSeating,
+        setSession: setSession,
+        editName: editName,
+        refresh: refresh
+    }
+    
 }

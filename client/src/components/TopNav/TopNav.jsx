@@ -60,7 +60,7 @@ export default function TopNav() {
                                                     clickEvent={() => setSelectedSection(index)}
                                                     isActive={selectedSection === index ? true : false}
                                                     key={uuid()}>
-                                                        <SectionNotificationBar section={section}/>
+                                                        <SectionNotificationBar key={uuid()} section={section}/>
                                                         {section.name}
                                                 </MultiToggleOption>
                                             </>
@@ -84,7 +84,7 @@ export default function TopNav() {
                                                 clickEvent={() => setSelectedSection(index)}
                                                 isActive={selectedSection === index ? true : false}
                                                 key={uuid()}>
-                                                <SectionNotificationBar type='small' section={section}/>
+                                                <SectionNotificationBar key={uuid()} type='small' section={section}/>
                                                 {section.name}
                                             </MultiToggleOption>
                                         ))
@@ -100,7 +100,6 @@ export default function TopNav() {
                     </span>
                 </div>
             </span>
-
 
             <span className='column'>
                 <div className='user'>

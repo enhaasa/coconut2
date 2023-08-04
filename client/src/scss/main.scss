@@ -46,6 +46,7 @@
 @import './../components/SectionPointer/SectionPointer';
 @import './../components/SectionPointer/EditSectionPointerModal';
 @import './../components/Seating/AddSeatingModal';
+@import './../components/MessageManager/MessageManager';
 
 main {
     display: grid;
@@ -54,6 +55,7 @@ main {
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
+    gap: 10px;
 
     & .blur {
         position: absolute;

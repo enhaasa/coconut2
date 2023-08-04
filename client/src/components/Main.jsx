@@ -6,6 +6,7 @@ import { ControlStatesContext } from '../api/ControlStates';
 //Components
 import ContextMenu from './common/ContextMenu/ContextMenu';
 import ContextMenuItem from './common/ContextMenu/ContextMenuItem';
+import MessageManager from './MessageManager/MessageManager';
 
 //Tools
 import uuid from 'react-uuid';
@@ -29,6 +30,7 @@ export default function Main({ children }) {
                     ))}
                 </ContextMenu>
             }
+            <MessageManager />
             {children}
         </main>
     )

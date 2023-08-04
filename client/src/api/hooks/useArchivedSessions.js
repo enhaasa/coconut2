@@ -48,12 +48,11 @@ export default function useArchivedSessions(init, props) {
         socket.emit('getArchivedSessions');
     }
 
-    return [
-        {
-            get: archivedSessions,
-            add,
-            setAmountPaid,
-            refresh
-        }
-    ]
+    return {
+        get: archivedSessions,
+        add,
+        setAmountPaid,
+        refresh
+    }
+    
 }

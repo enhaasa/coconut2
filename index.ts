@@ -29,10 +29,10 @@ app.use((error, req, res, next) => {
 
 //Dynamically load and register handlers for each table
 (async () => {
-    const tableFiles = fs.readdirSync("./tables");
+    const tableFiles = fs.readdirSync("./routes");
 
     for (const file of tableFiles) {
-        const registerHandlers = await require(`./tables/${file}`);
+        const registerHandlers = await require(`./routes/${file}`);
         registerHandlers(io);
     }
 })();

@@ -8,44 +8,49 @@ import useCustomers from './hooks/useCustomers';
 import useTips from './hooks/useTips';
 import useMenu from './hooks/useMenu';
 import useStaff from './hooks/useStaff';
+import useMessages from './hooks/useMessages';
 
 
 const DynamicDataContext = createContext();
 
 function DynamicDataProvider({ children, socket, selectedSeatingTracker, setSelectedCustomer }) {
-  const [ archivedSessions ] = useArchivedSessions([], {
+  const archivedSessions = useArchivedSessions([], {
     socket: socket
   });
-  const [ tips ] = useTips([], { socket: socket });
-  const [ staff ] = useStaff([], { socket: socket });
+  const tips = useTips([], { socket: socket });
+  const staff = useStaff([], { socket: socket });
 
-  const [ sections ] = useSections([], {
+  const sections = useSections([], {
       socket: socket
   });
 
-  const [ sectionPointers ] = useSectionPointers([], {
+  const sectionPointers = useSectionPointers([], {
     socket: socket
   })
 
-  const [ seatings ] = useSeatings([], {
-      selectedSeatingTracker: selectedSeatingTracker, 
-      socket: socket
+  const seatings = useSeatings([], {
+    selectedSeatingTracker: selectedSeatingTracker, 
+    socket: socket
   });
 
-  const [ orders ] = useOrders([], {
+  const orders = useOrders([], {
       archivedSessions: archivedSessions,
       socket: socket
   });
 
-  const [ customers ] = useCustomers([], {
-      setSelectedCustomer,
-      orders: orders,
-      socket: socket
+  const customers = useCustomers([], {
+    setSelectedCustomer,
+    orders: orders,
+    socket: socket
   });
 
-  const [ menu ] = useMenu([], {
-      selectedSeatingTracker, 
-      socket: socket
+  const menu = useMenu([], {
+    selectedSeatingTracker, 
+    socket: socket
+  });
+
+  const messages = useMessages([], {
+    socket: socket
   });
 
   function getDataTree() {
@@ -138,6 +143,7 @@ function DynamicDataProvider({ children, socket, selectedSeatingTracker, setSele
               staff,
               archivedSessions,
               dataTree,
+              messages,
           }}>
           {children}
       </DynamicDataContext.Provider>

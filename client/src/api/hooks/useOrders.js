@@ -96,15 +96,14 @@ export default function useOrders(init, props) {
         socket.emit('getOrders');
     }
 
-    return [
-        {
-            get: orders,
-            add: add,
-            remove: remove,
-            deliver: deliver,
-            deliverAllByCustomer: deliverAllByCustomer,
-            refresh,
-            pay,
-        }
-    ];
+    return {
+        get: orders,
+        add: add,
+        remove: remove,
+        deliver: deliver,
+        deliverAllByCustomer: deliverAllByCustomer,
+        refresh,
+        pay,
+    }
+    
 }

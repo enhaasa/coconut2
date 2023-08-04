@@ -66,15 +66,14 @@ export default function useSectionPointers(init, props) {
         socket.emit('removeSectionPointer', sectionPointer);
     }
 
-    return [
-        {
-            get: sectionPointers,
-            setLocation,
-            setAttribute,
-            add,
-            remove,
-            refresh,
-        }
-    ]
+    return {
+        get: sectionPointers,
+        setLocation,
+        setAttribute,
+        add,
+        remove,
+        refresh,
+    }
+    
 
 }

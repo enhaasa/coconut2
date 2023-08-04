@@ -31,11 +31,10 @@ export default function useStaff(init, props) {
       socket.emit('setStaffAttribute', { staff_member, attribute, value })
     }
 
-    return [
-        {
-            get: staff,
-            refresh,
-            setAttribute,
-        }
-    ]
+    return {
+      get: staff,
+      refresh,
+      setAttribute,
+    }
+    
 }
