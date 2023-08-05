@@ -12,7 +12,7 @@ module.exports = function registerHandlers(io) {
     }));
 }
 
-export type SectionPointer = {
+type SectionPointer = {
     id: number;
     type: string;
     pos_x: number;
@@ -23,14 +23,14 @@ export type SectionPointer = {
     name: string;
 }
 
-export type SectionPointerToAdd = {
+type SectionPointerToAdd = {
     type: string;
     section_id: number;
     target_section_id: number;
     name: string;
 }
 
-export type SetLocationData = {
+type SetLocationData = {
     sectionPointer: SectionPointer;
     newLocation: {
         pos_x: number;
@@ -39,7 +39,7 @@ export type SetLocationData = {
     }
 }
 
-export type SetAttributeData = {
+type SetAttributeData = {
     sectionPointer: SectionPointer;
     attribute: string;
     value: string|number|boolean;

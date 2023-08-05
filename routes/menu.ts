@@ -1,4 +1,5 @@
 import Database from '../database';
+import MessageHandler from '../messages';
 import { Socket } from 'socket.io';
 
 module.exports = function registerHandlers(io) {
@@ -11,10 +12,13 @@ class Menu {
     private static table = 'menu_items';
 
     public static async get(socket: Socket) {
-        const query = `SELECT * from ${this.table}`;
-        const result = await Database.query(query);
+        try {
+            const result = await Database.get(this.table);
+            socket.emit('getMenu', result)
 
-        socket.emit('getMenu', result)
+        } catch (err) {
+            console.log('Failed to fetch menu.', err);
+            MessageHandler.sendError(socket, 'Failed to fetch menu');
+        }
     }
-
 }

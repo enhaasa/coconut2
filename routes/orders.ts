@@ -17,7 +17,7 @@ module.exports = function registerHandlers(io) {
     }));
 }
 
-export type OrderToAdd = {
+type OrderToAdd = {
     is_delivered: boolean;
     name: string;
     price: number;
@@ -28,12 +28,12 @@ export type OrderToAdd = {
     item: string;
 }
 
-export type OrdersInSeating = {
+type OrdersInSeating = {
     orders: Order[],
     seating: Seating,
 }
 
-export function isValidOrderToAdd(order: any): order is OrderToAdd {
+function isValidOrderToAdd(order: any): order is OrderToAdd {
     return typeof order.is_delivered === 'boolean' &&
            typeof order.name === 'string' &&
            typeof order.price === 'number' &&
@@ -44,15 +44,15 @@ export function isValidOrderToAdd(order: any): order is OrderToAdd {
            typeof order.item === 'string';
 }
 
-export function isValidOrderToDeliver(order: any): order is Pick<Order, 'id'> {
+function isValidOrderToDeliver(order: any): order is Pick<Order, 'id'> {
     return typeof order.id === 'number';
 }
 
-export function isValidCustomer(customer: any): customer is Customer {
+function isValidCustomer(customer: any): customer is Customer {
     return typeof customer.id === 'number';
 }
 
-export function isValidOrdersInSeating(data: any): data is OrdersInSeating {
+function isValidOrdersInSeating(data: any): data is OrdersInSeating {
     return Array.isArray(data.orders) && data.orders.every(isValidOrderToAdd) &&
            isValidSeating(data.seating);
 }
