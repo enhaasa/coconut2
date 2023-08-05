@@ -1,5 +1,8 @@
 import Database from '../database';
 import { Socket, Server } from 'socket.io';
+import { Customer } from '../shared/types';
+import { isValidCustomer } from '../shared/types';
+import { Seating, isValidSeating } from '../shared/types';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {

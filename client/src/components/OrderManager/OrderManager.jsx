@@ -58,8 +58,7 @@ export default function OrderManager(props) {
             section_id: seating.section_id,
             seating_id: seating.id,
             session_id: seating.session_id,
-            realm_id: 1,
-            uuid: uuid()
+            realm_id: 1
           }
 
           customers.add(newCustomer)

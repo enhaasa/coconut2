@@ -3,7 +3,6 @@ import useSocketListener from './../useSocketListener';
 
 export default function useCustomers(init, props) {
     const { 
-        orders,
         setSelectedCustomer,
         socket
     } = props;

@@ -1,6 +1,7 @@
 import Database from '../database';
 import MessageHandler from '../messages';
 import { Socket, Server } from 'socket.io';
+import { Customer, isValidCustomer } from '../shared/types';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
@@ -11,21 +12,10 @@ module.exports = function registerHandlers(io) {
     }));
 }
 
-export type Customer = {
-    id: number;
-    name: string;
-    section_id: number;
-    seating_id: number;
-    session_id: number|unknown;
-    realm_id: number;
-    uuid: string;
-}
-
 export type CustomerToAdd = {
     name: string;
     section_id: number;
     seating_id: number;
-    uuid: string;
 }
 
 export type EditNameData = {
@@ -33,25 +23,15 @@ export type EditNameData = {
     name: string;
 }
 
-function isValidCustomer(customer: any): customer is Customer {
-    return typeof customer.id === 'number' &&
-           typeof customer.name === 'string' &&
-           typeof customer.section_id === 'number' &&
-           typeof customer.seating_id === 'number' &&
-           typeof customer.realm_id === 'number' &&
-           typeof customer.uuid === 'string';
-}
-
-function isValidEditNameData(data: any): data is EditNameData {
+export function isValidEditNameData(data: any): data is EditNameData {
     return typeof data.name === 'string' &&
            isValidCustomer(data.customer);
 }
 
-function isValidCustomerToAdd(customer: any): customer is CustomerToAdd {
+export function isValidCustomerToAdd(customer: any): customer is CustomerToAdd {
     return typeof customer.name === 'string' &&
            typeof customer.section_id === 'number' &&
-           typeof customer.seating_id === 'number' &&
-           typeof customer.uuid === 'string';
+           typeof customer.seating_id === 'number';
 }
 
 export default class Customers {

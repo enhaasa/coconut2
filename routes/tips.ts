@@ -2,6 +2,7 @@ import Database from '../database';
 import MessageHandler from '../messages';
 import { Time } from '../dbTools_server';
 import { Socket, Server } from 'socket.io';
+import {Tip, isValidTip } from '../shared/types';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
@@ -12,13 +13,7 @@ module.exports = function registerHandlers(io) {
     }));
 }
 
-export type Tip = {
-    name: string;
-    amount: number;
-    realm_id: number;
-    datetime: string;
-    id: number;
-}
+
 
 export type TipToAdd = {
     name: string;
@@ -29,14 +24,6 @@ export type TipToEdit = {
     tip: Tip,
     newName: string;
     newAmount: number;
-}
-
-function isValidTip(tip: any): tip is Tip {
-    return typeof tip.name === 'string' &&
-           typeof tip.amount === 'number' &&
-           typeof tip.realm_id === 'number' &&
-           typeof tip.datetime === 'string' &&
-           typeof tip.id === 'number';
 }
 
 function isValidTipToAdd(tip: any): tip is TipToAdd {

@@ -12,14 +12,13 @@ export default function useOrders(init, props) {
             setOrders(menu_items);
         },
         addOrder: (order) => {
-
             setOrders(prev => ([...prev, order]));
         },
         
         removeOrder: (ordertoRemove) => {
             setOrders(prev => (
                 prev.filter(order => (
-                    order.uuid !== ordertoRemove.uuid
+                    order.id !== ordertoRemove.id
                 ))
             ));
         },
@@ -44,7 +43,7 @@ export default function useOrders(init, props) {
 
         deliverOrder: (orderToDeliver) => {
             setOrders(prev => {
-                const index = orders.findIndex(order => order.uuid === orderToDeliver.uuid);
+                const index = orders.findIndex(order => order.id === orderToDeliver.id);
 
                 prev[index].is_delivered = true;
                 return [...prev];
