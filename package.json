@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "devstart": "nodemon --exec ts-node index.ts",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,11 +20,14 @@
     "fs": "^0.0.1-security",
     "mysql": "^2.18.1",
     "node-sass": "^8.0.0",
-    "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "pg": "^8.11.1",
     "react-uuid": "^2.0.0",
     "socket.io": "^4.5.4",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1"
   }
 }

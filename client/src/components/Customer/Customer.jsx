@@ -96,7 +96,7 @@ export default function Customer(props) {
           const currentNameBuffer = value; 
       
           timer.current = setTimeout(() => {
-            customers.editName(customer.uuid, currentNameBuffer); 
+            customers.editName(customer, currentNameBuffer); 
           }, 500);
         }
     };

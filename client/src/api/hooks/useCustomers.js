@@ -25,15 +25,22 @@ export default function useCustomers(init, props) {
         removeCustomer: (customerToRemove) => {
             setCustomers(prev => (
                 prev.filter(customer => (
-                    customer.uuid !== customerToRemove.uuid
+                    customer.id !== customerToRemove.id
                 ))
             ));
 
             setSelectedCustomer(null);
         },
     
-        editCustomerName: (uuid, name) => {
-            editName(uuid, name, false);
+        editCustomerName: (data) => {
+            const { name } = data;
+            const { id } = data.customer;
+            const index = customers.findIndex(c => c.id === id);
+
+            setCustomers(prev => {
+                prev[index].name = name; 
+                return [...prev];
+            });
         },
 
         setCustomerSession: (id, session) => {
@@ -58,20 +65,8 @@ export default function useCustomers(init, props) {
         socket.emit('removeCustomer', { ...customerToRemove });
     }
 
-    function editName(uuid, name, isDebounced = true) {
-        if (isDebounced) {
-            socket.emit('editCustomerName', { uuid: uuid, name: name });
-        }
-
-        const index = customers.findIndex(customer => customer.uuid === uuid);
-        setCustomers(prev => {
-            prev[index].name = name;
-            return [...prev];
-        });
-    }
-
-    function removeAllFromSeating(seating) {
-        socket.emit('removeAllCustomersFromSeating', { ...seating });
+    function editName(customer, name) {
+        socket.emit('editCustomerName', { customer: customer, name: name });
     }
 
     function setSession(id, newSession, updateDatabase = true) {
@@ -96,7 +91,6 @@ export default function useCustomers(init, props) {
         get: customers,
         add: add,
         remove: remove,
-        removeAllFromSeating: removeAllFromSeating,
         setSession: setSession,
         editName: editName,
         refresh: refresh

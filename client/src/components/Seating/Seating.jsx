@@ -129,7 +129,6 @@ export default function Seating(props) {
         },
     ];
     
-
     return (   
         <div 
             className={`Seating ${isMoving && 'transparent ghost'}`}

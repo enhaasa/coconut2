@@ -34,10 +34,6 @@ export default function AddSectionPointerModal({ setModal, section }) {
     }
 
     function handleSubmit() {
-
-        //if (!selectedType) return;
-        //if (!selectedTargetSection) return;
-
         const sectionPointer = {
             section_id: section.id,
             target_section_id: selectedTargetSection.id,

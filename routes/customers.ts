@@ -1,73 +1,137 @@
 import Database from '../database';
+import MessageHandler from '../messages';
 import { Socket, Server } from 'socket.io';
-import { Customer } from '../shared/types';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getCustomers', () => Customers.get(socket));
-        socket.on('addCustomer', (customer: Customer) => Customers.add(io, customer));
-        socket.on('removeCustomer', (customer: Customer) => Customers.remove(io, customer));
-        socket.on('editCustomerName', (data) => Customers.editName(io, data));
-        socket.on('setCustomerSession', (data) => Customers.setSession(socket, data));
-        socket.on('removeAllCustomersFromSeating', (data) => Customers.removeAllFromSeating(socket, data));
+        socket.on('addCustomer', (customer: any) => Customers.add(io, socket, customer));
+        socket.on('removeCustomer', (customer: any) => Customers.remove(io, socket, customer));
+        socket.on('editCustomerName', (data: any) => Customers.editName(io, socket, data));
     }));
+}
+
+export type Customer = {
+    id: number;
+    name: string;
+    section_id: number;
+    seating_id: number;
+    session_id: number|unknown;
+    realm_id: number;
+    uuid: string;
+}
+
+export type CustomerToAdd = {
+    name: string;
+    section_id: number;
+    seating_id: number;
+    uuid: string;
+}
+
+export type EditNameData = {
+    customer: Customer;
+    name: string;
+}
+
+function isValidCustomer(customer: any): customer is Customer {
+    return typeof customer.id === 'number' &&
+           typeof customer.name === 'string' &&
+           typeof customer.section_id === 'number' &&
+           typeof customer.seating_id === 'number' &&
+           typeof customer.realm_id === 'number' &&
+           typeof customer.uuid === 'string';
+}
+
+function isValidEditNameData(data: any): data is EditNameData {
+    return typeof data.name === 'string' &&
+           isValidCustomer(data.customer);
+}
+
+function isValidCustomerToAdd(customer: any): customer is CustomerToAdd {
+    return typeof customer.name === 'string' &&
+           typeof customer.section_id === 'number' &&
+           typeof customer.seating_id === 'number' &&
+           typeof customer.uuid === 'string';
 }
 
 export default class Customers {
     private static table = 'customers';
 
     public static async get(socket: Socket) {
-        const customers = await Database.get(this.table);
-        
-        socket.emit('getCustomers', customers);
+        try {
+            const customers = await Database.get(this.table);
+            socket.emit('getCustomers', customers);
+        } catch (err) {
+            MessageHandler.sendError(socket, 'Failed to fetch customers.');
+        }
     }
 
-    public static async add(io: Server, customer: Customer) {
-        const new_customer_id = await Database.add(this.table, customer, 'id');
+    public static async add(io: Server, socket: Socket, customer: any) {
+        if (!isValidCustomerToAdd(customer)) {
+            console.log('Invalid format: CustomerToAdd', customer);
+            MessageHandler.sendError(socket, 'Invalid format: CustomerToAdd.');
+            return;
+        }
     
-        io.emit('addCustomer', {...customer, id: new_customer_id[0].id});
+        try {
+            const result = await Database.add(this.table, customer, 'id');
+            const id = result[0].id;
+            io.emit('addCustomer', {...customer, id: id});
+        } catch (err) {
+            console.error('Failed to add customer:', err);
+            MessageHandler.sendError(socket, 'Failed to add customer.');
+        }
     }
 
-    public static remove(io: Server, customer: Customer) {
-        const is_last_query = `
-            SELECT EXISTS (
-                SELECT 1 
-                FROM customers
-                WHERE realm_id = 1
-                AND seating_id = ${customer.seating_id}
-            );
-        `;
+    public static async remove(io: Server, socket: Socket, customer: any) {
+        if (!isValidCustomer(customer)) {
+            console.log('Invalid format: Customer', customer);
+            MessageHandler.sendError(socket, 'Invalid format: Customer.');
+            return;
+        }
 
         const deleteOrdersQuery = 'DELETE FROM "orders" WHERE "customer_id" = $1';
         const deleteCustomerQuery = 'DELETE FROM "customers" WHERE "id" = $1';
         
-        Database.query(deleteOrdersQuery, [customer.id], (err, result) => {
+        const handleDatabaseError = (err: Error) => {
             if (err) {
-                console.log(err);
-            } else {
-                Database.query(deleteCustomerQuery, [customer.id], (err, result) => {
-                    if (err) {
-                        console.log(err);
-                    }
-                });
+                console.error('Database error:', err);
+                throw err;
             }
-        });
-
-        io.emit('removeCustomer', customer);
+        };
+    
+        try {
+            const orderResult = await Database.query(deleteOrdersQuery, [customer.id]);
+            handleDatabaseError(orderResult.error);
+    
+            const customerResult = await Database.query(deleteCustomerQuery, [customer.id]);
+            handleDatabaseError(customerResult.error);
+            
+            io.emit('removeAllOrdersByCustomer', customer);
+            io.emit('removeCustomer', customer);
+    
+        } catch (err) {
+            console.error('Failed to remove customer:', err);
+            MessageHandler.sendError(socket, 'Failed to remove customer.');
+        }
     }
 
-    public static editName(io: Server, data) {
-        Database.update(this.table, 'name', data.name, 'uuid', data.uuid);
-        io.emit('editCustomerName', data.uuid, data.name);
-    }
-
-    public static setSession(socket: Socket, data) {
-        Database.update(this.table, 'session', data.session, 'id', data.id);
-        socket.broadcast.emit('setCustomerSession', data.id, data.session);
-    }
-
-    public static removeAllFromSeating(socket: Socket, data) {
-        Database.remove(this.table, '`seating`', data.id);
-        socket.broadcast.emit('removeAllCustomersFromSeating');
+    public static async editName(io: Server, socket: Socket, data: any) {
+        if (!isValidEditNameData(data)) {
+            console.log('Invalid format: EditNameData', data);
+            MessageHandler.sendError(socket, 'Invalid format: EditNameData.');
+            return;
+        }
+    
+        const { name } = data;
+        const { id } = data.customer;
+    
+        try {
+            await Database.update(this.table, 'name', name, 'id', id);
+            io.emit('editCustomerName', data);
+        } catch (err) {
+            console.error('Failed to edit customer name:', err);
+            MessageHandler.sendError(socket, 'Failed to edit customer name.');
+        }
     }
 }

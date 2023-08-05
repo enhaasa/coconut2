@@ -25,16 +25,16 @@ export default function useSeats(init, props) {
                 return [...prev];
             });
         },
-            resetSeating: (seatingToReset) => {
-            const index = seatings.findIndex(s => s.id === seatingToReset.id);
+        resetSeating: (seatingToReset) => {
+        const index = seatings.findIndex(s => s.id === seatingToReset.id);
 
-            setSeatings(prev => {
-                prev[index].is_available = true;
-                prev[index].is_reserved = false;
-                prev[index].is_photography = false;
+        setSeatings(prev => {
+            prev[index].is_available = true;
+            prev[index].is_reserved = false;
+            prev[index].is_photography = false;
 
-                return [...prev];
-            });
+            return [...prev];
+        });
         },
         setSeatingLocation: (data) => {
             const { seating, newLocation } = data;

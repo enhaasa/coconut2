@@ -30,6 +30,11 @@ export default function useOrders(init, props) {
             ));
         },
 
+        removeAllOrdersByCustomer: (customer) => {
+            setOrders(prev => (
+                prev.filter(order => order.customer_id !== customer.id)
+            ));
+        },
         removeAllDeliveredOrdersFromSeating: (seating) => {
             setOrders(prev => {
                 const fileteredOrders = prev.filter(order => !order.is_delivered || order.seating_id !== seating.id);
@@ -46,8 +51,7 @@ export default function useOrders(init, props) {
             })
         },
 
-        deliverAllByCustomer: (customer) => {
-            
+        deliverAllOrdersByCustomer: (customer) => {
             setOrders(prev => {
                 prev.forEach((order, index) => {
                     if(order.customer_id === customer.id) {
