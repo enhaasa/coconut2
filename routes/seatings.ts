@@ -133,6 +133,22 @@ export class Seatings {
             return;
         }
 
+        //Check if there are customers in the seating before deleting.
+        try {
+            const query = `SELECT COUNT(*) FROM customers WHERE "seating_id" = ${seating.id};`
+            const result = await Database.query(query);
+            const customers = result[0].count;
+
+            if (customers > 0) {
+                MessageHandler.sendWarning(socket, 'There are still customers in this seating. Please remove them and try again.');
+                return;
+            } 
+        } catch(err) {
+            console.log('Failed to fetch amount of customers associated with this seating.', err);
+            MessageHandler.sendError(socket, 'Failed to remove seating.');
+            return;
+        }
+
         try {
             await this.reset(io, socket, seating);
             const result = await Database.remove(this.table, 'id', seating.id);

@@ -334,6 +334,31 @@
   font-size: 12px;
 }
 
+.Logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 5px;
+}
+.Logo .image {
+  width: 70px;
+  height: 70px;
+}
+.Logo .info-container {
+  display: grid;
+  align-content: center;
+}
+.Logo .info-container .title {
+  color: #fff;
+  font-family: "Dancing Script";
+  font-size: 32px;
+  margin-bottom: -6px;
+}
+.Logo .info-container .author {
+  color: rgb(190, 190, 190);
+  font-size: 14px;
+}
+
 .SectionManager {
   display: grid;
   grid-auto-flow: column;
@@ -344,7 +369,7 @@
 }
 
 .Payouts {
-  background: rgba(34, 34, 34, 0.5137254902);
+  background: rgba(34, 34, 34, 0.4509803922);
   color: white;
   padding: 20px;
   border: 1px solid black;
@@ -357,7 +382,8 @@
   grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
-  margin-bottom: 10px;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
 }
 .Payouts .column {
   display: grid;
@@ -1253,33 +1279,13 @@ button:active, select:active, option:active {
   grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
   border-bottom: 1px solid #0e0e0e;
-  background: rgba(34, 34, 34, 0.5137254902);
+  background: rgba(34, 34, 34, 0.4509803922);
   width: 100%;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
 }
 .TopNav .column {
   padding: 5px;
-}
-.TopNav .column .logo {
-  display: flex;
-  gap: 5px;
-}
-.TopNav .column .logo .image {
-  width: 50px;
-  height: 50px;
-}
-.TopNav .column .logo .info-container {
-  display: grid;
-  align-content: center;
-}
-.TopNav .column .logo .info-container .title {
-  color: #fff;
-  font-family: "Dancing Script";
-  font-size: 18px;
-  margin-bottom: -6px;
-}
-.TopNav .column .logo .info-container .author {
-  color: #9bb4b2;
-  font-size: 14px;
 }
 .TopNav .column .section-nav {
   display: flex;
@@ -1302,7 +1308,7 @@ button:active, select:active, option:active {
 }
 .TopNav .column .section-nav .sections .row .title {
   text-align: center;
-  color: grey;
+  color: rgb(190, 190, 190);
 }
 .TopNav .column .section-nav .sections .row .nav {
   display: flex;
@@ -1470,11 +1476,40 @@ button:active, select:active, option:active {
   background: rgb(168, 63, 63);
   color: white;
 }
+.MessageManager .message.warning {
+  background: rgb(173, 164, 88);
+  color: black;
+}
+.MessageManager .message.warning .close-button {
+  color: black;
+}
+
+.Footer {
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  background: rgba(34, 34, 34, 0.4509803922);
+  color: #fff;
+  width: 100%;
+  border-top: 1px solid #0e0e0e;
+}
+.Footer .content {
+  padding: 5px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(5, 1fr);
+  color: rgb(190, 190, 190);
+}
+.Footer .content .column {
+  text-align: center;
+}
+.Footer .content .column .title {
+  font-weight: bold;
+}
 
 main {
   display: grid;
   place-items: center;
-  background-image: url("./../assets/background/background.webp");
+  background-image: url("./../assets/background/palms2.webp");
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;

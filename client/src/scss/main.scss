@@ -21,6 +21,7 @@
 @import './../components/common/Modal/Modal';
 @import './../components/common/Toggle/Toggle';
 @import './../components/common/NotificationBar/NotificationBar';
+@import './../components/common/Logo/Logo';
 
 //Views
 @import './../views/SectionManager/SectionManager';
@@ -47,11 +48,12 @@
 @import './../components/SectionPointer/EditSectionPointerModal';
 @import './../components/Seating/AddSeatingModal';
 @import './../components/MessageManager/MessageManager';
+@import './../components/Footer/Footer';
 
 main {
     display: grid;
     place-items: center;
-    background-image: url('./../assets/background/background.webp');
+    background-image: url('./../assets/background/palms2.webp');
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -66,5 +68,5 @@ main {
         z-index: 4;
         background-color: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(5px);
-      }
+    }
 }

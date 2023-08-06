@@ -8,7 +8,7 @@
     border-radius: 10px;
 
     & .title {
-        color: grey;
+        color: getTextColor('grey');
         text-align: center;
         margin: 3px 0;
     }

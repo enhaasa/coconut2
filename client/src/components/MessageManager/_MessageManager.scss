@@ -34,5 +34,14 @@
             background: getPrimaryColor('destructive');
             color: white;
         }
+
+        &.warning {
+            background: getPrimaryColor('progressive');
+            color: black;
+
+            & .close-button {
+                color: black;
+            }
+        }
     }
 }

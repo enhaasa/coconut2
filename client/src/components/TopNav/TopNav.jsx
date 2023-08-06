@@ -9,13 +9,10 @@ import MultiToggle from '../common/MultiToggle/MultiToggle';
 import MultiToggleOption from '../common/MultiToggle/MultiToggleOption';
 import Button from '../common/Button/Button';
 import SectionNotificationBar from '../common/NotificationBar/SectionNotificationBar';
+import Toggle from '../common/Toggle/Toggle';
 
 //Tools
 import uuid from 'react-uuid';
-
-//Icons
-import logo from './../../assets/icons/logo.png';
-import Toggle from '../common/Toggle/Toggle';
 
 export default function TopNav() {
 
@@ -33,13 +30,7 @@ export default function TopNav() {
     return (
         <section className='TopNav'>
             <span className='column'>
-                <span className='logo'>
-                    <img className='image' src={logo} alt='' />
-                    <span className='info-container'>
-                        <div className='title'>Coconut</div>
-                        <div className='author'>by Enhasa</div>
-                    </span>
-                </span>
+
             </span>
 
             <span className='column'>

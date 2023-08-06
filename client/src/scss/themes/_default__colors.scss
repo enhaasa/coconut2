@@ -3,7 +3,7 @@ $background-colors: (
     'secondary': #2c2c2cda,
     'tertiary': rgba(65, 65, 65, 0.678),
     'quaternary': rgba(80, 80, 80, 0.87),
-    'section': #22222283,
+    'section': #22222273,
 );
 @function getBackgroundColor($key) {
     @return map-get($background-colors, $key);
@@ -20,6 +20,8 @@ $multitoggle-colors: (
 $text-colors: (
     'primary': #fff,
     'secondary': #9bb4b2,
+    'grey': grey,
+    'lightgrey': rgb(190, 190, 190)
 );
 @function getTextColor($key) {
     @return map-get($text-colors, $key);

@@ -42,7 +42,7 @@
                 padding: 5px;
 
                 & .type-title {
-                    border-bottom: 1px solid grey;
+                    border-bottom: 1px solid getTextColor('grey');
                     font-weight: bold;
                     color: getPrimaryColor('popping');
                     font-size: getFontSize('large');

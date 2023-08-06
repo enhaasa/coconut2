@@ -6,6 +6,7 @@ import Payouts from './views/Payouts/Payouts';
 import SectionManager from './views/SectionManager/SectionManager';
 import TopNav from './components/TopNav/TopNav';
 import Main from './components/Main';
+import Footer from './components/Footer/Footer';
 
 //Tools
 import uuid from 'react-uuid';
@@ -71,6 +72,8 @@ export default function App() {
                       <Payouts 
                         setIsBlurred={setIsBlurred}
                       />
+
+                      <Footer />
 
                     </Main>
                     
