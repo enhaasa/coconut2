@@ -160,8 +160,9 @@ export default function SeatingManager(props) {
 
                     {
                         <Dropdown 
-                            defaultValue={seating.waiter}
+                            value={seating.waiter}
                             onChangeEvent={({target}) => {seatings.setAttribute(seating, 'waiter', target.value)}}>
+                                <DropdownItem key={uuid()}></DropdownItem>
                             {staff.get.map(member => (
                                 member.positions.includes('waiter') &&
                                 <DropdownItem key={uuid()}>{member.name}</DropdownItem>

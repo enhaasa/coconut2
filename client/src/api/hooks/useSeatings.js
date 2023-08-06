@@ -16,9 +16,11 @@ export default function useSeats(init, props) {
                 [...prev, seating]
             ))
         },
+
         setSeatingAttribute: (data) => {
             const { seating, attribute, value } = data;
             const index = seatings.findIndex(t => t.id === seating.id);
+            console.log(data)
 
             setSeatings(prev => {
                 prev[index][attribute] = value;
