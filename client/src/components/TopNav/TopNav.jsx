@@ -25,12 +25,13 @@ export default function TopNav() {
         setSelectedSection,
         isDangerousSettings,
         setIsDangerousSettings,
+        setShowRawMenu
     } = useContext(ControlStatesContext);
 
     return (
         <section className='TopNav'>
             <span className='column'>
-
+                <Button type='neutral' clickEvent={() => setShowRawMenu(true)}>Menu</Button>
             </span>
 
             <span className='column'>

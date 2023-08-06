@@ -12,6 +12,7 @@ function ControlStatesProvider({ children }) {
     const [ itemInMovement, setItemInMovement ] = useState(null);
     const [ contextMenu, handleContextMenu, hideContextMenu ] = useContextMenu();
     const [ isDangerousSettings, setIsDangerousSettings ] = useState(false);
+    const [ showRawMenu, setShowRawMenu ] = useState(false);
 
     return (
         <ControlStatesContext.Provider value={{
@@ -22,6 +23,7 @@ function ControlStatesProvider({ children }) {
             itemInMovement,
             contextMenu,
             isDangerousSettings,
+            showRawMenu,
 
             setSelectedSection,
             setSelectedCustomer,
@@ -31,6 +33,7 @@ function ControlStatesProvider({ children }) {
             handleContextMenu,
             hideContextMenu,
             setIsDangerousSettings,
+            setShowRawMenu,
         }}>
             {children}
         </ControlStatesContext.Provider>    

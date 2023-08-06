@@ -210,6 +210,7 @@ export class Orders {
 
     public static async remove(io: Server, socket: Socket, order: any) {
         delete order.amount;
+        delete order.total;
         if (!isValidOrder(order)) {
             console.log('Invalid format: Order', order);
             MessageHandler.sendError(socket, 'Invalid format: Order.');

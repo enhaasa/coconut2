@@ -20,6 +20,7 @@ function SectionManager() {
     selectedCustomer,
     selectedSeating,
     selectedSection,
+    setSelectedCustomer,
   } = useContext(ControlStatesContext);
 
   return(
@@ -31,7 +32,7 @@ function SectionManager() {
         }
 
         {selectedCustomer !== null &&
-          <MenuManager />
+          <MenuManager closeButtonEvent={() => setSelectedCustomer(null)}/>
         }
       </section>
       

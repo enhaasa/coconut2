@@ -8,7 +8,7 @@ export type Order = {
     realm_id: number;
     menu_id: number;
     item: string;
-    time: number;
+    time: number|string;
     date: string;
     id: string;
 }
@@ -22,7 +22,7 @@ export function isValidOrder(order: any): order is Order {
            typeof order.menu_id === 'number' &&
            typeof order.item === 'string' &&
            typeof order.realm_id === 'number' &&
-           typeof order.time === 'number' &&
+           typeof order.time === 'string' || typeof order.time === 'number' &&
            typeof order.date === 'string' &&
            typeof order.id === 'number';
 }

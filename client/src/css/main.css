@@ -1024,15 +1024,30 @@ button:active, select:active, option:active {
   color: grey;
 }
 
-.SeatingManagerContainer .MenuManager {
+.raw-menu-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  background: rgba(34, 34, 34, 0.4509803922);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+}
+
+.MenuManager {
   display: grid;
   position: relative;
   background: rgba(34, 34, 34, 0.8235294118);
   color: white;
   border: 1px solid #0e0e0e;
 }
-.SeatingManagerContainer .MenuManager .menu-title {
+.MenuManager .menu-title {
   display: flex;
+  flex-direction: row-reverse;
   justify-self: center;
   justify-content: space-between;
   align-items: center;
@@ -1044,41 +1059,41 @@ button:active, select:active, option:active {
   box-shadow: 0px 0px 1px 0px black;
   border: 1px solid #0e0e0e;
 }
-.SeatingManagerContainer .MenuManager .menu-title .customer-title {
+.MenuManager .menu-title .customer-title {
   color: white;
   padding: 0 10px;
   text-shadow: 0.1em 0.1em 0.2em black;
   font-size: 18px;
   font-weight: bold;
 }
-.SeatingManagerContainer .MenuManager .menu-title .close-button {
+.MenuManager .menu-title .close-button {
   margin: 5px;
 }
-.SeatingManagerContainer .MenuManager .menu-container {
+.MenuManager .menu-container {
   -moz-column-count: 2;
        column-count: 2;
   padding: 5px 10px;
 }
-.SeatingManagerContainer .MenuManager .menu-container .type {
+.MenuManager .menu-container .type {
   -moz-column-break-inside: avoid;
        break-inside: avoid;
   padding: 5px;
 }
-.SeatingManagerContainer .MenuManager .menu-container .type .type-title {
+.MenuManager .menu-container .type .type-title {
   border-bottom: 1px solid grey;
   font-weight: bold;
   color: rgb(196, 177, 166);
   font-size: 18px;
   margin: 2px 0;
 }
-.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item {
+.MenuManager .menu-container .type .item-container .item {
   display: flex;
   white-space: nowrap;
   justify-content: space-between;
   gap: 5px;
   margin: 1px 0;
 }
-.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-title {
+.MenuManager .menu-container .type .item-container .item .item-title {
   font-size: 14px;
   display: flex;
   gap: 5px;
@@ -1086,15 +1101,15 @@ button:active, select:active, option:active {
   color: white;
   text-shadow: 0.1em 0.1em 0.2em black;
 }
-.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-title .item-info-button {
+.MenuManager .menu-container .type .item-container .item .item-title .item-info-button {
   background: none;
   border: none;
   padding: 0;
 }
-.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item .item-nav {
+.MenuManager .menu-container .type .item-container .item .item-nav {
   display: flex;
 }
-.SeatingManagerContainer .MenuManager .menu-container .type .item-container .item-info {
+.MenuManager .menu-container .type .item-container .item-info {
   display: none;
 }
 

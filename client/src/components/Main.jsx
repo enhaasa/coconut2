@@ -10,11 +10,14 @@ import MessageManager from './MessageManager/MessageManager';
 
 //Tools
 import uuid from 'react-uuid';
+import MenuManager from './MenuManager/MenuManager';
 
 export default function Main({ children }) {
 
     const {
-        contextMenu
+        contextMenu,
+        showRawMenu,
+        setShowRawMenu,
     } = useContext(ControlStatesContext);
     
     return (
@@ -30,6 +33,13 @@ export default function Main({ children }) {
                     ))}
                 </ContextMenu>
             }
+            {
+                showRawMenu &&
+                <div className='raw-menu-container'>
+                    <MenuManager closeButtonEvent={() => setShowRawMenu(false)}/>
+                </div>
+            }
+
             <MessageManager />
             {children}
         </main>

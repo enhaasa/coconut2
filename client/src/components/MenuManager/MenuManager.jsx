@@ -20,7 +20,11 @@ import infoIcon from './../../assets/icons/info-small-white.png';
 import gsap from 'gsap';
 import animations from '../../animations';
 
-export default function MenuManager() {
+export default function MenuManager(props) {
+    const {
+        closeButtonEvent,
+    } = props;
+
     const { 
         setSelectedCustomer,
         selectedCustomer,
@@ -44,10 +48,6 @@ export default function MenuManager() {
     const [ itemInfo, setItemInfo ] = useState(null);
     const [ isBlurred, setIsBlurred ] = useState(false);
 
-    function close() {
-        setSelectedCustomer(null);
-    }
-
     function filterItem(item) {
         return {
             name: item.name,
@@ -69,40 +69,41 @@ export default function MenuManager() {
     }
 
     return (
-        !!selectedCustomer &&
-            <div className='MenuManager' ref={MenuManagerRef}>
-                {isBlurred && <div className='blur' />} 
+        <div className='MenuManager' ref={MenuManagerRef}>
+            {isBlurred && <div className='blur' />} 
 
-                {!!itemInfo && <MenuInfoModal item={itemInfo} handleItemInfo={handleItemInfo}/>}
+            {!!itemInfo && <MenuInfoModal item={itemInfo} handleItemInfo={handleItemInfo}/>}
 
-                    <span className='menu-title'>
-                        <span className='customer-title'>{selectedCustomer.name}</span>
-    
-                        <CloseButton clickEvent={close} />
-                    </span>
-                    
-                    <div className='menu-container'>
+                <span className='menu-title'>
+                    <CloseButton clickEvent={closeButtonEvent} />
+                    {selectedCustomer && 
+                        <span className='customer-title'>{selectedCustomer.name}</span>   
+                    }
+                </span>
+                
+                <div className='menu-container'>
 
-                        {menu.get.length === 0 ? 'Loading...' :
-                        menuTypes.map(menuType => (
-                            <div className='type' key={uuid()}>
-                                <div className='type-title cursive'>{capitalizeFirstLetter(menuType) + 's'}</div>
+                    {menu.get.length === 0 ? 'Loading...' :
+                    menuTypes.map(menuType => (
+                        <div className='type' key={uuid()}>
+                            <div className='type-title cursive'>{capitalizeFirstLetter(menuType) + 's'}</div>
 
-                                {menu.get.map(item => (
-                                    menuType === item.type && 
-                                        item.available !== 0 &&
-                                            <div className='item-container' key={item.id}>
-                                                <div className='item'>
-                                                    <span className='item-title'>
-                                                        <button className='item-info-button' onClick={() => {handleItemInfo(item)}}>
-                                                            <img src={infoIcon} alt='' />
-                                                        </button>
+                            {menu.get.map(item => (
+                                menuType === item.type && 
+                                    item.available !== 0 &&
+                                        <div className='item-container' key={item.id}>
+                                            <div className='item'>
+                                                <span className='item-title'>
+                                                    <button className='item-info-button' onClick={() => {handleItemInfo(item)}}>
+                                                        <img src={infoIcon} alt='' />
+                                                    </button>
 
-                                                        <span className='item-name'>
-                                                            {item.name}     
-                                                        </span>
+                                                    <span className='item-name'>
+                                                        {item.name}     
                                                     </span>
+                                                </span>
 
+                                                {selectedCustomer &&
                                                     <nav className='item-nav'>
                                                         <Button type='constructive' clickEvent={() => {orders.add({
                                                             ...filterItem(item)
@@ -114,16 +115,18 @@ export default function MenuManager() {
                                                             price: 0
                                                         })}}>Free</Button>
                                                     </nav>
-                                                </div>
+                                                }
 
-                                                <div className='item-info'>
-                                                    {item.id}
-                                                </div>
                                             </div>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-            </div>
+
+                                            <div className='item-info'>
+                                                {item.id}
+                                            </div>
+                                        </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+        </div>
     );
 }
