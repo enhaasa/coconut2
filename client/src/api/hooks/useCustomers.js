@@ -4,6 +4,7 @@ import useSocketListener from './../useSocketListener';
 export default function useCustomers(init, props) {
     const { 
         setSelectedCustomer,
+        selectedCustomer,
         socket
     } = props;
 
@@ -36,14 +37,15 @@ export default function useCustomers(init, props) {
             const { id } = data.customer;
             const index = customers.findIndex(c => c.id === id);
 
+            if (selectedCustomer) {
+                setSelectedCustomer(prev => (
+                    {...prev, name: name}
+                ));
+            }
             setCustomers(prev => {
                 prev[index].name = name; 
                 return [...prev];
             });
-        },
-
-        setCustomerSession: (id, session) => {
-            setSession(id, session, false);
         },
 
         removeAllCustomersFromSeating: (seating) => {
@@ -68,29 +70,15 @@ export default function useCustomers(init, props) {
         socket.emit('editCustomerName', { customer: customer, name: name });
     }
 
-    function setSession(id, newSession, updateDatabase = true) {
-        const index = customers.findIndex(customer => customer.id === id);
-
-        setCustomers(prev => {
-            prev[index].session = newSession;
-            return [...prev];
-        });
-
-        if (updateDatabase) {
-            socket.emit('setCustomerSession', { session: newSession, id: id })
-        }
-        //db.customers.put('session', newSession, 'id', id);
-    }
-
     function refresh() {
         socket.emit('getCustomers');
     }
 
     return {   
         get: customers,
+        setCustomers: setCustomers,
         add: add,
         remove: remove,
-        setSession: setSession,
         editName: editName,
         refresh: refresh
     }

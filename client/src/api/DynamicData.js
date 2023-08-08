@@ -1,4 +1,4 @@
-import React, { useMemo, createContext, useEffect } from 'react';
+import React, { useMemo, createContext, useEffect, useContext } from 'react';
 import useSections from './hooks/useSections';
 import useSectionPointers from './hooks/useSectionPointers';
 import useSeatings from './hooks/useSeatings';
@@ -10,10 +10,25 @@ import useMenu from './hooks/useMenu';
 import useStaff from './hooks/useStaff';
 import useMessages from './hooks/useMessages';
 
+import { ControlStatesContext } from './ControlStates';
+
 
 const DynamicDataContext = createContext();
 
-function DynamicDataProvider({ children, socket, selectedSeatingTracker, setSelectedCustomer }) {
+function DynamicDataProvider(props) {
+
+  const {
+    children, 
+    socket, 
+    selectedSeatingTracker, 
+  } = props;
+
+  const {
+    setSelectedCustomer,
+    selectedCustomer,
+  } = useContext(ControlStatesContext);
+
+
   const archivedSessions = useArchivedSessions([], {
     socket: socket
   });
@@ -40,6 +55,7 @@ function DynamicDataProvider({ children, socket, selectedSeatingTracker, setSele
 
   const customers = useCustomers([], {
     setSelectedCustomer,
+    selectedCustomer,
     orders: orders,
     socket: socket
   });

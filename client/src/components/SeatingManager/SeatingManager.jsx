@@ -23,7 +23,7 @@ import animations from '../../animations.js'
 
 //Icons
 import resetIcon from './../../assets/icons/reset-small-white.png';
-import receiptIcon from './../../assets/icons/receipt2-small-black.png';
+import receiptIcon from './../../assets/icons/receipt2-small-white.png';
 
 export default function SeatingManager(props) {
     const {
@@ -120,11 +120,9 @@ export default function SeatingManager(props) {
     }
 
     const customersInSeating = seating.customers;
-
     let deliveredOrdersInSeating = [];
 
     const customerIds = new Set(customersInSeating.map((customer) => customer.id));
-
     for (const order of orders.get) {
         if (order.is_delivered) {
             if (customerIds.has(order.customer_id)) {
@@ -226,7 +224,7 @@ export default function SeatingManager(props) {
                             </div>
                         </div>
 
-                        <Button type='progressive' clickEvent={() => handleViewTab(true)}>
+                        <Button type='dark' clickEvent={() => handleViewTab(true)}>
                             <img src={receiptIcon} alt='Receipt Icon' />
                             View Tab
                         </Button>

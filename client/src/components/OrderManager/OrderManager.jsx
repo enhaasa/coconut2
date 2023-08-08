@@ -15,8 +15,6 @@ export default function OrderManager(props) {
         openConfirmBox, 
         closeConfirmBox, 
         customersInSeating,
-        unDeliveredOrdersInSeating, 
-        updateUpdates, 
         seating, 
     } = props;
 
@@ -49,19 +47,15 @@ export default function OrderManager(props) {
         })
     }
 
-    let unDeliveredOrderCustomersInSeating = unDeliveredOrdersInSeating ? 
-    unDeliveredOrdersInSeating.map(order => order.customer_id) : [];
-
     function handleAdd(seating) {
         const newCustomer = {
             name: '',
             section_id: seating.section_id,
             seating_id: seating.id,
-            session_id: seating.session_id,
             realm_id: 1
           }
 
-          customers.add(newCustomer)
+          customers.add(newCustomer);
     }
 
     return (
@@ -77,16 +71,13 @@ export default function OrderManager(props) {
                         seating.customers.length === 0 ?
                         <span className='emptylist'>The customers you're looking for is in another castle...</span> :
                         seating.customers.map(customer => (
-                                <Customer 
-                                    key={uuid()}
-                                    customer={customer}
-                                    orders={orders}
-                                    updateUpdates={updateUpdates}
-                                    confirmDeleteCustomer={confirmDeleteCustomer}
-                                    unDeliveredOrdersInSeating={unDeliveredOrdersInSeating}
-                                    unDeliveredOrderCustomersInSeating={unDeliveredOrderCustomersInSeating}
-                                    customers={customers}
-                                />
+                            <Customer 
+                                key={uuid()}
+                                customer={customer}
+                                orders={orders}
+                                confirmDeleteCustomer={confirmDeleteCustomer}
+                                customers={customers}
+                            />
                         ))} 
                 </div>
             </section>

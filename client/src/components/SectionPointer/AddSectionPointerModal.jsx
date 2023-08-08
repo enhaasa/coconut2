@@ -4,12 +4,18 @@ import React, { useState, useContext } from 'react';
 import Dropdown from "../common/Dropdown/Dropdown";
 import DropdownItem from "../common/Dropdown/DropdownItem";
 import Button from '../common/Button/Button';
+import MultiToggle from '../common/MultiToggle/MultiToggle';
+import MultiToggleOption from '../common/MultiToggle/MultiToggleOption';
 
 //Contexts
 import { DynamicDataContext } from '../../api/DynamicData';
 
 //Tools
 import uuid from 'react-uuid';
+
+//Icons
+import barIcon from '../../assets/icons/drinks-medium-white.png';
+import seatingIcon from '../../assets/icons/chairs-medium-white.png';
 
 export default function AddSectionPointerModal({ setModal, section }) {
 
@@ -47,18 +53,6 @@ export default function AddSectionPointerModal({ setModal, section }) {
     return (
         <div className='EditSectionPointerModal'>
             <div className='row'>
-                <span className='label'>Icon</span>
-                <span className='selector'>
-                    <Dropdown
-                        onChangeEvent = {({target}) => {handleSelectedType(target.value)}}
-                        value = {selectedType}
-                        >
-                        <DropdownItem value={'bar'}>Bar</DropdownItem>
-                        <DropdownItem value={'seating'}>Seating</DropdownItem>
-                    </Dropdown>
-                </span>
-            </div>
-            <div className='row'>
                 <span className='label'>Target</span>
                 <span className='selector'>
                     <Dropdown
@@ -73,6 +67,26 @@ export default function AddSectionPointerModal({ setModal, section }) {
                     </Dropdown>
                 </span>
             </div>
+
+            <div className='row'>
+                <span className='label'>Icon</span>
+                <span className='selector'>
+                    <MultiToggle>
+                        <MultiToggleOption 
+                            clickEvent={() => handleSelectedType('bar')}
+                            isActive={selectedType === 'bar' ? true : false}>
+                            <img src={barIcon} alt='Bar Icon'/>
+                        </MultiToggleOption>
+
+                        <MultiToggleOption 
+                            clickEvent={() => handleSelectedType('seating')}
+                            isActive={selectedType === 'seating' ? true : false}>
+                            <img src={seatingIcon} alt='Seating Icon'/>
+                        </MultiToggleOption>
+                    </MultiToggle>
+                </span>
+            </div>
+
             <div className='row bottom-nav'>
                 <Button type='neutral' clickEvent={() => setModal(null)}>Cancel</Button>
                 <Button type='constructive' clickEvent={handleSubmit}>Create</Button>

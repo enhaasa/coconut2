@@ -96,7 +96,13 @@ export default function Customer(props) {
           const currentNameBuffer = value; 
       
           timer.current = setTimeout(() => {
-            customers.editName(customer, currentNameBuffer); 
+            //customers.editName(customer, currentNameBuffer); 
+            const index = customers.get.findIndex(c => c.id === customer.id);
+
+            customers.setCustomers(prev => {
+                prev[index].name = value; 
+                return [...prev];
+            });
           }, 500);
         }
     };
@@ -107,7 +113,6 @@ export default function Customer(props) {
 
     return (
         <div className={`Customer${selectedCustomer && selectedCustomer.id === customer.id ? ' active' : ''}`} 
-            key={customer.uuid} 
             ref={customerRef}>
             <nav className='name-nav'>
                 <input 
@@ -121,8 +126,7 @@ export default function Customer(props) {
                 </input>
 
                 {isInSeating &&
-                <Button type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
-
+                    <Button type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
                 }
             </nav>
 

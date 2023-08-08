@@ -8,7 +8,8 @@ import AddSectionPointerModal from './AddSectionPointerModal';
 import Modal from '../common/Modal/Modal';
 
 //Icons
-import barIcon from './../../assets/icons/drinks-white.png';
+import barIcon from '../../assets/icons/drinks-white.png';
+import seatingIcon from '../../assets/icons/chairs-white.png';
 
 export default function SectionPointer(props) {
     const {
@@ -35,7 +36,7 @@ export default function SectionPointer(props) {
         },
         {
             name: 'seating',
-            icon: barIcon
+            icon: seatingIcon
         },
     ];
 

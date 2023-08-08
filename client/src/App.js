@@ -30,59 +30,24 @@ export default function App() {
 
   }, []);
 
-  /**
-   * Controlstates to know which windows to load.
-   */
-  const [ isBlurred, setIsBlurred ] = useState(false);
-  const [ selectedCustomer, setSelectedCustomer ] = useState(null);
-  const [ selectedSeating, setSelectedSeating ] = useState(null);
-
-
-  /**
-   * Temporary solution to useEffect not having access to updated values in component state
-  */
-  const selectedSeatingTracker = useRef(null);  
-  useEffect(() => {
-    selectedSeatingTracker.current = selectedSeating;
-    selectedSeating !== null ?
-    setIsBlurred(true) :
-    setIsBlurred(false);
-    setSelectedCustomer(null);
-  }, [selectedSeating]);
-
   return (
     <>
-
         {socket && 
               <ControlStatesProvider>
                 <StaticDataContextProvider>
-                  <DynamicDataProvider 
-                    socket={socket} 
-                    selectedSeatingTracker={selectedSeatingTracker} 
-                    setSelectedCustomer={setSelectedCustomer}>
-
+                  <DynamicDataProvider socket={socket} >
+                    
                     <Main>
                       <TopNav />
-
-                      <SectionManager 
-                        key={uuid()}
-                        isBlurred={isBlurred}
-                      />
-
-                      <Payouts 
-                        setIsBlurred={setIsBlurred}
-                      />
-
+                      <SectionManager />
+                      <Payouts />
                       <Footer />
-
                     </Main>
                     
                   </DynamicDataProvider>
                 </StaticDataContextProvider>
               </ControlStatesProvider>
         }
-
     </>
-
   );
 }
