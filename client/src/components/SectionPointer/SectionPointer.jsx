@@ -1,10 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 
 //Contexts
 import { ControlStatesContext } from "../../api/ControlStates";
 import { DynamicDataContext } from '../../api/DynamicData';
 import EditSectionPointerModal from './EditSectionPointerModal';
-import AddSectionPointerModal from './AddSectionPointerModal';
 import Modal from '../common/Modal/Modal';
 
 //Icons
@@ -40,11 +39,15 @@ export default function SectionPointer(props) {
         },
     ];
 
-    const isMoving = itemInMovement && itemInMovement.id === sectionPointer.id;
+    const isMoving = itemInMovement && itemInMovement.item.id === sectionPointer.id;
     const icon = types.find(t => t.name === sectionPointer.type).icon;
 
     function handleMoveSectionPointer() {
-        setItemInMovement({...sectionPointer, moveFunction: sectionPointers.setLocation});
+        setItemInMovement({
+            type: 'section pointer', 
+            item: sectionPointer,
+            moveFunction: sectionPointers.setLocation
+        });
     }
 
     const contextMenuTitle = `Section pointer for: ${sectionPointer.name}`;

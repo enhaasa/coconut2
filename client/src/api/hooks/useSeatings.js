@@ -20,24 +20,25 @@ export default function useSeats(init, props) {
         setSeatingAttribute: (data) => {
             const { seating, attribute, value } = data;
             const index = seatings.findIndex(t => t.id === seating.id);
-            console.log(data)
 
             setSeatings(prev => {
                 prev[index][attribute] = value;
                 return [...prev];
             });
         },
+
         resetSeating: (seatingToReset) => {
         const index = seatings.findIndex(s => s.id === seatingToReset.id);
 
-        setSeatings(prev => {
-            prev[index].is_available = true;
-            prev[index].is_reserved = false;
-            prev[index].is_photography = false;
+            setSeatings(prev => {
+                prev[index].is_available = true;
+                prev[index].is_reserved = false;
+                prev[index].is_photography = false;
 
-            return [...prev];
-        });
+                return [...prev];
+            });
         },
+
         setSeatingLocation: (data) => {
             const { seating, newLocation } = data;
             const index = seatings.findIndex(s => s.id === seating.id);
@@ -50,6 +51,7 @@ export default function useSeats(init, props) {
                 return [...prev];
             })
         },
+
         removeSeating: (seating) => {
             setSeatings(prev => (
                 prev.filter(s => s.id !== seating.id)

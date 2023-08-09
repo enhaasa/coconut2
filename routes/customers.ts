@@ -2,6 +2,7 @@ import Database from '../database';
 import MessageHandler from '../messages';
 import { Socket, Server } from 'socket.io';
 import { Customer, isValidCustomer } from '../shared/types';
+import { Order, Seating} from '../shared/types';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
@@ -9,6 +10,7 @@ module.exports = function registerHandlers(io) {
         socket.on('addCustomer', (customer: any) => Customers.add(io, socket, customer));
         socket.on('removeCustomer', (customer: any) => Customers.remove(io, socket, customer));
         socket.on('editCustomerName', (data: any) => Customers.editName(io, socket, data));
+        socket.on('moveCustomer', (data: any) => Customers.move(io, socket, data));
     }));
 }
 
@@ -32,6 +34,11 @@ export function isValidCustomerToAdd(customer: any): customer is CustomerToAdd {
     return typeof customer.name === 'string' &&
            typeof customer.section_id === 'number' &&
            typeof customer.seating_id === 'number';
+}
+
+export function isValidCustomerMoveData(data) {
+    return typeof data.target_seating_id == 'number' &&
+           isValidCustomer(data.customer);
 }
 
 export default class Customers {
@@ -113,5 +120,71 @@ export default class Customers {
             console.error('Failed to edit customer name:', err);
             MessageHandler.sendError(socket, 'Failed to edit customer name.');
         }
+    }
+
+    public static async move(io: Server, socket: Socket, data: any) {
+        if (!isValidCustomerMoveData(data)) {
+            console.log('Invalid format: MoveCustomerData', data);
+            MessageHandler.sendError(socket, 'Invalid format: MoveCustomerData');
+            return;
+        }
+
+        const { target_seating_id, customer } = data;
+        let new_seating: Seating;
+
+        //Get data from new seating
+        try {
+            const query = `SELECT * FROM "seatings" WHERE id= ${target_seating_id}`;
+            const result = await Database.query(query);
+            new_seating = result[0];
+        } catch(err) {
+            console.log(err);
+            MessageHandler.sendError(socket, 'Failed to fetch data from new seating.');
+        }
+
+        //Move customer
+        try {
+            const query = `UPDATE ${this.table} 
+                           SET 
+                            seating_id = ${new_seating.id}, 
+                            section_id = ${new_seating.section_id}
+                           WHERE id = ${customer.id}
+                           `;
+            await Database.query(query);
+        } catch(err) {
+            console.log('Failed to move customer.', err);
+            MessageHandler.sendError(socket, 'Failed to move customer.');
+            return;
+        }
+
+        //Move orders
+        try {
+            const query = `UPDATE "orders" 
+            SET 
+             seating_id = ${new_seating.id}, 
+             section_id = ${new_seating.section_id}
+            WHERE customer_id = ${customer.id}
+            `;
+
+            await Database.query(query);
+        } catch(err) {
+            console.log('Failed to move related orders.', err);
+            MessageHandler.sendError(socket, 'Failed to move related orders.');
+            return;
+        }
+
+        io.emit('setCustomerAttributes', {customer, attributes: [
+            ['seating_id', new_seating.id],
+            ['section_id', new_seating.section_id],
+        ]});
+
+        io.emit('setOrdersAttributes', {
+            key: 'customer_id', 
+            value: customer.id,
+            attributes: [
+                ['seating_id', new_seating.id],
+                ['section_id', new_seating.section_id],
+            ]
+        });
     }
 }

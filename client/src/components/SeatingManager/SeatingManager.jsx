@@ -30,7 +30,7 @@ export default function SeatingManager(props) {
         seatings,
         orders,
         staff,
-        dataTree
+        dataTree,
     } = useContext(DynamicDataContext);
     
     const {
@@ -101,7 +101,11 @@ export default function SeatingManager(props) {
     }
 
     function handleMoveSeating() {
-        setItemInMovement({...seating, moveFunction: seatings.setLocation});
+        setItemInMovement({
+            type: 'seating', 
+            item: seating,
+            moveFunction: seatings.setLocation
+        });
         setSelectedSeating(null);
     }
 

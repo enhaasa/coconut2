@@ -12,10 +12,6 @@ import uuid from 'react-uuid';
 import { DynamicDataContext } from '../../api/DynamicData';
 import { ControlStatesContext } from '../../api/ControlStates';
 
-//Animations
-import gsap from 'gsap';
-import animations from '../../animations';
-
 export default function Customer(props) {
     const {
         confirmDeleteCustomer,
@@ -29,12 +25,12 @@ export default function Customer(props) {
 
     const {
         setSelectedCustomer,
-        selectedCustomer
+        selectedCustomer,
+        setItemInMovement,
+        setSelectedSeating,
     } = useContext(ControlStatesContext);
 
     const [ nameBuffer, setNameBuffer ] = useState(customer.name);
-
-    const isInSeating = customer.seating !== null ? true : false;
     
     let undeliveredOrders = [];
     customer.undeliveredOrders.forEach(order => {
@@ -58,17 +54,6 @@ export default function Customer(props) {
     });
 
     let timer = useRef();
-    const customerRef = useRef();
-
-    /*
-    useLayoutEffect(() => {
-        gsap.from(customerRef.current, animations.appearY);
-
-        return () => {
-            gsap.to(customerRef.current, animations.appearY);
-        }
-    }, []);
-    */
 
     function handleDeliverAllOrdersByCustomer(customer) {
         orders.deliverAllByCustomer(customer);
@@ -82,7 +67,7 @@ export default function Customer(props) {
           event.preventDefault();
         }
         
-    };
+    }
 
     const handleNameChange = (event) => {
         const { value } = event.target;
@@ -96,24 +81,28 @@ export default function Customer(props) {
           const currentNameBuffer = value; 
       
           timer.current = setTimeout(() => {
-            //customers.editName(customer, currentNameBuffer); 
-            const index = customers.get.findIndex(c => c.id === customer.id);
-
-            customers.setCustomers(prev => {
-                prev[index].name = value; 
-                return [...prev];
-            });
+            customers.editName(customer, currentNameBuffer); 
           }, 500);
         }
-    };
+    }
+
+    function handleMoveCustomer() {
+        setItemInMovement({
+            type: 'customer', 
+            item: customer,
+            moveFunction: customers.move
+        });
+        setSelectedSeating(null);
+        setSelectedCustomer(null);
+    }
       
     const openMenu = () => {
         setSelectedCustomer(customer);
     }
 
     return (
-        <div className={`Customer${selectedCustomer && selectedCustomer.id === customer.id ? ' active' : ''}`} 
-            ref={customerRef}>
+        <div className={`Customer${selectedCustomer && selectedCustomer.id === customer.id ? ' active' : ''}`} >
+            
             <nav className='name-nav'>
                 <input 
                     spellCheck={false}
@@ -125,9 +114,9 @@ export default function Customer(props) {
                     onChange={handleNameChange}>
                 </input>
 
-                {isInSeating &&
-                    <Button type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
-                }
+                <Button type='neutral' clickEvent={handleMoveCustomer}>Move</Button>
+                <Button type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
+
             </nav>
 
             {customer.undeliveredOrders.length > 0 &&

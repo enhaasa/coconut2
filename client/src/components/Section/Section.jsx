@@ -77,7 +77,8 @@ export default function Section(props) {
     const getVectorPoint = usePixelClick();
 
     function handleMoveItem(event) {
-        if (itemInMovement) {
+        if (!itemInMovement) return; 
+        if (itemInMovement.type === 'section pointer' || itemInMovement.type === 'seating') {
             const { moveFunction } = itemInMovement;
             const [ x, y ] = getVectorPoint(event);
 
@@ -87,7 +88,7 @@ export default function Section(props) {
                 section_id: section.id
             }
 
-            moveFunction(itemInMovement, newLocation);
+            moveFunction(itemInMovement.item, newLocation);
             setItemInMovement(null);
         }
     }
@@ -125,26 +126,22 @@ export default function Section(props) {
                 onContextMenu={(event) => handleContextMenu(event, contextMenuOptions, contextMenuTitle)}
                 >
                 
-                {
-                    modal && modal
-                }
+                {modal && modal}
 
                 {
                     itemInMovement &&
                     <div className='moving-item-mode-info'>
-                        Moving item. Press ESC to cancel.
+                        {`Moving ${itemInMovement.type}. Press ESC to cancel.`}
                     </div>
                 }
 
-                {
-                    isBlurred &&
-                    <div className='blur'></div>
-                }
+                {isBlurred && <div className='blur'></div>}
                 
                 <img className='overlay' src={overlay} alt='' />
                 {parsedSection.image_url && <img className='section-image' src={parsedSection.image_url} alt='' />}
 
-                {parsedSection.seatings.map((seating) => (
+                {
+                    parsedSection.seatings.map((seating) => (
                         <Seating 
                             seating={seating}
                             colorset={colorset} 

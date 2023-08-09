@@ -47,7 +47,7 @@ export default function Seating(props) {
         MAX_NAME_PREVIEW
     } = useContext(StaticDataContext);
 
-    const isMoving = itemInMovement && itemInMovement.id === seating.id;
+    const isMoving = itemInMovement && itemInMovement.item.id === seating.id;
 
     let undeliveredOrders = [];
     let deliveredOrders = [];
@@ -85,14 +85,20 @@ export default function Seating(props) {
       }, [customers.get, seating.id]);
 
 
-    let exceedingMaxPreview = noBlankNames.filter((customer, index) => (
+    let exceedingMaxPreview = noBlankNames.filter((_, index) => (
         index >= MAX_NAME_PREVIEW
     ))
 
     const totalAdditions = exceedingMaxPreview.length + blankNames.length;
 
-    function handleSetSelectedSeating(selectedSeating) {
-        setSelectedSeating(selectedSeating);
+    function handleClick() {
+        if (itemInMovement && itemInMovement.type === 'customer') {
+            const { moveFunction } = itemInMovement;
+            moveFunction(itemInMovement.item, seating.id);
+            setItemInMovement(null);
+        } else {
+            setSelectedSeating(seating);
+        }
     }
 
     const [ timeSinceLastOrder, setTimeSinceLastOrder ] = useState(0);
@@ -118,7 +124,11 @@ export default function Seating(props) {
     };
 
     function handleMoveSeating() {
-        setItemInMovement({...seating, moveFunction: seatings.setLocation});
+        setItemInMovement({
+            type: 'seating', 
+            item: seating,
+            moveFunction: seatings.setLocation
+        });
     }
 
     const contextMenuTitle = `Seating ${seating.number}`;
@@ -172,7 +182,7 @@ export default function Seating(props) {
 
             <button 
                 className={`number-display ${seatingnumberColor()}`}
-                onClick={() => {handleSetSelectedSeating(seating)}}
+                onClick={handleClick}
                 onContextMenu={(event) => handleContextMenu(event, contextMenuOptions, contextMenuTitle)}
                 >
 

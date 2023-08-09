@@ -41,6 +41,35 @@ export default function useOrders(init, props) {
             });
         },
 
+        setOrderAttributes: (data) => {
+            const { order, attributes } = data;
+            const index = orders.findIndex(c => c.id === order.id);
+
+            setOrders(prev => {
+                attributes.forEach(a => {
+                    prev[index][a[0]] = a[1];
+                });
+
+                return [...prev];
+            });
+        },
+
+        setOrdersAttributes: (data) => {
+            const { key, value, attributes } = data;
+
+            setOrders(prev => {
+                prev.forEach(item => {
+                    if (item[key] === value) {
+                        attributes.forEach(a => {
+                            item[a[0]] = a[1];
+                        });
+                    }
+                })
+
+                return [...prev];
+            });
+        },
+
         deliverOrder: (orderToDeliver) => {
             setOrders(prev => {
                 const index = orders.findIndex(order => order.id === orderToDeliver.id);

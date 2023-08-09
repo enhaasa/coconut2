@@ -48,6 +48,29 @@ export default function useCustomers(init, props) {
             });
         },
 
+        setCustomerAttribute: (data) => {
+            const { customer, attribute, value } = data;
+            const index = customers.findIndex(c => c.id === customer.id);
+
+            setCustomers(prev => {
+                prev[index][attribute] = value;
+                return [...prev];
+            });
+        },
+
+        setCustomerAttributes: (data) => {
+            const { customer, attributes } = data;
+            const index = customers.findIndex(c => c.id === customer.id);
+
+            setCustomers(prev => {
+                attributes.forEach(a => {
+                    prev[index][a[0]] = a[1];
+                });
+
+                return [...prev];
+            });
+        },
+
         removeAllCustomersFromSeating: (seating) => {
             setCustomers(prev => (
                 prev.filter(customer => customer.seating_id !== seating.id)
@@ -70,6 +93,11 @@ export default function useCustomers(init, props) {
         socket.emit('editCustomerName', { customer: customer, name: name });
     }
 
+    function move(customer, target_seating_id) {
+        console.log('test')
+        socket.emit('moveCustomer', { customer, target_seating_id});
+    }
+
     function refresh() {
         socket.emit('getCustomers');
     }
@@ -80,6 +108,7 @@ export default function useCustomers(init, props) {
         add: add,
         remove: remove,
         editName: editName,
+        move,
         refresh: refresh
     }
     
