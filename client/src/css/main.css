@@ -715,6 +715,7 @@ button:active, select:active, option:active {
   overflow: auto;
   overflow-y: auto;
   padding: 5px;
+  max-height: 600px;
 }
 .ReceiptManager .bottom-list {
   border-top: 1px solid #0e0e0e;
@@ -744,10 +745,11 @@ button:active, select:active, option:active {
 .Seating .upper-wrapper {
   display: flex;
   flex-direction: column-reverse;
+  pointer-events: none;
   height: 50px;
   margin-top: -42px;
   align-items: center;
-  gap: 2px;
+  gap: 1px;
   position: absolute;
   z-index: 1;
 }
@@ -791,6 +793,11 @@ button:active, select:active, option:active {
   width: 16px;
   height: 16px;
 }
+.Seating .lower-wrapper {
+  margin-top: -10px;
+  z-index: 1;
+  pointer-events: none;
+}
 .Seating .lower-wrapper .customers {
   display: grid;
   justify-items: center;
@@ -806,13 +813,20 @@ button:active, select:active, option:active {
   color: white;
   padding: 0 5px;
   border-radius: 10px;
-  outline: 2px solid #0e0e0e;
-  margin: 1px;
+  outline: 1px solid #0e0e0e;
+  margin: 3px;
   font-size: 14px;
 }
 .Seating .lower-wrapper .customers .customer img {
   height: 13px;
   width: 13px;
+}
+.Seating .lower-wrapper .unpaid-orders {
+  background: rgb(86, 119, 86);
+  color: #fff;
+  padding: 0 5px;
+  border-radius: 10px;
+  outline: 1px solid #0e0e0e;
 }
 .Seating .editing {
   background: rgba(0, 0, 0, 0.7);

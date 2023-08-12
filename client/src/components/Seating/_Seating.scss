@@ -16,10 +16,11 @@
     & .upper-wrapper {
       display: flex;
       flex-direction: column-reverse;
+      pointer-events: none;
       height: 50px;
       margin-top: -42px;
       align-items: center;
-      gap: 2px;
+      gap: 1px;
       position: absolute;
       z-index: 1;
       
@@ -70,6 +71,10 @@
     }
 
     & .lower-wrapper {
+      margin-top: -10px;
+      z-index: 1;
+      pointer-events: none;
+
       & .customers {
         display: grid;
         justify-items: center;
@@ -85,8 +90,8 @@
           color: white;
           padding: 0 5px;
           border-radius: 10px;
-          outline: 2px solid getBorderColor('standard');
-          margin: 1px;
+          outline: 1px solid getBorderColor('standard');
+          margin: 3px;
           font-size: 14px;
 
           img {
@@ -94,6 +99,14 @@
             width: 13px;
           }
         }
+      }
+
+      & .unpaid-orders {
+        background: getPrimaryColor('constructive');
+        color: getTextColor('primary');
+        padding: 0 5px;
+        border-radius: 10px;
+        outline: 1px solid getBorderColor('standard');
       }
     }
 

@@ -188,23 +188,10 @@ export default function Seating(props) {
 
                 <div className='is-photography-container'>
                     <span className='is-photography'>
-                        {seating.is_photography ? 
-                        
+                        {seating.is_photography && 
                             <div className=''>
                                 <img src={cameraIcon} alt='Camera Icon' /> 
-                            </div>
-                            : ''}
-                    </span>
-                </div>
-                
-                <div className='unpaid-tab-container '>
-                    <span className='unpaid-tab'>
-                        {deliveredOrders.length > 0 ? 
-                        
-                            <div className=''>
-                                <img src={unPaidTabIcon} alt='Unpaid Tab Icon' /> 
-                            </div>
-                            : ''}
+                            </div>}
                     </span>
                 </div>
                 
@@ -214,19 +201,19 @@ export default function Seating(props) {
             </button>
 
             <div className='lower-wrapper'>
-                <div className='customers'>
-                    {noBlankNames.map((customer, index) => ( 
-                        index < MAX_NAME_PREVIEW &&
-                            <div className='customer' key={customer.id}>
-                                <img src={userIcon} alt='Customer Icon'/>
-                                {`${getFirstName(customer.name)} ${getLastNames(customer.name).join('').charAt(0)}`}
-                            </div>
-                    ))}
-                    {totalAdditions > 0 && 
-                        <div className='customer'>+ {totalAdditions} 
-                        <img src={userIcon} alt='Customer Icon'/>
-                    </div>}
-                </div>
+                    { 
+                        noBlankNames.length + totalAdditions > 0 &&   
+                        <div className='customers'>
+                                <div className='customer'>
+                                    <img src={userIcon} alt='Customer Icon'/>
+                                    {noBlankNames.length > 0 
+                                        ? `${getFirstName(noBlankNames[0].name)} ${getLastNames(noBlankNames[0].name).join('').charAt(0)}
+                                            ${totalAdditions > 0 ? `+${totalAdditions}` : ''}`
+                                        : `${totalAdditions > 0 ? totalAdditions : ''}`}
+                                </div>
+                        </div>
+                    }
+                {deliveredOrders.length > 0 && <div className='unpaid-orders'>Tab Available!</div>}
             </div>
         </div>
     );
