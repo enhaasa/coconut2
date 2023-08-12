@@ -14,10 +14,12 @@ module.exports = function registerHandlers(io) {
 type SetAmountPaidData = {
     session: Session;
     amount: number;
+    requestID?: string;
 }
 
 function isValidSetAmountPaidData(data: any): data is SetAmountPaidData {
-    return isValidSession(data.session) && typeof data.amount === 'number';
+    return isValidSession(data.session) && 
+        typeof data.amount === 'number';
 }
 
 class ArchivedSessions {
@@ -59,9 +61,10 @@ class ArchivedSessions {
         }
 
         try {
-            const { session, amount } = data;
+            const { session, amount, requestID } = data;
             Database.update(this.table, 'amount_paid', amount, 'id', session.id);
             io.emit('setArchivedSessionAmountPaid', data);
+            socket.emit('getRequestConfirmation', requestID);
         } catch (err) {
             console.log('Failed to edit amount paid.', err);
             MessageHandler.sendError(socket, 'Failed to edit amount paid.');

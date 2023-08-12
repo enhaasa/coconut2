@@ -9,6 +9,7 @@ import useTips from './hooks/useTips';
 import useMenu from './hooks/useMenu';
 import useStaff from './hooks/useStaff';
 import useMessages from './hooks/useMessages';
+import usePendingRequests from './hooks/usePendingRequests';
 
 import { ControlStatesContext } from './ControlStates';
 
@@ -30,43 +31,47 @@ function DynamicDataProvider(props) {
 
 
   const archivedSessions = useArchivedSessions([], {
-    socket: socket
+    socket
   });
   const tips = useTips([], { socket: socket });
   const staff = useStaff([], { socket: socket });
 
   const sections = useSections([], {
-      socket: socket
+      socket
   });
 
   const sectionPointers = useSectionPointers([], {
-    socket: socket
-  })
+    socket
+  });
 
   const seatings = useSeatings([], {
     selectedSeatingTracker: selectedSeatingTracker, 
-    socket: socket
+    socket
   });
 
   const orders = useOrders([], {
       archivedSessions: archivedSessions,
-      socket: socket
+      socket
   });
 
   const customers = useCustomers([], {
     setSelectedCustomer,
     selectedCustomer,
     orders: orders,
-    socket: socket
+    socket
   });
 
   const menu = useMenu([], {
     selectedSeatingTracker, 
-    socket: socket
+    socket
   });
 
   const messages = useMessages([], {
-    socket: socket
+    socket
+  });
+
+  const pendingRequestIDs = usePendingRequests([], {
+    socket
   });
 
   function getDataTree() {
@@ -160,6 +165,7 @@ function DynamicDataProvider(props) {
               archivedSessions,
               dataTree,
               messages,
+              pendingRequestIDs,
           }}>
           {children}
       </DynamicDataContext.Provider>

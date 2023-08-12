@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef} from 'react';
 
 //Components
-import CloseButton from './../common/CloseButton/CloseButton';
+import CloseButton from '../common/CloseButton/CloseButton';
 
 //Animations
 import gsap from 'gsap';

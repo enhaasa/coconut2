@@ -25,7 +25,7 @@ export default function useTips(init, props) {
 
                 prev[index][key] = value;
                 return [...prev];
-            })
+            });
         }
     }
 
@@ -35,18 +35,18 @@ export default function useTips(init, props) {
         socket.emit('getTips');
     }
 
-    function add(tip) {
-        socket.emit('addTip', tip);
+    function add(tip, requestID) {
+        socket.emit('addTip', { tip, requestID });
     }
 
-    function edit(data) {
+    function edit(data, requestID) {
         const { tip, newName, newAmount } = data;
         
-        socket.emit('editTip', {tip, newName, newAmount});
+        socket.emit('editTip', { tip, newName, newAmount, requestID });
     }
 
-    function remove(tip) {
-        socket.emit('removeTip', tip);
+    function remove(tip, requestID) {
+        socket.emit('removeTip', { tip, requestID });
     }
 
     return {
@@ -56,5 +56,4 @@ export default function useTips(init, props) {
         remove: remove,
         refresh: refresh
     }
-    
 }

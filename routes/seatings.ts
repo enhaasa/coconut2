@@ -9,10 +9,10 @@ module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getSeatings', () => Seatings.get(socket));
         socket.on('setSeatingAttribute', (data) => Seatings.setAttribute(io, socket, data));
-        socket.on('resetSeating', (seating) => Seatings.reset(io, socket, seating));
+        socket.on('resetSeating', (data) => Seatings.reset(io, socket, data));
         socket.on('setSeatingLocation', (data) => Seatings.setLocation(io, socket, data));
         socket.on('addSeating', (data) => Seatings.add(io, socket, data));
-        socket.on('removeSeating', (seating) => Seatings.remove(io, socket, seating));
+        socket.on('removeSeating', (data) => Seatings.remove(io, socket, data));
     }));
 }
 
@@ -25,6 +25,7 @@ type SeatingToAdd = {
         realm_id: number;
     },
     number: string;
+    requestID?: string;
 }
 
 type SetAttributeData = {
@@ -98,7 +99,7 @@ export class Seatings {
         }
 
         try {
-            const { section, number } = data;
+            const { section, number, requestID } = data;
             const parsedSeating = {
                 pos_x: 0,
                 pos_y: 0,
@@ -116,6 +117,7 @@ export class Seatings {
 
             if (id) {
                 io.emit('addSeating', {...parsedSeating, id});
+                socket.emit('getRequestConfirmation', requestID);
             } else {
                 console.log('Failed to add seating.');
                 MessageHandler.sendError(socket, 'Failed to add seating.');
@@ -126,12 +128,14 @@ export class Seatings {
         }
     }
 
-    public static async remove(io: Server, socket: Socket, seating: any) {
-        if (!isValidSeating(seating)) {
-            console.log('Invalid format: Seating', seating);
+    public static async remove(io: Server, socket: Socket, data: any) {
+        if (!isValidSeating(data.seating)) {
+            console.log('Invalid format: Seating', data);
             MessageHandler.sendError(socket, 'Invalid format: Seating');
             return;
         }
+
+        const { seating, requestID } = data;
 
         //Check if there are customers in the seating before deleting.
         try {
@@ -141,6 +145,7 @@ export class Seatings {
 
             if (customers > 0) {
                 MessageHandler.sendWarning(socket, 'There are still customers in this seating. Please remove them and try again.');
+                socket.emit('getRequestConfirmation', requestID);
                 return;
             } 
         } catch(err) {
@@ -150,11 +155,11 @@ export class Seatings {
         }
 
         try {
-            await this.reset(io, socket, seating);
             const result = await Database.remove(this.table, 'id', seating.id);
 
             if (result) {
                 io.emit('removeSeating', seating);
+                socket.emit('getRequestConfirmation', requestID);
             } else {
                 console.log('Failed to remove seating.');
                 MessageHandler.sendError(socket, 'Failed to remove seating.');
@@ -187,14 +192,16 @@ export class Seatings {
         }
     }
 
-    public static async reset(io: Server, socket: Socket, seating: Seating) {
-        if (!isValidSeating(seating)) {
+    public static async reset(io: Server, socket: Socket, data: any) {
+        if (!isValidSeating(data.seating)) {
             console.log('Invalid format: Seating');
             MessageHandler.sendError(socket, 'Invalid format: Seating');
             return;
         }
 
         try {
+            const { seating, requestID } = data;
+
             const deleteOrdersQuery = 'DELETE FROM "orders" WHERE "seating_id" = $1';
             const deleteCustomerQuery = 'DELETE FROM "customers" WHERE "seating_id" = $1';
             const resetSeatingQuery = `
@@ -210,6 +217,7 @@ export class Seatings {
             io.emit('removeAllOrdersFromSeating', seating);
             io.emit('removeAllCustomersFromSeating', seating);
             io.emit('resetSeating', seating);
+            socket.emit('getRequestConfirmation', requestID);
         } catch(err) {
             console.log('Failed to reset seating.', err);
             MessageHandler.sendError(socket, 'Failed to reset Seating');

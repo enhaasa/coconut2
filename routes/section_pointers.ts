@@ -1,6 +1,7 @@
 import Database from '../database';
 import MessageHandler from '../messages';
 import { Socket, Server } from 'socket.io';
+import { SectionPointer, isValidSectionPointer } from '../shared/types';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
@@ -9,18 +10,8 @@ module.exports = function registerHandlers(io) {
         socket.on('setSectionPointerAttribute', (data) => SectionPointers.setAttribute(io, socket, data)); 
         socket.on('addSectionPointer', (sectionPointer) => SectionPointers.add(io, socket, sectionPointer));
         socket.on('removeSectionPointer', (sectionPointer) => SectionPointers.remove(io, socket, sectionPointer));
+        socket.on('setSectionPointerAttributes', (data) => SectionPointers.setAttributes(io, socket, data));
     }));
-}
-
-type SectionPointer = {
-    id: number;
-    type: string;
-    pos_x: number;
-    pos_y: number;
-    section_id: number;
-    target_section_id: number;
-    realm_id: number;
-    name: string;
 }
 
 type SectionPointerToAdd = {
@@ -43,35 +34,38 @@ type SetAttributeData = {
     sectionPointer: SectionPointer;
     attribute: string;
     value: string|number|boolean;
-}
-
-function isValidSectionPointer(sectionPointer: any): sectionPointer is SectionPointer {
-    return typeof sectionPointer.id === 'number' &&
-           typeof sectionPointer.type === 'string' &&
-           typeof sectionPointer.pos_x === 'number' &&
-           typeof sectionPointer.pos_y === 'number' &&
-           typeof sectionPointer.section_id === 'number' &&
-           typeof sectionPointer.target_section_id === 'number' &&
-           typeof sectionPointer.realm_id === 'number';
+    requestID?: string;
 }
 
 function isValidSetLocationData(data: any): data is SetLocationData {
-    return isValidSectionPointer(data.sectionPointer) &&
-           typeof data.newLocation.pos_x === 'number' &&
-           typeof data.newLocation.pos_y === 'number' &&
-           typeof data.newLocation.section_id === 'number';
+    try {
+        return isValidSectionPointer(data.sectionPointer) &&
+            typeof data.newLocation.pos_x === 'number' &&
+            typeof data.newLocation.pos_y === 'number' &&
+            typeof data.newLocation.section_id === 'number';
+    } catch(err) {
+        console.log(err);
+    }
 }
 
 function isValidSetAttributeData(data: any): data is SetAttributeData {
-    return isValidSectionPointer(data.sectionPointer) &&
-           typeof data.attribute === 'string' &&
-           (typeof data.value === 'string' || typeof data.value === 'number' || typeof data.value === 'boolean');
+    try {
+        return isValidSectionPointer(data.sectionPointer) &&
+            typeof data.attribute === 'string' &&
+            (typeof data.value === 'string' || typeof data.value === 'number' || typeof data.value === 'boolean');
+    } catch(err) {
+        console.log(err);
+    }
 }
 
 function isValidSectionPointerToAdd(sectionPointer: any): sectionPointer is SectionPointerToAdd {
-    return typeof sectionPointer.type === 'string' &&
-           typeof sectionPointer.section_id === 'number' &&
-           typeof sectionPointer.target_section_id === 'number';
+    try {
+        return typeof sectionPointer.type === 'string' &&
+            typeof sectionPointer.section_id === 'number' &&
+            typeof sectionPointer.target_section_id === 'number';
+    } catch(err) {
+        console.log(err);
+    }
 }
 
 class SectionPointers {
@@ -130,11 +124,12 @@ class SectionPointers {
         }
         
         try {
-            const { sectionPointer, attribute, value } = data;
+            const { sectionPointer, attribute, value, requestID } = data;
             const result = await Database.update(this.table, attribute, value, 'id', sectionPointer.id);
 
             if (result) {
                 io.emit('setSectionPointerAttribute', data);
+                socket.emit('getRequestConfirmation', requestID);
             } else {
                 MessageHandler.sendError(socket, 'Failed to set the Section Pointer attribute.');
             }
@@ -145,14 +140,47 @@ class SectionPointers {
         }
     }
 
-    public static async add(io: Server, socket: Socket, sectionPointer: any) {
-        if (!isValidSectionPointerToAdd(sectionPointer)) {
-            console.log('Invalid format: SectionPointerToAdd', sectionPointer);
+    public static async setAttributes(io: Server, socket: Socket, data: any) {
+        try {
+            const { sectionPointer, attributes, requestID } = data;
+
+            if (attributes.length === 0) {
+                socket.emit('getRequestConfirmation', requestID);
+                return;
+            }
+
+            const attributes_string = attributes.map(a => `"${a[0]}" = '${a[1]}'`).join(', ');
+            const query = `
+                UPDATE ${this.table}
+                SET ${attributes_string}
+                WHERE id = ${sectionPointer.id}
+            `;
+
+            const result = await Database.query(query);
+            
+            if (result) {
+                io.emit('setSectionPointerAttributes', data);
+                socket.emit('getRequestConfirmation', requestID);
+            } else {
+                MessageHandler.sendError(socket, 'Failed to set the Section Pointer attributes.');
+            }
+            
+        } catch(err) {
+            console.log(err);
+            MessageHandler.sendError(socket, 'Failed to set the Section Pointer attribute.');
+        }
+    }
+
+    public static async add(io: Server, socket: Socket, data: any) {
+        if (!isValidSectionPointerToAdd(data.sectionPointer)) {
+            console.log('Invalid format: SectionPointerToAdd', data);
             MessageHandler.sendError(socket, 'Invalid format: SectionPointerToAdd.');
             return;
         }
 
         try {    
+            const { sectionPointer, requestID } = data;
+
             const parsedSectionPointer = {
                 ...sectionPointer,
                 pos_x: 0,
@@ -165,6 +193,7 @@ class SectionPointers {
 
             if (id) {
                 io.emit('addSectionPointer', {...parsedSectionPointer, id});
+                socket.emit('getRequestConfirmation', requestID);
             } else {
                 MessageHandler.sendError(socket, 'Failed to create new Section Pointer.');
             }
@@ -175,18 +204,20 @@ class SectionPointers {
         }
     }
 
-    public static async remove(io: Server, socket: Socket, sectionPointer: any) {
-        if (!isValidSectionPointer(sectionPointer)) {
-            console.log('Invalid format: SectionPointer', sectionPointer);
+    public static async remove(io: Server, socket: Socket, data: any) {
+        if (!isValidSectionPointer(data.sectionPointer)) {
+            console.log('Invalid format: SectionPointer', data);
             MessageHandler.sendError(socket, 'Invalid format: SectionPointer.');
             return;
         }
 
         try {
+            const { sectionPointer, requestID } = data;
             const result = Database.remove(this.table, 'id', sectionPointer.id);
 
             if (result) {
                 io.emit('removeSectionPointer', sectionPointer);
+                socket.emit('getRequestConfirmation', requestID);
             } else {
                 MessageHandler.sendError(socket, 'Failed to remove Section Pointer.');
             }

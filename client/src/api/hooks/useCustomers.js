@@ -81,12 +81,12 @@ export default function useCustomers(init, props) {
     useSocketListener(socket, eventHandlers);
 
 
-    function add(customer) {
-        socket.emit('addCustomer', { ...customer });
+    function add(customer, requestID) {
+        socket.emit('addCustomer', { customer, requestID });
     }
 
-    function remove(customerToRemove){        
-        socket.emit('removeCustomer', { ...customerToRemove });
+    function remove(customer, requestID){        
+        socket.emit('removeCustomer', { customer, requestID });
     }
 
     function editName(customer, name) {
@@ -94,8 +94,7 @@ export default function useCustomers(init, props) {
     }
 
     function move(customer, target_seating_id) {
-        console.log('test')
-        socket.emit('moveCustomer', { customer, target_seating_id});
+        socket.emit('moveCustomer', { customer, target_seating_id });
     }
 
     function refresh() {

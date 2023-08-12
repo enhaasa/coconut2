@@ -39,21 +39,18 @@ export default function EditSectionPointerModal({setModal, sectionPointer}) {
         setSelectedType(type);
     }
 
-    function handleRemove() {
-        sectionPointers.remove(sectionPointer);
-        setModal(null);
-    }
+    function getAttributesToChange() {
+        let attributes = [];
 
-    function handleSubmit() {
         if (selectedType !== sectionPointer.type) {
-            sectionPointers.setAttribute(sectionPointer, 'type', selectedType);
+            attributes.push(['type', selectedType]);
         }
 
-        if (selectedTargetSection !== sectionPointer.target_section_id) {
-            sectionPointers.setAttribute(sectionPointer, 'target_section_id', selectedTargetSection.id);
+        if (selectedTargetSection.id !== sectionPointer.target_section_id) {
+            attributes.push(['target_section_id', selectedTargetSection.id]);
         }
 
-        setModal(null);
+        return attributes;
     }
 
     return (
@@ -94,8 +91,24 @@ export default function EditSectionPointerModal({setModal, sectionPointer}) {
             </div>
 
             <div className='row bottom-nav'>
-                <Button type='destructive' clickEvent={handleRemove}>Delete</Button>
-                <Button type='constructive' clickEvent={handleSubmit}>Save</Button>
+                <Button 
+                    type='destructive' 
+                    pendingResponseClickEvent={{
+                        args: [sectionPointer],
+                        event: sectionPointers.remove
+                    }}
+                    postEventCallback={() => setModal(null)}
+                >Delete</Button>
+
+
+                <Button 
+                    type='constructive' 
+                    pendingResponseClickEvent={{
+                        args: [sectionPointer, getAttributesToChange()],
+                        event: sectionPointers.setAttributes
+                    }}
+                    postEventCallback={() => setModal(null)}
+                >Save</Button>
             </div>
         </div>
     )

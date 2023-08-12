@@ -34,7 +34,6 @@ export default function Customer(props) {
     
     let undeliveredOrders = [];
     customer.undeliveredOrders.forEach(order => {
-
         const currentOrder = undeliveredOrders.find(parsedOrder => parsedOrder.name === order.name && parsedOrder.price === order.price);
 
         if (!currentOrder) {
@@ -55,34 +54,27 @@ export default function Customer(props) {
 
     let timer = useRef();
 
-    function handleDeliverAllOrdersByCustomer(customer) {
-        orders.deliverAllByCustomer(customer);
-    }
-
     const handleNamePaste = (event) => {
-        
         const pastedValue = event.clipboardData.getData('text');
         if (pastedValue.length + customer.name.length > 50) {
           setNameBuffer(pastedValue);
           event.preventDefault();
         }
-        
     }
 
     const handleNameChange = (event) => {
         const { value } = event.target;
         if (value.length <= 50) {
-          setNameBuffer(value);
-      
-          if (timer.current) {
+            setNameBuffer(value);
+        
+            if (timer.current) {
             clearTimeout(timer.current);
-          }
-      
-          const currentNameBuffer = value; 
-      
-          timer.current = setTimeout(() => {
+            }
+        
+            const currentNameBuffer = value; 
+            timer.current = setTimeout(() => {
             customers.editName(customer, currentNameBuffer); 
-          }, 500);
+            }, 500);
         }
     }
 
@@ -102,7 +94,6 @@ export default function Customer(props) {
 
     return (
         <div className={`Customer${selectedCustomer && selectedCustomer.id === customer.id ? ' active' : ''}`} >
-            
             <nav className='name-nav'>
                 <input 
                     spellCheck={false}
@@ -116,13 +107,12 @@ export default function Customer(props) {
 
                 <Button type='neutral' clickEvent={handleMoveCustomer}>Move</Button>
                 <Button type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
-
             </nav>
 
             {customer.undeliveredOrders.length > 0 &&
                 <div className='orders'>
                     <Table>
-                        {undeliveredOrders.map(order => (
+                        {undeliveredOrders.map((order, index) => (
                             <Order 
                                 key={uuid()}
                                 order={order} 
@@ -137,9 +127,17 @@ export default function Customer(props) {
 
                 {
                     customer.undeliveredOrders.length > 0 &&
-                        <Button type='neutral' clickEvent={() => {handleDeliverAllOrdersByCustomer(customer)}}>Deliver All</Button>
+                        <Button 
+                        type='neutral' 
+                        ID={`DeliverAllByCustomer${customer.id}`}
+                        pendingResponseClickEvent={{
+                            args: [{
+                                customer
+                            }],
+                            event: orders.deliverAllByCustomer
+                        }}>Deliver All</Button>
                 }
-            </nav>       
+            </nav>
         </div>
     );
 }

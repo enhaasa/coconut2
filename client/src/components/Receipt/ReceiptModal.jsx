@@ -20,10 +20,6 @@ export default function ReceiptModal(props) {
     function handleAmountPaid(amount) {
         setAmountPaid(amount);
     }
-    function handleSave() {
-        archivedSessions.setAmountPaid(session, parseInt(amountPaid));
-        handleModal(null);
-    }
 
     return(
         <div className='ReceiptModal'>
@@ -73,7 +69,11 @@ export default function ReceiptModal(props) {
                 </input>
                 <Button 
                     type='constructive' 
-                    clickEvent={handleSave} 
+                    pendingResponseClickEvent={{
+                        args: [session, parseInt(amountPaid)],
+                        event: archivedSessions.setAmountPaid
+                    }}
+                    postEventCallback={() => handleModal(null)}
                     disabled={amountPaid === total ? true : false}>
                     Save
                 </Button>

@@ -30,6 +30,18 @@ export default function useSectionPointers(init, props) {
                 return [...prev];
             });
         },
+        setSectionPointerAttributes: (data) => {
+            const { sectionPointer, attributes } = data;
+            const index = sectionPointers.findIndex(sp => sp.id === sectionPointer.id);
+
+            setSectionPointers(prev => {
+                attributes.forEach(a => {
+                    prev[index][a[0]] = a[1];
+                });
+
+                return [...prev];
+            });
+        },
         removeSectionPointer: (sectionPointer) => {
             setSectionPointers(prev => (
                 prev.filter(s => (
@@ -54,22 +66,28 @@ export default function useSectionPointers(init, props) {
         socket.emit('setSectionPointerLocation', { sectionPointer, newLocation });
     }
 
-    async function setAttribute(sectionPointer, attribute, value) {
-        socket.emit('setSectionPointerAttribute', { sectionPointer, attribute, value });
+    async function setAttribute(sectionPointer, attribute, value, requestID) {
+        socket.emit('setSectionPointerAttribute', { sectionPointer, attribute, value, requestID });
     }
 
-    async function add(sectionPointer) {
-        socket.emit('addSectionPointer', sectionPointer);
+    async function setAttributes(sectionPointer, attributes, requestID) {
+        console.log(attributes)
+        socket.emit('setSectionPointerAttributes', { sectionPointer, attributes, requestID });
     }
 
-    async function remove(sectionPointer) {
-        socket.emit('removeSectionPointer', sectionPointer);
+    async function add(sectionPointer, requestID) {
+        socket.emit('addSectionPointer', { sectionPointer, requestID });
+    }
+
+    async function remove(sectionPointer, requestID) {
+        socket.emit('removeSectionPointer', { sectionPointer, requestID });
     }
 
     return {
         get: sectionPointers,
         setLocation,
         setAttribute,
+        setAttributes,
         add,
         remove,
         refresh,

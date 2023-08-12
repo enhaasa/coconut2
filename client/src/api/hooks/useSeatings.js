@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import useSocketListener from '../useSocketListener';
+import { ControlStatesContext } from '../ControlStates';
 
 export default function useSeats(init, props) {
     const { 
         socket
     } = props;
+
+    const {
+        setSelectedSeating
+    } = useContext(ControlStatesContext);
 
     const [seatings, setSeatings] = useState(init);
     const eventHandlers = {
@@ -56,13 +61,14 @@ export default function useSeats(init, props) {
             setSeatings(prev => (
                 prev.filter(s => s.id !== seating.id)
             ));
+            setSelectedSeating(null);
         }
     }
 
     useSocketListener(socket, eventHandlers);
 
-    function add(section, number) {
-        socket.emit('addSeating', {section, number});
+    function add(section, number, requestID) {
+        socket.emit('addSeating', {section, number, requestID});
     }
 
     function toggleAttribute(seating, attribute) {
@@ -75,15 +81,15 @@ export default function useSeats(init, props) {
     }
 
     function setAttribute(seating, attribute, value) {
-        socket.emit('setSeatingAttribute', { seating, attribute, value })
+        socket.emit('setSeatingAttribute', { seating, attribute, value });
     }
 
-    function reset(seating) {
-        socket.emit('resetSeating', { ...seating })
+    function reset(seating, requestID) {
+        socket.emit('resetSeating', { seating, requestID });
     }
 
-    function remove(seating) {
-        socket.emit('removeSeating', seating);
+    function remove(seating, requestID) {
+        socket.emit('removeSeating', { seating, requestID });
     }
 
     function refresh() {

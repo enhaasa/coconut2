@@ -60,10 +60,11 @@ export default function TabManager(props) {
     function confirmPayOrders(ordersToPay) {
         setIsBlurred(true);
         openConfirmBox({
-            callback: function(){ 
-                orders.pay(ordersToPay, seating);
-                closeConfirmBox();     
+            pendingRequestEvent: {
+                args: [ordersToPay, seating],
+                event: orders.pay
             },
+            
             closeConfirmBox: function(){
                 closeConfirmBox();
             },
@@ -79,17 +80,17 @@ export default function TabManager(props) {
 
                 <header>
                     <MultiToggle>
-                                <MultiToggleOption 
-                                    clickEvent={() => setTabView('combined')}
-                                    isActive={tabView === 'combined' ? true : false}>
-                                    Combined
-                                </MultiToggleOption>
+                        <MultiToggleOption 
+                            clickEvent={() => setTabView('combined')}
+                            isActive={tabView === 'combined' ? true : false}>
+                            Combined
+                        </MultiToggleOption>
 
-                                <MultiToggleOption 
-                                    clickEvent={() => setTabView('split')}
-                                    isActive={tabView === 'split' ? true : false}>
-                                Split
-                            </MultiToggleOption>
+                        <MultiToggleOption 
+                            clickEvent={() => setTabView('split')}
+                            isActive={tabView === 'split' ? true : false}>
+                            Split
+                        </MultiToggleOption>
                     </MultiToggle>
                     <CloseButton clickEvent={handleClose}/>
                 </header>

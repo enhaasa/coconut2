@@ -2,58 +2,72 @@ import Database from '../database';
 import MessageHandler from '../messages';
 import { Socket, Server } from 'socket.io';
 import { Time } from '../dbTools_server';
-import { Customer } from '../shared/types';
+import { Customer, isValidCustomer } from '../shared/types';
 import { Seating, isValidSeating } from '../shared/types';
 import { Order, isValidOrder } from '../shared/types';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getOrders', () => Orders.get(socket));
-        socket.on('addOrder', (order) => Orders.add(io, socket, order));
-        socket.on('deliverOrder', (order => Orders.deliver(io, socket, order)));
-        socket.on('deliverAllByCustomer', (customer => Orders.deliverAllByCustomer(io, socket, customer)));
+        socket.on('addOrder', (data) => Orders.add(io, socket, data));
+        socket.on('deliverOrder', (data => Orders.deliver(io, socket, data)));
+        socket.on('deliverAllByCustomer', (data => Orders.deliverAllByCustomer(io, socket, data)));
         socket.on('removeOrder', (uuid) => Orders.remove(io, socket, uuid));
         socket.on('payOrdersInSeating', (data) => Orders.payOrdersInSeating(io, socket, data))
     }));
 }
 
 type OrderToAdd = {
-    is_delivered: boolean;
-    name: string;
-    price: number;
-    section_id: number;
-    customer_id: number;
-    seating_id: number;
-    menu_id: number;
-    item: string;
+    order: {
+        is_delivered: boolean;
+        name: string;
+        price: number;
+        section_id: number;
+        customer_id: number;
+        seating_id: number;
+        menu_id: number;
+        item: string;
+    }
+    requestID?: 'string'
 }
 
 type OrdersInSeating = {
-    orders: Order[],
-    seating: Seating,
+    orders: Order[];
+    seating: Seating;
+    requestID?: string;
 }
 
-function isValidOrderToAdd(order: any): order is OrderToAdd {
-    return typeof order.is_delivered === 'boolean' &&
-           typeof order.name === 'string' &&
-           typeof order.price === 'number' &&
-           typeof order.section_id === 'number' &&
-           typeof order.customer_id === 'number' &&
-           typeof order.seating_id === 'number' &&
-           typeof order.menu_id === 'number' &&
-           typeof order.item === 'string';
+type OrderToDeliver = {
+    order: Order;
+    requestID?: 'string';
 }
 
-function isValidOrderToDeliver(order: any): order is Pick<Order, 'id'> {
-    return typeof order.id === 'number';
+type OrdersToDeliverByCustomer = {
+    customer: Customer;
+    requestID?: string;
 }
 
-function isValidCustomer(customer: any): customer is Customer {
-    return typeof customer.id === 'number';
+function isValidOrderToAdd(data: any): data is OrderToAdd {
+    return typeof data.order.is_delivered === 'boolean' &&
+           typeof data.order.name === 'string' &&
+           typeof data.order.price === 'number' &&
+           typeof data.order.section_id === 'number' &&
+           typeof data.order.customer_id === 'number' &&
+           typeof data.order.seating_id === 'number' &&
+           typeof data.order.menu_id === 'number' &&
+           typeof data.order.item === 'string';
+}
+
+function isValidOrderToDeliver(data: any): data is OrderToDeliver {
+    return isValidOrder(data.order);
+}
+
+function isValidOrdersToDeliverByCustomer(data: any): data is OrdersToDeliverByCustomer {
+    return isValidCustomer(data.customer);
 }
 
 function isValidOrdersInSeating(data: any): data is OrdersInSeating {
-    return Array.isArray(data.orders) && data.orders.every(isValidOrderToAdd) &&
+    return Array.isArray(data.orders) && data.orders.every(isValidOrder) &&
            isValidSeating(data.seating);
 }
 
@@ -68,15 +82,20 @@ export class Orders {
             console.log('Failed to fetch orders.', err);
             MessageHandler.sendError(socket, 'Failed to fetch orders.');
         }
-        
     }
 
-    public static async add(io: Server, socket: Socket, order: any) {
-        if (!isValidOrderToAdd(order)) {
-            console.log('Invalid format: OrderToAdd', order);
-            MessageHandler.sendError(socket, 'Invalid format: OrderToAdd.');
-            return;
+    public static async add(io: Server, socket: Socket, data: any) {
+        try {
+            if (!isValidOrderToAdd(data)) {
+                console.log('Invalid format: OrderToAdd', data);
+                MessageHandler.sendError(socket, 'Invalid format: OrderToAdd.');
+                return;
+            }
+        } catch(err) {
+            console.log(err);
         }
+
+        const { order, requestID } = data;
         
         try {
             const parsed_order = {
@@ -97,6 +116,7 @@ export class Orders {
             const id = result[0].id;
 
             if (id) {
+                socket.emit('getRequestConfirmation', requestID);
                 io.emit('addOrder', {...parsed_order, id: id});
             } else {
                 MessageHandler.sendError(socket, 'Failed to add order.');
@@ -107,18 +127,21 @@ export class Orders {
         }
     }
 
-    public static async deliver(io: Server, socket: Socket, order: any) {
-        if (!isValidOrderToDeliver(order)) {
-            console.log('Invalid format: OrderToDeliver', order);
+    public static async deliver(io: Server, socket: Socket, data: any) {
+        if (!isValidOrderToDeliver(data)) {
+            console.log('Invalid format: OrderToDeliver', data);
             MessageHandler.sendError(socket, 'Invalid format: OrderToDeliver.');
             return;
         }
+ 
+        const { order, requestID } = data;
 
         try {
             const result = await Database.update(this.table, 'is_delivered', true, 'id', order.id);
 
             if (result) {
                 io.emit('deliverOrder', order);
+                socket.emit('getRequestConfirmation', requestID);
             } else {
                 console.error('Failed to deliver order.');
                 MessageHandler.sendError(socket, 'Failed to deliver order.');
@@ -130,18 +153,21 @@ export class Orders {
         }
     }
 
-    public static async deliverAllByCustomer(io: Server, socket: Socket, customer: any) {
-        if (!isValidCustomer(customer)) {
-            console.log('Invalid format: Customer', customer);
+    public static async deliverAllByCustomer(io: Server, socket: Socket, data: any) {
+        if (!isValidOrdersToDeliverByCustomer(data)) {
+            console.log('Invalid format: Customer', data);
             MessageHandler.sendError(socket, 'Invalid format: Customer.');
             return;
         }
+
+        const { customer, requestID } = data;
     
         try {
             const result = await Database.update(this.table, 'is_delivered', true, 'customer_id', customer.id);
     
             if (result) {
                 io.emit('deliverAllOrdersByCustomer', customer);
+                socket.emit('getRequestConfirmation', requestID);
             } else {
                 console.error('Failed to deliver all orders for customer.');
                 MessageHandler.sendError(socket, 'Failed to deliver all orders for customer.');
@@ -159,7 +185,7 @@ export class Orders {
             return;
         }
         
-        const { orders, seating } = data;
+        const { orders, seating, requestID } = data;
         const { waiter, customers, section_name, number } = seating;
         const price = orders.reduce((total: number, order) => (total + order.price), 0);
     
@@ -194,6 +220,7 @@ export class Orders {
                     await Database.query(delete_delivered_orders_query);
                     io.emit('removeAllDeliveredOrdersFromSeating', seating);
                     io.emit('addArchivedSession', {...archived_session, id: id});
+                    socket.emit('getRequestConfirmation', requestID);
                 } catch (err) {
                     console.log('Failed to delete delivered orders from the database:', err);
                     MessageHandler.sendError(socket, 'Failed to delete delivered orders from the database. Please try again.');

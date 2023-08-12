@@ -19,5 +19,29 @@
         color: black;
         text-shadow: none;
     }
+    
+    &.inactive {
+        background: none;
+        pointer-events: none;
+        opacity: 0.4;
+    }
+
+    &.loading {
+        position: relative;
+
+        /*
+        & .Spinner {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+
+        & .content {
+            color: rgba(255, 255, 255, 0);
+            text-shadow: none;
+        }
+        */
+    }
 
 }

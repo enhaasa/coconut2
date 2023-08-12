@@ -28,11 +28,8 @@ export default function AddSeatingModal({ setModal }) {
         }
     }
 
-    function handleSubmit() {
-        const section = sections.get[selectedSection]
-
-        seatings.add(section, number);
-        setModal(null);
+    function getSection() {
+        return sections.get[selectedSection];
     }
 
     return (
@@ -51,7 +48,14 @@ export default function AddSeatingModal({ setModal }) {
 
             <div className='row bottom-nav'>
                 <Button type='neutral' clickEvent={() => setModal(null)}>Cancel</Button>
-                <Button type='constructive' clickEvent={handleSubmit}>Create</Button>
+                <Button 
+                    type='constructive' 
+                    pendingResponseClickEvent={{
+                        args: [getSection(), number],
+                        event: seatings.add,
+                    }}
+                    postEventCallback={() => setModal(null)}
+                >Create</Button>
             </div>
         </div>
     )

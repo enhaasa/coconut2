@@ -34,14 +34,12 @@ export default function useArchivedSessions(init, props) {
 
     useSocketListener(socket, eventHandlers);
 
-
-
     function add(session) {
         socket.emit('addArchivedSession', session);
     }
 
-    function setAmountPaid(session, amount) {
-        socket.emit('setArchivedSessionAmountPaid', { session, amount});
+    function setAmountPaid(session, amount, requestID) {
+        socket.emit('setArchivedSessionAmountPaid', { session, amount, requestID });
     }
 
     function refresh() {

@@ -7,23 +7,23 @@ import {Tip, isValidTip } from '../shared/types';
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
         socket.on('getTips', () => Tips.get(socket));
-        socket.on('addTip', tip => Tips.add(io, socket, tip));
+        socket.on('addTip', data => Tips.add(io, socket, data));
         socket.on('removeTip', tip => Tips.remove(io, socket, tip));
         socket.on('editTip', data => Tips.edit(io, socket, data));
     }));
 }
 
-
-
 export type TipToAdd = {
     name: string;
     amount: number;
+    requestID?: string;
 }
 
 export type TipToEdit = {
     tip: Tip,
     newName: string;
     newAmount: number;
+    requestID?: string;
 }
 
 function isValidTipToAdd(tip: any): tip is TipToAdd {
@@ -51,12 +51,14 @@ class Tips {
         }
     }
 
-    public static async add(io: Server, socket: Socket, tip: any) {
-        if (!isValidTipToAdd(tip)) {
-            console.log('Invalid format: TipToAdd');
+    public static async add(io: Server, socket: Socket, data: any) {
+        if (!isValidTipToAdd(data.tip)) {
+            console.log('Invalid format: TipToAdd', data);
             MessageHandler.sendError(socket, 'Invalid format: TipToAdd. Your request was refused.');
             return;
         }
+
+        const { tip, requestID } = data;
 
         const datetime = Time.getCurrentDateTime();
         const parsedTip = {
@@ -69,24 +71,28 @@ class Tips {
             const res = await Database.add(this.table, parsedTip, 'id');
             const id = res[0].id;
             io.emit('addTip', {...parsedTip, id: id});
+            socket.emit('getRequestConfirmation', requestID);
         } catch(err) {
             console.log('Failed to add tip to the database:', err);
             MessageHandler.sendError(socket, 'Failed to add tip to the database. Request aborted.');
         }
     }
 
-    public static async remove(io: Server, socket: Socket, tip: any) {
-        if (!isValidTip(tip)) {
+    public static async remove(io: Server, socket: Socket, data: any) {
+        if (!isValidTip(data.tip)) {
             console.log('Invalid format: Tip');
             MessageHandler.sendError(socket, 'Invalid format: Tip. Your request was refused.');
             return;
         }
+
+        const { tip, requestID } = data;
 
         try {
             const result = await Database.remove(this.table, 'id', tip.id);
 
             if (result) {
                 io.emit('removeTip', tip);
+                socket.emit('getRequestConfirmation', requestID);
             } else {
                 MessageHandler.sendError(socket, 'Request failed.');
             }
@@ -104,13 +110,14 @@ class Tips {
         }
     
         try {
-            const { tip, newName, newAmount } = data;
+            const { tip, newName, newAmount, requestID } = data;
     
             // Update name if it's provided
             if (newName && newName.trim() !== "") {
                 const resultName = await Database.update(Tips.table, 'name', newName, 'id', tip.id);
                 if (resultName) {
                     io.emit('editTip', tip, 'name', newName);
+                    socket.emit('getRequestConfirmation', requestID);
                 } else {
                     MessageHandler.sendError(socket, 'Failed to update the name.');
                     return;  // exit if one of the updates fail to keep data consistent
@@ -122,6 +129,7 @@ class Tips {
                 const resultAmount = await Database.update(Tips.table, 'amount', newAmount, 'id', tip.id);
                 if (resultAmount) {
                     io.emit('editTip', tip, 'amount', newAmount);
+                    socket.emit('getRequestConfirmation', requestID);
                 } else {
                     MessageHandler.sendError(socket, 'Failed to update the amount.');
                 }

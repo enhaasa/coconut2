@@ -21,28 +21,6 @@ export default function TipModal(props) {
         setAmount(newValue);
     }
 
-    function handleSubmit() {
-        if(tip) {
-            tips.edit({
-                tip: tip, 
-                newName: !name ? 'Anonymous' : name,
-                newAmount: !amount ? parseInt(0) : parseInt(amount)
-            });
-            handleModal(null);
-        } else {
-            tips.add({
-                name: !name ? 'Anonymous' : name, 
-                amount: !amount ? parseInt(0) : parseInt(amount), 
-            });
-            handleModal(null);
-        }
-    }
-
-    function handleDelete() {
-        tips.remove(tip);
-        handleModal(null);
-    }
-
     return(
         <div className='TipModal'>
             <div className='row'>
@@ -66,12 +44,43 @@ export default function TipModal(props) {
             </div>
 
             <div className='submit-container'>
-                <Button type='constructive' clickEvent={handleSubmit}>
-                    {tip ? 'Update' : 'Add Tip'}
-                </Button>
+                {tip 
+                ? <Button 
+                    type='constructive'
+                    pendingResponseClickEvent={{
+                        args: [{
+                            tip: tip, 
+                            newName: !name ? 'Anonymous' : name,
+                            newAmount: !amount ? parseInt(0) : parseInt(amount)
+                        }],
+                        event: tips.edit
+                    }}
+                    postEventCallback={() => handleModal(null)}
+                    >Update</Button>
+
+                : <Button 
+                    type='constructive'
+                    pendingResponseClickEvent={{
+                        args: [{
+                            name: !name ? 'Anonymous' : name, 
+                            amount: !amount ? parseInt(0) : parseInt(amount), 
+                        }],
+                        event: tips.add
+                    }}
+                    postEventCallback={() => handleModal(null)}
+                    >Add Tip</Button>
+
+                }
 
                 {tip && 
-                    <Button type='destructive' clickEvent={() => handleDelete()}>Delete</Button>
+                    <Button 
+                        type='destructive' 
+                        pendingResponseClickEvent={{
+                            args: [tip],
+                            event: tips.remove
+                        }}
+                        postEventCallback={() => handleModal(null)}
+                        >Delete</Button>
                 }
             </div>
         </div>

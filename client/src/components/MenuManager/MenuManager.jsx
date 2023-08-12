@@ -105,15 +105,27 @@ export default function MenuManager(props) {
 
                                                 {selectedCustomer &&
                                                     <nav className='item-nav'>
-                                                        <Button type='constructive' clickEvent={() => {orders.add({
-                                                            ...filterItem(item)
-                                                        })}}>{item.price.toLocaleString('en-US')} gil</Button>
+                                                        <Button 
+                                                            type='constructive' 
+                                                            ID={`AddOrder${item.id}`}
+                                                            pendingResponseClickEvent={{
+                                                                args: [
+                                                                    {...filterItem(item)}
+                                                                ],
+                                                                event: orders.add
+                                                            }
+                                                        }>{item.price.toLocaleString('en-US')} gil</Button>
 
 
-                                                        <Button type='neutral' clickEvent={() => {orders.add({
-                                                            ...filterItem(item), 
-                                                            price: 0
-                                                        })}}>Free</Button>
+                                                        <Button type='neutral' 
+                                                            ID={`AddOrder${item.id}Free`}
+                                                            pendingResponseClickEvent={{
+                                                                args: [
+                                                                    {...filterItem(item)},
+                                                                ],
+                                                                event: orders.add
+                                                            }
+                                                        }>Free</Button>
                                                     </nav>
                                                 }
 

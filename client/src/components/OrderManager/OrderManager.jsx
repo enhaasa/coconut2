@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 
 //Contexts
 import { DynamicDataContext } from '../../api/DynamicData';
@@ -14,32 +14,20 @@ export default function OrderManager(props) {
     const { 
         openConfirmBox, 
         closeConfirmBox, 
-        customersInSeating,
         seating, 
     } = props;
 
     const { 
         customers,
-        seatings,
-        orders
+        orders,
     } = useContext(DynamicDataContext);
 
     function confirmDeleteCustomer(customer) {
         const checkedCustomerName = customer.name !== '' ? customer.name : 'the customer';
         openConfirmBox({
-            callback: function(){
-                customers.remove(customer);
-
-                if (customersInSeating.length -1 === 0) {
-                    seatings.set(prev => {
-                        const index = seatings.get.findIndex(s => s.id === seating.id);
-
-                        prev[index].session = null;
-                        return [...prev];
-                    });
-                }
-
-                closeConfirmBox();
+            pendingRequestEvent: {
+                args: [customer],
+                event: customers.remove
             },
             closeConfirmBox: function(){closeConfirmBox()},
             title: 'Are you sure?',
@@ -47,23 +35,23 @@ export default function OrderManager(props) {
         })
     }
 
-    function handleAdd(seating) {
-        const newCustomer = {
-            name: '',
-            section_id: seating.section_id,
-            seating_id: seating.id,
-            realm_id: 1
-          }
-
-          customers.add(newCustomer);
-    }
-
     return (
         <>
             <section className='OrderManager'>
                 <div className='header'>
                     <span className='label'>Customers</span>
-                    <Button type='constructive' clickEvent={() => handleAdd(seating)}>Add Customer</Button>
+                    <Button 
+                        type='constructive' 
+                        ID='AddCustomer'
+                        pendingResponseClickEvent={{
+                            args: [{
+                                name: '',
+                                section_id: seating.section_id,
+                                seating_id: seating.id,
+                                realm_id: 1
+                            }],
+                            event: customers.add
+                        }}>Add Customer</Button>
                 </div>
 
                 <div className='customer-container'>

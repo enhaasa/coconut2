@@ -33,10 +33,6 @@ export default function Order(props) {
         orders.remove(order.units[order.units.length-1]);
     }
 
-    function handleDeliverOrder(order) {
-        orders.deliver(order.units[(order.units.length-1)]);
-    }
-
     const tablecols = [
         {
             type: 'nav',
@@ -81,7 +77,11 @@ export default function Order(props) {
             <>
                 <Button 
                     type='neutral' 
-                    clickEvent={() => handleDeliverOrder(order)}>
+                    ID={`DeliverOrder${order.units[order.units.length-1].id}`}
+                    pendingResponseClickEvent={{
+                        args: [order.units[(order.units.length-1)]],
+                        event: orders.deliver
+                    }}>
                 Deliver
                 </Button>
             </>

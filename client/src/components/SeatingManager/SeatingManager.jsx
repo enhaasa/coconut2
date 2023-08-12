@@ -110,12 +110,10 @@ export default function SeatingManager(props) {
     }
 
     function handleRemove() {
-
         openConfirmBox({
-            callback: function(){
-                setSelectedSeating(null);
-                seatings.remove(selectedSeating);
-                closeConfirmBox();
+            pendingRequestEvent: {
+                args: [selectedSeating],
+                event: seatings.remove
             },
             closeConfirmBox: function(){closeConfirmBox()},
             title: 'Danger danger danger!',
@@ -123,7 +121,7 @@ export default function SeatingManager(props) {
         })
     }
 
-    const customersInSeating = seating.customers;
+    const customersInSeating = seating ? seating.customers : [];
     let deliveredOrdersInSeating = [];
 
     const customerIds = new Set(customersInSeating.map((customer) => customer.id));
@@ -137,9 +135,9 @@ export default function SeatingManager(props) {
       
     function handleResetSeating() {
         openConfirmBox({
-            callback: function(){
-                seatings.reset(seating);
-                closeConfirmBox();
+            pendingRequestEvent: {
+                args: [seating],
+                event: seatings.reset
             },
             closeConfirmBox: function(){closeConfirmBox()},
             title: 'Are you sure?',
@@ -147,11 +145,12 @@ export default function SeatingManager(props) {
         })
     }
 
-    let tabTotal = deliveredOrdersInSeating.length > 0 ? 
-        deliveredOrdersInSeating.reduce((total, order) => total + order.price, 0) : 0;
+    let tabTotal = deliveredOrdersInSeating.length > 0 
+        ? deliveredOrdersInSeating.reduce((total, order) => total + order.price, 0) 
+        : 0;
     
     return (
-        seating.id !== null &&
+        seating && seating.id !== null &&
         <div className='SeatingManager' ref={ref}>
             {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
             {isBlurred && <div className='blur' />}
@@ -257,7 +256,7 @@ export default function SeatingManager(props) {
             <section className='navbar-bottom'>
                 <span className='column last'>
                     <Button type='destructive' clickEvent={handleResetSeating}>
-                        <img src={resetIcon} alt='Reset Icon'/> Reset Table
+                        Reset Table
                     </Button>
                 </span>
 

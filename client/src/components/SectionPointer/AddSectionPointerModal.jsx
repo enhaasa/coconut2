@@ -39,15 +39,14 @@ export default function AddSectionPointerModal({ setModal, section }) {
         setSelectedType(type);
     }
 
-    function handleSubmit() {
+    function getNewSectionPointer() {
         const sectionPointer = {
             section_id: section.id,
             target_section_id: selectedTargetSection.id,
             type: selectedType,
         };
 
-        sectionPointers.add(sectionPointer)
-        setModal(null);
+        return sectionPointer;
     }
 
     return (
@@ -89,7 +88,14 @@ export default function AddSectionPointerModal({ setModal, section }) {
 
             <div className='row bottom-nav'>
                 <Button type='neutral' clickEvent={() => setModal(null)}>Cancel</Button>
-                <Button type='constructive' clickEvent={handleSubmit}>Create</Button>
+                <Button 
+                    type='constructive' 
+                    pendingResponseClickEvent={{
+                        args: [getNewSectionPointer()],
+                        event: sectionPointers.add
+                    }}
+                    postEventCallback={() => setModal(null)}
+                >Create</Button>
             </div>
         </div>
     )

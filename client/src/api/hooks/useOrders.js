@@ -100,9 +100,8 @@ export default function useOrders(init, props) {
      * 
      * @param {object} order - An order object to insert into the orders array.
      */
-    function add(order) {
-
-        socket.emit('addOrder', { ...order });
+    function add(order, requestID) {
+        socket.emit('addOrder', { order, requestID });
     }
     
 
@@ -110,18 +109,20 @@ export default function useOrders(init, props) {
         socket.emit('removeOrder', { ...order });
     }
 
-    function pay(orders, seating) {
-        socket.emit('payOrdersInSeating', {orders, seating});
+    function pay(orders, seating, requestID) {
+        console.log('Orders: ', orders);
+        console.log('Seating:', seating)
+        socket.emit('payOrdersInSeating', { orders, seating, requestID });
     }
 
 
-    function deliver(order) {
-        socket.emit('deliverOrder', { ...order});
+    function deliver(order, requestID) {
+        socket.emit('deliverOrder', { order, requestID });
     }
 
 
-    function deliverAllByCustomer(customer) {
-        socket.emit('deliverAllByCustomer', customer);
+    function deliverAllByCustomer(customer, requestID) {
+        socket.emit('deliverAllByCustomer', { ...customer, requestID });
     }
 
     function refresh() {

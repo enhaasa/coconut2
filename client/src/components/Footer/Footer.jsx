@@ -23,7 +23,7 @@ export default function Footer() {
                 <span className='column'>
                     <div className='title'>Disclaimer</div>
                     <p>All venue names, customer names, and menu items presented in this application are purely fictional.</p>
-                    <p>Any resemblance to actual venues, customers, or menu items is purely coincidental and not intentional.</p>
+                    <p>Any resemblance to actual organisations, people, or brands is purely coincidental and not intentional.</p>
                 </span>
 
                 <span className='column'>
