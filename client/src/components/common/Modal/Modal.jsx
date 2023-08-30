@@ -25,12 +25,20 @@ export default function Modal({title, closeButtonEvent, children}) {
 
     }, []);
 
+    function handleClose(){
+        gsap.to(ref.current, animations.fadeFall);
+
+        setTimeout(()=> {
+            closeButtonEvent();
+        }, 100)
+    }
+
     return(
         <div className='modal-container'>
             <div className='Modal' ref={ref}>
                 <div className='title-bar'>
                     <span className='title'>{title}</span>
-                    <CloseButton clickEvent={() => closeButtonEvent()} />
+                    <CloseButton clickEvent={handleClose} />
                 </div>
                 <div className='content'>
                     {children}

@@ -3,10 +3,10 @@ import React, { useState, useContext } from 'react';
 //Contexts
 import { StaticDataContext } from '../../api/StaticData';
 import { DynamicDataContext } from '../../api/DynamicData';
+import { ControlStatesContext } from '../../api/ControlStates';
 
 //Components
 import Button from '../common/Button/Button';
-import { ControlStatesContext } from '../../api/ControlStates';
 
 export default function AddSeatingModal({ setModal }) {
 

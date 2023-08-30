@@ -40,7 +40,7 @@
 @import './../components/SeatingManager/SeatingManager';
 @import './../components/OrderManager/OrderManager';
 @import './../components/MenuManager/MenuManager';
-@import './../components/MenuManager/MenuInfoModal';
+@import './../components/MenuManager/MenuModal';
 @import './../components/TabManager/TabManager';
 @import './../components/Receipt/Receipt';
 @import './../components/TopNav/TopNav';
@@ -50,6 +50,7 @@
 @import './../components/Seating/AddSeatingModal';
 @import './../components/MessageManager/MessageManager';
 @import './../components/Footer/Footer';
+@import './../components/MenuManager/AddServiceItem';
 
 main {
     display: grid;

@@ -72,11 +72,11 @@ export class Seatings {
 
     public static async get(socket: Socket) {
         try {
-            const query = 
-            `SELECT t.*, s.name AS section_name 
-            FROM ${this.table} t 
-            JOIN sections s ON t.section_id = s.id;`
-    
+            const query = `
+                SELECT t.*, s.name AS section_name, s.realm_id
+                FROM ${this.table} t 
+                JOIN sections s ON t.section_id = s.id;
+            `;
             const result = await Database.query(query);
 
             if (result) {
@@ -106,7 +106,6 @@ export class Seatings {
                 is_reserved: false,
                 is_available: true,
                 is_photography: false,
-                realm_id: 1,
                 section_id: section.id,
                 number: number,
                 waiter: ''

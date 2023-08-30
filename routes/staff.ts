@@ -33,10 +33,14 @@ class Staff {
     public static async get(socket: Socket) {
         try {
             const condition_query = `
-            SELECT * FROM ${this.table} WHERE "is_active" = true AND realm_id = 1
+                SELECT t.*, u.realm_id
+                FROM ${this.table} t 
+                JOIN users u ON t.user_id = u.id
+                WHERE is_active = true
+                AND realm_id = 1;
             `;
             const result = await Database.query(condition_query);
-            socket.emit('getStaff', result)
+            socket.emit('getStaff', result);
         } catch(err) {
             console.log('Failed to fetch characters');
             MessageHandler.sendError(socket, 'Failed to fetch characters.');

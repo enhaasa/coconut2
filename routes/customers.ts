@@ -19,6 +19,7 @@ export type CustomerToAdd = {
         name: string;
         section_id: number;
         seating_id: number;
+        realm_id: number;
     }
     requestID?: string;
 }
@@ -49,8 +50,17 @@ export default class Customers {
 
     public static async get(socket: Socket) {
         try {
-            const customers = await Database.get(this.table);
+            const query = `
+                SELECT t.*, s.section_id, k.realm_id
+                FROM ${this.table} t 
+                JOIN seatings s ON t.seating_id = s.id 
+                JOIN sections k ON s.section_id = k.id; 
+            `;
+
+            const customers = await Database.query(query);
+
             socket.emit('getCustomers', customers);
+
         } catch (err) {
             MessageHandler.sendError(socket, 'Failed to fetch customers.');
         }
@@ -66,7 +76,12 @@ export default class Customers {
         const { customer, requestID } = data;
     
         try {
-            const result = await Database.add(this.table, customer, 'id');
+            const customerToAdd = {
+                name: customer.name,
+                seating_id: customer.seating_id,
+            }
+
+            const result = await Database.add(this.table, customerToAdd, 'id');
             const id = result[0].id;
             io.emit('addCustomer', {...customer, id: id});
             requestID && socket.emit('getRequestConfirmation', requestID);

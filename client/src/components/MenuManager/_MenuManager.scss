@@ -12,14 +12,21 @@
     backdrop-filter: blur(5px);
 }
 
-
-
 .MenuManager {
     display: grid;
     position: relative;
     background: getBackgroundColor('primary');
     color: white;
     border: 1px solid getBorderColor('standard');
+
+    .customer-title {
+        color: white;
+        padding: 0 10px;
+        text-shadow: 0.1em 0.1em 0.2em black;
+        font-size: getFontSize('large');
+        font-weight: bold;
+        text-align: center;
+    }
     
     & .menu-title {
         display: flex;
@@ -35,22 +42,21 @@
         box-shadow: getBoxShadow('outer');
         border: 1px solid getBorderColor('standard');
 
-        & .customer-title {
-            color: white;
-            padding: 0 10px;
-            text-shadow: 0.1em 0.1em 0.2em black;
-            font-size: getFontSize('large');
-            font-weight: bold;
-        }
-
         & .close-button {
             margin: 5px;
         }
     }
 
     & .menu-container {
-        column-count: 2;
         padding: 5px 10px;
+
+        & .DiningItems {
+            column-count: 2;
+        }
+    
+        & .ServiceItems {
+            column-count: 1;
+        }
         
         & .type {
             break-inside: avoid;

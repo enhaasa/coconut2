@@ -8,10 +8,12 @@ import useCustomers from './hooks/useCustomers';
 import useTips from './hooks/useTips';
 import useMenu from './hooks/useMenu';
 import useStaff from './hooks/useStaff';
+import useServices from './hooks/useServices';
 import useMessages from './hooks/useMessages';
 import usePendingRequests from './hooks/usePendingRequests';
 
 import { ControlStatesContext } from './ControlStates';
+import useServiceMenu from './hooks/useServiceMenu';
 
 
 const DynamicDataContext = createContext();
@@ -54,6 +56,10 @@ function DynamicDataProvider(props) {
       socket
   });
 
+  const services = useServices([], {
+    socket
+  });
+
   const customers = useCustomers([], {
     setSelectedCustomer,
     selectedCustomer,
@@ -63,6 +69,10 @@ function DynamicDataProvider(props) {
 
   const menu = useMenu([], {
     selectedSeatingTracker, 
+    socket
+  });
+
+  const serviceMenu = useServiceMenu([], {
     socket
   });
 
@@ -143,10 +153,12 @@ function DynamicDataProvider(props) {
           sectionPointers.refresh();
           seatings.refresh();
           orders.refresh();
+          services.refresh();
           customers.refresh();
           archivedSessions.refresh();
           tips.refresh();
           menu.refresh();
+          serviceMenu.refresh();
           staff.refresh();
       }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -155,6 +167,7 @@ function DynamicDataProvider(props) {
   return (
       <DynamicDataContext.Provider value={{ 
               orders,
+              services,
               customers,
               sections, 
               sectionPointers,
@@ -162,6 +175,7 @@ function DynamicDataProvider(props) {
               seatings,
               menu,
               staff,
+              serviceMenu,
               archivedSessions,
               dataTree,
               messages,

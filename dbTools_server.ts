@@ -27,14 +27,14 @@ export class Time {
         const second: string = this.padZero(now.getSeconds());
       
         return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-      }
+    }
 
-      public static getCurrentTime = () => {
+    public static getCurrentTime = () => {
         const today = new Date();
         return today.getTime();
     }
       
-      private static padZero(value: number): string {
+    private static padZero(value: number): string {
         return value.toString().padStart(2, '0');
-      }
+    }
 }

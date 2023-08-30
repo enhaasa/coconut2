@@ -1,20 +1,15 @@
 import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
 
 //Contexts
-import { DynamicDataContext } from '../../api/DynamicData';
 import { ControlStatesContext } from '../../api/ControlStates';
-import { capitalizeFirstLetter } from '../../tools';
 
 //Components
 import MenuInfoModal from './MenuInfoModal';
-import Button from '../common/Button/Button';
 import CloseButton from '../common/CloseButton/CloseButton';
-
-//Tools
-import uuid from 'react-uuid';
-
-//Icons
-import infoIcon from './../../assets/icons/info-small-white.png';
+import DiningItems from './DiningItems';
+import ServiceItems from './ServiceItems';
+import MultiToggle from '../common/MultiToggle/MultiToggle';
+import MultiToggleOption from '../common/MultiToggle/MultiToggleOption';
 
 //Animations
 import gsap from 'gsap';
@@ -26,14 +21,13 @@ export default function MenuManager(props) {
     } = props;
 
     const { 
-        setSelectedCustomer,
         selectedCustomer,
     } = useContext(ControlStatesContext);
 
-    const {
-        menu,
-        orders
-    } = useContext(DynamicDataContext);
+    const options = [
+        ['Dining', <DiningItems handleModal={handleModal} />],
+        ['Services', <ServiceItems handleModal={handleModal} />]
+    ];
 
     const MenuManagerRef = useRef();
     useLayoutEffect(() => {
@@ -44,25 +38,12 @@ export default function MenuManager(props) {
         }
     }, []);
     
-    const menuTypes = menu.get.map(menuItem => menuItem.type).filter((item, index, array) => (array.indexOf(item) === index));
-    const [ itemInfo, setItemInfo ] = useState(null);
+    const [ modal, setModal ] = useState(null);
     const [ isBlurred, setIsBlurred ] = useState(false);
+    const [ selectedOption, setSelectedOption ] = useState(0);
 
-    function filterItem(item) {
-        return {
-            name: item.name,
-            is_delivered: false,
-            price: item.price,
-            item: item.item,
-            seating_id: selectedCustomer.seating_id,
-            section_id: selectedCustomer.section_id,
-            customer_id: selectedCustomer.id,
-            menu_id: item.id,
-        }
-    }
-
-    function handleItemInfo(item) {
-        setItemInfo(item);
+    function handleModal(item) {
+        setModal(item);
         item !== null ? 
             setIsBlurred(true) :
             setIsBlurred(false);
@@ -72,72 +53,29 @@ export default function MenuManager(props) {
         <div className='MenuManager' ref={MenuManagerRef}>
             {isBlurred && <div className='blur' />} 
 
-            {!!itemInfo && <MenuInfoModal item={itemInfo} handleItemInfo={handleItemInfo}/>}
-
+            {!!modal && modal}
                 <span className='menu-title'>
                     <CloseButton clickEvent={closeButtonEvent} />
-                    {selectedCustomer && 
-                        <span className='customer-title'>{selectedCustomer.name}</span>   
-                    }
+                    <div className='menu-nav'>
+                        <MultiToggle>
+                            {options.map((option, index) => (
+                                <MultiToggleOption
+                                    clickEvent={() => setSelectedOption(index)}
+                                    isActive={selectedOption === index ? true : false}
+                                >
+                                {option[0]}
+                                </MultiToggleOption>
+                            ))}
+                        </MultiToggle>
+                    </div>
                 </span>
                 
+                {selectedCustomer && 
+                    <span className='customer-title'>Adding to {selectedCustomer.name}...</span>   
+                }
+
                 <div className='menu-container'>
-
-                    {menu.get.length === 0 ? 'Loading...' :
-                    menuTypes.map(menuType => (
-                        <div className='type' key={uuid()}>
-                            <div className='type-title cursive'>{capitalizeFirstLetter(menuType) + 's'}</div>
-
-                            {menu.get.map(item => (
-                                menuType === item.type && 
-                                    item.available !== 0 &&
-                                        <div className='item-container' key={item.id}>
-                                            <div className='item'>
-                                                <span className='item-title'>
-                                                    <button className='item-info-button' onClick={() => {handleItemInfo(item)}}>
-                                                        <img src={infoIcon} alt='' />
-                                                    </button>
-
-                                                    <span className='item-name'>
-                                                        {item.name}     
-                                                    </span>
-                                                </span>
-
-                                                {selectedCustomer &&
-                                                    <nav className='item-nav'>
-                                                        <Button 
-                                                            type='constructive' 
-                                                            ID={`AddOrder${item.id}`}
-                                                            pendingResponseClickEvent={{
-                                                                args: [
-                                                                    {...filterItem(item)}
-                                                                ],
-                                                                event: orders.add
-                                                            }
-                                                        }>{item.price.toLocaleString('en-US')} gil</Button>
-
-
-                                                        <Button type='neutral' 
-                                                            ID={`AddOrder${item.id}Free`}
-                                                            pendingResponseClickEvent={{
-                                                                args: [
-                                                                    {...filterItem(item)},
-                                                                ],
-                                                                event: orders.add
-                                                            }
-                                                        }>Free</Button>
-                                                    </nav>
-                                                }
-
-                                            </div>
-
-                                            <div className='item-info'>
-                                                {item.id}
-                                            </div>
-                                        </div>
-                            ))}
-                        </div>
-                    ))}
+                    {options[selectedOption][1]}
                 </div>
         </div>
     );

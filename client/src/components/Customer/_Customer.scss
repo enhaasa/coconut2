@@ -42,8 +42,13 @@
     & .customer-nav {
         display: flex;
         justify-content: space-between;
-        border: 1px solid getBorderColor('standard');
+        border-top: 1px solid getBorderColor('standard');
         background: getBackgroundColor('tertiary');
         padding: 5px;
+
+        & .col {
+            display: flex;
+            gap: 5px;
+        }
     }
 }

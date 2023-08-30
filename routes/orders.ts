@@ -2,9 +2,12 @@ import Database from '../database';
 import MessageHandler from '../messages';
 import { Socket, Server } from 'socket.io';
 import { Time } from '../dbTools_server';
-import { Customer, isValidCustomer } from '../shared/types';
-import { Seating, isValidSeating } from '../shared/types';
-import { Order, isValidOrder } from '../shared/types';
+import { 
+    Customer, isValidCustomer,
+    Seating, isValidSeating,
+    Order, isValidOrder,
+    Service, isValidService,
+} from '../shared/types';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
@@ -25,10 +28,9 @@ type OrderToAdd = {
         section_id: number;
         customer_id: number;
         seating_id: number;
-        menu_id: number;
         item: string;
     }
-    requestID?: 'string'
+    requestID?: string;
 }
 
 type OrdersInSeating = {
@@ -39,7 +41,7 @@ type OrdersInSeating = {
 
 type OrderToDeliver = {
     order: Order;
-    requestID?: 'string';
+    requestID?: string;
 }
 
 type OrdersToDeliverByCustomer = {
@@ -48,14 +50,15 @@ type OrdersToDeliverByCustomer = {
 }
 
 function isValidOrderToAdd(data: any): data is OrderToAdd {
-    return typeof data.order.is_delivered === 'boolean' &&
-           typeof data.order.name === 'string' &&
-           typeof data.order.price === 'number' &&
-           typeof data.order.section_id === 'number' &&
-           typeof data.order.customer_id === 'number' &&
-           typeof data.order.seating_id === 'number' &&
-           typeof data.order.menu_id === 'number' &&
-           typeof data.order.item === 'string';
+    const { order } = data;
+
+    return typeof order.is_delivered === 'boolean' &&
+           typeof order.name === 'string' &&
+           typeof order.price === 'number' &&
+           typeof order.section_id === 'number' &&
+           typeof order.customer_id === 'number' &&
+           typeof order.seating_id === 'number' &&
+           typeof order.item === 'string';
 }
 
 function isValidOrderToDeliver(data: any): data is OrderToDeliver {
@@ -76,8 +79,16 @@ export class Orders {
 
     public static async get(socket: Socket) {
         try {
-            const result = await Database.get(this.table);
-            socket.emit('getOrders', result)
+            const query = `
+                SELECT t.*, sect.realm_id, cust.seating_id, seat.section_id
+                FROM ${this.table} t 
+                JOIN customers cust ON t.customer_id = cust.id 
+                JOIN seatings seat ON cust.seating_id = seat.id
+                JOIN sections sect ON seat.section_id = sect.id
+                WHERE sect.realm_id = 1;
+            `;
+            const result = await Database.query(query);
+            socket.emit('getOrders', result);
         } catch (err) {
             console.log('Failed to fetch orders.', err);
             MessageHandler.sendError(socket, 'Failed to fetch orders.');
@@ -86,6 +97,7 @@ export class Orders {
 
     public static async add(io: Server, socket: Socket, data: any) {
         try {
+            delete data.order.id;
             if (!isValidOrderToAdd(data)) {
                 console.log('Invalid format: OrderToAdd', data);
                 MessageHandler.sendError(socket, 'Invalid format: OrderToAdd.');
@@ -94,30 +106,32 @@ export class Orders {
         } catch(err) {
             console.log(err);
         }
-
-        const { order, requestID } = data;
         
         try {
-            const parsed_order = {
+            const { order, requestID } = data;
+
+            const orderToAdd = {
                 is_delivered: order.is_delivered,
                 name: order.name,
                 price: order.price,
-                section_id: order.section_id,
-                menu_id: order.menu_id,
                 customer_id: order.customer_id,
-                seating_id: order.seating_id,
                 item: order.item,
-                realm_id: 1,
                 time: Time.getCurrentTime(),
-                date: Time.getCurrentDateTime(),
+                datetime: Time.getCurrentDateTime(),
             }
     
-            const result = await Database.add(this.table, parsed_order, 'id');
+            const result = await Database.add(this.table, orderToAdd, 'id');
             const id = result[0].id;
 
             if (id) {
                 socket.emit('getRequestConfirmation', requestID);
-                io.emit('addOrder', {...parsed_order, id: id});
+                io.emit('addOrder', {
+                    ...orderToAdd, 
+                    seating_id: order.seating_id,
+                    section_id: order.section_id,
+                    realm_id: 1,
+                    id: id
+                });
             } else {
                 MessageHandler.sendError(socket, 'Failed to add order.');
             }

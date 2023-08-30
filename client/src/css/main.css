@@ -1193,6 +1193,14 @@ button:active, select:active, option:active {
   color: white;
   border: 1px solid #0e0e0e;
 }
+.MenuManager .customer-title {
+  color: white;
+  padding: 0 10px;
+  text-shadow: 0.1em 0.1em 0.2em black;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
 .MenuManager .menu-title {
   display: flex;
   flex-direction: row-reverse;
@@ -1207,20 +1215,19 @@ button:active, select:active, option:active {
   box-shadow: 0px 0px 1px 0px black;
   border: 1px solid #0e0e0e;
 }
-.MenuManager .menu-title .customer-title {
-  color: white;
-  padding: 0 10px;
-  text-shadow: 0.1em 0.1em 0.2em black;
-  font-size: 18px;
-  font-weight: bold;
-}
 .MenuManager .menu-title .close-button {
   margin: 5px;
 }
 .MenuManager .menu-container {
+  padding: 5px 10px;
+}
+.MenuManager .menu-container .DiningItems {
   -moz-column-count: 2;
        column-count: 2;
-  padding: 5px 10px;
+}
+.MenuManager .menu-container .ServiceItems {
+  -moz-column-count: 1;
+       column-count: 1;
 }
 .MenuManager .menu-container .type {
   -moz-column-break-inside: avoid;
@@ -1262,7 +1269,7 @@ button:active, select:active, option:active {
   display: none;
 }
 
-.InfoboxContainer {
+.MenuModalContainer {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -1270,12 +1277,12 @@ button:active, select:active, option:active {
   display: grid;
   place-items: center;
 }
-.InfoboxContainer .Infobox {
+.MenuModalContainer .MenuModal {
   background: rgba(34, 34, 34, 0.8235294118);
   border: 1px solid #0e0e0e;
   width: 80%;
 }
-.InfoboxContainer .Infobox .info-title {
+.MenuModalContainer .MenuModal .info-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1288,26 +1295,26 @@ button:active, select:active, option:active {
   box-shadow: 0px 0px 1px 0px black;
   font-weight: bold;
 }
-.InfoboxContainer .Infobox .section {
+.MenuModalContainer .MenuModal .section {
   color: white;
   padding: 5px 0;
   border-bottom: 1px solid #0e0e0e;
 }
-.InfoboxContainer .Infobox .section .section-header {
+.MenuModalContainer .MenuModal .section .section-header {
   color: rgb(196, 177, 166);
   font-weight: bold;
 }
-.InfoboxContainer .Infobox .section p {
+.MenuModalContainer .MenuModal .section p {
   margin: 0;
 }
-.InfoboxContainer .Infobox .section:last-child {
+.MenuModalContainer .MenuModal .section:last-child {
   border: none;
 }
-.InfoboxContainer .Infobox .info-container {
+.MenuModalContainer .MenuModal .info-container {
   padding: 0 10px;
   box-shadow: inset 0px 0px 1px 0px black;
 }
-.InfoboxContainer .Infobox .info-container .noresult {
+.MenuModalContainer .MenuModal .info-container .noresult {
   color: grey !important;
 }
 
@@ -1543,9 +1550,13 @@ button:active, select:active, option:active {
 .Customer .customer-nav {
   display: flex;
   justify-content: space-between;
-  border: 1px solid #0e0e0e;
+  border-top: 1px solid #0e0e0e;
   background: rgba(65, 65, 65, 0.678);
   padding: 5px;
+}
+.Customer .customer-nav .col {
+  display: flex;
+  gap: 5px;
 }
 
 .SectionPointer {
@@ -1669,6 +1680,28 @@ button:active, select:active, option:active {
 }
 .Footer .content .column .title {
   font-weight: bold;
+}
+
+.AddServiceItem {
+  padding: 5px;
+  display: grid;
+  gap: 2px;
+}
+.AddServiceItem .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+}
+.AddServiceItem .row.bottom-nav {
+  display: flex;
+  justify-content: space-between;
+}
+.AddServiceItem .selector input {
+  background: rgba(34, 34, 34, 0.8235294118);
+  color: #fff;
+  border: 1px solid #0e0e0e;
+  color-scheme: dark;
 }
 
 main {

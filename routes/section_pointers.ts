@@ -74,10 +74,10 @@ class SectionPointers {
     public static async get(socket: Socket) {
         try {
             const query = `
-            SELECT sp.*, s."name" AS "name" 
-            FROM ${this.table} sp 
-            LEFT JOIN "sections" s ON sp."target_section_id" = s."id" 
-            WHERE sp."realm_id" = 1
+                SELECT t.*, s.realm_id
+                FROM ${this.table} t 
+                JOIN "sections" s ON t.section_id = s.id
+                WHERE realm_id = 1;
             `;
 
             const result = await Database.query(query);

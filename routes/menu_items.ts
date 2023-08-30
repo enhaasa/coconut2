@@ -13,8 +13,13 @@ class Menu {
 
     public static async get(socket: Socket) {
         try {
-            const result = await Database.get(this.table);
-            socket.emit('getMenu', result)
+            const query = `
+                SELECT * FROM ${this.table}
+                WHERE realm_id = 1;
+            `;
+
+            const result = await Database.query(query);
+            socket.emit('getMenu', result);
 
         } catch (err) {
             console.log('Failed to fetch menu.', err);

@@ -18,10 +18,12 @@ import { formatStringAsPrice } from '../tools';
 export default function Order(props) {
     const { 
         order,
+        handleItemInfo,
     } = props;
 
     const {
         orders,
+        menu,
     } = useContext(DynamicDataContext);
 
     function handleAddOrder(order) {
@@ -33,12 +35,17 @@ export default function Order(props) {
         orders.remove(order.units[order.units.length-1]);
     }
 
+    function getMenuItemByID(ID) {
+        const item = menu.get.find(mi => mi.id === ID);
+        return item;
+    }
+
     const tablecols = [
         {
             type: 'nav',
             content: 
             <>
-                <IconButton type='tooltip'>
+                <IconButton type='tooltip' clickEvent={() => handleItemInfo(getMenuItemByID(order.units[0].menu_id))}>
                     <img src={infoIcon} alt='' className='tooltip' />
 
                     <span className='tooltiptext'>

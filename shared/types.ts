@@ -6,11 +6,10 @@ export type Order = {
     customer_id: number;
     seating_id: number;
     realm_id: number;
-    menu_id: number;
     item: string;
     time: number|string;
-    date: string;
-    id: string;
+    datetime: string;
+    id: number;
 }
 export function isValidOrder(order: any): order is Order {
     try {
@@ -20,12 +19,43 @@ export function isValidOrder(order: any): order is Order {
             typeof order.section_id === 'number' &&
             typeof order.customer_id === 'number' &&
             typeof order.seating_id === 'number' &&
-            typeof order.menu_id === 'number' &&
             typeof order.item === 'string' &&
             typeof order.realm_id === 'number' &&
             typeof order.time === 'string' || typeof order.time === 'number' &&
-            typeof order.date === 'string' &&
+            typeof order.datetime === 'string' &&
             typeof order.id === 'number';
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export type Service = {
+    is_completed: boolean;
+    name: string;
+    price: number;
+    total: number | null;
+    start_datetime: string;
+    end_datetime: string;
+    customer_id: number;
+    seating_id: number;
+    section_id: number;
+    realm_id: number;
+    id: number;
+}
+
+export function isValidService(service: any): service is Service {
+    try {
+        return typeof service.is_completed === 'boolean' &&
+            typeof service.name === 'string' &&
+            typeof service.price === 'number' &&
+            typeof service.total === 'number' || typeof service.price === null &&
+            typeof service.start_datetime === 'string' &&
+            typeof service.end_datetime === 'string' && 
+            typeof service.customer_id === 'number' &&
+            typeof service.seating_id === 'number' &&
+            typeof service.section_id === 'number' &&
+            typeof service.realm_id === 'number' &&
+            typeof service.id === 'number';
     } catch(err) {
         console.log(err);
     }

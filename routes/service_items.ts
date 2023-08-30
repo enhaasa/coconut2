@@ -4,12 +4,12 @@ import { Socket } from 'socket.io';
 
 module.exports = function registerHandlers(io) {
     io.on('connection', (socket => {
-        socket.on('getSections', () => Sections.get(socket));
+        socket.on('getServiceMenu', () => ServiceMenu.get(socket));
     }));
 }
 
-class Sections {
-    private static table = 'sections';
+class ServiceMenu {
+    private static table = 'service_items';
 
     public static async get(socket: Socket) {
         try {
@@ -19,11 +19,11 @@ class Sections {
             `;
 
             const result = await Database.query(query);
-        
-            socket.emit('getSections', result);
-        } catch(err) {
-            console.log('Failed to fetch sections.', err);
-            MessageHandler.sendError(socket, 'Failed to fetch sections.');
+            socket.emit('getServiceMenu', result);
+
+        } catch (err) {
+            console.log('Failed to fetch service menu.', err);
+            MessageHandler.sendError(socket, 'Failed to fetch service menu');
         }
     }
 }

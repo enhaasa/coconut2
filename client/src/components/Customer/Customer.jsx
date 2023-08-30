@@ -16,6 +16,7 @@ export default function Customer(props) {
     const {
         confirmDeleteCustomer,
         customer,
+        handleItemInfo,
     } = props;
 
     const {
@@ -105,15 +106,16 @@ export default function Customer(props) {
                     onChange={handleNameChange}>
                 </input>
 
-                <Button type='neutral' clickEvent={handleMoveCustomer}>Move</Button>
+                <Button type='neutral' clickEvent={handleMoveCustomer}>Relocate</Button>
                 <Button type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
             </nav>
 
             {customer.undeliveredOrders.length > 0 &&
                 <div className='orders'>
                     <Table>
-                        {undeliveredOrders.map((order, index) => (
+                        {undeliveredOrders.map((order) => (
                             <Order 
+                                handleItemInfo={handleItemInfo}
                                 key={uuid()}
                                 order={order} 
                             />
@@ -123,8 +125,15 @@ export default function Customer(props) {
             }
 
             <nav className='customer-nav'>
-                <Button type='constructive' clickEvent={() => {openMenu(customer)}}>Add Order</Button>
+                <span className='col'>
+                    {
+                        selectedCustomer && selectedCustomer.id === customer.id 
+                        ? <Button type='inactive'>Adding...</Button>
+                        : <Button type='constructive' clickEvent={() => {openMenu(customer)}}>Add Order</Button>
+                    }
+                </span>
 
+                <span className='col'>
                 {
                     customer.undeliveredOrders.length > 0 &&
                         <Button 
@@ -137,6 +146,7 @@ export default function Customer(props) {
                             event: orders.deliverAllByCustomer
                         }}>Deliver All</Button>
                 }
+                </span>
             </nav>
         </div>
     );

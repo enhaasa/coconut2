@@ -15,6 +15,7 @@ export default function OrderManager(props) {
         openConfirmBox, 
         closeConfirmBox, 
         seating, 
+        handleItemInfo,
     } = props;
 
     const { 
@@ -62,6 +63,7 @@ export default function OrderManager(props) {
                             <Customer 
                                 key={uuid()}
                                 customer={customer}
+                                handleItemInfo={handleItemInfo}
                                 orders={orders}
                                 confirmDeleteCustomer={confirmDeleteCustomer}
                                 customers={customers}

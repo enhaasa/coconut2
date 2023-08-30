@@ -16,6 +16,7 @@ import DropdownItem from '../common/Dropdown/DropdownItem';
 import Button from '../common/Button/Button';
 import CloseButton from '../common/CloseButton/CloseButton';
 import Toggle from '../common/Toggle/Toggle';
+import MenuInfoModal from '../MenuManager/MenuInfoModal';
 
 //Animations
 import { gsap } from 'gsap';
@@ -25,7 +26,7 @@ import animations from '../../animations.js'
 import resetIcon from './../../assets/icons/reset-small-white.png';
 import receiptIcon from './../../assets/icons/receipt2-small-white.png';
 
-export default function SeatingManager(props) {
+export default function SeatingManager() {
     const {
         seatings,
         orders,
@@ -69,6 +70,14 @@ export default function SeatingManager(props) {
     const [isBlurred, setIsBlurred] = useState(false);
     const [viewTab, setViewTab] = useState(false);
     const [confirmBox, setConfirmBox] = useState(null);
+    const [ itemInfo, setItemInfo ] = useState(null);
+
+    function handleItemInfo(item) {
+        setItemInfo(item);
+        item !== null ? 
+            setIsBlurred(true) :
+            setIsBlurred(false);
+    }
 
     function openConfirmBox(data) {
         setConfirmBox(data);
@@ -92,12 +101,12 @@ export default function SeatingManager(props) {
     }
 
     function handleClose(){
-        gsap.to(ref.current, animations.hardElastic);
+        gsap.to(ref.current, animations.fadeFall);
 
         setTimeout(()=> {
             setSelectedCustomer(null);
             setSelectedSeating(null);
-        }, 200)
+        }, 100)
     }
 
     function handleMoveSeating() {
@@ -151,127 +160,131 @@ export default function SeatingManager(props) {
     
     return (
         seating && seating.id !== null &&
-        <div className='SeatingManager' ref={ref}>
-            {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
-            {isBlurred && <div className='blur' />}
-
-            <div className='header'>
-                <div className='assign-waiter'>
-                    <span className='title cursive'>Waiter:</span>
-
-                    {
-                        <Dropdown 
-                            value={seating.waiter}
-                            onChangeEvent={({target}) => {seatings.setAttribute(seating, 'waiter', target.value)}}>
-                                <DropdownItem key={uuid()}></DropdownItem>
-                            {staff.get.map(member => (
-                                member.positions.includes('waiter') &&
-                                <DropdownItem key={uuid()}>{member.name}</DropdownItem>
-                            ))}
-                            
-                        </Dropdown>
-                    }
-                </div>
-
-                <span className={`seatingnumber ${seatingnumberColor()}`}>
-                    {seating.number}
-                </span>
+        <>
+            <div className='SeatingManager' ref={ref}>
+                {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
+                {isBlurred && <div className='blur' />}
+                {itemInfo && <MenuInfoModal item={itemInfo} handleItemInfo={handleItemInfo}/>}
                 
-                <span className='close-button'>
-                    <CloseButton clickEvent={handleClose}/>
-                </span>
-            </div>
+                <div className='header'>
+                    <div className='assign-waiter'>
+                        <span className='title cursive'>Waiter:</span>
 
-            <section className='navbar'>
-                
-                <div className='column'>
-                    <span className='navsection'>
-                        <span className='title cursive'>Available:</span>
-                        <Toggle 
-                            value={seating.is_available}
-                            clickEvent={() => seatings.toggleAttribute(seating, 'is_available')}
-                        />
-                    </span>
+                        {
+                            <Dropdown 
+                                value={seating.waiter}
+                                onChangeEvent={({target}) => {seatings.setAttribute(seating, 'waiter', target.value)}}>
+                                    <DropdownItem key={uuid()}></DropdownItem>
+                                {staff.get.map(member => (
+                                    member.positions.includes('waiter') &&
+                                    <DropdownItem key={uuid()}>{member.name}</DropdownItem>
+                                ))}
+                                
+                            </Dropdown>
+                        }
+                    </div>
 
-                    <span className='navsection'>
-                        <span className='title cursive'>Reserved:</span>
-                        <Toggle 
-                            value={seating.is_reserved}
-                            clickEvent={() => seatings.toggleAttribute(seating, 'is_reserved')}
-                        />
+                    <span className={`seatingnumber ${seatingnumberColor()}`}>
+                        {seating.number}
                     </span>
                     
-                    {/*
+                    <span className='close-button'>
+                        <CloseButton clickEvent={handleClose}/>
+                    </span>
+                </div>
+
+                <section className='navbar'>
+                    
+                    <div className='column'>
                         <span className='navsection'>
-                            <span className='title cursive'>Photography: </span>
-                            <label className='switch'>
-                                <input 
-                                    type='checkbox' 
-                                    readOnly 
-                                    checked={seating.is_photography}
-                                    onClick={() => seatings.toggleAttribute(seating, 'is_photography')} />
-                                <span className='slider' />
-                            </label>
+                            <span className='title cursive'>Available:</span>
+                            <Toggle 
+                                value={seating.is_available}
+                                clickEvent={() => seatings.toggleAttribute(seating, 'is_available')}
+                            />
                         </span>
-                    */}
-                </div>
 
-                <div className='column'>
-                    <span className='view-tab-container'>
-                        <div className='tab-summary'>
-                            <div className='row'>
-                                {deliveredOrdersInSeating.length} items 
+                        <span className='navsection'>
+                            <span className='title cursive'>Reserved:</span>
+                            <Toggle 
+                                value={seating.is_reserved}
+                                clickEvent={() => seatings.toggleAttribute(seating, 'is_reserved')}
+                            />
+                        </span>
+                        
+                        {/*
+                            <span className='navsection'>
+                                <span className='title cursive'>Photography: </span>
+                                <label className='switch'>
+                                    <input 
+                                        type='checkbox' 
+                                        readOnly 
+                                        checked={seating.is_photography}
+                                        onClick={() => seatings.toggleAttribute(seating, 'is_photography')} />
+                                    <span className='slider' />
+                                </label>
+                            </span>
+                        */}
+                    </div>
+
+                    <div className='column'>
+                        <span className='view-tab-container'>
+                            <div className='tab-summary'>
+                                <div className='row'>
+                                    {deliveredOrdersInSeating.length} items 
+                                </div>
+                                <div className='row'>
+                                    {tabTotal.toLocaleString('en-US')} gil
+                                </div>
                             </div>
-                            <div className='row'>
-                                {tabTotal.toLocaleString('en-US')} gil
-                            </div>
-                        </div>
 
-                        <Button type='dark' clickEvent={() => handleViewTab(true)}>
-                            <img src={receiptIcon} alt='Receipt Icon' />
-                            View Tab
-                        </Button>
-                    </span>
-                </div>
-            </section>
+                            <Button type='dark' clickEvent={() => handleViewTab(true)}>
+                                <img src={receiptIcon} alt='Receipt Icon' />
+                                View Tab
+                            </Button>
+                        </span>
+                    </div>
+                </section>
 
-            {viewTab && <TabManager 
-                deliveredOrdersInSeating={deliveredOrdersInSeating}
-                customersInSeating={customersInSeating}
-                seating={seating} 
-                handleViewTab={handleViewTab}
-                tabTotal={tabTotal}
-                setConfirmBox={setConfirmBox}
-            />}
-
-            <section className='OrderManagerContainer'>
-                <OrderManager 
-                    seating={seating} 
+                {viewTab && <TabManager 
+                    deliveredOrdersInSeating={deliveredOrdersInSeating}
                     customersInSeating={customersInSeating}
-                    openConfirmBox={openConfirmBox}
-                    closeConfirmBox={closeConfirmBox}
-                />
-            </section>
+                    seating={seating} 
+                    handleViewTab={handleViewTab}
+                    tabTotal={tabTotal}
+                    setConfirmBox={setConfirmBox}
+                />}
 
-            <section className='navbar-bottom'>
-                <span className='column last'>
-                    <Button type='destructive' clickEvent={handleResetSeating}>
-                        Reset Table
-                    </Button>
-                </span>
+                <section className='OrderManagerContainer'>
+                    <OrderManager 
+                        handleItemInfo={handleItemInfo}
+                        seating={seating} 
+                        customersInSeating={customersInSeating}
+                        openConfirmBox={openConfirmBox}
+                        closeConfirmBox={closeConfirmBox}
+                    />
+                </section>
 
-                {isDangerousSettings &&
-                    <span className='column'>
-                        <Button type='destructive' clickEvent={handleRemove}>
-                            Delete
-                        </Button>
-
-                        <Button type='dark' clickEvent={handleMoveSeating}>
-                            Move
+                <section className='navbar-bottom'>
+                    <span className='column last'>
+                        <Button type='destructive' clickEvent={handleResetSeating}>
+                            Reset Table
                         </Button>
                     </span>
-                }
-            </section>
-        </div>
+
+                    {isDangerousSettings &&
+                        <span className='column'>
+                            <Button type='destructive' clickEvent={handleRemove}>
+                                Delete
+                            </Button>
+
+                            <Button type='dark' clickEvent={handleMoveSeating}>
+                                Move
+                            </Button>
+                        </span>
+                    }
+                </section>
+            </div>
+        </>
     );
 }

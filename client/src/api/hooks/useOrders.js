@@ -8,9 +8,10 @@ export default function useOrders(init, props) {
 
     const [ orders, setOrders ] = useState(init);
     const eventHandlers = {
-        getOrders: (menu_items) => {
-            setOrders(menu_items);
+        getOrders: (items) => {
+            setOrders(items);
         },
+        
         addOrder: (order) => {
             setOrders(prev => ([...prev, order]));
         },
@@ -131,10 +132,10 @@ export default function useOrders(init, props) {
 
     return {
         get: orders,
-        add: add,
-        remove: remove,
-        deliver: deliver,
-        deliverAllByCustomer: deliverAllByCustomer,
+        add,
+        remove,
+        deliver,
+        deliverAllByCustomer,
         refresh,
         pay,
     }

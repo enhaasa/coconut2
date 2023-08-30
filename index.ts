@@ -17,6 +17,7 @@ const path = require("path");
 const { convertSQLKeywords, convertSQLKeyword } = require('./dbTools_server');
 
 const PORT = process.env.PORT || 3001;
+process.setMaxListeners(12);
 
 app.use(cors());
 app.use(express.json());
