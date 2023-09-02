@@ -1,7 +1,8 @@
-import React, { useRef, useLayoutEffect, useContext, useState } from 'react';
+import React, { useRef, useLayoutEffect, useContext, useState, useEffect } from 'react';
 
 //Components
 import Order from '../Order';
+import Service from '../common/Service/Service';
 import Button from '../common/Button/Button';
 import Table from '../common/Table/Table';
 
@@ -33,9 +34,11 @@ export default function Customer(props) {
 
     const [ nameBuffer, setNameBuffer ] = useState(customer.name);
     
+    const { uncompletedServices } = customer;
     let undeliveredOrders = [];
     customer.undeliveredOrders.forEach(order => {
-        const currentOrder = undeliveredOrders.find(parsedOrder => parsedOrder.name === order.name && parsedOrder.price === order.price);
+        const currentOrder = undeliveredOrders.find(parsedOrder => 
+            parsedOrder.name === order.name && parsedOrder.price === order.price);
 
         if (!currentOrder) {
             undeliveredOrders.push({
@@ -55,7 +58,7 @@ export default function Customer(props) {
 
     let timer = useRef();
 
-    const handleNamePaste = (event) => {
+    function handleNamePaste(event) {
         const pastedValue = event.clipboardData.getData('text');
         if (pastedValue.length + customer.name.length > 50) {
           setNameBuffer(pastedValue);
@@ -63,7 +66,7 @@ export default function Customer(props) {
         }
     }
 
-    const handleNameChange = (event) => {
+    function handleNameChange(event) {
         const { value } = event.target;
         if (value.length <= 50) {
             setNameBuffer(value);
@@ -89,7 +92,7 @@ export default function Customer(props) {
         setSelectedCustomer(null);
     }
       
-    const openMenu = () => {
+    function openMenu() {
         setSelectedCustomer(customer);
     }
 
@@ -121,6 +124,20 @@ export default function Customer(props) {
                             />
                         ))}
                     </Table>
+                </div>
+            }
+
+            {customer.uncompletedServices.length > 0 &&
+                <div className='services'>
+                    <Table>
+                        {uncompletedServices.map((service) => (
+                            <Service 
+                                service={service}
+                            />
+                        ))}
+
+                    </Table>
+
                 </div>
             }
 

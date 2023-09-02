@@ -24,32 +24,38 @@
       position: absolute;
       z-index: 1;
       
-      & .orderinfo {
+      & .item-category {
         display: flex;
         justify-content: center;
-        font-weight: normal;
+        flex-direction: column;
+        gap: 1px;
         font-weight: normal;
         font-size: 0.9em;
         border-radius: 10px;
         box-shadow: getBoxShadow('inner');
-  
-        & .amount {
+        
+        & .item {
           display: flex;
-          align-items: center;
-          background: getPrimaryColor('dark');
-          color: white;
-          border-radius: 10px 0 0 10px;
-          padding: 0 5px;
-          border: 1px solid black;
-          gap: 4px;
-        }
-  
-        & .time {
-          border-radius: 0 10px 10px 0;
-          padding: 0 5px;
-          border: 1px solid black;
-          display: flex;
-          align-items: center;
+          margin: 0 auto;
+
+          & .amount {
+            display: flex;
+            align-items: center;
+            background: getPrimaryColor('dark');
+            color: white;
+            border-radius: 10px 0 0 10px;
+            padding: 0 5px;
+            border: 1px solid black;
+            gap: 4px;
+          }
+    
+          & .time {
+            border-radius: 0 10px 10px 0;
+            padding: 0 5px;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+          }
         }
       }
 
@@ -59,7 +65,7 @@
         gap: 3px;
         background: getPrimaryColor('dark');
         color: white;
-        padding: 2px 7px;
+        padding: 0px 5px;
         border-radius: 20px;
         border: 1px solid getBorderColor('standard');
 
@@ -74,6 +80,8 @@
       margin-top: -10px;
       z-index: 1;
       pointer-events: none;
+      display: flex;
+      flex-direction: column;
 
       & .customers {
         display: grid;
@@ -102,11 +110,12 @@
       }
 
       & .unpaid-orders {
-        background: getPrimaryColor('constructive');
+        background: linear-gradient(to right, blue, rgb(209, 0, 228));
         color: getTextColor('primary');
         padding: 0 5px;
         border-radius: 10px;
         outline: 1px solid getBorderColor('standard');
+        margin: 0 auto;
       }
     }
 
@@ -114,8 +123,8 @@
         background: rgba(0, 0, 0, 0.7);
         position: absolute;
         border-radius: 100%;
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         display: grid;
         justify-content: center;
         align-content: center;

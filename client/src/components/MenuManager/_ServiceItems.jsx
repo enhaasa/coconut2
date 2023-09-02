@@ -6,12 +6,12 @@ import { ControlStatesContext } from "../../api/ControlStates";
 
 //Tools
 import uuid from "react-uuid";
-import { capitalizeFirstLetter } from '../../tools';
+import { capitalizeFirstLetter } from '../../utils';
 
 //Components
 import Button from "../common/Button/Button";
-import MenuInfoModal from './MenuInfoModal';
-import AddServiceItem from "./AddServiceItem";
+import MenuInfoModal from './_MenuInfoModal';
+import AddServiceItem from "./_AddServiceItem";
 import Modal from '../common/Modal/Modal';
 
 //Icons
@@ -39,7 +39,6 @@ export default function ServiceItems(props) {
     function filterItem(item) {
         return {
             name: item.name,
-            is_completed: false,
             price: item.price,
             item: item.item,
             seating_id: selectedCustomer.seating_id,

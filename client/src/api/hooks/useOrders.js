@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import useSocketListener from './../useSocketListener';
 
+import { 
+    getCurrentTime,
+} from '../../utils';
+
 export default function useOrders(init, props) {
     const {
         socket
@@ -16,10 +20,10 @@ export default function useOrders(init, props) {
             setOrders(prev => ([...prev, order]));
         },
         
-        removeOrder: (ordertoRemove) => {
+        removeOrder: (orderToRemove) => {
             setOrders(prev => (
                 prev.filter(order => (
-                    order.id !== ordertoRemove.id
+                    order.id !== orderToRemove.id
                 ))
             ));
         },
@@ -138,6 +142,58 @@ export default function useOrders(init, props) {
         deliverAllByCustomer,
         refresh,
         pay,
+        utils: {
+            getOldestOrder,
+            getTimeSinceOldestOrder,
+            sortArray,
+        }
+    }
+
+    function getOldestOrder(orders) {
+        return orders.reduce((oldest, current) => (
+            current.time < oldest.time ? current : oldest
+        ), orders[0])
     }
     
+    function getTimeSinceOldestOrder(order) {
+    
+        if (order === undefined) return;
+    
+        const oldestTime = order.time;
+        const currentTime = getCurrentTime();
+    
+        const result = currentTime - oldestTime;
+        
+        return result;
+    }
+
+    function sortArray(array, sortDelivered) {
+        let sortedArray = [];
+    
+        array.forEach((arrayItem, index) => {
+    
+            if (arrayItem.delivered === sortDelivered) {
+                let duplicate = false;
+                let duplicateIndex = 0;
+    
+                sortedArray.forEach((sortedItem, index) => {
+                    if(sortedItem.name === arrayItem.name 
+                        && sortedItem.price === arrayItem.price) {
+                            duplicate = true;
+                            duplicateIndex = index;
+                        } 
+                })
+    
+                if (!duplicate) {
+                    sortedArray.push({...arrayItem, amount: 1, ids: [arrayItem.id], total: arrayItem.price});
+                } else {
+                    sortedArray[duplicateIndex].amount ++;
+                    sortedArray[duplicateIndex].ids.push(arrayItem.id);
+                    sortedArray[duplicateIndex].total += arrayItem.price;
+                }
+            }
+        });
+    
+        return sortedArray;
+    } 
 }

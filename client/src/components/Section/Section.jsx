@@ -10,7 +10,7 @@ import usePixelClick from '../../api/usePixelClick';
 import Seating from '../Seating/Seating';
 import SectionPointer from '../SectionPointer/SectionPointer';
 import Modal from '../common/Modal/Modal';
-import AddSeatingModal from '../Seating/AddSeatingModal';
+import AddSeatingModal from '../Seating/_AddSeatingModal';
 
 //Contexts
 import { DynamicDataContext } from '../../api/DynamicData';
@@ -18,7 +18,7 @@ import { ControlStatesContext } from '../../api/ControlStates';
 
 //Images
 import overlay from './../../assets/icons/dark-fabric.png';
-import AddSectionPointerModal from '../SectionPointer/AddSectionPointerModal';
+import AddSectionPointerModal from '../SectionPointer/_AddSectionPointerModal';
 
 export default function Section(props) {
     const {

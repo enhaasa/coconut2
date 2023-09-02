@@ -4,7 +4,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import ReceiptManager from '../../components/ReceiptManager/ReceiptManager';
 import AttendingStaff from '../../components/AttendingStaff/AttendingStaff';
 import TipsManager from '../../components/TipsManager/TipsManager';
-import TipModal from '../../components/TipsManager/TipModal';
+import TipModal from '../../components/TipsManager/_TipModal';
 import Modal from '../../components/common/Modal/Modal';
 import Button from '../../components/common/Button/Button';
 import Dropdown from '../../components/common/Dropdown/Dropdown';

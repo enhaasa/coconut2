@@ -4,10 +4,10 @@ import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
 import { ControlStatesContext } from '../../api/ControlStates';
 
 //Components
-import MenuInfoModal from './MenuInfoModal';
+import MenuInfoModal from './_MenuInfoModal';
 import CloseButton from '../common/CloseButton/CloseButton';
-import DiningItems from './DiningItems';
-import ServiceItems from './ServiceItems';
+import DiningItems from './_DiningItems';
+import ServiceItems from './_ServiceItems';
 import MultiToggle from '../common/MultiToggle/MultiToggle';
 import MultiToggleOption from '../common/MultiToggle/MultiToggleOption';
 

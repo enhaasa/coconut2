@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 //Contexts
 import { ControlStatesContext } from "../../api/ControlStates";
 import { DynamicDataContext } from '../../api/DynamicData';
-import EditSectionPointerModal from './EditSectionPointerModal';
+import EditSectionPointerModal from './_EditSectionPointerModal';
 import Modal from '../common/Modal/Modal';
 
 //Icons

@@ -30,11 +30,11 @@ export function isValidOrder(order: any): order is Order {
 }
 
 export type Service = {
-    is_completed: boolean;
     name: string;
     price: number;
     total: number | null;
     start_datetime: string;
+    minute_interval: number;
     end_datetime: string;
     customer_id: number;
     seating_id: number;
@@ -48,9 +48,7 @@ export function isValidService(service: any): service is Service {
         return typeof service.is_completed === 'boolean' &&
             typeof service.name === 'string' &&
             typeof service.price === 'number' &&
-            typeof service.total === 'number' || typeof service.price === null &&
-            typeof service.start_datetime === 'string' &&
-            typeof service.end_datetime === 'string' && 
+            typeof service.minute_interval === 'number' &&
             typeof service.customer_id === 'number' &&
             typeof service.seating_id === 'number' &&
             typeof service.section_id === 'number' &&

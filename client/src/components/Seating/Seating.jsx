@@ -1,5 +1,8 @@
 import React, { useRef, useEffect, useState, useLayoutEffect, useContext, useMemo } from 'react';
 
+//Components
+import ServiceInfo from './_ServiceInfo';
+
 //Contexts
 import { DynamicDataContext } from '../../api/DynamicData';
 import { ControlStatesContext } from '../../api/ControlStates';
@@ -13,13 +16,11 @@ import animations from '../../animations';
 import { 
     getFirstName, 
     getLastNames,
-    getTimeSinceOldestOrder, 
-    getOldestOrder, 
-    formatTime } from '../../tools';
+    formatTime,
+} from '../../utils';
 
 //Icons
-import stopwatchIcon from './../../assets/icons/stopwatch-black.png';
-import unPaidTabIcon from './../../assets/icons/unPaidTab.png';
+import stopwatchIconBlack from './../../assets/icons/stopwatch-black.png';
 import orderIcon from './../../assets/icons/order-small-white.png';
 import cameraIcon from './../../assets/icons/camera.png';
 import waiterIcon from './../../assets/icons/waiter.png';
@@ -33,6 +34,8 @@ export default function Seating(props) {
     const {
         customers,
         seatings,
+        services,
+        orders,
     } = useContext(DynamicDataContext);
 
     const {
@@ -49,18 +52,23 @@ export default function Seating(props) {
 
     const isMoving = itemInMovement && itemInMovement.item.id === seating.id;
 
-    let undeliveredOrders = [];
-    let deliveredOrders = [];
-
-    seating.customers.forEach(customer => {
-        customer.undeliveredOrders.forEach(order => {
-            undeliveredOrders.push(order);
-        })
-        customer.deliveredOrders.forEach(order => {
-            deliveredOrders.push(order);
-        })
+    const [
+        uncompletedServices,
+        undeliveredOrders,
+        deliveredOrders,
+        completedServices,
+    ] = useMemo(() => {
+        const extractOrders = (ordersArray, customerProperty) =>
+            ordersArray.reduce((acc, customer) => [...acc, ...customer[customerProperty]], []);
+    
+        const undeliveredOrders = extractOrders(seating.customers, 'undeliveredOrders');
+        const deliveredOrders = extractOrders(seating.customers, 'deliveredOrders');
+        const uncompletedServices = extractOrders(seating.customers, 'uncompletedServices');
+        const completedServices = extractOrders(seating.customers, 'completedServices');
+    
+        return [uncompletedServices, undeliveredOrders, deliveredOrders, completedServices];
     });
-
+    
     const SeatingRef = useRef();
     useLayoutEffect(() => {
         gsap.from(SeatingRef.current, animations.appearY);
@@ -105,23 +113,27 @@ export default function Seating(props) {
     
     useEffect(() => {
         //Not the most elegant solution but will make sure timers start at 0 from first second
-        setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrders))); 
+        setTimeSinceLastOrder(orders.utils.getTimeSinceOldestOrder(orders.utils.getOldestOrder(undeliveredOrders))); 
     
         const timer = setInterval(() => {
             undeliveredOrders.length > 0 &&
-                setTimeSinceLastOrder(getTimeSinceOldestOrder(getOldestOrder(undeliveredOrders)));
+                setTimeSinceLastOrder(orders.utils.getTimeSinceOldestOrder(orders.utils.getOldestOrder(undeliveredOrders)));
+
+            
         }, 1000);
     
         return () => {
             clearInterval(timer);
         };
-    }, [undeliveredOrders]);
+    }, [ undeliveredOrders, uncompletedServices ]);
 
-    function getNotificationColor() {
+    function getOrderNotificationColor() {
         if (!timeSinceLastOrder) return 'progressive';
         if (timeSinceLastOrder <= MAX_DELIVERY_TIME) return 'progressive';
         if (timeSinceLastOrder > MAX_DELIVERY_TIME) return 'destructive';
     };
+
+    
 
     function handleMoveSeating() {
         setItemInMovement({
@@ -154,23 +166,30 @@ export default function Seating(props) {
                     <div className={`waiter`}>
                         <img src={waiterIcon} alt='Waiter Icon'/> 
                         {getFirstName(seating.waiter)}
-                    
                     </div>
                 }
 
-                <div className='orderinfo'>
+                <div className='item-category order'>
                     {undeliveredOrders.length > 0 && (
-                        <>
-                        <div className={`amount`}>
-                            <img src={orderIcon} alt='Order Icon' />
-                            {undeliveredOrders.length}
-                        </div>
+                        <div className='item'>
+                            <div className={`amount`}>
+                                <img src={orderIcon} alt='Order Icon' />
+                                {undeliveredOrders.length}
+                            </div>
 
-                        <div className={`time ${getNotificationColor()}`}>
-                            <img src={stopwatchIcon} alt='Stopwatch Icon' />
-                            {formatTime(timeSinceLastOrder)}
+                            <div className={`time ${getOrderNotificationColor()}`}>
+                                <img src={stopwatchIconBlack} alt='Stopwatch Icon' />
+                                {formatTime(timeSinceLastOrder)}
+                            </div>
                         </div>
-                        </>
+                    )}
+                </div>
+
+                <div className='item-category service'>
+                    {uncompletedServices.length > 0 && (
+                        uncompletedServices.map(service => (
+                            <ServiceInfo service={service} />
+                        ))
                     )}
                 </div>
             </div>
@@ -213,7 +232,9 @@ export default function Seating(props) {
                                 </div>
                         </div>
                     }
-                {deliveredOrders.length > 0 && <div className='unpaid-orders'>Tab Available!</div>}
+                    {(deliveredOrders.length > 0 || completedServices.length > 0) && (
+                     <div className='unpaid-orders'>Tab Available</div>
+                    )}
             </div>
         </div>
     );

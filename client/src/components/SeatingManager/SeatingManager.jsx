@@ -6,6 +6,7 @@ import { ControlStatesContext } from '../../api/ControlStates';
 
 //Tools
 import uuid from 'react-uuid';
+import { formatStringAsPrice } from '../../utils';
 
 //Components
 import OrderManager from '../OrderManager/OrderManager';
@@ -16,7 +17,7 @@ import DropdownItem from '../common/Dropdown/DropdownItem';
 import Button from '../common/Button/Button';
 import CloseButton from '../common/CloseButton/CloseButton';
 import Toggle from '../common/Toggle/Toggle';
-import MenuInfoModal from '../MenuManager/MenuInfoModal';
+import MenuInfoModal from '../MenuManager/_MenuInfoModal';
 
 //Animations
 import { gsap } from 'gsap';
@@ -70,7 +71,7 @@ export default function SeatingManager() {
     const [isBlurred, setIsBlurred] = useState(false);
     const [viewTab, setViewTab] = useState(false);
     const [confirmBox, setConfirmBox] = useState(null);
-    const [ itemInfo, setItemInfo ] = useState(null);
+    const [itemInfo, setItemInfo] = useState(null);
 
     function handleItemInfo(item) {
         setItemInfo(item);
@@ -137,10 +138,14 @@ export default function SeatingManager() {
     for (const order of orders.get) {
         if (order.is_delivered) {
             if (customerIds.has(order.customer_id)) {
-            deliveredOrdersInSeating.push(order);
+                deliveredOrdersInSeating.push(order);
             }
         }
     }
+
+    const completedServices = customersInSeating.flatMap(c => c.completedServices);
+    const ordersTotal = deliveredOrdersInSeating.reduce((total, order) => (total + order.price), 0);
+    const servicesTotal = completedServices.reduce((total, service) => (total + service.price), 0);
       
     function handleResetSeating() {
         openConfirmBox({
@@ -211,30 +216,17 @@ export default function SeatingManager() {
                                 clickEvent={() => seatings.toggleAttribute(seating, 'is_reserved')}
                             />
                         </span>
-                        
-                        {/*
-                            <span className='navsection'>
-                                <span className='title cursive'>Photography: </span>
-                                <label className='switch'>
-                                    <input 
-                                        type='checkbox' 
-                                        readOnly 
-                                        checked={seating.is_photography}
-                                        onClick={() => seatings.toggleAttribute(seating, 'is_photography')} />
-                                    <span className='slider' />
-                                </label>
-                            </span>
-                        */}
                     </div>
 
                     <div className='column'>
                         <span className='view-tab-container'>
                             <div className='tab-summary'>
                                 <div className='row'>
-                                    {deliveredOrdersInSeating.length} items 
+                                    {`${formatStringAsPrice(`${ordersTotal + servicesTotal}`)} gil`}
                                 </div>
                                 <div className='row'>
-                                    {tabTotal.toLocaleString('en-US')} gil
+                                    {deliveredOrdersInSeating.length > 0 && `${deliveredOrdersInSeating.length} order(s) `}
+                                    {completedServices.length > 0 && `${completedServices.length} service(s) `}
                                 </div>
                             </div>
 
@@ -250,6 +242,9 @@ export default function SeatingManager() {
                     deliveredOrdersInSeating={deliveredOrdersInSeating}
                     customersInSeating={customersInSeating}
                     seating={seating} 
+                    completedServices={completedServices}
+                    ordersTotal={ordersTotal}
+                    servicesTotal={servicesTotal}
                     handleViewTab={handleViewTab}
                     tabTotal={tabTotal}
                     setConfirmBox={setConfirmBox}

@@ -38,3 +38,19 @@ export class Time {
         return value.toString().padStart(2, '0');
     }
 }
+
+export function calculatePPMTotal(startDate, endDate, minuteInterval, pricePerMinute) {
+    if (minuteInterval === 0) {
+        return pricePerMinute;
+    }
+
+    const startDateTime: any = new Date(startDate);
+    const endDateTime: any = new Date(endDate);
+    const timeDifferenceInMinutes = Math.floor((endDateTime - startDateTime) / (1000 * 60));
+
+    const intervalsPassed = Math.ceil(timeDifferenceInMinutes / minuteInterval);
+    const total = intervalsPassed * pricePerMinute;
+
+    console.log(total)
+    return total;
+}

@@ -14,17 +14,13 @@
     border-radius: 20px 20px 10px 10px;
     display: grid;
     gap: 8px;
-    min-width: 450px;
+    min-width: 500px;
     color: white;
     padding: 15px;
     position: relative;
     border: 1px solid getBorderColor('standard');
     box-shadow: getBoxShadow('outer');
     font-size: getFontSize('standard');
-    
-    & .title {
-      //text-shadow: 0.1em 0.1em 0.2em black;
-    }
 
     & .blur {
       border-radius: inherit;

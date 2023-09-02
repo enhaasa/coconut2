@@ -168,32 +168,16 @@ export default class Customers {
 
         //Move customer
         try {
-            const query = `UPDATE ${this.table} 
-                           SET 
-                            seating_id = ${new_seating.id}, 
-                            section_id = ${new_seating.section_id}
-                           WHERE id = ${customer.id}
-                           `;
+            const query = `
+                UPDATE ${this.table} 
+                SET 
+                    seating_id = ${new_seating.id}
+                WHERE id = ${customer.id}
+            `;
             await Database.query(query);
         } catch(err) {
             console.log('Failed to move customer.', err);
             MessageHandler.sendError(socket, 'Failed to move customer.');
-            return;
-        }
-
-        //Move orders
-        try {
-            const query = `UPDATE "orders" 
-            SET 
-             seating_id = ${new_seating.id}, 
-             section_id = ${new_seating.section_id}
-            WHERE customer_id = ${customer.id}
-            `;
-
-            await Database.query(query);
-        } catch(err) {
-            console.log('Failed to move related orders.', err);
-            MessageHandler.sendError(socket, 'Failed to move related orders.');
             return;
         }
 
@@ -203,6 +187,15 @@ export default class Customers {
         ]});
 
         io.emit('setOrdersAttributes', {
+            key: 'customer_id', 
+            value: customer.id,
+            attributes: [
+                ['seating_id', new_seating.id],
+                ['section_id', new_seating.section_id],
+            ]
+        });
+
+        io.emit('setServicesAttributes', {
             key: 'customer_id', 
             value: customer.id,
             attributes: [

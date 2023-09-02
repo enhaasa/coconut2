@@ -17,7 +17,7 @@
         color: black;
         list-style: none;
         padding: 10px;
-        min-width: 300px;
+        min-width: 400px;
         border-radius: 10px;
         border: 1px solid getBorderColor('standard');
         //mask: conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
@@ -68,9 +68,20 @@
         & .tab-list {
             max-height: 300px;
             overflow-y: auto;
+            display: grid;
+            gap: 10px;
+            background: getBackgroundColor('secondary');
+            border: 1px solid getBorderColor('priamry');
+            padding: 5px;
+
+            & .title {
+                color: getPrimaryColor('popping');
+                background: getPrimaryColor('dark');
+                text-align: center;
+            }
 
             & .name {
-                font-size: getFontSize('standard');
+                font-size: getFontSize('large');
                 color: getPrimaryColor('popping');
                 font-weight: bold;
                 text-shadow: 0.1em 0.1em 0.2em black;
@@ -86,16 +97,22 @@
     }
 
     & .tab-summary {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         color: white;
-        font-weight: bold;
         text-shadow: 0.1em 0.1em 0.2em black;
         margin: 7px 0;
         padding: 5px 0;
         border-top: 1px solid getBorderColor('standard');
         border-bottom: 1px solid getBorderColor('standard');
+
+        & .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            &.total {
+                font-weight: bold;
+            }
+        }
     }
 
 }

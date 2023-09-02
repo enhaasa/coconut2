@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { formatStringAsPrice } from '../../tools';
+import { formatStringAsPrice } from '../../utils';
 import TableItem from '../common/Table/TableItem';
 import Button from '../common/Button/Button';
 import { DynamicDataContext } from '../../api/DynamicData';
-import ReceiptModal from './ReceiptModal';
+import ReceiptModal from './_ReceiptModal';
 import uuid from 'react-uuid';
 
 export default function Receipt(props) {

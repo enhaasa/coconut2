@@ -6,11 +6,15 @@ import TableItem from '../common/Table/TableItem';
 
 //Tools
 import uuid from 'react-uuid';
+import { compareDates, calculatePPMTotal } from '../../utils';
 
 export default function CombinedTab(props) {
 
-    const { deliveredOrdersInSeating } = props;
-    
+    const { 
+        deliveredOrdersInSeating, 
+        completedServices,
+    } = props;
+
     let parsedDeliveredOrders = [];
     deliveredOrdersInSeating.forEach(order => {
 
@@ -33,7 +37,8 @@ export default function CombinedTab(props) {
     });
 
     return( 
-        <>
+        <>  
+            <div className='title'>Orders</div>
             <Table>
                 {parsedDeliveredOrders.map(order => (       
                     <TableItem 
@@ -53,11 +58,34 @@ export default function CombinedTab(props) {
                                     type: 'number',
                                     content: `${order.total.toLocaleString('en-US')} gil`
                                 }
-
                             ]
                         }
                     >
                     </TableItem>  
+                ))}
+            </Table>
+            
+            <div className='title'>Services</div>
+            <Table>
+                {completedServices.map(service => (
+                    <TableItem 
+                        key={uuid()}
+                        cols={
+                            [
+                                {
+                                    type: 'text',
+                                    content: service.name
+                                }, {
+                                    type: 'text',
+                                    content: compareDates(service.start_datetime, service.end_datetime)
+                                }, {
+                                    type: 'number',
+                                    content: `${service.total && service.total.toLocaleString('en-US')} gil`
+                                }
+                            ]
+                        }
+                    
+                    />
                 ))}
             </Table>
         </>

@@ -1,6 +1,5 @@
 import { Socket } from 'socket.io';
 
-
 export default class MessageHandler {
 
     public static async sendError(socket: Socket, content: string, title = 'The server is very angry >:(') {
@@ -22,7 +21,5 @@ export default class MessageHandler {
         }
 
         socket.emit('message', parsedMessage);
-    }
-
-    
+    } 
 }

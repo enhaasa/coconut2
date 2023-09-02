@@ -15,7 +15,7 @@ module.exports = function registerHandlers(io) {
         socket.on('addOrder', (data) => Orders.add(io, socket, data));
         socket.on('deliverOrder', (data => Orders.deliver(io, socket, data)));
         socket.on('deliverAllByCustomer', (data => Orders.deliverAllByCustomer(io, socket, data)));
-        socket.on('removeOrder', (uuid) => Orders.remove(io, socket, uuid));
+        socket.on('removeOrder', (order) => Orders.remove(io, socket, order));
         socket.on('payOrdersInSeating', (data) => Orders.payOrdersInSeating(io, socket, data))
     }));
 }

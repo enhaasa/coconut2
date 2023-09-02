@@ -6,97 +6,6 @@ export function debounce(func, timeout = 300){
     };
 }
 
-
-
-export const sortArrayByCustomer = (array, sortDelivered) => {
-    let sortedArray = [];
-
-    array.forEach((arrayItem, index) => {
-
-        if (arrayItem.is_delivered === sortDelivered) {
-            let duplicate = false;
-            let duplicateIndex = 0;
-
-            sortedArray.forEach((sortedItem, index) => {
-                if(sortedItem.name === arrayItem.name 
-                    && sortedItem.price === arrayItem.price
-                        && sortedItem.customer_id === arrayItem.customer_id) {
-                        duplicate = true;
-                        duplicateIndex = index;
-                    } 
-            })
-
-            if (!duplicate) {
-                sortedArray.push({...arrayItem, amount: 1, ids: [arrayItem.id], total: arrayItem.price});
-            } else {
-                sortedArray[duplicateIndex].amount ++;
-                sortedArray[duplicateIndex].ids.push(arrayItem.id);
-                sortedArray[duplicateIndex].total += arrayItem.price;
-            }
-        }
-    });
-
-    return sortedArray;
-}
-export const sortArray = (array, sortDelivered) => {
-    let sortedArray = [];
-
-    array.forEach((arrayItem, index) => {
-
-        if (arrayItem.delivered === sortDelivered) {
-            let duplicate = false;
-            let duplicateIndex = 0;
-
-            sortedArray.forEach((sortedItem, index) => {
-                if(sortedItem.name === arrayItem.name 
-                    && sortedItem.price === arrayItem.price) {
-                        duplicate = true;
-                        duplicateIndex = index;
-                    } 
-            })
-
-            if (!duplicate) {
-                sortedArray.push({...arrayItem, amount: 1, ids: [arrayItem.id], total: arrayItem.price});
-            } else {
-                sortedArray[duplicateIndex].amount ++;
-                sortedArray[duplicateIndex].ids.push(arrayItem.id);
-                sortedArray[duplicateIndex].total += arrayItem.price;
-            }
-        }
-    });
-
-    return sortedArray;
-}
-
-export const sortArchivedArray = (array) => {
-    let sortedArray = [];
-
-    array.forEach((arrayItem, index) => {
-        let duplicate = false;
-        let duplicateIndex = 0;
-
-        sortedArray.forEach((sortedItem, index) => {
-            if(sortedItem.id === arrayItem.id 
-                && sortedItem.price === arrayItem.price) {
-                    duplicate = true;
-                    duplicateIndex = index;
-                } 
-        })
-
-        if (!duplicate) {
-            sortedArray.push({...arrayItem, amount: 1, ids: [arrayItem.id], total: arrayItem.price});
-        } else {
-            sortedArray[duplicateIndex].amount ++;
-            sortedArray[duplicateIndex].ids.push(arrayItem.id);
-            sortedArray[duplicateIndex].total += arrayItem.price;
-        }
-        
-    });
-
-    return sortedArray;
-}
-
-
 export const toInitialsFirstNames = (name) => {
     const fullName = name.split(' ');
     let initials = '';
@@ -219,24 +128,6 @@ export const formatTime = (epoch) => {
     }
     return Math.floor(epoch / 1000) + 's';
   };
-
-export const getOldestOrder = (orders) => (
-    orders.reduce((oldest, current) => (
-        current.time < oldest.time ? current : oldest
-    ), orders[0])
-)
-
-export const getTimeSinceOldestOrder = (order) => {
-
-    if (order === undefined) return;
-
-    const oldestTime = order.time;
-    const currentTime = getCurrentTime();
-
-    const result = currentTime - oldestTime;
-    
-    return result;
-}
 
 export function convertDatetimeFormat(datetimeString) {
     const date = new Date(datetimeString);

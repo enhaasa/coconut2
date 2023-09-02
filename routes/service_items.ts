@@ -1,8 +1,8 @@
 import Database from '../database';
 import MessageHandler from '../messages';
-import { Socket } from 'socket.io';
+import { Socket, Server } from 'socket.io';
 
-module.exports = function registerHandlers(io) {
+module.exports = function registerHandlers(io: Server) {
     io.on('connection', (socket => {
         socket.on('getServiceMenu', () => ServiceMenu.get(socket));
     }));

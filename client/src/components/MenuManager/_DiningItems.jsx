@@ -6,11 +6,11 @@ import { ControlStatesContext } from "../../api/ControlStates";
 
 //Tools
 import uuid from "react-uuid";
-import { capitalizeFirstLetter } from '../../tools';
+import { capitalizeFirstLetter } from '../../utils';
 
 //Components
 import Button from "../common/Button/Button";
-import MenuInfoModal from './MenuInfoModal';
+import MenuInfoModal from './_MenuInfoModal';
 
 //Icons
 import infoIcon from './../../assets/icons/info-small-white.png';

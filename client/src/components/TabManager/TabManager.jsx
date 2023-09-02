@@ -4,8 +4,8 @@ import React, { useState, useLayoutEffect, useRef, useContext } from 'react';
 import { DynamicDataContext } from '../../api/DynamicData';
 
 //Components
-import SplitTab from './SplitTab';
-import CombinedTab from './CombinedTab';
+import SplitTab from './_SplitTab';
+import CombinedTab from './_CombinedTab';
 import Button from '../common/Button/Button';
 import CloseButton from '../common/CloseButton/CloseButton';
 import MultiToggle from '../common/MultiToggle/MultiToggle';
@@ -15,6 +15,9 @@ import MultiToggleOption from '../common/MultiToggle/MultiToggleOption';
 import gsap from 'gsap';
 import animations from '../../animations';
 
+//Tools
+import { formatStringAsPrice } from '../../utils';
+
 export default function TabManager(props) {
     const { 
         handleViewTab, 
@@ -23,6 +26,9 @@ export default function TabManager(props) {
         customersInSeating,
         seating,
         overriddenSession,
+        ordersTotal,
+        servicesTotal,
+        completedServices,
     } = props;
 
     const {
@@ -31,8 +37,10 @@ export default function TabManager(props) {
 
     const [ isBlurred, setIsBlurred ] = useState(false);
     const [ tabView, setTabView ] = useState('combined');
-    const [ session, setSession ] = useState(overriddenSession !== undefined ? overriddenSession : seating.session);
-
+    const [ session, setSession ] = useState(overriddenSession !== undefined 
+        ? overriddenSession 
+        : seating.session
+    );
 
     const TabManagerRef = useRef();
     useLayoutEffect(() => {
@@ -43,8 +51,12 @@ export default function TabManager(props) {
         }
     }, []);
 
-    function handleClose() {
-        handleViewTab(false);
+    function handleClose(){
+        gsap.to(TabManagerRef.current, animations.fadeFall);
+
+        setTimeout(()=> {
+            handleViewTab(false);
+        }, 100)
     }
 
     function openConfirmBox(data) {
@@ -107,13 +119,26 @@ export default function TabManager(props) {
                     {tabView === 'combined' &&
                         <CombinedTab
                             deliveredOrdersInSeating={deliveredOrdersInSeating}
+                            completedServices={completedServices}
                         />
                     }
                 </div>
 
                 <div className='tab-summary'>
-                    <span>Total:</span>
-                    <span>{deliveredOrdersInSeating.reduce((total, order) => (total + order.price), 0).toLocaleString('en-US') + ' gil'}</span>
+                    <div className='row'>
+                        <span>Orders:</span>
+                        <span>{`${formatStringAsPrice(ordersTotal.toString())} gil`}</span>
+                    </div>
+
+                    <div className='row'>
+                        <span>Services:</span>
+                        <span>{`${formatStringAsPrice(servicesTotal.toString())} gil`}</span>
+                    </div>
+
+                    <div className='row total'>
+                        <span>Total:</span>
+                        <span>{`${formatStringAsPrice(`${ordersTotal + servicesTotal}`)} gil`}</span>  
+                    </div>
                 </div>
 
                 <nav className='tab-nav'>

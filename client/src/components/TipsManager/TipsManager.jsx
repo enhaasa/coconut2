@@ -7,10 +7,10 @@ import { DynamicDataContext } from '../../api/DynamicData';
 import Table from '../common/Table/Table';
 import TableItem from '../common/Table/TableItem';  
 import Button from '../common/Button/Button';
-import TipModal from './TipModal';
+import TipModal from './_TipModal';
 
 //Tools
-import { formatStringAsPrice } from '../../tools';
+import { formatStringAsPrice } from '../../utils';
 import uuid from 'react-uuid';
 
 export default function TipsManager(props) {

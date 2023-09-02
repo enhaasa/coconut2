@@ -1,5 +1,6 @@
 .Customer {
     position: relative;
+    margin: 10px;
 
     &.active {
         background: getPrimaryColor('constructive-mild');

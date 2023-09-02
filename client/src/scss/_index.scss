@@ -58,11 +58,11 @@ button, select, option {
   }
 }
 
-.destructive {background: getPrimaryColor('destructive') !important;}
-.constructive {background: getPrimaryColor('constructive') !important;}
+.destructive {background: getPrimaryColor('destructive') !important; color: getTextColor('primary');}
+.constructive {background: getPrimaryColor('constructive') !important; color: getTextColor('primary');}
 .progressive {background: getPrimaryColor('progressive') !important;}
 .informative {background: blue !important;}
-.neutral {background: getPrimaryColor('neutral') !important;}
+.neutral {background: getPrimaryColor('neutral') !important; color: getTextColor('primary');}
 .dark {background: getPrimaryColor('dark') !important;}
 
 .tooltip .tooltiptext {

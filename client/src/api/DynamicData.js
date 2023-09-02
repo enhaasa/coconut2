@@ -109,7 +109,13 @@ function DynamicDataProvider(props) {
       const seatingData = seatingMap.get(customer.seating_id);
   
       if (seatingData) {
-        const customerData = { ...customer, undeliveredOrders: [], deliveredOrders: [] };
+        const customerData = { 
+          ...customer, 
+          undeliveredOrders: [], 
+          deliveredOrders: [],
+          uncompletedServices: [],
+          completedServices: [],
+        };
         seatingData.customers.push(customerData);
       }
     });
@@ -139,13 +145,31 @@ function DynamicDataProvider(props) {
       }
     });
     
+    services.get.forEach(service => {
+      const seatingData = seatingMap.get(service.seating_id);
+    
+      if (seatingData) {
+        const customerData = seatingData.customers.find(
+          customer => customer.id === service.customer_id
+        );
+    
+        if (customerData) {
+    
+          if (service.is_completed) {
+            customerData.completedServices.push(service);
+          } else {
+            customerData.uncompletedServices.push(service);
+          }
+        }
+      }
+    });
 
     return dataTree;
   }
   
   const dataTree = useMemo(() => {
       return [...getDataTree()];
-  }, [sections.get, seatings.get, customers.get, orders.get]);
+  }, [sections.get, seatings.get, customers.get, orders.get, services.get]);
 
   useEffect(() => {
       if (socket) {

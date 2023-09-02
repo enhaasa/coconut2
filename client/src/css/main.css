@@ -614,10 +614,12 @@ button:active, select:active, option:active {
 
 .destructive {
   background: rgb(168, 63, 63) !important;
+  color: #fff;
 }
 
 .constructive {
   background: rgb(86, 119, 86) !important;
+  color: #fff;
 }
 
 .progressive {
@@ -630,6 +632,7 @@ button:active, select:active, option:active {
 
 .neutral {
   background: #373737 !important;
+  color: #fff;
 }
 
 .dark {
@@ -753,16 +756,21 @@ button:active, select:active, option:active {
   position: absolute;
   z-index: 1;
 }
-.Seating .upper-wrapper .orderinfo {
+.Seating .upper-wrapper .item-category {
   display: flex;
   justify-content: center;
-  font-weight: normal;
+  flex-direction: column;
+  gap: 1px;
   font-weight: normal;
   font-size: 0.9em;
   border-radius: 10px;
   box-shadow: inset 0px 0px 1px 0px black;
 }
-.Seating .upper-wrapper .orderinfo .amount {
+.Seating .upper-wrapper .item-category .item {
+  display: flex;
+  margin: 0 auto;
+}
+.Seating .upper-wrapper .item-category .item .amount {
   display: flex;
   align-items: center;
   background: #222;
@@ -772,7 +780,7 @@ button:active, select:active, option:active {
   border: 1px solid black;
   gap: 4px;
 }
-.Seating .upper-wrapper .orderinfo .time {
+.Seating .upper-wrapper .item-category .item .time {
   border-radius: 0 10px 10px 0;
   padding: 0 5px;
   border: 1px solid black;
@@ -785,7 +793,7 @@ button:active, select:active, option:active {
   gap: 3px;
   background: #222;
   color: white;
-  padding: 2px 7px;
+  padding: 0px 5px;
   border-radius: 20px;
   border: 1px solid #0e0e0e;
 }
@@ -797,6 +805,8 @@ button:active, select:active, option:active {
   margin-top: -10px;
   z-index: 1;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
 }
 .Seating .lower-wrapper .customers {
   display: grid;
@@ -822,18 +832,19 @@ button:active, select:active, option:active {
   width: 13px;
 }
 .Seating .lower-wrapper .unpaid-orders {
-  background: rgb(86, 119, 86);
+  background: linear-gradient(to right, blue, rgb(209, 0, 228));
   color: #fff;
   padding: 0 5px;
   border-radius: 10px;
   outline: 1px solid #0e0e0e;
+  margin: 0 auto;
 }
 .Seating .editing {
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
   border-radius: 100%;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   display: grid;
   justify-content: center;
   align-content: center;
@@ -1032,7 +1043,7 @@ button:active, select:active, option:active {
   border-radius: 20px 20px 10px 10px;
   display: grid;
   gap: 8px;
-  min-width: 450px;
+  min-width: 500px;
   color: white;
   padding: 15px;
   position: relative;
@@ -1336,7 +1347,7 @@ button:active, select:active, option:active {
   color: black;
   list-style: none;
   padding: 10px;
-  min-width: 300px;
+  min-width: 400px;
   border-radius: 10px;
   border: 1px solid #0e0e0e;
 }
@@ -1378,9 +1389,19 @@ button:active, select:active, option:active {
 .TabManagerContainer .TabManager .tab-list {
   max-height: 300px;
   overflow-y: auto;
+  display: grid;
+  gap: 10px;
+  background: rgba(44, 44, 44, 0.8549019608);
+  border: 1px solid;
+  padding: 5px;
+}
+.TabManagerContainer .TabManager .tab-list .title {
+  color: rgb(196, 177, 166);
+  background: #222;
+  text-align: center;
 }
 .TabManagerContainer .TabManager .tab-list .name {
-  font-size: 14px;
+  font-size: 18px;
   color: rgb(196, 177, 166);
   font-weight: bold;
   text-shadow: 0.1em 0.1em 0.2em black;
@@ -1392,16 +1413,20 @@ button:active, select:active, option:active {
   align-items: center;
 }
 .TabManagerContainer .tab-summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   color: white;
-  font-weight: bold;
   text-shadow: 0.1em 0.1em 0.2em black;
   margin: 7px 0;
   padding: 5px 0;
   border-top: 1px solid #0e0e0e;
   border-bottom: 1px solid #0e0e0e;
+}
+.TabManagerContainer .tab-summary .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.TabManagerContainer .tab-summary .row.total {
+  font-weight: bold;
 }
 
 .receipt-RP {
@@ -1511,6 +1536,7 @@ button:active, select:active, option:active {
 
 .Customer {
   position: relative;
+  margin: 10px;
 }
 .Customer.active {
   background: #444C44;
@@ -1686,6 +1712,13 @@ button:active, select:active, option:active {
   padding: 5px;
   display: grid;
   gap: 2px;
+}
+.AddServiceItem .divider-row {
+  margin: 5px 0;
+}
+.AddServiceItem .title {
+  text-align: center;
+  color: rgb(196, 177, 166);
 }
 .AddServiceItem .row {
   display: flex;

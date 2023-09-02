@@ -50,7 +50,6 @@ export default function useArchivedSessions(init, props) {
         get: archivedSessions,
         add,
         setAmountPaid,
-        refresh
+        refresh,
     }
-    
 }

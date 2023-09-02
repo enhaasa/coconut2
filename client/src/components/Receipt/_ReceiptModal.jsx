@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 //Components
 import Table from '../common/Table/Table';
@@ -7,10 +7,16 @@ import Button from '../common/Button/Button';
 
 //Tools
 import uuid from 'react-uuid';
-import { sortArray } from '../../tools';
+
+//Contexts
+import { DynamicDataContext } from '../../api/DynamicData';
 
 export default function ReceiptModal(props) {
     const { session, archivedSessions, handleModal } = props;
+
+    const {
+        orders
+    } = useContext(DynamicDataContext);
 
     const total = session.price;
     const [ amountPaid, setAmountPaid ] = useState(session.amount_paid);
@@ -24,7 +30,7 @@ export default function ReceiptModal(props) {
     return(
         <div className='ReceiptModal'>
             <Table>
-                {sortArray(session.orders).map(order => (
+                {orders.utils.sortArray(session.orders).map(order => (
                     <TableItem 
                         key={uuid()}
                         cols={

@@ -3,6 +3,15 @@
     display: grid;
     gap: 2px;
 
+    & .divider-row {
+        margin: 5px 0;
+    }
+
+    & .title {
+        text-align: center;
+        color: getPrimaryColor('popping');
+    }
+
     & .row {
         display: flex;
         justify-content: space-between;

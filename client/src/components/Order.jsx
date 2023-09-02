@@ -13,7 +13,7 @@ import plusIcon from './../assets/icons/plus-white.png';
 import minusIcon from './../assets/icons/minus-white.png';
 
 //Tools
-import { formatStringAsPrice } from '../tools';
+import { formatStringAsPrice } from '../utils';
 
 export default function Order(props) {
     const { 
