@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 
 //Components
 import Button from '../common/Button/Button';
+import DeleteButton from '../common/Button/_DeleteButton';
 
 //Contexts
 import { DynamicDataContext } from '../../api/DynamicData';
@@ -73,14 +74,13 @@ export default function TipModal(props) {
                 }
 
                 {tip && 
-                    <Button 
+                    <DeleteButton 
                         type='destructive' 
                         pendingResponseClickEvent={{
                             args: [tip],
                             event: tips.remove
                         }}
-                        postEventCallback={() => handleModal(null)}
-                        >Delete</Button>
+                        postEventCallback={() => handleModal(null)} />
                 }
             </div>
         </div>

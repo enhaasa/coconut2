@@ -3,6 +3,7 @@ import TableItem from '../Table/TableItem';
 import Button from '../Button/Button';
 import IconButton from '../IconButton/IconButton';
 import ServiceInfo from './_ServiceInfo';
+import DeleteButton from '../Button/_DeleteButton';
 
 //Contexts
 import { DynamicDataContext } from '../../../api/DynamicData';
@@ -59,7 +60,7 @@ export default function Service(props) {
             type: 'nav',
             content: 
             <>
-                <Button 
+                <DeleteButton 
                     type='destructive' 
                     ID={`RemoveService${service.id}`}
                     pendingResponseClickEvent={{
@@ -67,8 +68,7 @@ export default function Service(props) {
                             service
                         }],
                         event: services.remove
-                    }}>Remove
-                </Button>
+                    }} />
 
                 <Button 
                     type='neutral' 

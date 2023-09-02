@@ -5,6 +5,7 @@ import Order from '../Order';
 import Service from '../common/Service/Service';
 import Button from '../common/Button/Button';
 import Table from '../common/Table/Table';
+import DeleteButton from '../common/Button/_DeleteButton';
 
 //Tools
 import uuid from 'react-uuid';
@@ -110,7 +111,7 @@ export default function Customer(props) {
                 </input>
 
                 <Button type='neutral' clickEvent={handleMoveCustomer}>Relocate</Button>
-                <Button type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}}>Delete</Button>
+                <DeleteButton type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}} />
             </nav>
 
             {customer.undeliveredOrders.length > 0 &&

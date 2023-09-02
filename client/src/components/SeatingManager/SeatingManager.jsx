@@ -18,6 +18,7 @@ import Button from '../common/Button/Button';
 import CloseButton from '../common/CloseButton/CloseButton';
 import Toggle from '../common/Toggle/Toggle';
 import MenuInfoModal from '../MenuManager/_MenuInfoModal';
+import DeleteButton from '../common/Button/_DeleteButton';
 
 //Animations
 import { gsap } from 'gsap';
@@ -269,9 +270,7 @@ export default function SeatingManager() {
 
                     {isDangerousSettings &&
                         <span className='column'>
-                            <Button type='destructive' clickEvent={handleRemove}>
-                                Delete
-                            </Button>
+                            <DeleteButton type='destructive' clickEvent={handleRemove} />
 
                             <Button type='dark' clickEvent={handleMoveSeating}>
                                 Move

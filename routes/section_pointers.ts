@@ -185,7 +185,6 @@ class SectionPointers {
                 ...sectionPointer,
                 pos_x: 0,
                 pos_y: 0,
-                realm_id: 1,
             }
 
             const result = await Database.add(this.table, parsedSectionPointer, 'id');
