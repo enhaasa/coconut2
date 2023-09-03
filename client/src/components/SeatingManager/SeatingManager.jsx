@@ -17,16 +17,20 @@ import DropdownItem from '../common/Dropdown/DropdownItem';
 import Button from '../common/Button/Button';
 import CloseButton from '../common/CloseButton/CloseButton';
 import Toggle from '../common/Toggle/Toggle';
-import MenuInfoModal from '../MenuManager/_MenuInfoModal';
 import DeleteButton from '../common/Button/_DeleteButton';
+import MultiToggle from '../common/MultiToggle/MultiToggle';
+import MultiToggleOption from '../common/MultiToggle/MultiToggleOption';
+import IconButton from '../common/IconButton/IconButton';
+import Modal from '../common/Modal/Modal';
 
 //Animations
 import { gsap } from 'gsap';
 import animations from '../../animations.js'
 
 //Icons
-import resetIcon from './../../assets/icons/reset-small-white.png';
 import receiptIcon from './../../assets/icons/receipt2-small-white.png';
+import infoIcon from './../../assets/icons/info-small-white.png';
+import WatchSeatingInfoModal from './_WatchSeatingInfoModal';
 
 export default function SeatingManager() {
     const {
@@ -45,6 +49,7 @@ export default function SeatingManager() {
     } = useContext(ControlStatesContext);
 
     const [ seating, setSeating ] = useState(selectedSeating);
+    const { getSeatingNumberColor } = seatings.utils;
     
     useEffect(() => {
         const sectionIndex = dataTree.findIndex(section => section.id === selectedSeating.section_id);
@@ -72,10 +77,10 @@ export default function SeatingManager() {
     const [isBlurred, setIsBlurred] = useState(false);
     const [viewTab, setViewTab] = useState(false);
     const [confirmBox, setConfirmBox] = useState(null);
-    const [itemInfo, setItemInfo] = useState(null);
+    const [modal, setModal] = useState(null);
 
-    function handleItemInfo(item) {
-        setItemInfo(item);
+    function handleModal(item) {
+        setModal(item);
         item !== null ? 
             setIsBlurred(true) :
             setIsBlurred(false);
@@ -94,12 +99,6 @@ export default function SeatingManager() {
     function handleViewTab(newValue) {
         setViewTab(newValue);
         setIsBlurred(newValue);
-    }
-
-    function seatingnumberColor() {
-        if (seating.is_available && !seating.is_reserved) return 'constructive'
-        if (!seating.is_available) return 'destructive';
-        if (seating.is_reserved) return 'progressive';
     }
 
     function handleClose(){
@@ -163,6 +162,27 @@ export default function SeatingManager() {
     let tabTotal = deliveredOrdersInSeating.length > 0 
         ? deliveredOrdersInSeating.reduce((total, order) => total + order.price, 0) 
         : 0;
+
+    function getTabPreviewMessage() {
+        const orders = deliveredOrdersInSeating.length;
+        const services = completedServices.length;
+
+        let message = '';
+
+        if (orders === 0 && services === 0) return <div className='empty'>No orders or services</div>;
+        if (orders > 0) message += `${orders} order(s) `;
+        if (services > 0) message += `${services} service(s) `;
+        
+        return message;
+    }
+
+    function getWatchSeatingModal() {
+        return (
+            <Modal closeButtonEvent={() => handleModal(null)} title='Watching a seating'>
+                <WatchSeatingInfoModal />
+            </Modal>
+        )
+    }
     
     return (
         seating && seating.id !== null &&
@@ -170,27 +190,22 @@ export default function SeatingManager() {
             <div className='SeatingManager' ref={ref}>
                 {confirmBox !== null && <ConfirmBox data={confirmBox}/>}
                 {isBlurred && <div className='blur' />}
-                {itemInfo && <MenuInfoModal item={itemInfo} handleItemInfo={handleItemInfo}/>}
+                {modal && modal}
                 
                 <div className='header'>
-                    <div className='assign-waiter'>
-                        <span className='title cursive'>Waiter:</span>
-
-                        {
-                            <Dropdown 
-                                value={seating.waiter}
-                                onChangeEvent={({target}) => {seatings.setAttribute(seating, 'waiter', target.value)}}>
-                                    <DropdownItem key={uuid()}></DropdownItem>
-                                {staff.get.map(member => (
-                                    member.positions.includes('waiter') &&
-                                    <DropdownItem key={uuid()}>{member.name}</DropdownItem>
-                                ))}
-                                
-                            </Dropdown>
-                        }
+                    <div className='watch-seating'>
+                        <IconButton type='tooltip' clickEvent={() => handleModal(getWatchSeatingModal())}>
+                            <img src={infoIcon} alt='' className='tooltip' />
+                            
+                        </IconButton>
+                        <span className='title'>Watch:</span>
+                        <Toggle 
+                            value={seating.is_available}
+                            clickEvent={() => seatings.toggleAttribute(seating, 'is_available')}
+                        />
                     </div>
 
-                    <span className={`seatingnumber ${seatingnumberColor()}`}>
+                    <span className={`seatingnumber ${getSeatingNumberColor(seating)}`}>
                         {seating.number}
                     </span>
                     
@@ -202,21 +217,44 @@ export default function SeatingManager() {
                 <section className='navbar'>
                     
                     <div className='column'>
-                        <span className='navsection'>
-                            <span className='title cursive'>Available:</span>
-                            <Toggle 
-                                value={seating.is_available}
-                                clickEvent={() => seatings.toggleAttribute(seating, 'is_available')}
-                            />
-                        </span>
+                        <div className='assign-waiter'>
+                            
+                            <span className='title'>Waiter:</span>
 
-                        <span className='navsection'>
-                            <span className='title cursive'>Reserved:</span>
-                            <Toggle 
-                                value={seating.is_reserved}
-                                clickEvent={() => seatings.toggleAttribute(seating, 'is_reserved')}
-                            />
-                        </span>
+                            {
+                                <Dropdown 
+                                    value={seating.waiter}
+                                    onChangeEvent={({target}) => {seatings.setAttribute(seating, 'waiter', target.value)}}>
+                                        <DropdownItem key={uuid()}></DropdownItem>
+                                    {staff.get.map(member => (
+                                        member.positions.includes('waiter') &&
+                                        <DropdownItem key={uuid()}>{member.name}</DropdownItem>
+                                    ))}
+                                    
+                                </Dropdown>
+                            }
+                        </div>
+                        <div className='navsection'>
+                            <MultiToggle>
+                                <MultiToggleOption 
+                                    isActive={seating.availability === 'Available'} 
+                                    clickEvent={() => seatings.setAvailability(seating, 'Available')}>
+                                        Available
+                                </MultiToggleOption>
+
+                                <MultiToggleOption 
+                                    isActive={seating.availability === 'Reserved'} 
+                                    clickEvent={() => seatings.setAvailability(seating, 'Reserved')}>
+                                        Reserved
+                                </MultiToggleOption>
+
+                                <MultiToggleOption 
+                                    isActive={seating.availability === 'Taken'} 
+                                    clickEvent={() => seatings.setAvailability(seating, 'Taken')}>
+                                        Taken
+                                </MultiToggleOption>
+                            </MultiToggle>
+                        </div>
                     </div>
 
                     <div className='column'>
@@ -226,8 +264,7 @@ export default function SeatingManager() {
                                     {`${formatStringAsPrice(`${ordersTotal + servicesTotal}`)} gil`}
                                 </div>
                                 <div className='row'>
-                                    {deliveredOrdersInSeating.length > 0 && `${deliveredOrdersInSeating.length} order(s) `}
-                                    {completedServices.length > 0 && `${completedServices.length} service(s) `}
+                                    {getTabPreviewMessage()}
                                 </div>
                             </div>
 
@@ -253,7 +290,7 @@ export default function SeatingManager() {
 
                 <section className='OrderManagerContainer'>
                     <OrderManager 
-                        handleItemInfo={handleItemInfo}
+                        handleModal={handleModal}
                         seating={seating} 
                         customersInSeating={customersInSeating}
                         openConfirmBox={openConfirmBox}

@@ -1061,10 +1061,23 @@ button:active, select:active, option:active {
   justify-items: center;
   width: 100%;
 }
-.SeatingManagerContainer .SeatingManager .header .assign-waiter {
-  display: grid;
+.SeatingManagerContainer .SeatingManager .header .watch-seating {
+  display: flex;
   justify-self: start;
-  align-content: center;
+  align-self: center;
+  gap: 5px;
+}
+.SeatingManagerContainer .SeatingManager .header .watch-seating .IconButton img {
+  width: 16px;
+  height: 16px;
+}
+.SeatingManagerContainer .SeatingManager .header .watch-seating .IconButton .tooltiptext {
+  z-index: 2 !important;
+  width: 400px !important;
+}
+.SeatingManagerContainer .SeatingManager .header .watch-seating .title {
+  display: flex;
+  gap: 2px;
 }
 .SeatingManagerContainer .SeatingManager .header .seatingnumber {
   display: grid;
@@ -1086,22 +1099,28 @@ button:active, select:active, option:active {
 }
 .SeatingManagerContainer .SeatingManager .navbar {
   width: 100%;
-  margin: 5px 0;
   padding: 0;
   display: flex;
   justify-content: space-between;
-  margin-top: -15px;
 }
 .SeatingManagerContainer .SeatingManager .navbar .column {
   display: grid;
   align-content: end;
   grid-gap: 5px;
 }
-.SeatingManagerContainer .SeatingManager .navbar .column .navsection {
+.SeatingManagerContainer .SeatingManager .navbar .column .assign-waiter {
   display: grid;
+  justify-self: start;
+  align-content: center;
+}
+.SeatingManagerContainer .SeatingManager .navbar .column .assign-waiter .title {
+  display: flex;
+  gap: 2px;
+}
+.SeatingManagerContainer .SeatingManager .navbar .column .navsection {
+  display: flex;
   grid-auto-flow: column;
   align-items: center;
-  justify-content: space-between;
   grid-gap: 5px;
 }
 .SeatingManagerContainer .view-tab-container {
@@ -1112,6 +1131,9 @@ button:active, select:active, option:active {
 .SeatingManagerContainer .view-tab-container .row {
   display: flex;
   justify-content: end;
+}
+.SeatingManagerContainer .view-tab-container .row .empty {
+  color: grey;
 }
 .SeatingManagerContainer .navbar-bottom {
   display: flex;
@@ -1134,6 +1156,14 @@ button:active, select:active, option:active {
 .SeatingManagerContainer .navbar-bottom .reset-button img {
   height: 18px;
   width: 18px;
+}
+
+.WatchSeatingInfoModal {
+  padding: 5px;
+}
+.WatchSeatingInfoModal ul {
+  margin: 5px;
+  padding-left: 20px;
 }
 
 .OrderManager {
@@ -1546,7 +1576,7 @@ button:active, select:active, option:active {
   justify-content: center;
   align-items: center;
   padding: 5px;
-  margin: 5px 0;
+  margin: 5px 0 0 0;
   gap: 5px;
 }
 .Customer .name-nav input {
@@ -1570,8 +1600,12 @@ button:active, select:active, option:active {
 .Customer .name-nav input::placeholder {
   color: grey;
 }
-.Customer .orders {
-  margin: 10px;
+.Customer .items {
+  margin: 0 15px;
+}
+.Customer .items .title {
+  color: rgb(196, 177, 166);
+  text-align: center;
 }
 .Customer .customer-nav {
   display: flex;

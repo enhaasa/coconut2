@@ -34,7 +34,6 @@ export default function Seating(props) {
     const {
         customers,
         seatings,
-        services,
         orders,
     } = useContext(DynamicDataContext);
 
@@ -51,6 +50,7 @@ export default function Seating(props) {
     } = useContext(StaticDataContext);
 
     const isMoving = itemInMovement && itemInMovement.item.id === seating.id;
+    const { getSeatingNumberColor } = seatings.utils;
 
     const [
         uncompletedServices,
@@ -77,12 +77,6 @@ export default function Seating(props) {
             gsap.to(SeatingRef.current, animations.appearY);
         }
     }, []);
-
-    function seatingnumberColor() {
-        if (seating.is_available && !seating.is_reserved) return 'constructive';
-        if (!seating.is_available) return 'destructive';
-        if (seating.is_reserved) return 'progressive';
-    }
 
     const [noBlankNames, blankNames] = useMemo(() => {
         const filteredCustomers = customers.get.filter(customer => customer.seating_id === seating.id);
@@ -200,7 +194,7 @@ export default function Seating(props) {
                 </div>}
 
             <button 
-                className={`number-display ${seatingnumberColor()}`}
+                className={`number-display ${getSeatingNumberColor(seating)}`}
                 onClick={handleClick}
                 onContextMenu={(event) => handleContextMenu(event, contextMenuOptions, contextMenuTitle)}
                 >

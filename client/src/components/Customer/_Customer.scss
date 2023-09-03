@@ -11,7 +11,7 @@
         justify-content: center;
         align-items: center;
         padding: 5px;
-        margin: 5px 0;
+        margin: 5px 0 0 0;
         gap: 5px;
 
         & input {
@@ -36,8 +36,13 @@
         }
     }
 
-    & .orders {
-        margin: 10px;
+    & .items {
+        margin: 0 15px;
+        
+        & .title {
+            color: getPrimaryColor('popping');
+            text-align: center;
+        }
     }
     
     & .customer-nav {

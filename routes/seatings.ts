@@ -5,10 +5,11 @@ import { Customer } from '../shared/types';
 import { isValidCustomer } from '../shared/types';
 import { Seating, isValidSeating } from '../shared/types';
 
-module.exports = function registerHandlers(io) {
+module.exports = function registerHandlers(io: Server) {
     io.on('connection', (socket => {
         socket.on('getSeatings', () => Seatings.get(socket));
         socket.on('setSeatingAttribute', (data) => Seatings.setAttribute(io, socket, data));
+        socket.on('setSeatingAvailability', (data) => Seatings.setAvailability(io, socket, data));
         socket.on('resetSeating', (data) => Seatings.reset(io, socket, data));
         socket.on('setSeatingLocation', (data) => Seatings.setLocation(io, socket, data));
         socket.on('addSeating', (data) => Seatings.add(io, socket, data));
@@ -43,6 +44,11 @@ type NewLocationData = {
     }
 }
 
+type SetAvailabilityData = {
+    seating: Seating;
+    availability: string;
+}
+
 function isValidSeatingToAdd(seating: any): seating is SeatingToAdd {
     return typeof seating.number === 'number' &&
            typeof seating.section.id === 'number' &&
@@ -65,6 +71,13 @@ export function isValidNewLocationData(data: any): data is NewLocationData {
            typeof data.newLocation.pos_x === 'number' &&
            typeof data.newLocation.pos_y === 'number' &&
            typeof data.newLocation.section_id === 'number';
+}
+
+function isValidSetAvailabilityData(data: any): data is SetAvailabilityData {
+    return isValidSeating(data.seating) &&
+           data.availability === 'Available' || 
+           data.availability === 'Reserved' || 
+           data.availability === 'Taken';
 }
 
 export class Seatings {
@@ -103,9 +116,7 @@ export class Seatings {
             const parsedSeating = {
                 pos_x: 0,
                 pos_y: 0,
-                is_reserved: false,
-                is_available: true,
-                is_photography: false,
+                availability: 'Available',
                 section_id: section.id,
                 number: number,
                 waiter: ''
@@ -191,6 +202,32 @@ export class Seatings {
         }
     }
 
+    public static async setAvailability(io: Server, socket: Socket, data: any) {
+        if (!isValidSetAvailabilityData(data)) {
+            console.log('Invalid format: SetAvailabilityData', data);
+            MessageHandler.sendError(socket, 'Invalid format: SetAvailabilityData');
+            return;
+        }
+        
+        try {
+            const { seating, availability } = data;
+            const result = await Database.update(this.table, 'availability', availability, 'id', seating.id);
+
+            if (result) {
+                io.emit('setSeatingAttribute', {
+                    seating: data.seating,
+                    attribute: 'availability',
+                    value: availability
+                });
+            } else {
+                console.log('Failed to set availability.');
+                MessageHandler.sendError(socket, 'Failed to set availability.');
+            }
+        } catch(err) {
+            MessageHandler.sendError(socket, 'Failed to set availability.');
+        }
+    }
+
     public static async reset(io: Server, socket: Socket, data: any) {
         if (!isValidSeating(data.seating)) {
             console.log('Invalid format: Seating');
@@ -205,7 +242,7 @@ export class Seatings {
             const deleteCustomerQuery = 'DELETE FROM "customers" WHERE "seating_id" = $1';
             const resetSeatingQuery = `
                 UPDATE ${this.table}
-                SET "is_available" = true, "is_reserved" = false, "is_photography" = false
+                SET availability = 'Available'
                 WHERE "id" = $1;
             `;
 

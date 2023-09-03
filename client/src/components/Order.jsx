@@ -2,6 +2,7 @@
 import TableItem from './common/Table/TableItem';
 import Button from './common/Button/Button';
 import IconButton from './common/IconButton/IconButton';
+import MenuInfoModal from './MenuManager/_MenuInfoModal';
 
 //Contexts
 import { DynamicDataContext } from '../api/DynamicData';
@@ -12,13 +13,10 @@ import infoIcon from './../assets/icons/info-small-white.png';
 import plusIcon from './../assets/icons/plus-white.png';
 import minusIcon from './../assets/icons/minus-white.png';
 
-//Tools
-import { formatStringAsPrice } from '../utils';
-
 export default function Order(props) {
     const { 
         order,
-        handleItemInfo,
+        handleModal,
     } = props;
 
     const {
@@ -35,9 +33,14 @@ export default function Order(props) {
         orders.remove(order.units[order.units.length-1]);
     }
 
-    function getMenuItemByID(ID) {
-        const item = menu.get.find(mi => mi.id === ID);
+    function getMenuItemByName(name) {
+        const item = menu.get.find(mi => mi.name === name);
         return item;
+    }
+
+    function getMenuInfoModal() {
+        const item = getMenuItemByName(order.name);
+        return <MenuInfoModal item={item} handleModal={handleModal}/>
     }
 
     const tablecols = [
@@ -45,7 +48,7 @@ export default function Order(props) {
             type: 'nav',
             content: 
             <>
-                <IconButton type='tooltip' clickEvent={() => handleItemInfo(getMenuItemByID(order.units[0].menu_id))}>
+                <IconButton type='tooltip' clickEvent={() => handleModal(getMenuInfoModal())}>
                     <img src={infoIcon} alt='' className='tooltip' />
 
                     <span className='tooltiptext'>

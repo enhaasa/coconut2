@@ -4,15 +4,14 @@ import Button from '../Button/Button';
 import IconButton from '../IconButton/IconButton';
 import ServiceInfo from './_ServiceInfo';
 import DeleteButton from '../Button/_DeleteButton';
+import ResetButton from '../Button/_ResetButton';
 
 //Contexts
 import { DynamicDataContext } from '../../../api/DynamicData';
-import { useCallback, useState, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 //Icons
 import infoIcon from './../../../assets/icons/info-small-white.png';
-import plusIcon from './../../../assets/icons/plus-white.png';
-import minusIcon from './../../../assets/icons/minus-white.png';
 
 export default function Service(props) {
     const { 
@@ -70,15 +69,12 @@ export default function Service(props) {
                         event: services.remove
                     }} />
 
-                <Button 
-                    type='neutral' 
+                <ResetButton 
                     ID={`RestartService${service.id}`}
                     pendingResponseClickEvent={{
                         args: [service],
                         event: services.restart
-                    }}>
-                    Reset
-                </Button>
+                }} />
                 
                 {!service.start_datetime
                     && <Button 

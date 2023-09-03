@@ -36,10 +36,7 @@ export default function useSeats(init, props) {
         const index = seatings.findIndex(s => s.id === seatingToReset.id);
 
             setSeatings(prev => {
-                prev[index].is_available = true;
-                prev[index].is_reserved = false;
-                prev[index].is_photography = false;
-
+                prev[index].availability = 'Available';
                 return [...prev];
             });
         },
@@ -54,7 +51,7 @@ export default function useSeats(init, props) {
                 prev[index].section_id = newLocation.section_id;
                 
                 return [...prev];
-            })
+            });
         },
 
         removeSeating: (seating) => {
@@ -74,6 +71,10 @@ export default function useSeats(init, props) {
     function toggleAttribute(seating, attribute) {
         const current = seatings.find(t => t.id === seating.id)[attribute];
         setAttribute(seating, attribute, !current);
+    }
+
+    function setAvailability(seating, availability) {
+        socket.emit('setSeatingAvailability', { seating, availability });
     }
 
     function setLocation(seating, newLocation) {
@@ -106,6 +107,15 @@ export default function useSeats(init, props) {
         setAttribute,
         refresh: refresh,
         setLocation,
+        setAvailability,
+        utils: {
+            getSeatingNumberColor
+        }
     }
     
+    function getSeatingNumberColor(seating) {
+        if (seating.availability === 'Available') return 'constructive';
+        if (seating.availability === 'Reserved') return 'progressive';
+        if (seating.availability === 'Taken') return 'destructive';
+    }
 }

@@ -33,12 +33,30 @@
       justify-items: center;
       width: 100%;
 
-      & .assign-waiter {
-        display: grid;
+      & .watch-seating {
+        display: flex;
         justify-self: start;
-        align-content: center;
-      }
+        align-self: center;
+        gap: 5px;
 
+        & .IconButton {
+
+          & img {
+            width: 16px;
+            height: 16px;
+          }
+
+          & .tooltiptext {
+            z-index: 2 !important;
+            width: 400px !important;
+          }
+        }
+
+        & .title {
+          display: flex;
+          gap: 2px;
+        }
+      }
   
       & .seatingnumber {
         display: grid;
@@ -64,22 +82,34 @@
   
     & .navbar {
       width: 100%;
-      margin: 5px 0;
+
       padding: 0;
       display: flex;
       justify-content: space-between;
-      margin-top: -15px;
-    
+
       & .column {
         display: grid;
         align-content: end;
         grid-gap: 5px;
+
+        & .assign-waiter {
+          display: grid;
+          justify-self: start;
+          align-content: center;
+
+          & .title {
+            display: flex;
+            gap: 2px;
+            
+          }
+        }
+  
         
         & .navsection {
-          display: grid;
+          display: flex;
           grid-auto-flow: column;
           align-items: center;
-          justify-content: space-between;
+
           grid-gap: 5px;
         }
       }
@@ -95,6 +125,10 @@
     & .row {
       display: flex;
       justify-content: end;
+
+      & .empty {
+        color: getTextColor('grey');
+      }
     }
   }
 

@@ -5,6 +5,7 @@ import Order from '../Order';
 import Table from '../common/Table/Table';
 import TableItem from '../common/Table/TableItem';
 import Button from '../common/Button/Button';
+import DeleteButton from '../common/Button/_DeleteButton';
 
 //Contexts
 import { DynamicDataContext } from '../../api/DynamicData';
@@ -95,16 +96,14 @@ export default function SplitTab(props) {
                                                 type: 'nav',
                                                 content:
                                                     <>
-                                                        <Button 
-                                                            type='destructive' 
+                                                        <DeleteButton 
                                                             ID={`RemoveService${service.id}`}
                                                             pendingResponseClickEvent={{
                                                                 args: [{
                                                                     service
                                                                 }],
                                                                 event: services.remove
-                                                            }}>Remove
-                                                        </Button>
+                                                            }} />
                                                     </>
                                             }
                                         ]

@@ -117,7 +117,6 @@ export default function useServices(init, props) {
         }
     }
 
-
     function calculatePPMTotal(startDate, endDate, minuteInterval, pricePerMinute) {
         if (minuteInterval === 0) {
             return pricePerMinute;
@@ -164,9 +163,16 @@ export default function useServices(init, props) {
         // Service currently ongoing
         if (service.start_datetime && !service.end_datetime) {
             return {
-                icon: <img src={stopwatchIconWhite} alt='Stopwatch Icon' />,
                 color: 'constructive',
                 text: `Ongoing (${getOngoingServiceTimeDiff(service)})`
+            }
+        }
+
+        // Service is finished
+        if (service.start_datetime && service.end_datetime) {
+            return {
+                color: 'constructive',
+                text: `Finished (${compareDates(service.start_datetime, service.end_datetime)})`
             }
         }
 
@@ -191,7 +197,7 @@ export default function useServices(init, props) {
         // Scheduled but startdate has been passed
         if (pref_start_datetime && !start_datetime && pref_start_datetime < currentDate) {
             return {
-                icon: <img src={stopwatchIconBlack} alt='Stopwatch Icon' />,
+                icon: <img src={stopwatchIconWhite} alt='Stopwatch Icon' />,
                 color: 'destructive',
                 text: getScheduledServiceTimeDiff(service)
             };

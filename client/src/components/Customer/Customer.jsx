@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 //Components
 import Order from '../Order';
@@ -6,6 +6,7 @@ import Service from '../common/Service/Service';
 import Button from '../common/Button/Button';
 import Table from '../common/Table/Table';
 import DeleteButton from '../common/Button/_DeleteButton';
+import Name from './_Name';
 
 //Tools
 import uuid from 'react-uuid';
@@ -18,7 +19,7 @@ export default function Customer(props) {
     const {
         confirmDeleteCustomer,
         customer,
-        handleItemInfo,
+        handleModal,
     } = props;
 
     const {
@@ -33,8 +34,6 @@ export default function Customer(props) {
         setSelectedSeating,
     } = useContext(ControlStatesContext);
 
-    const [ nameBuffer, setNameBuffer ] = useState(customer.name);
-    
     const { uncompletedServices } = customer;
     let undeliveredOrders = [];
     customer.undeliveredOrders.forEach(order => {
@@ -57,32 +56,6 @@ export default function Customer(props) {
         }
     });
 
-    let timer = useRef();
-
-    function handleNamePaste(event) {
-        const pastedValue = event.clipboardData.getData('text');
-        if (pastedValue.length + customer.name.length > 50) {
-          setNameBuffer(pastedValue);
-          event.preventDefault();
-        }
-    }
-
-    function handleNameChange(event) {
-        const { value } = event.target;
-        if (value.length <= 50) {
-            setNameBuffer(value);
-        
-            if (timer.current) {
-            clearTimeout(timer.current);
-            }
-        
-            const currentNameBuffer = value; 
-            timer.current = setTimeout(() => {
-            customers.editName(customer, currentNameBuffer); 
-            }, 500);
-        }
-    }
-
     function handleMoveCustomer() {
         setItemInMovement({
             type: 'customer', 
@@ -99,27 +72,21 @@ export default function Customer(props) {
 
     return (
         <div className={`Customer${selectedCustomer && selectedCustomer.id === customer.id ? ' active' : ''}`} >
+            
             <nav className='name-nav'>
-                <input 
-                    spellCheck={false}
-                    type='text' 
-                    value={nameBuffer} 
-                    placeholder='Enter name...' 
-                    maxLength={50}
-                    onPaste={handleNamePaste}
-                    onChange={handleNameChange}>
-                </input>
+                <Name customer={customer} key={`editName${customer.id}`} />
 
-                <Button type='neutral' clickEvent={handleMoveCustomer}>Relocate</Button>
                 <DeleteButton type='destructive' clickEvent={() => {confirmDeleteCustomer(customer)}} />
+                <Button type='neutral' clickEvent={handleMoveCustomer}>Relocate</Button>
             </nav>
 
             {customer.undeliveredOrders.length > 0 &&
-                <div className='orders'>
+                <div className='items'>
+                    <div className='title'>Orders</div>
                     <Table>
                         {undeliveredOrders.map((order) => (
                             <Order 
-                                handleItemInfo={handleItemInfo}
+                                handleModal={handleModal}
                                 key={uuid()}
                                 order={order} 
                             />
@@ -129,10 +96,12 @@ export default function Customer(props) {
             }
 
             {customer.uncompletedServices.length > 0 &&
-                <div className='services'>
+                <div className='items'>
+                    <div className='title'>Services</div>
                     <Table>
                         {uncompletedServices.map((service) => (
                             <Service 
+                                handleModal={handleModal}
                                 service={service}
                             />
                         ))}
@@ -147,7 +116,7 @@ export default function Customer(props) {
                     {
                         selectedCustomer && selectedCustomer.id === customer.id 
                         ? <Button type='inactive'>Adding...</Button>
-                        : <Button type='constructive' clickEvent={() => {openMenu(customer)}}>Add Order</Button>
+                        : <Button type='constructive' clickEvent={() => {openMenu(customer)}}>Add</Button>
                     }
                 </span>
 

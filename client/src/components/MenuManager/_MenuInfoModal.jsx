@@ -10,6 +10,7 @@ import animations from '../../animations';
 export default function MenuInfoModal(props) {
     const { item, handleModal } = props;
 
+
     const InfoBoxRef = useRef();
     useLayoutEffect(() => {
         gsap.from(InfoBoxRef.current, animations.softElastic);

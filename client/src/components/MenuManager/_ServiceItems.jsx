@@ -29,24 +29,11 @@ export default function ServiceItems(props) {
 
     const {
         serviceMenu,
-        services,
     } = useContext(DynamicDataContext);
 
     const menuTypes = serviceMenu.get
         .map(menuItem => menuItem.type)
         .filter((item, index, array) => (array.indexOf(item) === index));
-
-    function filterItem(item) {
-        return {
-            name: item.name,
-            price: item.price,
-            item: item.item,
-            seating_id: selectedCustomer.seating_id,
-            section_id: selectedCustomer.section_id,
-            customer_id: selectedCustomer.id,
-            menu_id: item.id,
-        }
-    }
 
     function getPrice(item) {
         if (item.minute_interval === 0) {
