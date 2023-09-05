@@ -16,8 +16,12 @@ import animations from '../../animations';
 import { 
     getFirstName, 
     getLastNames,
+} from '../../utils/names';
+import {
     formatTime,
-} from '../../utils';
+} from '../../utils/time';
+import uuid from 'react-uuid';
+import PlaySound from '../../utils/PlaySound.ts';
 
 //Icons
 import stopwatchIconBlack from './../../assets/icons/stopwatch-black.png';
@@ -35,6 +39,7 @@ export default function Seating(props) {
         customers,
         seatings,
         orders,
+        localSettings,
     } = useContext(DynamicDataContext);
 
     const {
@@ -110,24 +115,41 @@ export default function Seating(props) {
         setTimeSinceLastOrder(orders.utils.getTimeSinceOldestOrder(orders.utils.getOldestOrder(undeliveredOrders))); 
     
         const timer = setInterval(() => {
-            undeliveredOrders.length > 0 &&
-                setTimeSinceLastOrder(orders.utils.getTimeSinceOldestOrder(orders.utils.getOldestOrder(undeliveredOrders)));
+            if (undeliveredOrders.length > 0) {
+                const oldestOrder = orders.utils.getOldestOrder(undeliveredOrders);
+                const currentTime = Date.now();
+                const timeSinceOldestOrder = currentTime - oldestOrder.time;
+        
+                setTimeSinceLastOrder(timeSinceOldestOrder);
 
-            
+                const watchSettings = localSettings.watchedSeatings.find(ws => ws.id === seating.id);
+
+                // Guard clause: Is table watched?
+                if (!watchSettings || !watchSettings.triggers.includes('orders')) return;
+
+                // Guard clause: Has max delivery time been passed?
+                if (timeSinceOldestOrder > MAX_DELIVERY_TIME) return;
+
+                // Guard clause: Has at least one minute since last ping?
+                if ((timeSinceOldestOrder % 60000) > 1000) return;
+
+                PlaySound.lateOrder();
+            }
         }, 1000);
-    
+        
         return () => {
             clearInterval(timer);
         };
+        
     }, [ undeliveredOrders, uncompletedServices ]);
 
     function getOrderNotificationColor() {
         if (!timeSinceLastOrder) return 'progressive';
         if (timeSinceLastOrder <= MAX_DELIVERY_TIME) return 'progressive';
-        if (timeSinceLastOrder > MAX_DELIVERY_TIME) return 'destructive';
+        if (timeSinceLastOrder > MAX_DELIVERY_TIME) {
+            return 'destructive';
+        }
     };
-
-    
 
     function handleMoveSeating() {
         setItemInMovement({
@@ -182,7 +204,7 @@ export default function Seating(props) {
                 <div className='item-category service'>
                     {uncompletedServices.length > 0 && (
                         uncompletedServices.map(service => (
-                            <ServiceInfo service={service} />
+                            <ServiceInfo service={service} key={uuid()} />
                         ))
                     )}
                 </div>

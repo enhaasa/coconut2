@@ -102,6 +102,7 @@ export default function Customer(props) {
                         {uncompletedServices.map((service) => (
                             <Service 
                                 handleModal={handleModal}
+                                key={uuid()}
                                 service={service}
                             />
                         ))}

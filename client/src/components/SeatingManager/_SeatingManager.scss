@@ -26,6 +26,10 @@
       border-radius: inherit;
       height: 100%;
     }
+
+    & .empty {
+      color: getTextColor('grey');
+    }
   
     & .header {
       display: grid;
@@ -35,16 +39,18 @@
 
       & .watch-seating {
         display: flex;
+        flex-direction: column;
         justify-self: start;
+        align-items: start;
         align-self: center;
-        gap: 5px;
+        gap: 2px;
+
+        & img {
+          width: 16px;
+          height: 16px;
+        }
 
         & .IconButton {
-
-          & img {
-            width: 16px;
-            height: 16px;
-          }
 
           & .tooltiptext {
             z-index: 2 !important;
@@ -54,7 +60,14 @@
 
         & .title {
           display: flex;
-          gap: 2px;
+          gap: 5px;
+          align-items: center;
+          
+          & .trigger {
+            display: flex;
+            align-items: center;
+          }
+          
         }
       }
   
@@ -125,10 +138,6 @@
     & .row {
       display: flex;
       justify-content: end;
-
-      & .empty {
-        color: getTextColor('grey');
-      }
     }
   }
 
@@ -139,8 +148,6 @@
     justify-content: space-between;
     margin-top: 8px;
   
-
-
     & .column {
       display: flex;
       gap: 5px;

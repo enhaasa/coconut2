@@ -62,19 +62,6 @@
 }
 .Button.loading {
   position: relative;
-  /*
-  & .Spinner {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-  }
-
-
-  & .content {
-      color: rgba(255, 255, 255, 0);
-      text-shadow: none;
-  }
-  */
 }
 
 .ListItem {
@@ -305,6 +292,7 @@
   outline: 1px solid #0e0e0e;
   border-radius: 10px;
   box-shadow: inset 0px 0px 1px 0px black;
+  transition: 200ms ease;
 }
 .Toggle .slider:before {
   position: absolute;
@@ -315,8 +303,6 @@
   bottom: 3px;
   background-color: rgb(236, 236, 236);
   border-radius: 50%;
-  box-shadow: inset 0px 0px 1px 0px black;
-  transition: 200ms all ease;
 }
 .Toggle input:checked + .slider {
   background: rgb(86, 119, 86);
@@ -325,7 +311,7 @@
   box-shadow: 0 0 1px grey;
 }
 .Toggle input:checked + .slider:before {
-  transform: translateX(12px);
+  transform: translateX(13px);
 }
 
 .NotificationBar {
@@ -1055,6 +1041,9 @@ button:active, select:active, option:active {
   border-radius: inherit;
   height: 100%;
 }
+.SeatingManagerContainer .SeatingManager .empty {
+  color: grey;
+}
 .SeatingManagerContainer .SeatingManager .header {
   display: grid;
   grid-auto-flow: column;
@@ -1063,11 +1052,13 @@ button:active, select:active, option:active {
 }
 .SeatingManagerContainer .SeatingManager .header .watch-seating {
   display: flex;
+  flex-direction: column;
   justify-self: start;
+  align-items: start;
   align-self: center;
-  gap: 5px;
+  gap: 2px;
 }
-.SeatingManagerContainer .SeatingManager .header .watch-seating .IconButton img {
+.SeatingManagerContainer .SeatingManager .header .watch-seating img {
   width: 16px;
   height: 16px;
 }
@@ -1077,7 +1068,12 @@ button:active, select:active, option:active {
 }
 .SeatingManagerContainer .SeatingManager .header .watch-seating .title {
   display: flex;
-  gap: 2px;
+  gap: 5px;
+  align-items: center;
+}
+.SeatingManagerContainer .SeatingManager .header .watch-seating .title .trigger {
+  display: flex;
+  align-items: center;
 }
 .SeatingManagerContainer .SeatingManager .header .seatingnumber {
   display: grid;
@@ -1132,9 +1128,6 @@ button:active, select:active, option:active {
   display: flex;
   justify-content: end;
 }
-.SeatingManagerContainer .view-tab-container .row .empty {
-  color: grey;
-}
 .SeatingManagerContainer .navbar-bottom {
   display: flex;
   flex-direction: row-reverse;
@@ -1164,6 +1157,28 @@ button:active, select:active, option:active {
 .WatchSeatingInfoModal ul {
   margin: 5px;
   padding-left: 20px;
+}
+
+.WatchSeatingSettingsModal {
+  padding: 10px;
+}
+.WatchSeatingSettingsModal .options {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.WatchSeatingSettingsModal .options .option .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.WatchSeatingSettingsModal .options .option .label {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.WatchSeatingSettingsModal .options .option .description {
+  color: rgb(196, 177, 166);
 }
 
 .OrderManager {

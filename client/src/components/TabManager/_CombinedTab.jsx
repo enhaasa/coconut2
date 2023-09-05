@@ -6,7 +6,7 @@ import TableItem from '../common/Table/TableItem';
 
 //Tools
 import uuid from 'react-uuid';
-import { compareDates, calculatePPMTotal } from '../../utils';
+import { compareDates } from '../../utils/time';
 
 export default function CombinedTab(props) {
 

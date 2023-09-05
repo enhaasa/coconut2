@@ -9,7 +9,6 @@
     align-items: center;
     gap: 4px;
 
-
     & img {
         margin: 0;
         padding: 0;
@@ -28,20 +27,5 @@
 
     &.loading {
         position: relative;
-
-        /*
-        & .Spinner {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-
-        & .content {
-            color: rgba(255, 255, 255, 0);
-            text-shadow: none;
-        }
-        */
     }
-
 }

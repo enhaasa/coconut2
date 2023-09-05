@@ -11,6 +11,7 @@ import useStaff from './hooks/useStaff';
 import useServices from './hooks/useServices';
 import useMessages from './hooks/useMessages';
 import usePendingRequests from './hooks/usePendingRequests';
+import useLocalSettings from './hooks/useLocalSettings';
 
 import { ControlStatesContext } from './ControlStates';
 import useServiceMenu from './hooks/useServiceMenu';
@@ -31,12 +32,12 @@ function DynamicDataProvider(props) {
     selectedCustomer,
   } = useContext(ControlStatesContext);
 
-
   const archivedSessions = useArchivedSessions([], {
     socket
   });
   const tips = useTips([], { socket: socket });
   const staff = useStaff([], { socket: socket });
+  const localSettings = useLocalSettings();
 
   const sections = useSections([], {
       socket
@@ -48,16 +49,19 @@ function DynamicDataProvider(props) {
 
   const seatings = useSeatings([], {
     selectedSeatingTracker: selectedSeatingTracker, 
-    socket
+    socket,
+    localSettings
   });
 
   const orders = useOrders([], {
       archivedSessions: archivedSessions,
+      localSettings,
       socket
   });
 
   const services = useServices([], {
-    socket
+    socket,
+    localSettings,
   });
 
   const customers = useCustomers([], {
@@ -184,6 +188,7 @@ function DynamicDataProvider(props) {
           menu.refresh();
           serviceMenu.refresh();
           staff.refresh();
+          localSettings.refresh();
       }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
@@ -204,6 +209,7 @@ function DynamicDataProvider(props) {
               dataTree,
               messages,
               pendingRequestIDs,
+              localSettings,
           }}>
           {children}
       </DynamicDataContext.Provider>

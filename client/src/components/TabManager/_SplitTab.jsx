@@ -4,7 +4,6 @@ import React, { useContext } from 'react';
 import Order from '../Order';
 import Table from '../common/Table/Table';
 import TableItem from '../common/Table/TableItem';
-import Button from '../common/Button/Button';
 import DeleteButton from '../common/Button/_DeleteButton';
 
 //Contexts
@@ -12,7 +11,7 @@ import { DynamicDataContext } from '../../api/DynamicData';
 
 //Tools
 import uuid from 'react-uuid';
-import { compareDates, calculatePPMTotal } from '../../utils';
+import { compareDates } from '../../utils/time';
 
 export default function SplitTab(props) {
     const { 

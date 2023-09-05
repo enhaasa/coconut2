@@ -16,7 +16,7 @@ import gsap from 'gsap';
 import animations from '../../animations';
 
 //Tools
-import { formatStringAsPrice } from '../../utils';
+import { formatStringAsPrice } from '../../utils/currency';
 
 export default function TabManager(props) {
     const { 

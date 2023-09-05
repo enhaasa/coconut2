@@ -3,11 +3,14 @@ import useSocketListener from './../useSocketListener';
 
 import { 
     getCurrentTime,
-} from '../../utils';
+} from '../../utils/time';
+
+import PlaySound from '../../utils/PlaySound.ts';
 
 export default function useOrders(init, props) {
     const {
-        socket
+        socket,
+        localSettings
     } = props;
 
     const [ orders, setOrders ] = useState(init);
@@ -18,6 +21,13 @@ export default function useOrders(init, props) {
         
         addOrder: (order) => {
             setOrders(prev => ([...prev, order]));
+
+            const watchedSeating = localSettings.watchedSeatings.find(ws => ws.id === order.seating_id);
+            console.log(watchedSeating)
+
+            if (watchedSeating.triggers.includes('orders')) {
+                PlaySound.newOrder();
+            }
         },
         
         removeOrder: (orderToRemove) => {

@@ -6,7 +6,7 @@ import { ControlStatesContext } from '../../api/ControlStates';
 
 //Tools
 import uuid from 'react-uuid';
-import { formatStringAsPrice } from '../../utils';
+import { formatStringAsPrice } from '../../utils/currency';
 
 //Components
 import OrderManager from '../OrderManager/OrderManager';
@@ -16,12 +16,9 @@ import Dropdown from '../common/Dropdown/Dropdown';
 import DropdownItem from '../common/Dropdown/DropdownItem';
 import Button from '../common/Button/Button';
 import CloseButton from '../common/CloseButton/CloseButton';
-import Toggle from '../common/Toggle/Toggle';
 import DeleteButton from '../common/Button/_DeleteButton';
 import MultiToggle from '../common/MultiToggle/MultiToggle';
 import MultiToggleOption from '../common/MultiToggle/MultiToggleOption';
-import IconButton from '../common/IconButton/IconButton';
-import Modal from '../common/Modal/Modal';
 
 //Animations
 import { gsap } from 'gsap';
@@ -29,8 +26,7 @@ import animations from '../../animations.js'
 
 //Icons
 import receiptIcon from './../../assets/icons/receipt2-small-white.png';
-import infoIcon from './../../assets/icons/info-small-white.png';
-import WatchSeatingInfoModal from './_WatchSeatingInfoModal';
+import WatchSeating from './_WatchSeating';
 
 export default function SeatingManager() {
     const {
@@ -56,7 +52,6 @@ export default function SeatingManager() {
 
         setSeating(dataTree[sectionIndex].seatings.find(section => section.id === selectedSeating.id));
     }, [ dataTree ]);
-
 
     //Mount animations
     const ref = useRef();
@@ -175,14 +170,6 @@ export default function SeatingManager() {
         
         return message;
     }
-
-    function getWatchSeatingModal() {
-        return (
-            <Modal closeButtonEvent={() => handleModal(null)} title='Watching a seating'>
-                <WatchSeatingInfoModal />
-            </Modal>
-        )
-    }
     
     return (
         seating && seating.id !== null &&
@@ -193,17 +180,7 @@ export default function SeatingManager() {
                 {modal && modal}
                 
                 <div className='header'>
-                    <div className='watch-seating'>
-                        <IconButton type='tooltip' clickEvent={() => handleModal(getWatchSeatingModal())}>
-                            <img src={infoIcon} alt='' className='tooltip' />
-                            
-                        </IconButton>
-                        <span className='title'>Watch:</span>
-                        <Toggle 
-                            value={seating.is_available}
-                            clickEvent={() => seatings.toggleAttribute(seating, 'is_available')}
-                        />
-                    </div>
+                    <WatchSeating seating={seating} handleModal={handleModal}/>
 
                     <span className={`seatingnumber ${getSeatingNumberColor(seating)}`}>
                         {seating.number}
@@ -237,20 +214,20 @@ export default function SeatingManager() {
                         <div className='navsection'>
                             <MultiToggle>
                                 <MultiToggleOption 
-                                    isActive={seating.availability === 'Available'} 
-                                    clickEvent={() => seatings.setAvailability(seating, 'Available')}>
+                                    isActive={seating.availability === 'available'} 
+                                    clickEvent={() => seatings.setAvailability(seating, 'available')}>
                                         Available
                                 </MultiToggleOption>
 
                                 <MultiToggleOption 
-                                    isActive={seating.availability === 'Reserved'} 
-                                    clickEvent={() => seatings.setAvailability(seating, 'Reserved')}>
+                                    isActive={seating.availability === 'reserved'} 
+                                    clickEvent={() => seatings.setAvailability(seating, 'reserved')}>
                                         Reserved
                                 </MultiToggleOption>
 
                                 <MultiToggleOption 
-                                    isActive={seating.availability === 'Taken'} 
-                                    clickEvent={() => seatings.setAvailability(seating, 'Taken')}>
+                                    isActive={seating.availability === 'taken'} 
+                                    clickEvent={() => seatings.setAvailability(seating, 'taken')}>
                                         Taken
                                 </MultiToggleOption>
                             </MultiToggle>

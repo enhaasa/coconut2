@@ -75,9 +75,9 @@ export function isValidNewLocationData(data: any): data is NewLocationData {
 
 function isValidSetAvailabilityData(data: any): data is SetAvailabilityData {
     return isValidSeating(data.seating) &&
-           data.availability === 'Available' || 
-           data.availability === 'Reserved' || 
-           data.availability === 'Taken';
+           data.availability === 'available' || 
+           data.availability === 'reserved' || 
+           data.availability === 'taken';
 }
 
 export class Seatings {
@@ -116,7 +116,7 @@ export class Seatings {
             const parsedSeating = {
                 pos_x: 0,
                 pos_y: 0,
-                availability: 'Available',
+                availability: 'available',
                 section_id: section.id,
                 number: number,
                 waiter: ''
@@ -242,7 +242,7 @@ export class Seatings {
             const deleteCustomerQuery = 'DELETE FROM "customers" WHERE "seating_id" = $1';
             const resetSeatingQuery = `
                 UPDATE ${this.table}
-                SET availability = 'Available'
+                SET availability = 'available'
                 WHERE "id" = $1;
             `;
 

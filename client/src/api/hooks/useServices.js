@@ -8,12 +8,15 @@ import {
     convertDatetimeFormat,
     compareDates,
     getCurrentDate
- } from '../../utils';
+ } from '../../utils/time';
+
+import PlaySound from '../../utils/PlaySound.ts';
 
 export default function useServices(init, props) {
 
     const {
         socket,
+        localSettings,
     } = props;
 
     const [ services, setServices ] = useState(init);
@@ -23,13 +26,18 @@ export default function useServices(init, props) {
         },
 
         addService: (item) => {
-            console.log(item)
             setServices(prev => ([...prev, 
                 {
                     ...item,
                     pref_start_datetime: item.pref_start_datetime && convertDatetimeFormat(item.pref_start_datetime)
                 }
             ]));
+
+            const watchedSeating = localSettings.watchedSeatings.find(ws => ws.id === item.seating_id);
+
+            if (watchedSeating.triggers.includes('services')) {
+                PlaySound.newService();
+            }
         },
 
         removeService: (serviceToRemove) => {

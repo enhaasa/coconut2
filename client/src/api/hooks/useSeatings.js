@@ -2,9 +2,12 @@ import { useState, useContext } from 'react';
 import useSocketListener from '../useSocketListener';
 import { ControlStatesContext } from '../ControlStates';
 
+import PlaySound from '../../utils/PlaySound.ts';
+
 export default function useSeats(init, props) {
     const { 
-        socket
+        socket,
+        localSettings
     } = props;
 
     const {
@@ -30,13 +33,24 @@ export default function useSeats(init, props) {
                 prev[index][attribute] = value;
                 return [...prev];
             });
+
+            
+
+            if (attribute === 'availability' && value === 'taken') {
+                const watchedSeating = localSettings.watchedSeatings.find(ws => ws.id === seating.id);
+                console.log(watchedSeating.triggers)
+
+                if (watchedSeating.triggers.includes('seating')) {
+                    PlaySound.newService();
+                }
+            }
         },
 
         resetSeating: (seatingToReset) => {
         const index = seatings.findIndex(s => s.id === seatingToReset.id);
 
             setSeatings(prev => {
-                prev[index].availability = 'Available';
+                prev[index].availability = 'available';
                 return [...prev];
             });
         },
@@ -114,8 +128,8 @@ export default function useSeats(init, props) {
     }
     
     function getSeatingNumberColor(seating) {
-        if (seating.availability === 'Available') return 'constructive';
-        if (seating.availability === 'Reserved') return 'progressive';
-        if (seating.availability === 'Taken') return 'destructive';
+        if (seating.availability === 'available') return 'constructive';
+        if (seating.availability === 'reserved') return 'progressive';
+        if (seating.availability === 'taken') return 'destructive';
     }
 }

@@ -6,7 +6,7 @@ import { ControlStatesContext } from "../../api/ControlStates";
 
 //Tools
 import uuid from "react-uuid";
-import { capitalizeFirstLetter } from '../../utils';
+import { capitalizeFirstLetter } from '../../utils/names';
 
 //Components
 import Button from "../common/Button/Button";

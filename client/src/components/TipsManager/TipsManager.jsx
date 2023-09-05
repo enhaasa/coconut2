@@ -10,7 +10,7 @@ import Button from '../common/Button/Button';
 import TipModal from './_TipModal';
 
 //Tools
-import { formatStringAsPrice } from '../../utils';
+import { formatStringAsPrice } from '../../utils/currency';
 import uuid from 'react-uuid';
 
 export default function TipsManager(props) {

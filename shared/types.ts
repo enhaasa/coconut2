@@ -103,9 +103,9 @@ export function isValidSeating(seating: any): seating is Seating {
             typeof seating.waiter === 'string' &&
             typeof seating.pos_x === 'number' &&
             typeof seating.pos_y === 'number' &&
-                seating.availability === 'Available' ||
-                seating.availability === 'Reserved' ||
-                seating.availability === 'Taken';
+                seating.availability === 'available' ||
+                seating.availability === 'reserved' ||
+                seating.availability === 'taken';
     } catch(err) {
         console.log(err);
     }

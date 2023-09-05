@@ -72,13 +72,13 @@ export default function TopNav() {
                                     {
                                         sections.get.map((section, index) => (
                                             section.type === 'sub' &&
-                                            <MultiToggleOption 
-                                                clickEvent={() => setSelectedSection(index)}
-                                                isActive={selectedSection === index ? true : false}
-                                                key={uuid()}>
-                                                <SectionNotificationBar key={uuid()} type='small' section={section}/>
-                                                {section.name}
-                                            </MultiToggleOption>
+                                                <MultiToggleOption 
+                                                    clickEvent={() => setSelectedSection(index)}
+                                                    isActive={selectedSection === index ? true : false}
+                                                    key={uuid()}>
+                                                    <SectionNotificationBar key={uuid()} type='small' section={section}/>
+                                                    {section.name}
+                                                </MultiToggleOption>
                                         ))
                                     }
                                 </MultiToggle>
