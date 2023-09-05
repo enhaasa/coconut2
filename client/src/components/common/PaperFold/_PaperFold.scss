@@ -1,0 +1,93 @@
+// Variables
+$paper-width: 15rem;
+$paper-height: 19rem;
+$transition-time: 0.8s;
+$number-of-middle-folded-parts: 4;
+$fold-part-height: $paper-height / 4;
+
+// Mixins
+@mixin stacked-shadow($through, $even-color, $odd-color) {
+    $shadow : "";
+    @for $i from 1 through $through {
+        @if ($i % 2 == 0) {
+            $shadow : $shadow + "#{$i}px #{$i}px 0 0 #{$even-color}";
+        }
+        @else {
+            $shadow : $shadow + "#{$i}px #{$i}px 0 0 #{$odd-color}";            
+        }
+        $shadow : $shadow + if($i != $through, ", ", "");
+    }
+    box-shadow: unquote($shadow);
+}
+
+// Styles
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+body {
+    background: teal;
+}
+
+.paper {
+    width: $paper-width;
+    margin: 0 auto;
+    height: $paper-height;
+    position: relative;
+}
+
+.fold-middle {
+    perspective: 700px;
+    .slice {
+        width: 100%;
+        height: $fold-part-height;
+        position: relative;
+        transform-style: preserve-3d;
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/chicken.jpg");
+        transition: all $transition-time;
+    }
+    &:hover .one {
+        transform: rotateX(-45deg);
+    }
+    &:hover .two, &:hover .four {
+        transform: translateY($fold-part-height) rotateX(120deg);
+    }
+    &:hover .three {
+        transform: translateY($fold-part-height) rotateX(-120deg);
+    }
+    &:hover .overlay::after {
+        opacity: 1;
+    }
+}
+.slice.one {
+    transform-origin: bottom;
+}
+
+$slices: two, three, four;
+$i: 1;
+@each $slice in $slices {
+    .slice.#{$slice} {
+        background-position-x: 0;
+        background-position-y: -($fold-part-height * $i);
+        transform: translateY($fold-part-height);
+        transform-origin: top;
+    }
+    $i : $i + 1;
+}
+
+.overlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(50, 50, 50, 0.4);
+    opacity: 0;
+    transition: all $transition-time;
+}

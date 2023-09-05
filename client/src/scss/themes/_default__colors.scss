@@ -1,0 +1,48 @@
+$background-colors: (
+    'primary': #222222d2,
+    'secondary': #2c2c2cda,
+    'tertiary': rgba(65, 65, 65, 0.678),
+    'quaternary': rgba(80, 80, 80, 0.87),
+    'section': #22222273,
+);
+@function getBackgroundColor($key) {
+    @return map-get($background-colors, $key);
+}
+
+$multitoggle-colors: (
+    'active': #151515,
+    'inactive': #373737,
+);
+@function getMultiToggleColor($key) {
+    @return map-get($multitoggle-colors, $key);
+}
+
+$text-colors: (
+    'primary': #fff,
+    'secondary': #9bb4b2,
+    'grey': grey,
+    'lightgrey': rgb(190, 190, 190)
+);
+@function getTextColor($key) {
+    @return map-get($text-colors, $key);
+}
+
+$primary-colors: ( 
+    'constructive': rgb(86, 119, 86),
+    'constructive-mild': #444C44,
+    'progressive': rgb(173, 164, 88),
+    'destructive': rgb(168, 63, 63),
+    'neutral': #373737,
+    'dark': #222,
+    'popping': rgb(196, 177, 166),
+);
+@function getPrimaryColor($key) {
+    @return map-get($primary-colors, $key);
+}
+
+$border-colors: (
+    'standard': #0e0e0e,
+);
+@function getBorderColor($key) {
+    @return map-get($border-colors, $key);
+}

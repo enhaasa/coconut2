@@ -1,0 +1,18 @@
+.CloseButton {
+    display: grid;
+    place-items: center;
+    background: getBackgroundColor('quaternary');
+    border: 1px solid getBorderColor('standard');
+    margin: 0;
+    padding: 0;
+    //border: 1px solid white;
+    box-shadow: getBoxShadow('inner');
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+
+    img {
+        height: 16px;
+        width: 16px;
+    }
+}

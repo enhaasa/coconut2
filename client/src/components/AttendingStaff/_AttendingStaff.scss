@@ -1,0 +1,29 @@
+.AttendingStaff {
+    display: grid;
+    align-content: space-between;
+    height: 100%;
+
+    & .list {
+        margin: 5px;
+    }
+    
+    & .bottom-list {
+        margin-top: 5px;
+        padding-top: 3px;
+        border-top: 1px solid getBorderColor('standard');
+
+        & .perPerson, & .calculations {
+            color: getTextColor('primary');
+            font-size: getFontSize('standard');
+            padding: 5px;
+        }
+
+        & .total {
+            border-top: 1px solid getBorderColor('standard');
+            background: getBackgroundColor('tertiary');
+            color: getTextColor('primary');
+            font-size: getFontSize('standard');
+            padding: 5px;
+        }
+    }
+}

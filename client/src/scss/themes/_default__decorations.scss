@@ -1,0 +1,7 @@
+$box-shadows: (
+    'inner': inset 0px 0px 1px 0px black,
+    'outer': 0px 0px 1px 0px black
+);
+@function getBoxShadow($key) {
+    @return map-get($box-shadows, $key);
+}

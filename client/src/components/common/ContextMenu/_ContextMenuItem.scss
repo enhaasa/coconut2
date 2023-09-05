@@ -1,0 +1,14 @@
+.ContextMenuItem {
+    background: none;
+    border: none;
+    border-bottom: 1px solid getBorderColor('standard');
+    color: white;
+
+    &:last-child {
+        border: none;
+    }
+
+    &:hover {
+        background: getBackgroundColor('tertiary');
+    }
+}

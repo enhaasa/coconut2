@@ -1,0 +1,26 @@
+.TipsManager {
+    display: grid;
+    align-content: space-between;
+    height: 200px;
+
+    & .list {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 5px;
+        overflow-y: auto;
+    }
+
+    & .bottom-list {
+        margin-top: 5px;
+        border-top: 1px solid getBorderColor('standard');
+        background: getBackgroundColor('tertiary');
+
+        & .total {
+            color: getTextColor('primary');
+            font-size: getFontSize('standard');
+            padding: 5px;
+        }
+    }
+
+}

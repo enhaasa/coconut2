@@ -1,0 +1,75 @@
+.TopNav {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
+    border-bottom: 1px solid getBorderColor('standard');
+    background: getBackgroundColor('section');
+    width: 100%;
+    backdrop-filter: blur(5px);
+
+    & .column {
+        padding: 5px;
+    
+        & .section-nav {
+            display: flex;
+            justify-content: center;
+
+
+            & .labels {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                color: getTextColor('grey');
+            }
+    
+            & .sections {
+                display: grid;
+                gap: 5px;
+
+                & .row {
+                    display: grid;
+                    justify-content: center;
+                    gap: 2px;
+        
+                    & .title {
+                        text-align: center;
+                        color: getTextColor('lightgrey');
+                    }
+
+                    & .nav {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            & .buttons {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: end;
+            }
+        }
+
+        & .user {
+            display: grid;
+            justify-content: end;
+            height: 100%;
+            align-items: center;
+            gap: 5px;
+            color: white;
+
+            & .character {
+                text-align: right;
+            }
+
+            & .dangerous-settings {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+        }
+    }
+}

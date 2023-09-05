@@ -1,0 +1,29 @@
+.NotificationBar {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  z-index: 1;
+
+  & .item {
+    background: getPrimaryColor('destructive');
+    color: white;
+    display: grid;
+    place-items: center;
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    border: 1px solid getBorderColor('standard');
+    pointer-events: none;
+    font-size: getFontSize('standard');
+    font-family: getFont('numbers');
+
+    &.small {
+      height: 18px;
+      width: 18px;
+      font-size: getFontSize('small');
+    }
+  }
+}

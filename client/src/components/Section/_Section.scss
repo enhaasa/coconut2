@@ -1,0 +1,54 @@
+.SectionContainer {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+
+  & .Section {
+    transform: scale(1);
+    width: 1000px;
+    height: 700px;
+    //box-shadow: 0px 4px 10px 1px black;
+    border: 1px solid getBorderColor('primary');
+    background: getBackgroundColor('secondary');
+    position: relative;
+
+    &.moving-item-mode {
+      outline: 2px solid red;
+    } 
+
+    & .moving-item-mode-info {
+      color: red;
+      background: getBackgroundColor('secondary');
+      position: absolute;
+      width: 100%;
+      z-index: 3;
+    }
+
+    & .overlay{
+      z-index: 2;
+      position: absolute;
+      width: 1000px;
+      height: 700px;
+      box-shadow: inset 0px 1px 10px 1px black;
+      //background: rgba(197, 148, 92, 0.3);
+    }
+
+    & .section-image {
+      width: 1000px;
+      height: 700px;
+      transform: scale(1);
+      position: absolute;
+      z-index: -1;
+    }
+  }
+
+  & .context-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}

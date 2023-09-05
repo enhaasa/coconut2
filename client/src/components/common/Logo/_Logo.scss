@@ -1,0 +1,28 @@
+.Logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 5px;
+
+    & .image {
+        width: 70px;
+        height: 70px;
+    }
+
+    & .info-container {
+        display: grid;
+        align-content: center;
+
+        & .title {
+            color: getTextColor('primary');
+            font-family: getFont('cursive');
+            font-size: getFontSize('largest');
+            margin-bottom: -6px;
+        }
+
+        & .author {
+            color: getTextColor('lightgrey');
+            font-size: getFontSize('standard');
+        }
+    }
+}

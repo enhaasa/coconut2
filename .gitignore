@@ -5,6 +5,8 @@
 
 # testing
 /coverage
+cloc.exe
+cloc.bat
 
 # production
 /build
@@ -14,11 +16,12 @@
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-# .index.js
+# .index.ts
 
 
 npm-debug.log*

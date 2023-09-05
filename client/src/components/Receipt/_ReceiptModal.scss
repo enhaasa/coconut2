@@ -1,0 +1,44 @@
+.ReceiptModal {
+    text-shadow: 0.1em 0.1em 0.2em black;
+    padding: 10px;
+
+    & .paid-amount {
+        display: flex;
+        gap: 5px;
+
+        & label {
+            white-space: nowrap;
+        }
+
+        & input {
+            width: 100%;
+            background: getBackgroundColor('secondary');
+            color: white;
+            border: 1px solid getBorderColor('standard');
+        }
+    }
+
+    & .receipt-summary {
+        border-top: 1px solid getBorderColor('standard');
+        border-bottom: 1px solid getBorderColor('standard');
+        padding: 5px 0;
+        margin: 5px 0;
+
+        & .row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            text-shadow: 0.1em 0.1em 0.2em black;
+        }
+    }
+
+    & .receipt-RP {
+        & a {
+            color: white;
+
+            &:visited {
+                color: white;
+            }
+        }
+    }
+}

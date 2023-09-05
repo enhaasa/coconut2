@@ -1,0 +1,170 @@
+.SeatingManagerContainer {
+  position: absolute;
+  display: grid;
+  grid-gap: 10px;
+  grid-auto-flow: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+
+  & .SeatingManager {
+    background: getBackgroundColor('secondary');
+    border-radius: 20px 20px 10px 10px;
+    display: grid;
+    gap: 8px;
+    min-width: 500px;
+    color: white;
+    padding: 15px;
+    position: relative;
+    border: 1px solid getBorderColor('standard');
+    box-shadow: getBoxShadow('outer');
+    font-size: getFontSize('standard');
+
+    & .blur {
+      border-radius: inherit;
+      height: 100%;
+    }
+
+    & .empty {
+      color: getTextColor('grey');
+    }
+  
+    & .header {
+      display: grid;
+      grid-auto-flow: column;
+      justify-items: center;
+      width: 100%;
+
+      & .watch-seating {
+        display: flex;
+        flex-direction: column;
+        justify-self: start;
+        align-items: start;
+        align-self: center;
+        gap: 2px;
+
+        & img {
+          width: 16px;
+          height: 16px;
+        }
+
+        & .IconButton {
+
+          & .tooltiptext {
+            z-index: 2 !important;
+            width: 400px !important;
+          }
+        }
+
+        & .title {
+          display: flex;
+          gap: 5px;
+          align-items: center;
+          
+          & .trigger {
+            display: flex;
+            align-items: center;
+          }
+          
+        }
+      }
+  
+      & .seatingnumber {
+        display: grid;
+        justify-self: center;
+        place-items: center;
+        border-radius: 100%;
+        border: 6px double black;
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        box-shadow: 0px 0px 6px 0px black;
+        font-family: getFont('numbers');
+        font-size: 4.5em;
+        margin-top: -8px;
+        //margin-bottom: 30px;
+        color: black;
+      }
+
+      & .close-button {
+        justify-self: end;
+      }
+    }
+  
+    & .navbar {
+      width: 100%;
+
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+
+      & .column {
+        display: grid;
+        align-content: end;
+        grid-gap: 5px;
+
+        & .assign-waiter {
+          display: grid;
+          justify-self: start;
+          align-content: center;
+
+          & .title {
+            display: flex;
+            gap: 2px;
+            
+          }
+        }
+  
+        
+        & .navsection {
+          display: flex;
+          grid-auto-flow: column;
+          align-items: center;
+
+          grid-gap: 5px;
+        }
+      }
+    }
+  }
+
+  & .view-tab-container {
+    display: grid;
+    justify-items: end;
+    gap: 5px;
+    //text-shadow: 0.1em 0.1em 0.2em black;
+
+    & .row {
+      display: flex;
+      justify-content: end;
+    }
+  }
+
+  & .navbar-bottom {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  
+    & .column {
+      display: flex;
+      gap: 5px;
+
+    }
+
+    & .reset-button {
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      color: black;
+      box-shadow: 0px 4px 10px 1px black;
+
+      & img {
+        height: 18px;
+        width: 18px;
+      }
+    }
+  }
+}

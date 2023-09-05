@@ -1,0 +1,28 @@
+.WatchSeatingSettingsModal {
+    padding: 10px;
+
+    & .options {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        & .option {
+
+            & .nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            & .label {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+            }
+
+            & .description {
+                color: getPrimaryColor('popping');
+            }
+        }
+    }
+}

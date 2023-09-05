@@ -1,47 +1,76 @@
-@import 'colorset';
+//Themes
+@import './themes/default__colors';
+@import './themes/default__fonts';
+@import './themes/default__decorations';
 
+//Common
+@import './../components/common/MultiToggle/MultiToggle';
+@import './../components/common/MultiToggle/MultiToggleOption';
+@import './../components/common/Button/Button';
+@import './../components/common/List/List';
+@import './../components/common/List/ListItem';
+@import './../components/common/Table/Table';
+@import './../components/common/Table/TableItem';
+@import './../components/common/Dropdown/Dropdown';
+@import './../components/common/Dropdown/DropdownItem';
+@import './../components/common/CloseButton/CloseButton';
+@import './../components/common/IconButton/IconButton';
+@import './../components/common/ContextMenu/ContextMenu';
+@import './../components/common/ContextMenu/ContextMenuItem';
+@import './../components/common/ConfirmBox/ConfirmBox';
+@import './../components/common/Modal/Modal';
+@import './../components/common/Toggle/Toggle';
+@import './../components/common/NotificationBar/NotificationBar';
+@import './../components/common/Logo/Logo';
+@import './../components/common/AnimatedIcon/Spinner';
+
+//Views
+@import './../views/SectionManager/SectionManager';
+@import './../views/Payouts/Payouts';
+
+//Components
 @import 'index';
-@import 'Floor';
-@import 'ReceiptManager';
-@import 'Table';
-@import 'Payouts';
-@import 'TipsManager';
-@import 'Modal';
-@import 'ReceiptModal';
-@import 'AttendingStaff';
-@import 'TipModal';
-
-@import 'TableManager';
-@import 'CustomerManager';
-@import 'OrderManager';
-@import 'BarManager';
-
-@import 'MenuManager';
-@import 'InfoBox';
-
-@import 'ConfirmBox';
-
-@import 'TabManager';
-@import 'Receipt';
-
-
+@import './../components/Section/Section';
+@import './../components/ReceiptManager/ReceiptManager';
+@import './../components/Seating/Seating';
+@import './../components/TipsManager/TipsManager';
+@import './../components/Receipt/ReceiptModal';
+@import './../components/AttendingStaff/AttendingStaff';
+@import './../components/TipsManager/TipModal';
+@import './../components/SeatingManager/SeatingManager';
+@import './../components/SeatingManager/WatchSeatingInfoModal';
+@import './../components/SeatingManager/WatchSeatingSettingsModal';
+@import './../components/OrderManager/OrderManager';
+@import './../components/MenuManager/MenuManager';
+@import './../components/MenuManager/MenuModal';
+@import './../components/TabManager/TabManager';
+@import './../components/Receipt/Receipt';
+@import './../components/TopNav/TopNav';
+@import './../components/Customer/Customer';
+@import './../components/SectionPointer/SectionPointer';
+@import './../components/SectionPointer/EditSectionPointerModal';
+@import './../components/Seating/AddSeatingModal';
+@import './../components/MessageManager/MessageManager';
+@import './../components/Footer/Footer';
+@import './../components/MenuManager/AddServiceItem';
 
 main {
     display: grid;
     place-items: center;
-    background-image: url("./../assets/background/background.webp");
+    background-image: url('./../assets/background/palms2.webp');
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 10px;
+    position: relative;
+    gap: 10px;
 
     & .blur {
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         z-index: 4;
         background-color: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(5px);
-      }
+        backdrop-filter: blur(3px);
+    }
 }

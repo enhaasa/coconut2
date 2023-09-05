@@ -1,17 +1,13 @@
-@import '_TableManager', '_Floor', '_colorset';
-@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 * {
-  font-family: 'Cabin', sans-serif;
-  
+  font-family: 'Nunito', sans-serif;
+  font-size: getFontSize('standard');
 }
-
 
 //Scrollbar
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */ 
@@ -21,13 +17,8 @@
   
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: black; 
+  background: getBackgroundColor('quaternary'); 
   border-radius: 10px;
-}
-
-.cursive {
-  font-family: 'Dancing Script', cursive;
-  font-size: 20px;
 }
 
 img {
@@ -36,24 +27,12 @@ img {
 
 body {
   margin: 0;
-  user-select: none;
-  //background: $background-dark;
-  //background: rgb(119, 104, 85);
-  
   height: 100vh;
   margin: auto;
 }
 
-.FloorManager {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
-  height: 100%; 
-  width:100%;
-}
-
 .transparent {
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 .disabled {
@@ -64,108 +43,36 @@ body {
   }
 }
 
+.ghost {
+  pointer-events: none;
+}
 
 button, select, option {
-  font-weight: bold;
-  border-radius: 15px;
-  outline: none;
-  border: 2px solid black;
-  transition: 200ms all ease;
-
   &:hover {
     cursor: pointer;
-    filter:brightness(1.1);
+    filter:brightness(1.2);
   }
 
   &:active {
     box-shadow: inset 0px 1px 4px 1px black !important;
   }
 }
-.closeButton {
-  border-radius: 100%;
-  width: 50px;
-  height: 50px;
-  display: grid;
-  place-items: center;
-  background: $background-destructive;
 
-  & img {
-    width: 28px;
-    height: 28px;
-  }
-}
-.destructive {background: $background-destructive !important;}
-.constructive {background: $background-constructive !important;}
-.progressive {background: $background-progressive !important;}
-.inactive {background: $background-inactive !important;}
-.informative {background: $gradient-blue !important;}
-.steel {background: $gradient-steel; color: white;}
-
-//Checkboxes
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 42px;
-  height: 22px;
-
-  border-radius: 20px;
-
-  & input{
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  & .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: silver;
-    outline: 2px solid black;
-    border-radius: 20px;
-    box-shadow: inset 0px 1px 4px 1px $darkgrey !important;
-  
-    &:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 4px;
-      bottom: 3px;
-      background-color: black;
-      border-radius: 50%;
-      box-shadow: 0px 1px 4px 1px $darkgrey;
-
-      transition: 200ms all ease;
-    }
-  }
-  
-  & input {
-    &:checked + .slider{
-      background: $background-constructive;
-    }
-  
-    &:focus + .slider {
-      box-shadow: 0 0 1px $lightgreen;
-    }
-  
-    &:checked + .slider:before {
-      transform: translateX(18px);
-    }
-  }
-}
+.destructive {background: getPrimaryColor('destructive') !important; color: getTextColor('primary');}
+.constructive {background: getPrimaryColor('constructive') !important; color: getTextColor('primary');}
+.progressive {background: getPrimaryColor('progressive') !important;}
+.informative {background: blue !important;}
+.neutral {background: getPrimaryColor('neutral') !important; color: getTextColor('primary');}
+.dark {background: getPrimaryColor('dark') !important;}
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
   background-color: black;
+  margin-left: 20px;
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 5px 10px;
 
   /* Position the tooltip */
   position: absolute;
@@ -176,142 +83,3 @@ button, select, option {
   visibility: visible;
 }
 
-
-//Universal item tables
-.itemTable {
-  width: 100%;
-  border-bottom: 2px solid black;
-  margin: 4px 0;
-  border-collapse: collapse;
-  align-items: center;
-
-
-  & tbody tr:nth-child(even) {
-    background-color: rgba(128, 128, 128, 0.6);
-  }
-
-  & tr {
-    font-size: 14px;
-  }
-  
-  & th {
-    text-align: left;
-    background: $background-dark;
-    color: white;
-  }
-
-  & td {
-    padding: 3px 0;
-  }
-
-  & .tableNav {
-
-
-    & button {
-      border-radius: 100px;
-
-      &.icon {
-        display: inline-flex;        
-
-        border-radius: 100%;
-        background: none;
-
-        padding: 0 2px;
-        border: none;
-
-        & img {
-          width: 20px;
-          height: 20px;
-          
-        }
-      }
-    }
-  }
-
-  & tfoot {
-    font-weight: bold;
-    color: $wine;
-    border-top: 2px solid black;
-  }
-}
-
-.notificationContainer {
-  display: flex;
-  align-items: center;
-
-  & .notification {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius:100%;
-    border: 2px solid black;
-    font-weight: bold;
-    font-size: 22px;
-    z-index: 1;
-  }
-
-  & .addendum {
-    background: $background-dark;
-    color: white;
-    border-radius: 0 15px 15px 0;
-    border: 1px solid black;
-    font-weight: normal;
-    font-size: 0.6em;
-    padding: 2px 8px;
-    padding-left: 5px;
-    margin-left: -5px;
-    display:flex;
-    align-items: center;
-    gap: 3px;
-    white-space: nowrap;
-  }
-}
-
-.appInfo {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  gap: 5px;
-  padding: 5px;
-  background: $gradient-steel;
-  box-shadow: 0px 4px 10px 1px black;
-  
-  & .logo {
-    & img {
-      width: 50px;
-    }
-  }
-
-  & .text {
-    border-bottom: 4px double $grey;
-    display: flex;
-    align-items: flex-end;
-    gap: 5px;
-    
-    & .title {
-      font-size: 42px !important;
-      font-weight: bold;
-      background: $gradient-green;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: -5px;
-    }
-
-    & .version {
-      color: white;
-    }
-  } 
-}
-
-.viewManager {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.addStaffModal {
-  max-width: 600px;
-  padding: 10px;
-}

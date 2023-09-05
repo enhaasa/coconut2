@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.MenuModalContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    display: grid;
+    place-items: center;
+
+    & .MenuModal {
+        background: getBackgroundColor('primary');
+        border: 1px solid getBorderColor('standard');
+        width: 80%;
+
+        & .info-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 10px;
+            text-shadow: 0.1em 0.1em 0.2em black;
+            color: white;
+            font-size: getFontSize('large');
+            background: getPrimaryColor('constructive-mild');
+            border-bottom: 1px solid getBorderColor('standard');
+            box-shadow: getBoxShadow('outer');
+            font-weight: bold;
+        }
+
+        & .section {
+            color: white;
+            padding: 5px 0; 
+            border-bottom: 1px solid getBorderColor('standard');
+
+            & .section-header {
+                color: getPrimaryColor('popping');
+                font-weight: bold;
+            }
+
+            & p {
+                margin: 0;
+            }
+
+            &:last-child {
+                border: none;
+            }
+        }
+
+        & .info-container {
+            padding: 0 10px;
+            box-shadow: getBoxShadow('inner');
+
+            & .noresult {
+                color: grey !important;
+            }
+        }
+
+    }
+}

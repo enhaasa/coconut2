@@ -1,0 +1,10 @@
+.Dropdown {
+    border: 1px solid getBorderColor('standard');
+    border-radius: 6px;
+    padding: 2px 17px 2px 7px;
+    font-size: getFontSize('standard');
+    color: getTextColor('primary');
+    appearance: none;
+    background: url('../assets/icons/dropdown-white.png') 96% center no-repeat;
+    background-color: getBackgroundColor('primary');
+}

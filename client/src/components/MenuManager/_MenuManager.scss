@@ -1,0 +1,110 @@
+.raw-menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    place-items: center;
+    z-index: 1;
+    background: getBackgroundColor('section');
+    backdrop-filter: blur(5px);
+}
+
+.MenuManager {
+    display: grid;
+    position: relative;
+    background: getBackgroundColor('primary');
+    color: white;
+    border: 1px solid getBorderColor('standard');
+
+    .customer-title {
+        color: white;
+        padding: 0 10px;
+        text-shadow: 0.1em 0.1em 0.2em black;
+        font-size: getFontSize('large');
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    & .menu-title {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-self: center;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        font-size: getFontSize('large');
+        color: white;
+        background: getPrimaryColor('constructive-mild');
+        width: 100%;
+        box-shadow: getBoxShadow('outer');
+        border: 1px solid getBorderColor('standard');
+
+        & .close-button {
+            margin: 5px;
+        }
+    }
+
+    & .menu-container {
+        padding: 5px 10px;
+
+        & .DiningItems {
+            column-count: 2;
+        }
+    
+        & .ServiceItems {
+            column-count: 1;
+        }
+        
+        & .type {
+            break-inside: avoid;
+            padding: 5px;
+
+            & .type-title {
+                border-bottom: 1px solid getTextColor('grey');
+                font-weight: bold;
+                color: getPrimaryColor('popping');
+                font-size: getFontSize('large');
+                margin: 2px 0;
+            }
+
+            & .item-container {
+            
+                & .item {
+                    display: flex;
+                    white-space: nowrap;
+                    justify-content: space-between;
+                    gap: 5px;
+                    margin: 1px 0;
+
+                    & .item-title {
+                        font-size: getFontSize('standard');
+                        display: flex;
+                        gap: 5px;
+                        align-content: center;
+                        color: white;
+                        text-shadow: 0.1em 0.1em 0.2em black;
+
+                        & .item-info-button {
+                            background: none;
+                            border: none;
+                            padding: 0;
+                        } 
+                    }
+
+                    & .item-nav {
+                        display: flex;
+                        gap: 1px;
+                    }
+                }
+
+                & .item-info {
+                    display: none;
+                }
+
+            }
+        }
+    }
+}

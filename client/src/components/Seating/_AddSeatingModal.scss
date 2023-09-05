@@ -1,0 +1,28 @@
+.AddSeatingModal {
+    padding: 10px;
+    display: grid;
+    gap: 5px;
+
+    & .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 50px;
+
+        & .selector {
+            & input {
+                background: none;
+                border: none;
+                border-bottom: 1px solid white;
+                outline: none;
+                color: white;
+            }
+        }
+    }
+
+    & .bottom-nav {
+        display: flex;
+        padding-top: 5px;
+        border-top: 1px solid getBorderColor('standard');
+    }
+}
